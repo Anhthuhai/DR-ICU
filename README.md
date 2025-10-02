@@ -125,9 +125,9 @@ MIT License - Sử dụng tự do cho mục đích y tế và giáo dục.
 
 ## 📞 Liên hệ
 
-- **Developer:** Ngô Cảnh  
-- **Email:** [your-email@example.com]
-- **GitHub:** [https://github.com/ngocanh](https://github.com/ngocanh)
+- **Developer:** Ngọc Anh  
+- **Email:** [luongyan@gmail.com]
+- **GitHub:** [https://github.com/Anhthuhai](https://github.com/Anhthuhai)
 
 ---
 
