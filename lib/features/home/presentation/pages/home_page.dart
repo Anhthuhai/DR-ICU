@@ -3,6 +3,7 @@ import '../../../../core/theme/app_theme.dart';
 import '../../../clinical_scores/presentation/clinical_scores_page.dart';
 import '../../../unit_converter/presentation/pages/unit_converter_page.dart';
 import '../../../lab_analysis/presentation/lab_analysis_home_page.dart';
+import '../../../calculation_tools/presentation/calculation_tools_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -149,6 +150,22 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       _selectedIndex = 3;
                     });
+                  },
+                ),
+                const SizedBox(height: 12),
+                _buildFeatureCard(
+                  'Công cụ tính toán',
+                  'BMI, BSA, Creatinine Clearance...',
+                  Icons.functions_rounded,
+                  Colors.indigo.shade400,
+                  () {
+                    // TODO: Navigate to calculation tools
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CalculationToolsPage(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 12),
