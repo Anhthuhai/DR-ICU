@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../clinical_scores/presentation/clinical_scores_page.dart';
 import '../../../unit_converter/presentation/pages/unit_converter_page.dart';
+import '../../../lab_analysis/presentation/lab_analysis_home_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -271,30 +272,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildLabAnalysisPage() {
-    return const Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.science_rounded, size: 64, color: AppTheme.mediumGrey),
-          SizedBox(height: 16),
-          Text(
-            'Lab Analysis',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w600,
-              color: AppTheme.darkGrey,
-            ),
-          ),
-          SizedBox(height: 8),
-          Text(
-            'Coming Soon',
-            style: TextStyle(
-              color: AppTheme.mediumGrey,
-            ),
-          ),
-        ],
-      ),
-    );
+    return const LabAnalysisHomePage();
   }
 
   Widget _buildMorePage() {

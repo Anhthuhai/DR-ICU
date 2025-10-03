@@ -1,5 +1,6 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_theme.dart';
 
 class NihssPage extends StatefulWidget {
   const NihssPage({super.key});
@@ -276,7 +277,7 @@ class _NihssPageState extends State<NihssPage> {
                     severity,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
+                      color: Colors.grey.shade700,
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -327,7 +328,7 @@ class _NihssPageState extends State<NihssPage> {
             prognosis,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w500,
-              color: AppTheme.darkGrey,
+              color: Colors.grey.shade700,
             ),
           ),
           const SizedBox(height: 12),
@@ -348,7 +349,7 @@ class _NihssPageState extends State<NihssPage> {
           Text(
             recommendations,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: AppTheme.darkGrey,
+              color: Colors.grey.shade700,
             ),
           ),
         ],
@@ -382,23 +383,28 @@ class _NihssPageState extends State<NihssPage> {
           children: [
             Column(
               children: item['options'].map<Widget>((option) {
-                return RadioListTile<int>(
+                return ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: Radio<int>(
+                    value: option['value'],
+                    groupValue: scores[key],
+                    onChanged: (value) {
+                      setState(() {
+                        scores[key] = value!;
+                      });
+                    },
+                  ),
                   title: Text(
                     option['text'],
                     style: const TextStyle(fontSize: 14),
                   ),
-                  value: option['value'],
-                  // ignore: deprecated_member_use
-                  groupValue: scores[key],
-                  // ignore: deprecated_member_use
-                  onChanged: (value) {
+                  onTap: () {
                     setState(() {
-                      scores[key] = value!;
+                      scores[key] = option['value'];
                     });
                   },
-                  contentPadding: EdgeInsets.zero,
                 );
-              }),
+              }).toList(),
             ),
           ],
         ),
