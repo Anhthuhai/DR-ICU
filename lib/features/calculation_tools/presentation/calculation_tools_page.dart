@@ -6,6 +6,7 @@ import 'ibw_calculator_page.dart';
 import 'creatinine_calculator_page.dart';
 import 'fluid_balance_calculator_page.dart';
 import 'dosage_calculator_page.dart';
+import 'sodium_correction_calculator_page.dart';
 
 class CalculationToolsPage extends StatelessWidget {
   const CalculationToolsPage({super.key});
@@ -40,12 +41,9 @@ class CalculationToolsPage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
+              child: ListView(
                 children: [
-                  _buildCalculatorCard(
+                  _buildCalculatorListItem(
                     context,
                     title: 'BMI Calculator',
                     subtitle: 'Body Mass Index',
@@ -61,7 +59,7 @@ class CalculationToolsPage extends StatelessWidget {
                       );
                     },
                   ),
-                  _buildCalculatorCard(
+                  _buildCalculatorListItem(
                     context,
                     title: 'BSA Calculator',
                     subtitle: 'Body Surface Area',
@@ -77,7 +75,7 @@ class CalculationToolsPage extends StatelessWidget {
                       );
                     },
                   ),
-                  _buildCalculatorCard(
+                  _buildCalculatorListItem(
                     context,
                     title: 'Ideal Body Weight',
                     subtitle: 'IBW Calculator',
@@ -93,7 +91,7 @@ class CalculationToolsPage extends StatelessWidget {
                       );
                     },
                   ),
-                  _buildCalculatorCard(
+                  _buildCalculatorListItem(
                     context,
                     title: 'Creatinine Clearance',
                     subtitle: 'CrCl Calculator',
@@ -104,12 +102,12 @@ class CalculationToolsPage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                                                    builder: (context) => const CreatinineCalculatorPage(),
+                          builder: (context) => const CreatinineCalculatorPage(),
                         ),
                       );
                     },
                   ),
-                  _buildCalculatorCard(
+                  _buildCalculatorListItem(
                     context,
                     title: 'Fluid Balance',
                     subtitle: 'I/O Calculator',
@@ -125,7 +123,7 @@ class CalculationToolsPage extends StatelessWidget {
                       );
                     },
                   ),
-                  _buildCalculatorCard(
+                  _buildCalculatorListItem(
                     context,
                     title: 'Dosage Calculator',
                     subtitle: 'Drug Dosing',
@@ -141,6 +139,22 @@ class CalculationToolsPage extends StatelessWidget {
                       );
                     },
                   ),
+                  _buildCalculatorListItem(
+                    context,
+                    title: 'Sodium Correction',
+                    subtitle: 'Na+ Calculator',
+                    description: 'Tính bù natri máu',
+                    icon: Icons.balance,
+                    color: Colors.indigo.shade400,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SodiumCorrectionCalculatorPage(),
+                        ),
+                      );
+                    },
+                  ),
                 ],
               ),
             ),
@@ -150,7 +164,7 @@ class CalculationToolsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildCalculatorCard(
+  Widget _buildCalculatorListItem(
     BuildContext context, {
     required String title,
     required String subtitle,
@@ -160,72 +174,62 @@ class CalculationToolsPage extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return Card(
-      elevation: 4,
-      child: InkWell(
+      elevation: 2,
+      margin: const EdgeInsets.only(bottom: 12),
+      child: ListTile(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
-        child: Container(
-          padding: const EdgeInsets.all(16),
+        contentPadding: const EdgeInsets.all(16),
+        leading: Container(
+          width: 56,
+          height: 56,
           decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                color.withValues(alpha: 0.1),
-                color.withValues(alpha: 0.05),
-              ],
+            border: Border.all(
+              color: color.withValues(alpha: 0.3),
+              width: 1,
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.2),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  icon,
-                  size: 32,
-                  color: color,
-                ),
-              ),
-              const SizedBox(height: 12),
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 4),
-              Text(
-                subtitle,
-                style: TextStyle(
-                  fontSize: 11,
-                  color: Colors.grey.shade600,
-                  fontWeight: FontWeight.w500,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 4),
-              Text(
-                description,
-                style: TextStyle(
-                  fontSize: 10,
-                  color: Colors.grey.shade500,
-                ),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
+          child: Icon(
+            icon,
+            size: 28,
+            color: color,
           ),
+        ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.black87,
+          ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 4),
+            Text(
+              subtitle,
+              style: TextStyle(
+                fontSize: 12,
+                color: color,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              description,
+              style: TextStyle(
+                fontSize: 13,
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
+        trailing: Icon(
+          Icons.arrow_forward_ios,
+          size: 16,
+          color: Colors.grey.shade400,
         ),
       ),
     );

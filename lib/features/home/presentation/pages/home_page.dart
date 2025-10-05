@@ -4,6 +4,10 @@ import '../../../clinical_scores/presentation/clinical_scores_page.dart';
 import '../../../unit_converter/presentation/pages/unit_converter_page.dart';
 import '../../../lab_analysis/presentation/lab_analysis_home_page.dart';
 import '../../../calculation_tools/presentation/calculation_tools_page.dart';
+import '../../../emergency_protocols/presentation/emergency_protocols_page.dart';
+import '../../../bookmarks/presentation/bookmarks_page.dart';
+import '../../../search/presentation/search_page.dart';
+import '../../../notifications/presentation/notifications_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -46,15 +50,36 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         actions: [
           IconButton(
+            icon: const Icon(Icons.bookmark_outline),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BookmarksPage(),
+                ),
+              );
+            },
+          ),
+          IconButton(
             icon: const Icon(Icons.search),
             onPressed: () {
-              // TODO: Implement search
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SearchPage(),
+                ),
+              );
             },
           ),
           IconButton(
             icon: const Icon(Icons.notifications_outlined),
             onPressed: () {
-              // TODO: Implement notifications
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationsPage(),
+                ),
+              );
             },
           ),
         ],
@@ -175,7 +200,12 @@ class _HomePageState extends State<HomePage> {
                   Icons.medical_services_rounded,
                   Colors.red.shade400,
                   () {
-                    // TODO: Navigate to emergency protocols
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const EmergencyProtocolsPage(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 12),
