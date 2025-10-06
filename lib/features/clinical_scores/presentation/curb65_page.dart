@@ -15,6 +15,9 @@ class _Curb65PageState extends State<Curb65Page> {
   int sbpScore = 0;
   int ageScore = 0;
 
+  // Unit selection for BUN
+  String bunUnit = 'mg/dL';
+
   final TextEditingController bunController = TextEditingController();
   final TextEditingController rrController = TextEditingController();
   final TextEditingController sbpController = TextEditingController();
@@ -75,6 +78,29 @@ class _Curb65PageState extends State<Curb65Page> {
       return 'Cân nhắc điều trị nội trú hoặc quan sát';
     }
     return 'Cần điều trị nội trú, cân nhắc ICU nếu điểm ≥ 4';
+  }
+
+  // BUN unit conversion function
+  double convertBUNToMgDL(double value, String fromUnit) {
+    if (fromUnit == 'mmol/L') {
+      return value * 2.8; // mmol/L to mg/dL
+    }
+    return value; // already in mg/dL
+  }
+
+  void calculateBUNScore(String value) {
+    double bun = double.tryParse(value) ?? 0;
+    if (bun > 0) {
+      // Convert to mg/dL for calculation
+      double bunMgDL = convertBUNToMgDL(bun, bunUnit);
+      setState(() {
+        bunScore = bunMgDL > 19 ? 1 : 0;
+      });
+    } else {
+      setState(() {
+        bunScore = 0;
+      });
+    }
   }
 
   @override
@@ -145,19 +171,7 @@ class _Curb65PageState extends State<Curb65Page> {
 
             // Assessment sections
             _buildConfusionSection(),
-            _buildVitalSignSection(
-              'BUN (mg/dL)', 
-              bunController, 
-              Icons.water_drop, 
-              Colors.blue.shade600,
-              (value) {
-                double bun = double.tryParse(value) ?? 0;
-                setState(() {
-                  bunScore = bun > 19 ? 1 : 0;
-                });
-              },
-              bunScore,
-            ),
+            _buildBUNSectionWithUnit(),
             _buildVitalSignSection(
               'Nhịp thở (lần/phút)', 
               rrController, 
@@ -274,6 +288,103 @@ class _Curb65PageState extends State<Curb65Page> {
     );
   }
 
+  Widget _buildBUNSectionWithUnit() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.blue.shade600.withValues(alpha: 0.3)),
+        color: Colors.blue.shade600.withValues(alpha: 0.05),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.water_drop, color: Colors.blue.shade600, size: 24),
+              const SizedBox(width: 8),
+              Text(
+                'BUN',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: Colors.blue.shade600,
+                ),
+              ),
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: bunScore > 0 ? Colors.red.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  'Điểm: $bunScore',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: bunScore > 0 ? Colors.red : Colors.grey,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: TextField(
+                  controller: bunController,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    labelText: 'BUN ($bunUnit)',
+                    border: const OutlineInputBorder(),
+                    suffixText: bunUnit,
+                    isDense: true,
+                  ),
+                  onChanged: calculateBUNScore,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 2,
+                child: DropdownButtonFormField<String>(
+                  initialValue: bunUnit,
+                  decoration: const InputDecoration(
+                    labelText: 'Đơn vị',
+                    border: OutlineInputBorder(),
+                    isDense: true,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  ),
+                  items: const [
+                    DropdownMenuItem(value: 'mg/dL', child: Text('mg/dL', style: TextStyle(fontSize: 12))),
+                    DropdownMenuItem(value: 'mmol/L', child: Text('mmol/L', style: TextStyle(fontSize: 12))),
+                  ],
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        bunUnit = newValue;
+                      });
+                      calculateBUNScore(bunController.text);
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'Điểm số: 1 nếu BUN > 19 mg/dL (6.8 mmol/L)',
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.grey.shade600,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildVitalSignSection(
     String title,
     TextEditingController controller,
@@ -329,11 +440,19 @@ class _Curb65PageState extends State<Curb65Page> {
               border: const OutlineInputBorder(),
               suffixIcon: Icon(icon, color: color),
             ),
-            // ignore: deprecated_member_use
-            onChanged: null,
+            onChanged: onChanged,
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    bunController.dispose();
+    rrController.dispose();
+    sbpController.dispose();
+    ageController.dispose();
+    super.dispose();
   }
 }

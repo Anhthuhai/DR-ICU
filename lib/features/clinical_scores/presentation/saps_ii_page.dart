@@ -38,6 +38,10 @@ class _SAPSIIState extends State<SAPSII> {
   // Chronic diseases score  
   int chronicScore = 0;
 
+  // Unit selections
+  String bilirubinUnit = 'mg/dL';
+  String bunUnit = 'mg/dL';
+
   // Controllers
   final TextEditingController hrController = TextEditingController();
   final TextEditingController sbpController = TextEditingController();
@@ -99,6 +103,63 @@ class _SAPSIIState extends State<SAPSII> {
       return 'Nguy cơ rất cao';
     }
     return 'Nguy cơ cực kỳ cao';
+  }
+
+  // Unit conversion functions
+  double convertBilirubinToMgDL(double value, String fromUnit) {
+    if (fromUnit == 'umol/L') {
+      return value * 0.0585; // umol/L to mg/dL
+    }
+    return value; // already in mg/dL
+  }
+
+  double convertBUNToMgDL(double value, String fromUnit) {
+    if (fromUnit == 'mmol/L') {
+      return value * 2.8; // mmol/L to mg/dL
+    }
+    return value; // already in mg/dL
+  }
+
+  void calculateBilirubinScore(String value) {
+    double bilirubin = double.tryParse(value) ?? 0;
+    if (bilirubin > 0) {
+      // Convert to mg/dL for calculation
+      double bilirubinMgDL = convertBilirubinToMgDL(bilirubin, bilirubinUnit);
+      setState(() {
+        if (bilirubinMgDL < 4.0) {
+          bilirubiScore = 0;
+        } else if (bilirubinMgDL < 6.0) {
+          bilirubiScore = 4;
+        } else {
+          bilirubiScore = 9;
+        }
+      });
+    } else {
+      setState(() {
+        bilirubiScore = 0;
+      });
+    }
+  }
+
+  void calculateBUNScore(String value) {
+    double bun = double.tryParse(value) ?? 0;
+    if (bun > 0) {
+      // Convert to mg/dL for calculation
+      double bunMgDL = convertBUNToMgDL(bun, bunUnit);
+      setState(() {
+        if (bunMgDL < 28) {
+          bunScore = 0;
+        } else if (bunMgDL < 84) {
+          bunScore = 6;
+        } else {
+          bunScore = 10;
+        }
+      });
+    } else {
+      setState(() {
+        bunScore = 0;
+      });
+    }
   }
 
   Color get scoreColor {
@@ -369,35 +430,93 @@ class _SAPSIIState extends State<SAPSII> {
           });
         }, urineScore),
         
-        _buildVitalSignRow('Bilirubin (mg/dL)', bilirubinController, (value) {
-          double bilirubin = double.tryParse(value) ?? 0;
-          setState(() {
-            if (bilirubin < 4.0) {
-              bilirubiScore = 0;
-            }
-            else if (bilirubin < 6.0) {
-   bilirubiScore = 4;
- }
-            else {
-              bilirubiScore = 9;
-            }
-          });
-        }, bilirubiScore),
+        // Bilirubin with unit conversion
+        _buildLabValueWithUnit(
+          'Bilirubin',
+          bilirubinController,
+          bilirubinUnit,
+          ['mg/dL', 'umol/L'],
+          (value) {
+            bilirubinUnit = value;
+            calculateBilirubinScore(bilirubinController.text);
+          },
+          (value) => calculateBilirubinScore(value),
+          bilirubiScore,
+        ),
         
-        _buildVitalSignRow('BUN (mg/dL)', bunController, (value) {
-          double bun = double.tryParse(value) ?? 0;
+        // BUN with unit conversion  
+        _buildLabValueWithUnit(
+          'BUN',
+          bunController,
+          bunUnit,
+          ['mg/dL', 'mmol/L'],
+          (value) {
+            bunUnit = value;
+            calculateBUNScore(bunController.text);
+          },
+          (value) => calculateBUNScore(value),
+          bunScore,
+        ),
+
+        _buildVitalSignRow('WBC (×10³/μL)', wbcController, (value) {
+          double wbc = double.tryParse(value) ?? 0;
           setState(() {
-            if (bun < 28) {
-              bunScore = 0;
+            if (wbc < 1.0) {
+              wbcScore = 12;
             }
-            else if (bun < 84) {
-   bunScore = 6;
+            else if (wbc < 20.0) {
+   wbcScore = 0;
  }
             else {
-              bunScore = 10;
+              wbcScore = 3;
             }
           });
-        }, bunScore),
+        }, wbcScore),
+
+        _buildVitalSignRow('Kali (mmol/L)', kController, (value) {
+          double k = double.tryParse(value) ?? 0;
+          setState(() {
+            if (k < 3.0) {
+              potassiumScore = 3;
+            }
+            else if (k < 5.0) {
+   potassiumScore = 0;
+ }
+            else {
+              potassiumScore = 3;
+            }
+          });
+        }, potassiumScore),
+
+        _buildVitalSignRow('Natri (mmol/L)', naController, (value) {
+          double na = double.tryParse(value) ?? 0;
+          setState(() {
+            if (na < 125) {
+              sodiumScore = 5;
+            }
+            else if (na < 145) {
+   sodiumScore = 0;
+ }
+            else {
+              sodiumScore = 1;
+            }
+          });
+        }, sodiumScore),
+
+        _buildVitalSignRow('HCO3⁻ (mmol/L)', hco3Controller, (value) {
+          double hco3 = double.tryParse(value) ?? 0;
+          setState(() {
+            if (hco3 < 15) {
+              bicarboScore = 6;
+            }
+            else if (hco3 < 20) {
+   bicarboScore = 3;
+ }
+            else {
+              bicarboScore = 0;
+            }
+          });
+        }, bicarboScore),
       ],
     );
   }
@@ -573,6 +692,82 @@ class _SAPSIIState extends State<SAPSII> {
     );
   }
 
+  Widget _buildLabValueWithUnit(
+    String label,
+    TextEditingController controller,
+    String currentUnit,
+    List<String> units,
+    Function(String) onUnitChanged,
+    Function(String) onValueChanged,
+    int score,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: TextField(
+                  controller: controller,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    labelText: '$label ($currentUnit)',
+                    border: const OutlineInputBorder(),
+                    isDense: true,
+                  ),
+                  onChanged: onValueChanged,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 2,
+                child: DropdownButtonFormField<String>(
+                  initialValue: currentUnit,
+                  decoration: const InputDecoration(
+                    labelText: 'Đơn vị',
+                    border: OutlineInputBorder(),
+                    isDense: true,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  ),
+                  items: units.map((String unit) {
+                    return DropdownMenuItem<String>(
+                      value: unit,
+                      child: Text(unit, style: const TextStyle(fontSize: 12)),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      onUnitChanged(newValue);
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: score > 0 ? Colors.red.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  'Điểm: $score',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: score > 0 ? Colors.red : Colors.grey,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildVitalSignRow(String label, TextEditingController controller, Function(String) onChanged, int score) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -588,8 +783,7 @@ class _SAPSIIState extends State<SAPSII> {
                 border: const OutlineInputBorder(),
                 isDense: true,
               ),
-              // ignore: deprecated_member_use
-              onChanged: null,
+              onChanged: onChanged,
             ),
           ),
           const SizedBox(width: 12),
@@ -618,6 +812,10 @@ class _SAPSIIState extends State<SAPSII> {
       pao2fio2Score = urineScore = bilirubiScore = bunScore = 0;
       wbcScore = potassiumScore = sodiumScore = bicarboScore = 0;
       gcsScore = admissionTypeScore = chronicScore = 0;
+      
+      // Reset unit selections
+      bilirubinUnit = 'mg/dL';
+      bunUnit = 'mg/dL';
     });
     
     ageController.clear();

@@ -17,8 +17,16 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
   String _gender = 'male';
   String _diabetesStatus = 'no';
   String _priorVascularDisease = 'no';
+  String _creatinineUnit = 'mg/dL';
 
   int _totalScore = 0;
+
+  double convertCreatinineToMgDL(double value, String unit) {
+    if (unit == 'umol/L') {
+      return value / 88.4; // Convert umol/L to mg/dL
+    }
+    return value; // Already in mg/dL
+  }
 
   @override
   void initState() {
@@ -46,7 +54,8 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
     // >=40: 0 points
     
     // Creatinine clearance (approximate from creatinine)
-    final creatinine = double.tryParse(_creatinineController.text) ?? 0;
+    final creatinineInput = double.tryParse(_creatinineController.text) ?? 0;
+    final creatinine = convertCreatinineToMgDL(creatinineInput, _creatinineUnit);
     if (creatinine > 2.0) {
       score += 39; // CrCl <15
     } else if (creatinine > 1.5) {
@@ -387,19 +396,52 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
           const SizedBox(height: 12),
           
           // Creatinine
-          TextField(
-            controller: _creatinineController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Creatinine',
-              suffixText: 'mg/dL',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                controller: _creatinineController,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: 'Creatinine',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  helperText: 'Nồng độ creatinine huyết thanh',
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                ),
               ),
-              filled: true,
-              fillColor: Colors.white,
-              helperText: 'Nồng độ creatinine huyết thanh',
-            ),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  const Text(
+                    'Đơn vị: ',
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                  DropdownButton<String>(
+                    value: _creatinineUnit,
+                    onChanged: (value) {
+                      setState(() {
+                        _creatinineUnit = value!;
+                        _calculateScore();
+                      });
+                    },
+                    items: const [
+                      DropdownMenuItem(
+                        value: 'mg/dL',
+                        child: Text('mg/dL', style: TextStyle(fontSize: 12)),
+                      ),
+                      DropdownMenuItem(
+                        value: 'umol/L',
+                        child: Text('umol/L', style: TextStyle(fontSize: 12)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
           const SizedBox(height: 12),
           

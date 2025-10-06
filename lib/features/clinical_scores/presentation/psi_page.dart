@@ -30,6 +30,10 @@ class _PsiPageState extends State<PsiPage> {
   int partialPressureO2 = 0;
   int pleuralEffusion = 0;
 
+  // Unit selections for BUN and Glucose
+  String bunUnit = 'mg/dL';
+  String glucoseUnit = 'mg/dL';
+
   final TextEditingController ageController = TextEditingController();
   final TextEditingController rrController = TextEditingController();
   final TextEditingController sbpController = TextEditingController();
@@ -143,6 +147,45 @@ class _PsiPageState extends State<PsiPage> {
       case 4: return 'Cần điều trị nội trú';
       case 5: return 'Cần điều trị nội trú, cân nhắc ICU';
       default: return '';
+    }
+  }
+
+  // Unit conversion functions
+  double convertBUNToMgDL(double value, String fromUnit) {
+    if (fromUnit == 'mmol/L') {
+      return value * 2.8; // mmol/L to mg/dL
+    }
+    return value; // already in mg/dL
+  }
+
+  double convertGlucoseToMgDL(double value, String fromUnit) {
+    if (fromUnit == 'mmol/L') {
+      return value * 18.0; // mmol/L to mg/dL
+    }
+    return value; // already in mg/dL
+  }
+
+  void calculateBUNScore(String value) {
+    double bunValue = double.tryParse(value) ?? 0;
+    // Convert to mg/dL for calculation
+    double bunMgDL = convertBUNToMgDL(bunValue, bunUnit);
+    setState(() {
+      bun = bunMgDL >= 30.0 ? 20 : 0;
+    });
+  }
+
+  void calculateGlucoseScore(String value) {
+    double glucoseValue = double.tryParse(value) ?? 0;
+    if (glucoseValue > 0) {
+      // Convert to mg/dL for calculation
+      double glucoseMgDL = convertGlucoseToMgDL(glucoseValue, glucoseUnit);
+      setState(() {
+        glucose = glucoseMgDL >= 250 ? 10 : 0;
+      });
+    } else {
+      setState(() {
+        glucose = 0;
+      });
     }
   }
 
@@ -341,24 +384,42 @@ class _PsiPageState extends State<PsiPage> {
                   arterialPH = ph < 7.35 ? 30 : 0;
                 });
               }),
-              _buildLabInput('BUN (≥30 mg/dL)', bunController, (value) {
-                double bunValue = double.tryParse(value) ?? 0;
-                setState(() {
-                  bun = bunValue >= 30 ? 20 : 0;
-                });
-              }),
+              _buildLabInputWithUnit(
+                'BUN',
+                '≥30 mg/dL (10.7 mmol/L)',
+                bunController,
+                bunUnit,
+                ['mg/dL', 'mmol/L'],
+                (value) {
+                  setState(() {
+                    bunUnit = value;
+                  });
+                  calculateBUNScore(bunController.text);
+                },
+                calculateBUNScore,
+                bun,
+              ),
               _buildLabInput('Natri (<130 mmol/L)', naController, (value) {
                 double na = double.tryParse(value) ?? 0;
                 setState(() {
                   sodium = na < 130 ? 20 : 0;
                 });
               }),
-              _buildLabInput('Glucose (≥250 mg/dL)', glucoseController, (value) {
-                double glu = double.tryParse(value) ?? 0;
-                setState(() {
-                  glucose = glu >= 250 ? 10 : 0;
-                });
-              }),
+              _buildLabInputWithUnit(
+                'Glucose',
+                '≥250 mg/dL (13.9 mmol/L)',
+                glucoseController,
+                glucoseUnit,
+                ['mg/dL', 'mmol/L'],
+                (value) {
+                  setState(() {
+                    glucoseUnit = value;
+                  });
+                  calculateGlucoseScore(glucoseController.text);
+                },
+                calculateGlucoseScore,
+                glucose,
+              ),
               _buildLabInput('Hematocrit (<30%)', hctController, (value) {
                 double hct = double.tryParse(value) ?? 0;
                 setState(() {
@@ -573,9 +634,109 @@ class _PsiPageState extends State<PsiPage> {
           labelText: label,
           border: const OutlineInputBorder(),
         ),
-        // ignore: deprecated_member_use
-        onChanged: null,
+        onChanged: onChanged,
       ),
     );
+  }
+
+  Widget _buildLabInputWithUnit(
+    String label,
+    String criterion,
+    TextEditingController controller,
+    String currentUnit,
+    List<String> units,
+    Function(String) onUnitChanged,
+    Function(String) onValueChanged,
+    int score,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$label ($criterion)',
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: TextField(
+                  controller: controller,
+                  keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                  decoration: InputDecoration(
+                    labelText: '$label ($currentUnit)',
+                    border: const OutlineInputBorder(),
+                    isDense: true,
+                  ),
+                  onChanged: onValueChanged,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 2,
+                child: DropdownButtonFormField<String>(
+                  initialValue: currentUnit,
+                  decoration: const InputDecoration(
+                    labelText: 'Đơn vị',
+                    border: OutlineInputBorder(),
+                    isDense: true,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  ),
+                  items: units.map((String unit) {
+                    return DropdownMenuItem<String>(
+                      value: unit,
+                      child: Text(unit, style: const TextStyle(fontSize: 12)),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      onUnitChanged(newValue);
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(width: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: score > 0 ? Colors.red.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  'Điểm: $score',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: score > 0 ? Colors.red : Colors.grey,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    ageController.dispose();
+    rrController.dispose();
+    sbpController.dispose();
+    tempController.dispose();
+    pulseController.dispose();
+    phController.dispose();
+    bunController.dispose();
+    naController.dispose();
+    glucoseController.dispose();
+    hctController.dispose();
+    po2Controller.dispose();
+    super.dispose();
   }
 }

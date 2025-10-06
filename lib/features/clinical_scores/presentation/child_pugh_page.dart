@@ -19,6 +19,9 @@ class _ChildPughPageState extends State<ChildPughPage> {
   final TextEditingController albuminController = TextEditingController();
   final TextEditingController prothrombinController = TextEditingController();
 
+  // Unit variables
+  String _bilirubinUnit = 'mg/dL';
+
   int get totalScore => bilirubinScore + albuminScore + prothrombinScore + ascitesScore + encephalopathyScore;
 
   String get childPughClass {
@@ -74,6 +77,14 @@ class _ChildPughPageState extends State<ChildPughPage> {
       case 'C': return 'Nguy cơ phẫu thuật cao (82%)';
       default: return '';
     }
+  }
+
+  // Unit conversion function
+  double convertBilirubinToMgDL(double value, String unit) {
+    if (unit == 'umol/L') {
+      return value / 17.1; // Convert umol/L to mg/dL
+    }
+    return value; // Already in mg/dL
   }
 
   @override
@@ -146,12 +157,13 @@ class _ChildPughPageState extends State<ChildPughPage> {
               'Xét nghiệm',
               Colors.blue.shade600,
               [
-                _buildLabInput(
-                  'Bilirubin (mg/dL)',
+                _buildLabInputWithUnit(
+                  'Bilirubin',
                   bilirubinController,
                   Icons.water_drop,
                   (value) {
-                    double bilirubin = double.tryParse(value) ?? 0;
+                    double bilirubinInput = double.tryParse(value) ?? 0;
+                    double bilirubin = convertBilirubinToMgDL(bilirubinInput, _bilirubinUnit);
                     setState(() {
                       if (bilirubin < 2) {
                         bilirubinScore = 1;
@@ -163,7 +175,28 @@ class _ChildPughPageState extends State<ChildPughPage> {
                     });
                   },
                   bilirubinScore,
-                  '<2: 1pt, 2-3: 2pts, >3: 3pts',
+                  '<2 mg/dL (<34 umol/L): 1pt, 2-3 mg/dL (34-51 umol/L): 2pts, >3 mg/dL (>51 umol/L): 3pts',
+                  _bilirubinUnit,
+                  ['mg/dL', 'umol/L'],
+                  (value) {
+                    setState(() {
+                      _bilirubinUnit = value;
+                    });
+                    // Recalculate score with new unit
+                    if (bilirubinController.text.isNotEmpty) {
+                      double bilirubinInput = double.tryParse(bilirubinController.text) ?? 0;
+                      double bilirubin = convertBilirubinToMgDL(bilirubinInput, _bilirubinUnit);
+                      setState(() {
+                        if (bilirubin < 2) {
+                          bilirubinScore = 1;
+                        } else if (bilirubin <= 3) {
+                          bilirubinScore = 2;
+                        } else {
+                          bilirubinScore = 3;
+                        }
+                      });
+                    }
+                  },
                 ),
                 _buildLabInput(
                   'Albumin (g/dL)',
@@ -334,6 +367,98 @@ class _ChildPughPageState extends State<ChildPughPage> {
               color: AppTheme.darkGrey,
             ),
             textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLabInputWithUnit(
+    String title,
+    TextEditingController controller,
+    IconData icon,
+    Function(String) onChanged,
+    int score,
+    String ranges,
+    String currentUnit,
+    List<String> units,
+    ValueChanged<String> onUnitChanged,
+  ) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, size: 20),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(fontWeight: FontWeight.w500),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: score > 0 ? scoreColor.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  'Điểm: $score',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: score > 0 ? scoreColor : Colors.grey,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                flex: 5,
+                child: TextField(
+                  controller: controller,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(
+                    labelText: 'Nhập giá trị',
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  ),
+                  onChanged: onChanged,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 2,
+                child: DropdownButtonFormField<String>(
+                  initialValue: currentUnit,
+                  onChanged: (value) => onUnitChanged(value!),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                  ),
+                  items: units.map((unit) {
+                    return DropdownMenuItem(
+                      value: unit,
+                      child: Text(
+                        unit,
+                        style: const TextStyle(fontSize: 12),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            ranges,
+            style: const TextStyle(fontSize: 12, color: Colors.grey),
           ),
         ],
       ),

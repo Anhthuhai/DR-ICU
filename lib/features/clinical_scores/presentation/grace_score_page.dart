@@ -14,6 +14,9 @@ class _GraceScorePageState extends State<GraceScorePage> {
   final TextEditingController _systolicBPController = TextEditingController();
   final TextEditingController _creatinineController = TextEditingController();
   
+  // Unit variables
+  String _creatinineUnit = 'mg/dL';
+  
   bool _heartFailure = false;
   bool _cardiacArrest = false;
   bool _stElevation = false;
@@ -21,13 +24,21 @@ class _GraceScorePageState extends State<GraceScorePage> {
 
   int _totalScore = 0;
 
-  @override
+    @override
   void initState() {
     super.initState();
     _ageController.addListener(_calculateScore);
     _heartRateController.addListener(_calculateScore);
     _systolicBPController.addListener(_calculateScore);
     _creatinineController.addListener(_calculateScore);
+  }
+
+  // Unit conversion functions
+  double convertCreatinineToMgDL(double value, String unit) {
+    if (unit == 'umol/L') {
+      return value / 88.42; // Convert umol/L to mg/dL
+    }
+    return value; // Already in mg/dL
   }
 
   void _calculateScore() {
@@ -86,7 +97,8 @@ class _GraceScorePageState extends State<GraceScorePage> {
  }
     
     // Creatinine
-    final creatinine = double.tryParse(_creatinineController.text) ?? 0;
+    final creatinineInput = double.tryParse(_creatinineController.text) ?? 0;
+    final creatinine = convertCreatinineToMgDL(creatinineInput, _creatinineUnit);
     if (creatinine >= 4.0) {
       score += 28;
     }
@@ -320,47 +332,60 @@ class _GraceScorePageState extends State<GraceScorePage> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                children: [
-                  Text(
-                    'Tử vong 6 tháng',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      'Tử vong 6 tháng',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                        fontSize: 13,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    mortalityRisk,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: riskColor,
+                    Text(
+                      mortalityRisk,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: riskColor,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Text(
-                    'Tử vong nội viện',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      'Tử vong nội viện',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                        fontSize: 13,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    hospitalizationMortality,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: riskColor,
+                    Text(
+                      hospitalizationMortality,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: riskColor,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
@@ -506,24 +531,96 @@ class _GraceScorePageState extends State<GraceScorePage> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: TextField(
-                  controller: _creatinineController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'Creatinine',
-                    suffixText: 'mg/dL',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                  ),
+                child: _buildLabInputWithUnit(
+                  'Creatinine',
+                  'Tối đa 4.0 mg/dL (354 umol/L), tối thiểu 1.0 mg/dL (88 umol/L)',
+                  _creatinineController,
+                  _creatinineUnit,
+                  ['mg/dL', 'umol/L'],
+                  (value) {
+                    setState(() {
+                      _creatinineUnit = value;
+                    });
+                    _calculateScore();
+                  },
+                  (value) => _calculateScore(),
                 ),
               ),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildLabInputWithUnit(
+    String label,
+    String helperText,
+    TextEditingController controller,
+    String currentUnit,
+    List<String> units,
+    ValueChanged<String> onUnitChanged,
+    ValueChanged<String> onValueChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              flex: 5,
+              child: TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                onChanged: onValueChanged,
+                decoration: InputDecoration(
+                  labelText: label,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              flex: 2,
+              child: DropdownButtonFormField<String>(
+                initialValue: currentUnit,
+                onChanged: (value) => onUnitChanged(value!),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+                ),
+                items: units.map((unit) {
+                  return DropdownMenuItem(
+                    value: unit,
+                    child: Text(
+                      unit,
+                      style: const TextStyle(fontSize: 12),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+        if (helperText.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          Text(
+            helperText,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.grey[600],
+            ),
+          ),
+        ],
+      ],
     );
   }
 
@@ -822,11 +919,16 @@ class _GraceScorePageState extends State<GraceScorePage> {
                   children: [
                     Icon(Icons.schedule, color: Colors.blue.shade600, size: 20),
                     const SizedBox(width: 8),
-                    Text(
-                      'Chi tiết thời gian can thiệp cho điểm số hiện tại',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.blue.shade600,
+                    Expanded(
+                      child: Text(
+                        'Chi tiết thời gian can thiệp cho điểm số hiện tại',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.blue.shade600,
+                          fontSize: 13,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],

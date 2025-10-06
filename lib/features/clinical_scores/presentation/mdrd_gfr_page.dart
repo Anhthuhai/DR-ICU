@@ -15,6 +15,9 @@ class _MdrdGfrPageState extends State<MdrdGfrPage> {
   bool _isFemale = false;
   bool _isAfricanAmerican = false;
 
+  // Unit variable
+  String _creatinineUnit = 'mg/dL';
+
   double _gfr = 0.0;
 
   @override
@@ -24,15 +27,24 @@ class _MdrdGfrPageState extends State<MdrdGfrPage> {
     _creatinineController.addListener(_calculateGFR);
   }
 
+  // Unit conversion function
+  double convertCreatinineToMgDL(double value, String unit) {
+    if (unit == 'umol/L') {
+      return value / 88.42; // Convert umol/L to mg/dL
+    }
+    return value; // Already in mg/dL
+  }
+
   void _calculateGFR() {
     final age = double.tryParse(_ageController.text) ?? 0;
-    final creatinine = double.tryParse(_creatinineController.text) ?? 0;
+    final creatinineInput = double.tryParse(_creatinineController.text) ?? 0;
+    final creatinine = convertCreatinineToMgDL(creatinineInput, _creatinineUnit);
 
     if (age > 0 && creatinine > 0) {
       // MDRD GFR = 175 × (Scr)^-1.154 × (Age)^-0.203 × (0.742 if female) × (1.212 if African American)
-      double gfr = 175 * 
-                   (creatinine.pow(-1.154)) * 
-                   (age.pow(-0.203));
+      double gfr = (175 * 
+                   math.pow(creatinine, -1.154) * 
+                   math.pow(age, -0.203)).toDouble();
       
       if (_isFemale) {
         gfr *= 0.742;
@@ -360,19 +372,19 @@ class _MdrdGfrPageState extends State<MdrdGfrPage> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: TextField(
-                  controller: _creatinineController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'Creatinine huyết thanh',
-                    suffixText: 'mg/dL',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    helperText: 'VD: 1.2',
-                  ),
+                child: _buildLabInputWithUnit(
+                  'Creatinine huyết thanh',
+                  'VD: 1.2 mg/dL (106 umol/L)',
+                  _creatinineController,
+                  _creatinineUnit,
+                  ['mg/dL', 'umol/L'],
+                  (value) {
+                    setState(() {
+                      _creatinineUnit = value;
+                    });
+                    _calculateGFR();
+                  },
+                  (value) => _calculateGFR(),
                 ),
               ),
             ],
@@ -434,11 +446,83 @@ class _MdrdGfrPageState extends State<MdrdGfrPage> {
     );
   }
 
+  Widget _buildLabInputWithUnit(
+    String label,
+    String helperText,
+    TextEditingController controller,
+    String currentUnit,
+    List<String> units,
+    ValueChanged<String> onUnitChanged,
+    ValueChanged<String> onValueChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              flex: 5,
+              child: TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                onChanged: onValueChanged,
+                decoration: InputDecoration(
+                  labelText: label,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              flex: 2,
+              child: DropdownButtonFormField<String>(
+                initialValue: currentUnit,
+                onChanged: (value) => onUnitChanged(value!),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
+                ),
+                items: units.map((unit) {
+                  return DropdownMenuItem(
+                    value: unit,
+                    child: Text(
+                      unit,
+                      style: const TextStyle(fontSize: 12),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+        if (helperText.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          Text(
+            helperText,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.grey[600],
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
   Widget _buildComparisonSection() {
     // Tính Cockcroft-Gault để so sánh (cần cân nặng giả định 70kg)
     double estimatedWeight = 70.0;
     double age = double.tryParse(_ageController.text) ?? 0;
-    double creatinine = double.tryParse(_creatinineController.text) ?? 0;
+    double creatinineInput = double.tryParse(_creatinineController.text) ?? 0;
+    double creatinine = convertCreatinineToMgDL(creatinineInput, _creatinineUnit);
     
     double cockcroftGault = 0;
     if (age > 0 && creatinine > 0) {

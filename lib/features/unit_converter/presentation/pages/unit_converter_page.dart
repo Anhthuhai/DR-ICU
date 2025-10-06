@@ -21,15 +21,18 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
 
   // State
   List<ConversionCategory> _categories = [];
+  List<ConversionCategory> _filteredCategories = [];
   ConversionCategory? _selectedCategory;
   ConversionUnit? _fromUnit;
   ConversionUnit? _toUnit;
   ConversionResult? _result;
   bool _isLoading = false;
   String _errorMessage = '';
+  String _searchQuery = '';
 
   // Controllers
   final TextEditingController _inputController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -37,6 +40,41 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
     _initializeUseCases();
     _loadCategories();
     _inputController.addListener(_onInputChanged);
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    setState(() {
+      _searchQuery = _searchController.text.toLowerCase();
+      _filterCategories();
+    });
+  }
+
+  void _filterCategories() {
+    if (_searchQuery.isEmpty) {
+      _filteredCategories = List.from(_categories);
+    } else {
+      _filteredCategories = _categories.where((category) {
+        final name = category.name.toLowerCase();
+        final example = category.commonExample.toLowerCase();
+        final description = category.description.toLowerCase();
+        
+        return name.contains(_searchQuery) ||
+               example.contains(_searchQuery) ||
+               description.contains(_searchQuery);
+      }).toList();
+    }
+    
+    // Reset selected category if it's not in filtered list
+    if (_selectedCategory != null && 
+        !_filteredCategories.contains(_selectedCategory)) {
+      setState(() {
+        _selectedCategory = null;
+        _fromUnit = null;
+        _toUnit = null;
+        _result = null;
+      });
+    }
   }
 
   void _initializeUseCases() {
@@ -55,6 +93,7 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
       final categories = await _getCategoriesUseCase();
       setState(() {
         _categories = categories;
+        _filteredCategories = List.from(categories);
         _isLoading = false;
       });
     } catch (e) {
@@ -147,6 +186,7 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
   @override
   void dispose() {
     _inputController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
@@ -229,6 +269,31 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
               ),
             ),
             const SizedBox(height: 12),
+            
+            // Search bar
+            TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                hintText: 'Tìm kiếm xét nghiệm (ví dụ: glucose, protein, hemoglobin...)',
+                prefixIcon: const Icon(Icons.search),
+                suffixIcon: _searchQuery.isNotEmpty 
+                  ? IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        _searchController.clear();
+                      },
+                    )
+                  : null,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide(color: Colors.grey.shade400),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              ),
+            ),
+            const SizedBox(height: 12),
+            
+            // Category dropdown
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey.shade400),
@@ -237,11 +302,13 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
               child: DropdownButton<ConversionCategory>(
                 value: _selectedCategory,
-                hint: const Text('Chọn loại xét nghiệm...'),
+                hint: Text(_filteredCategories.isEmpty 
+                  ? 'Không tìm thấy xét nghiệm phù hợp...'
+                  : 'Chọn loại xét nghiệm...'),
                 isExpanded: true,
                 underline: const SizedBox(),
                 selectedItemBuilder: (BuildContext context) {
-                  return _categories.map((category) {
+                  return _filteredCategories.map((category) {
                     return Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
@@ -255,7 +322,7 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
                     );
                   }).toList();
                 },
-                items: _categories.map((category) {
+                items: _filteredCategories.map((category) {
                   return DropdownMenuItem(
                     value: category,
                     child: Container(
@@ -289,9 +356,55 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
                     ),
                   );
                 }).toList(),
-                onChanged: _onCategoryChanged,
+                onChanged: _filteredCategories.isEmpty ? null : _onCategoryChanged,
               ),
             ),
+            
+            // Search results count and suggestions
+            if (_searchQuery.isNotEmpty) ...[
+              const SizedBox(height: 8),
+              Text(
+                'Tìm thấy ${_filteredCategories.length} kết quả',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Colors.grey.shade600,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              if (_filteredCategories.isEmpty) ...[
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.orange.shade200),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '💡 Gợi ý tìm kiếm:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.orange.shade800,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Thử tìm: glucose, protein, hemoglobin, cholesterol, creatinine, bilirubin, enzyme, hormone',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.orange.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ] else ...[
+              const SizedBox(height: 8),
+              _buildQuickSearchChips(),
+            ],
           ],
         ),
       ),
@@ -752,5 +865,46 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
       return Icons.check_circle;
     }
     return Icons.analytics;
+  }
+
+  Widget _buildQuickSearchChips() {
+    final quickSearchTerms = [
+      'glucose', 'protein', 'hemoglobin', 'cholesterol', 
+      'creatinine', 'bilirubin', 'enzyme', 'hormone'
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Tìm kiếm nhanh:',
+          style: TextStyle(
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: Colors.grey.shade700,
+          ),
+        ),
+        const SizedBox(height: 6),
+        Wrap(
+          spacing: 6,
+          runSpacing: 4,
+          children: quickSearchTerms.map((term) {
+            return ActionChip(
+              label: Text(
+                term,
+                style: const TextStyle(fontSize: 11),
+              ),
+              onPressed: () {
+                _searchController.text = term;
+              },
+              backgroundColor: Colors.green.shade50,
+              side: BorderSide(color: Colors.green.shade200),
+              labelStyle: TextStyle(color: Colors.green.shade700),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            );
+          }).toList(),
+        ),
+      ],
+    );
   }
 }

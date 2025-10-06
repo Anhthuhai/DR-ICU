@@ -25,6 +25,10 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
   final TextEditingController creatinineController = TextEditingController();
   final TextEditingController urineController = TextEditingController();
 
+  // Unit selections
+  String bilirubinUnit = 'mg/dL'; // 'mg/dL' or 'umol/L'
+  String creatinineUnit = 'mg/dL'; // 'mg/dL' or 'umol/L'
+
   int get totalScore => respiratoryScore + cardiovascularScore + hepaticScore + 
                        coagulationScore + renalScore + neurologicalScore;
 
@@ -71,6 +75,23 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
       return '40-50%';
     }
     return '> 80%';
+  }
+
+  // Unit conversion functions
+  double _convertBilirubinToMgDl(double value, String unit) {
+    if (unit == 'umol/L') {
+      // Convert umol/L to mg/dL: umol/L ÷ 17.1 = mg/dL
+      return value / 17.1;
+    }
+    return value; // Already in mg/dL
+  }
+
+  double _convertCreatinineToMgDl(double value, String unit) {
+    if (unit == 'umol/L') {
+      // Convert umol/L to mg/dL: umol/L ÷ 88.4 = mg/dL
+      return value / 88.4;
+    }
+    return value; // Already in mg/dL
   }
 
   @override
@@ -291,38 +312,104 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
       Colors.amber.shade700,
       Icons.healing,
       [
-        TextField(
-          controller: bilirubinController,
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          decoration: const InputDecoration(
-            labelText: 'Bilirubin (mg/dL)',
-            border: OutlineInputBorder(),
-            helperText: 'Nhập giá trị bilirubin toàn phần',
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: bilirubinController,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              decoration: InputDecoration(
+                labelText: 'Bilirubin ($bilirubinUnit)',
+                border: const OutlineInputBorder(),
+                helperText: 'Nhập giá trị bilirubin toàn phần',
+              ),
+              // ignore: deprecated_member_use
+              onChanged: (value) {
+                double inputValue = double.tryParse(value) ?? 0;
+                double bilirubin = _convertBilirubinToMgDl(inputValue, bilirubinUnit);
+                setState(() {
+                  if (bilirubin < 1.2) {
+                    hepaticScore = 0;
+                  }
+                  else if (bilirubin < 2.0) {
+         hepaticScore = 1;
+       }
+                  else if (bilirubin < 6.0) {
+         hepaticScore = 2;
+       }
+                  else if (bilirubin < 12.0) {
+         hepaticScore = 3;
+       }
+                  else if (bilirubin > 0) {
+         hepaticScore = 4;
+       }
+                  else {
+                    hepaticScore = 0;
+                  }
+                });
+              },
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: DropdownButtonFormField<String>(
+                initialValue: bilirubinUnit,
+                decoration: const InputDecoration(
+                  labelText: 'Đơn vị Bilirubin',
+                  border: OutlineInputBorder(),
+                ),
+                items: const [
+                  DropdownMenuItem(value: 'mg/dL', child: Text('mg/dL')),
+                  DropdownMenuItem(value: 'umol/L', child: Text('umol/L')),
+                ],
+                onChanged: (String? newUnit) {
+                  setState(() {
+                    bilirubinUnit = newUnit!;
+                    // Trigger recalculation with current value
+                    if (bilirubinController.text.isNotEmpty) {
+                      double inputValue = double.tryParse(bilirubinController.text) ?? 0;
+                      double bilirubin = _convertBilirubinToMgDl(inputValue, bilirubinUnit);
+                      if (bilirubin < 1.2) {
+                        hepaticScore = 0;
+                      }
+                      else if (bilirubin < 2.0) {
+             hepaticScore = 1;
+           }
+                      else if (bilirubin < 6.0) {
+             hepaticScore = 2;
+           }
+                      else if (bilirubin < 12.0) {
+             hepaticScore = 3;
+           }
+                      else if (bilirubin > 0) {
+             hepaticScore = 4;
+           }
+                      else {
+                        hepaticScore = 0;
+                      }
+                    }
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.blue.shade50,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: Colors.blue.shade200),
           ),
-          // ignore: deprecated_member_use
-          onChanged: (value) {
-            double bilirubin = double.tryParse(value) ?? 0;
-            setState(() {
-              if (bilirubin < 1.2) {
-                hepaticScore = 0;
-              }
-              else if (bilirubin < 2.0) {
-   hepaticScore = 1;
- }
-              else if (bilirubin < 6.0) {
-   hepaticScore = 2;
- }
-              else if (bilirubin < 12.0) {
-   hepaticScore = 3;
- }
-              else if (bilirubin > 0) {
-   hepaticScore = 4;
- }
-              else {
-                hepaticScore = 0;
-              }
-            });
-          },
+          child: Text(
+            'Chuyển đổi: 1 mg/dL = 17.1 umol/L',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.blue.shade700,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ),
         _buildScoreIndicator(hepaticScore),
       ],
@@ -380,37 +467,103 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
       Colors.teal.shade600,
       Icons.water_drop,
       [
-        TextField(
-          controller: creatinineController,
-          keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          decoration: const InputDecoration(
-            labelText: 'Creatinine (mg/dL)',
-            border: OutlineInputBorder(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: creatinineController,
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              decoration: InputDecoration(
+                labelText: 'Creatinine ($creatinineUnit)',
+                border: const OutlineInputBorder(),
+              ),
+              // ignore: deprecated_member_use
+              onChanged: (value) {
+                double inputValue = double.tryParse(value) ?? 0;
+                double creatinine = _convertCreatinineToMgDl(inputValue, creatinineUnit);
+                setState(() {
+                  if (creatinine < 1.2) {
+                    renalScore = 0;
+                  }
+                  else if (creatinine < 2.0) {
+         renalScore = 1;
+       }
+                  else if (creatinine < 3.5) {
+         renalScore = 2;
+       }
+                  else if (creatinine < 5.0) {
+         renalScore = 3;
+       }
+                  else if (creatinine > 0) {
+         renalScore = 4;
+       }
+                  else {
+                    renalScore = 0;
+                  }
+                });
+              },
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: DropdownButtonFormField<String>(
+                initialValue: creatinineUnit,
+                decoration: const InputDecoration(
+                  labelText: 'Đơn vị Creatinine',
+                  border: OutlineInputBorder(),
+                ),
+                items: const [
+                  DropdownMenuItem(value: 'mg/dL', child: Text('mg/dL')),
+                  DropdownMenuItem(value: 'umol/L', child: Text('umol/L')),
+                ],
+                onChanged: (String? newUnit) {
+                  setState(() {
+                    creatinineUnit = newUnit!;
+                    // Trigger recalculation with current value
+                    if (creatinineController.text.isNotEmpty) {
+                      double inputValue = double.tryParse(creatinineController.text) ?? 0;
+                      double creatinine = _convertCreatinineToMgDl(inputValue, creatinineUnit);
+                      if (creatinine < 1.2) {
+                        renalScore = 0;
+                      }
+                      else if (creatinine < 2.0) {
+             renalScore = 1;
+           }
+                      else if (creatinine < 3.5) {
+             renalScore = 2;
+           }
+                      else if (creatinine < 5.0) {
+             renalScore = 3;
+           }
+                      else if (creatinine > 0) {
+             renalScore = 4;
+           }
+                      else {
+                        renalScore = 0;
+                      }
+                    }
+                  });
+                },
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.blue.shade50,
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: Colors.blue.shade200),
           ),
-          // ignore: deprecated_member_use
-          onChanged: (value) {
-            double creatinine = double.tryParse(value) ?? 0;
-            setState(() {
-              if (creatinine < 1.2) {
-                renalScore = 0;
-              }
-              else if (creatinine < 2.0) {
-   renalScore = 1;
- }
-              else if (creatinine < 3.5) {
-   renalScore = 2;
- }
-              else if (creatinine < 5.0) {
-   renalScore = 3;
- }
-              else if (creatinine > 0) {
-   renalScore = 4;
- }
-              else {
-                renalScore = 0;
-              }
-            });
-          },
+          child: Text(
+            'Chuyển đổi: 1 mg/dL = 88.4 umol/L',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.blue.shade700,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
         ),
         const SizedBox(height: 8),
         TextField(
@@ -566,6 +719,9 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
     setState(() {
       respiratoryScore = cardiovascularScore = hepaticScore = 0;
       coagulationScore = renalScore = neurologicalScore = 0;
+      // Reset units to default
+      bilirubinUnit = 'mg/dL';
+      creatinineUnit = 'mg/dL';
     });
     
     pao2Controller.clear();

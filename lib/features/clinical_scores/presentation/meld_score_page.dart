@@ -16,20 +16,109 @@ class _MeldScorePageState extends State<MeldScorePage> {
 
   bool _dialysis = false;
 
+  // Unit selections
+  String _creatinineUnit = 'mg/dL';
+  String _bilirubinUnit = 'mg/dL';
+
   double _meldScore = 0.0;
 
   @override
   void initState() {
     super.initState();
-    _creatinineController.addListener(_calculateScore);
-    _bilirubinController.addListener(_calculateScore);
-    _inrController.addListener(_calculateScore);
+    _creatinineController.addListener(calculateMELDScore);
+    _bilirubinController.addListener(calculateMELDScore);
+    _inrController.addListener(calculateMELDScore);
   }
 
-  void _calculateScore() {
-    final creatinine = double.tryParse(_creatinineController.text) ?? 0;
-    final bilirubin = double.tryParse(_bilirubinController.text) ?? 0;
+  // Unit conversion functions
+  double convertCreatinineToMgDL(double value, String fromUnit) {
+    if (fromUnit == 'umol/L') {
+      return value / 88.4; // umol/L to mg/dL
+    }
+    return value; // already in mg/dL
+  }
+
+  double convertBilirubinToMgDL(double value, String fromUnit) {
+    if (fromUnit == 'umol/L') {
+      return value * 0.0585; // umol/L to mg/dL
+    }
+    return value; // already in mg/dL
+  }
+
+  Widget _buildLabInputWithUnit(
+    String label,
+    String helperText,
+    TextEditingController controller,
+    String currentUnit,
+    List<String> units,
+    ValueChanged<String> onUnitChanged,
+    ValueChanged<String> onValueChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                onChanged: onValueChanged,
+                decoration: InputDecoration(
+                  labelText: label,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            SizedBox(
+              width: 80,
+              child: DropdownButtonFormField<String>(
+                initialValue: currentUnit,
+                onChanged: (value) => onUnitChanged(value!),
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+                ),
+                items: units.map((unit) {
+                  return DropdownMenuItem(
+                    value: unit,
+                    child: Text(
+                      unit,
+                      style: const TextStyle(fontSize: 9),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+        if (helperText.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          Text(
+            helperText,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.grey[600],
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+
+  void calculateMELDScore() {
+    double creatinineValue = double.tryParse(_creatinineController.text) ?? 0;
+    double bilirubinValue = double.tryParse(_bilirubinController.text) ?? 0;
     final inr = double.tryParse(_inrController.text) ?? 0;
+
+    // Convert to mg/dL for calculation
+    double creatinine = convertCreatinineToMgDL(creatinineValue, _creatinineUnit);
+    double bilirubin = convertBilirubinToMgDL(bilirubinValue, _bilirubinUnit);
 
     if (creatinine > 0 && bilirubin > 0 && inr > 0) {
       // MELD = 3.78 × ln(serum bilirubin mg/dL) + 11.2 × ln(INR) + 9.57 × ln(serum creatinine mg/dL) + 6.43
@@ -334,41 +423,45 @@ class _MeldScorePageState extends State<MeldScorePage> {
           ),
           const SizedBox(height: 16),
           
-          TextField(
-            controller: _creatinineController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Creatinine',
-              suffixText: 'mg/dL',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              helperText: 'Tối đa 4.0 mg/dL, tối thiểu 1.0 mg/dL',
-            ),
+          // Creatinine with unit conversion
+          _buildLabInputWithUnit(
+            'Creatinine',
+            'Tối đa 4.0 mg/dL (354 umol/L), tối thiểu 1.0 mg/dL (88 umol/L)',
+            _creatinineController,
+            _creatinineUnit,
+            ['mg/dL', 'umol/L'],
+            (value) {
+              setState(() {
+                _creatinineUnit = value;
+              });
+              calculateMELDScore();
+            },
+            (value) => calculateMELDScore(),
           ),
           const SizedBox(height: 12),
           
-          TextField(
-            controller: _bilirubinController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Bilirubin',
-              suffixText: 'mg/dL',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              helperText: 'Bilirubin toàn phần, tối thiểu 1.0 mg/dL',
-            ),
+          // Bilirubin with unit conversion  
+          _buildLabInputWithUnit(
+            'Bilirubin',
+            'Bilirubin toàn phần, tối thiểu 1.0 mg/dL (17 umol/L)',
+            _bilirubinController,
+            _bilirubinUnit,
+            ['mg/dL', 'umol/L'],
+            (value) {
+              setState(() {
+                _bilirubinUnit = value;
+              });
+              calculateMELDScore();
+            },
+            (value) => calculateMELDScore(),
           ),
           const SizedBox(height: 12),
           
+          // INR
           TextField(
             controller: _inrController,
             keyboardType: TextInputType.number,
+            onChanged: (value) => calculateMELDScore(),
             decoration: InputDecoration(
               labelText: 'INR',
               border: OutlineInputBorder(
@@ -390,7 +483,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
               setState(() {
                 _dialysis = value!;
               });
-              _calculateScore();
+              calculateMELDScore();
             },
             contentPadding: EdgeInsets.zero,
           ),

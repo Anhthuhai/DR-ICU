@@ -14,6 +14,9 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
   final TextEditingController _creatinineController = TextEditingController();
   bool _isFemale = false;
 
+  // Unit variable
+  String _creatinineUnit = 'mg/dL';
+
   double _clearance = 0.0;
 
   @override
@@ -24,10 +27,19 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
     _creatinineController.addListener(_calculateClearance);
   }
 
+  // Unit conversion function
+  double convertCreatinineToMgDL(double value, String unit) {
+    if (unit == 'umol/L') {
+      return value / 88.42; // Convert umol/L to mg/dL
+    }
+    return value; // Already in mg/dL
+  }
+
   void _calculateClearance() {
     final age = double.tryParse(_ageController.text) ?? 0;
     final weight = double.tryParse(_weightController.text) ?? 0;
-    final creatinine = double.tryParse(_creatinineController.text) ?? 0;
+    final creatinineInput = double.tryParse(_creatinineController.text) ?? 0;
+    final creatinine = convertCreatinineToMgDL(creatinineInput, _creatinineUnit);
 
     if (age > 0 && weight > 0 && creatinine > 0) {
       // Cockcroft-Gault formula
@@ -363,20 +375,20 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
           ),
           const SizedBox(height: 12),
           
-          // Creatinine
-          TextField(
-            controller: _creatinineController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              labelText: 'Creatinine huyết thanh',
-              suffixText: 'mg/dL',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              helperText: 'Giá trị bình thường: Nam 0.7-1.3, Nữ 0.6-1.1 mg/dL',
-            ),
+          // Creatinine with unit conversion
+          _buildLabInputWithUnit(
+            'Creatinine huyết thanh',
+            'Giá trị bình thường: Nam 0.7-1.3 mg/dL (62-115 umol/L), Nữ 0.6-1.1 mg/dL (53-97 umol/L)',
+            _creatinineController,
+            _creatinineUnit,
+            ['mg/dL', 'umol/L'],
+            (value) {
+              setState(() {
+                _creatinineUnit = value;
+              });
+              _calculateClearance();
+            },
+            (value) => _calculateClearance(),
           ),
           const SizedBox(height: 12),
           
@@ -439,6 +451,77 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildLabInputWithUnit(
+    String label,
+    String helperText,
+    TextEditingController controller,
+    String currentUnit,
+    List<String> units,
+    ValueChanged<String> onUnitChanged,
+    ValueChanged<String> onValueChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              flex: 5,
+              child: TextField(
+                controller: controller,
+                keyboardType: TextInputType.number,
+                onChanged: onValueChanged,
+                decoration: InputDecoration(
+                  labelText: label,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              flex: 2,
+              child: DropdownButtonFormField<String>(
+                initialValue: currentUnit,
+                onChanged: (value) => onUnitChanged(value!),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white,
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
+                ),
+                items: units.map((unit) {
+                  return DropdownMenuItem(
+                    value: unit,
+                    child: Text(
+                      unit,
+                      style: const TextStyle(fontSize: 12),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+        if (helperText.isNotEmpty) ...[
+          const SizedBox(height: 4),
+          Text(
+            helperText,
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+              color: Colors.grey[600],
+            ),
+          ),
+        ],
+      ],
     );
   }
 
