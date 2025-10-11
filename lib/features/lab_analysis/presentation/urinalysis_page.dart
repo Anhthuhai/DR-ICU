@@ -655,11 +655,13 @@ class _UrinalysisPageState extends State<UrinalysisPage> {
                           children: [
                             Icon(Icons.zoom_in, color: AppColors.secondary),
                             const SizedBox(width: 8),
-                            const Text(
-                              'Phân tích kính hiển vi (Tùy chọn)',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                            Expanded(
+                              child: Text(
+                                'Phân tích kính hiển vi (Tùy chọn)',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/colors.dart';
 import 'hypertensive_crisis_protocol_page.dart';
 import 'hypoglycemia_crisis_protocol_page.dart';
+import 'hyperglycemic_hyperosmolar_state_protocol_page.dart';
 
 class EmergencyProtocolsPage extends StatelessWidget {
   const EmergencyProtocolsPage({super.key});
@@ -83,15 +84,11 @@ class EmergencyProtocolsPage extends StatelessWidget {
             
             const SizedBox(height: 24),
             
-            // Protocols Grid
+            // Protocols List
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 0.85,
+              child: ListView(
                 children: [
-                  _buildProtocolCard(
+                  _buildProtocolListItem(
                     context,
                     title: 'Cơn Tăng Huyết Áp',
                     subtitle: 'Hypertensive Crisis',
@@ -108,16 +105,8 @@ class EmergencyProtocolsPage extends StatelessWidget {
                       );
                     },
                   ),
-                  _buildProtocolCard(
-                    context,
-                    title: 'Sốc Tim',
-                    subtitle: 'Cardiogenic Shock',
-                    description: 'Xử lý sốc do tim',
-                    icon: Icons.monitor_heart,
-                    color: Colors.orange.shade400,
-                    isAvailable: false,
-                  ),
-                  _buildProtocolCard(
+                  const SizedBox(height: 12),
+                  _buildProtocolListItem(
                     context,
                     title: 'Cơn Hạ Đường Huyết',
                     subtitle: 'Hypoglycemia Crisis',
@@ -134,7 +123,36 @@ class EmergencyProtocolsPage extends StatelessWidget {
                       );
                     },
                   ),
-                  _buildProtocolCard(
+                  const SizedBox(height: 12),
+                  _buildProtocolListItem(
+                    context,
+                    title: 'Cơn Tăng Đường Huyết Tăng Áp Lực Thẩm Thấu',
+                    subtitle: 'Hyperglycemic Hyperosmolar State (HHS)',
+                    description: 'Xử lý cấp cứu HHS - cấp cứu nội tiết',
+                    icon: Icons.science,
+                    color: Colors.deepOrange.shade400,
+                    isAvailable: true,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HyperglycemicHyperosmolarStateProtocolPage(),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                  _buildProtocolListItem(
+                    context,
+                    title: 'Sốc Tim',
+                    subtitle: 'Cardiogenic Shock',
+                    description: 'Xử lý sốc do tim',
+                    icon: Icons.monitor_heart,
+                    color: Colors.orange.shade400,
+                    isAvailable: false,
+                  ),
+                  const SizedBox(height: 12),
+                  _buildProtocolListItem(
                     context,
                     title: 'Ngộ Độc Cấp',
                     subtitle: 'Acute Poisoning',
@@ -143,7 +161,8 @@ class EmergencyProtocolsPage extends StatelessWidget {
                     color: Colors.purple.shade400,
                     isAvailable: false,
                   ),
-                  _buildProtocolCard(
+                  const SizedBox(height: 12),
+                  _buildProtocolListItem(
                     context,
                     title: 'Sốc Phản Vệ',
                     subtitle: 'Anaphylactic Shock',
@@ -152,7 +171,8 @@ class EmergencyProtocolsPage extends StatelessWidget {
                     color: Colors.green.shade400,
                     isAvailable: false,
                   ),
-                  _buildProtocolCard(
+                  const SizedBox(height: 12),
+                  _buildProtocolListItem(
                     context,
                     title: 'Nhồi Máu Cơ Tim',
                     subtitle: 'Myocardial Infarction',
@@ -170,7 +190,7 @@ class EmergencyProtocolsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildProtocolCard(
+  Widget _buildProtocolListItem(
     BuildContext context, {
     required String title,
     required String subtitle,
@@ -183,63 +203,49 @@ class EmergencyProtocolsPage extends StatelessWidget {
     return GestureDetector(
       onTap: isAvailable ? onTap : null,
       child: Container(
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isAvailable ? color.withValues(alpha: 0.2) : Colors.grey.withValues(alpha: 0.2),
+            width: 1,
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withValues(alpha: 0.1),
-              spreadRadius: 1,
-              blurRadius: 8,
+              color: Colors.grey.withValues(alpha: 0.08),
+              spreadRadius: 0,
+              blurRadius: 4,
               offset: const Offset(0, 2),
             ),
           ],
         ),
-        child: Stack(
+        child: Row(
           children: [
-            // Availability overlay
-            if (!isAvailable)
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.grey.withValues(alpha: 0.7),
-                  borderRadius: BorderRadius.circular(16),
-                ),
+            // Icon
+            Container(
+              width: 56,
+              height: 56,
+              decoration: BoxDecoration(
+                color: isAvailable 
+                  ? color.withValues(alpha: 0.1)
+                  : Colors.grey.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(12),
               ),
+              child: Icon(
+                icon,
+                color: isAvailable ? color : Colors.grey,
+                size: 28,
+              ),
+            ),
             
-            Padding(
-              padding: const EdgeInsets.all(16),
+            const SizedBox(width: 16),
+            
+            // Content
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Icon and status
-                  Row(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: isAvailable 
-                            ? color.withValues(alpha: 0.1)
-                            : Colors.grey.withValues(alpha: 0.1),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Icon(
-                          icon,
-                          color: isAvailable ? color : Colors.grey,
-                          size: 28,
-                        ),
-                      ),
-                      const Spacer(),
-                      if (!isAvailable)
-                        Icon(
-                          Icons.lock,
-                          color: Colors.grey.shade600,
-                          size: 20,
-                        ),
-                    ],
-                  ),
-                  
-                  const SizedBox(height: 16),
-                  
                   // Title
                   Text(
                     title,
@@ -256,13 +262,13 @@ class EmergencyProtocolsPage extends StatelessWidget {
                   Text(
                     subtitle,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 13,
                       color: isAvailable ? color : Colors.grey.shade500,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                   
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 6),
                   
                   // Description
                   Text(
@@ -270,38 +276,48 @@ class EmergencyProtocolsPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 13,
                       color: isAvailable ? Colors.grey.shade600 : Colors.grey.shade500,
-                      height: 1.4,
+                      height: 1.3,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  
-                  const Spacer(),
-                  
-                  // Status indicator
-                  Row(
-                    children: [
-                      Container(
-                        width: 8,
-                        height: 8,
-                        decoration: BoxDecoration(
-                          color: isAvailable ? Colors.green : Colors.grey,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        isAvailable ? 'Sẵn sàng' : 'Đang phát triển',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: isAvailable ? Colors.green : Colors.grey,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
+            ),
+            
+            const SizedBox(width: 12),
+            
+            // Status and arrow
+            Column(
+              children: [
+                // Status indicator
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: isAvailable 
+                      ? Colors.green.withValues(alpha: 0.1)
+                      : Colors.grey.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    isAvailable ? 'Sẵn sàng' : 'Đang phát triển',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: isAvailable ? Colors.green.shade700 : Colors.grey.shade600,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                
+                const SizedBox(height: 8),
+                
+                // Arrow or lock
+                Icon(
+                  isAvailable ? Icons.arrow_forward_ios : Icons.lock,
+                  color: isAvailable ? Colors.grey.shade400 : Colors.grey.shade500,
+                  size: 16,
+                ),
+              ],
             ),
           ],
         ),

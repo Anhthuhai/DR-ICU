@@ -272,11 +272,13 @@ class _FluidBalanceCalculatorPageState extends State<FluidBalanceCalculatorPage>
                         children: [
                           Icon(Icons.person, color: AppColors.primary),
                           const SizedBox(width: 8),
-                          const Text(
-                            'Thông tin bệnh nhân (để tính insensible loss)',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Text(
+                              'Thông tin bệnh nhân (để tính insensible loss)',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],

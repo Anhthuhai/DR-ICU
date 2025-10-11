@@ -90,19 +90,21 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
                   Text(
                     'HYPERTENSIVE CRISIS',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 8),
                   Text(
                     'Huyết áp ≥ 180/120 mmHg',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ],
               ),
@@ -140,24 +142,20 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
                               
                               // Decision branch
                               const SizedBox(height: 8),
-                              Row(
+                              Column(
                                 children: [
-                                  Expanded(
-                                    child: _buildDecisionBranch(
-                                      condition: 'CÓ triệu chứng\ntổn thương cơ quan đích',
-                                      outcome: 'HYPERTENSIVE\nEMERGENCY',
-                                      color: Colors.red,
-                                      isEmergency: true,
-                                    ),
+                                  _buildDecisionBranch(
+                                    condition: 'CÓ triệu chứng\ntổn thương cơ quan đích',
+                                    outcome: 'HYPERTENSIVE\nEMERGENCY',
+                                    color: Colors.red,
+                                    isEmergency: true,
                                   ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: _buildDecisionBranch(
-                                      condition: 'KHÔNG có\ntriệu chứng',
-                                      outcome: 'HYPERTENSIVE\nURGENCY',
-                                      color: Colors.orange,
-                                      isEmergency: false,
-                                    ),
+                                  const SizedBox(height: 12),
+                                  _buildDecisionBranch(
+                                    condition: 'KHÔNG có\ntriệu chứng',
+                                    outcome: 'HYPERTENSIVE\nURGENCY',
+                                    color: Colors.orange,
+                                    isEmergency: false,
                                   ),
                                 ],
                               ),
@@ -218,20 +216,16 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              const Row(
+                              const Column(
                                 children: [
-                                  Expanded(
-                                    child: Text(
-                                      '🔴 EMERGENCY:\n• Đau ngực\n• Khó thở\n• Đau đầu + buồn nôn\n• Rối loạn thị giác\n• Yếu liệt',
-                                      style: TextStyle(fontSize: 12, height: 1.3),
-                                    ),
+                                  Text(
+                                    '🔴 EMERGENCY:\n• Đau ngực\n• Khó thở\n• Đau đầu + buồn nôn\n• Rối loạn thị giác\n• Yếu liệt',
+                                    style: TextStyle(fontSize: 12, height: 1.3),
                                   ),
-                                  SizedBox(width: 12),
-                                  Expanded(
-                                    child: Text(
-                                      '🟡 URGENCY:\n• Không triệu chứng\n• Đau đầu nhẹ\n• Chóng mặt\n• Mệt mỏi\n• Lo âu',
-                                      style: TextStyle(fontSize: 12, height: 1.3),
-                                    ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    '🟡 URGENCY:\n• Không triệu chứng\n• Đau đầu nhẹ\n• Chóng mặt\n• Mệt mỏi\n• Lo âu',
+                                    style: TextStyle(fontSize: 12, height: 1.3),
                                   ),
                                 ],
                               ),
@@ -252,15 +246,15 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
                     child: Column(
                       children: [
                         _buildClassificationItem(
-                          'Tăng huyết áp khẩn trương (Hypertensive Urgency)',
-                          'HA ≥ 180/120 mmHg KHÔNG có tổn thương cơ quan đích',
+                          'Tăng huyết áp khẩn trương\n(Hypertensive Urgency)',
+                          'HA ≥ 180/120 mmHg\nKHÔNG có tổn thương cơ quan đích',
                           Colors.orange.shade100,
                           Colors.orange.shade600,
                         ),
                         const SizedBox(height: 12),
                         _buildClassificationItem(
-                          'Tăng huyết áp cấp cứu (Hypertensive Emergency)',
-                          'HA ≥ 180/120 mmHg CÓ tổn thương cơ quan đích',
+                          'Tăng huyết áp cấp cứu\n(Hypertensive Emergency)',
+                          'HA ≥ 180/120 mmHg\nCÓ tổn thương cơ quan đích',
                           Colors.red.shade100,
                           Colors.red.shade600,
                         ),
@@ -356,12 +350,14 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
                                 children: [
                                   Icon(Icons.warning_amber, color: Colors.orange.shade600),
                                   const SizedBox(width: 8),
-                                  Text(
-                                    'TĂNG HUYẾT ÁP KHẨN TRƯƠNG',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.orange.shade700,
+                                  Expanded(
+                                    child: Text(
+                                      'TĂNG HUYẾT ÁP KHẨN TRƯƠNG',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.orange.shade700,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -395,12 +391,14 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
                                 children: [
                                   Icon(Icons.emergency, color: Colors.red.shade600),
                                   const SizedBox(width: 8),
-                                  Text(
-                                    'TĂNG HUYẾT ÁP CẤP CỨU',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red.shade700,
+                                  Expanded(
+                                    child: Text(
+                                      'TĂNG HUYẾT ÁP CẤP CỨU',
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.red.shade700,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -491,12 +489,14 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
                           children: [
                             Icon(Icons.warning, color: Colors.amber.shade700, size: 28),
                             const SizedBox(width: 12),
-                            Text(
-                              'LƯU Ý QUAN TRỌNG',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.amber.shade700,
+                            Expanded(
+                              child: Text(
+                                'LƯU Ý QUAN TRỌNG',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.amber.shade700,
+                                ),
                               ),
                             ),
                           ],
@@ -827,12 +827,14 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
               children: [
                 Icon(icon, color: color, size: 24),
                 const SizedBox(width: 12),
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: color,
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: color,
+                    ),
                   ),
                 ),
               ],
@@ -1046,8 +1048,8 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
           ),
           const SizedBox(width: 12),
           Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   parameter,
@@ -1056,6 +1058,7 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
                     fontWeight: FontWeight.w500,
                   ),
                 ),
+                const SizedBox(height: 2),
                 Text(
                   frequency,
                   style: TextStyle(
@@ -1078,7 +1081,7 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
         Text(
           title,
           style: const TextStyle(
-            fontSize: 15,
+            fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Colors.deepOrange,
           ),
@@ -1087,7 +1090,7 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
         Text(
           content,
           style: const TextStyle(
-            fontSize: 14,
+            fontSize: 13,
             height: 1.4,
           ),
         ),
@@ -1111,12 +1114,14 @@ class _HypertensiveCrisisProtocolPageState extends State<HypertensiveCrisisProto
             children: [
               Icon(Icons.person, color: Colors.brown.shade600, size: 20),
               const SizedBox(width: 8),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.brown.shade700,
+              Expanded(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.brown.shade700,
+                  ),
                 ),
               ),
             ],

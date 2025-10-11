@@ -5,7 +5,6 @@ import 'pleural_fluid_analysis_page.dart';
 import 'ascitic_fluid_analysis_page.dart';
 import 'csf_analysis_page.dart';
 import 'urinalysis_page.dart';
-import 'lab_trend_analysis_page.dart';
 
 class LabAnalysisHomePage extends StatelessWidget {
   const LabAnalysisHomePage({super.key});
@@ -53,21 +52,6 @@ class LabAnalysisHomePage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => const ABGAnalysisPage(),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildAnalysisListItem(
-                    context,
-                    title: 'Xu hướng xét nghiệm',
-                    subtitle: 'Lab Trends - Theo dõi xu hướng thay đổi các chỉ số xét nghiệm',
-                    icon: Icons.trending_up,
-                    color: Colors.blue.shade400,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LabTrendAnalysisPage(),
                         ),
                       );
                     },
