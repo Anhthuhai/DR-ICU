@@ -47,6 +47,12 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
+# iOS build artifacts
+/ios/build/
+/ios/Runner.xcworkspace/xcuserdata/
+/ios/Runner.xcodeproj/xcuserdata/
+/ios/Runner.xcodeproj/project.xcworkspace/xcuserdata/
+
 # Temporary files and scripts
 fix_*.py
 fix_*.sh
