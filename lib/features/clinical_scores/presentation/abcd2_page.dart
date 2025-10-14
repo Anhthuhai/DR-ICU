@@ -287,6 +287,12 @@ class _Abcd2PageState extends State<Abcd2Page> {
             // Clinical Information
             _buildClinicalInfo(),
 
+            // Medical Citation
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              child: _buildCitationWidget(),
+            ),
+
             const SizedBox(height: 20),
           ],
         ),
@@ -775,5 +781,43 @@ class _Abcd2PageState extends State<Abcd2Page> {
     _ageController.dispose();
     _bpController.dispose();
     super.dispose();
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Johnston SC, et al. Validation and refinement of scores to predict very early stroke risk after transient ischaemic attack. Lancet. 2007;369(9558):283-92.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

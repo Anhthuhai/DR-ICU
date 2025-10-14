@@ -132,6 +132,12 @@ class _RaceScalePageState extends State<RaceScalePage> {
             // Clinical Information
             _buildClinicalInfo(),
 
+            // Medical Citation
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              child: _buildCitationWidget(),
+            ),
+
             const SizedBox(height: 20),
           ],
         ),
@@ -633,6 +639,44 @@ class _RaceScalePageState extends State<RaceScalePage> {
             '• Time window quan trọng cho EVT\n'
             '• Kết hợp với IV tPA nếu phù hợp',
             style: TextStyle(height: 1.4),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Pérez de la Ossa N, et al. Design and validation of a prehospital stroke scale to predict large arterial occlusion: the rapid arterial occlusion evaluation (RACE) scale. Stroke. 2014;45(1):87-91.\n\nCarrera D, et al. Validation of computer-assisted RACE scale for prehospital use. Stroke. 2018;49(5):1255-7.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
           ),
         ],
       ),

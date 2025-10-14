@@ -1,0 +1,2690 @@
+{
+  "@@locale": "en",
+  "appTitle": "DR ICU",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "welcomeMessage": "Welcome to DR ICU",
+  "@welcomeMessage": {
+    "description": "Welcome message on home page"
+  },
+  "welcomeSubtitle": "Support tool for doctors and students practicing in intensive care units",
+  "@welcomeSubtitle": {
+    "description": "Subtitle on home page"
+  },
+  "clinicalScores": "Clinical Scores",
+  "@clinicalScores": {
+    "description": "Clinical scores feature title"
+  },
+  "clinicalScoresDescription": "Glasgow, APACHE, SOFA...",
+  "@clinicalScoresDescription": {
+    "description": "Clinical scores feature description"
+  },
+  "emergencyProtocols": "Emergency Protocols",
+  "@emergencyProtocols": {
+    "description": "Emergency protocols feature title"
+  },
+  "emergencyProtocolsDescription": "Critical care procedures",
+  "@emergencyProtocolsDescription": {
+    "description": "Emergency protocols feature description"
+  },
+  "diagnosticTools": "Diagnostic Tools",
+  "@diagnosticTools": {
+    "description": "Diagnostic tools feature title"
+  },
+  "diagnosticToolsDescription": "Lab analysis, imaging guides",
+  "@diagnosticToolsDescription": {
+    "description": "Diagnostic tools feature description"
+  },
+  "calculationTools": "Calculation Tools",
+  "@calculationTools": {
+    "description": "Calculation tools feature title"
+  },
+  "calculationToolsDescription": "BMI, BSA, dosage calculations",
+  "@calculationToolsDescription": {
+    "description": "Calculation tools feature description"
+  },
+  "unitConverter": "Unit Converter",
+  "@unitConverter": {
+    "description": "Unit converter feature title"
+  },
+  "unitConverterDescription": "Convert medical units",
+  "@unitConverterDescription": {
+    "description": "Unit converter feature description"
+  },
+  "labAnalysis": "Lab Analysis",
+  "@labAnalysis": {
+    "description": "Lab analysis feature title"
+  },
+  "labAnalysisDescription": "Interpret laboratory results",
+  "@labAnalysisDescription": {
+    "description": "Lab analysis feature description"
+  },
+  "guidelines": "Guidelines",
+  "@guidelines": {
+    "description": "Guidelines feature title"
+  },
+  "guidelinesDescription": "Clinical practice guidelines",
+  "@guidelinesDescription": {
+    "description": "Guidelines feature description"
+  },
+  "entertainment": "Entertainment",
+  "@entertainment": {
+    "description": "Entertainment feature title"
+  },
+  "entertainmentDescription": "Medical trivia and games",
+  "@entertainmentDescription": {
+    "description": "Entertainment feature description"
+  },
+  "bookmarks": "Bookmarks",
+  "@bookmarks": {
+    "description": "Bookmarks page title"
+  },
+  "search": "Search",
+  "@search": {
+    "description": "Search functionality"
+  },
+  "notifications": "Notifications",
+  "@notifications": {
+    "description": "Notifications page title"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings page title"
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language setting"
+  },
+  "languageSelection": "Language Selection",
+  "@languageSelection": {
+    "description": "Language selection page title"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language option"
+  },
+  "vietnamese": "Tiếng Việt",
+  "@vietnamese": {
+    "description": "Vietnamese language option"
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Cancel button"
+  },
+  "save": "Save",
+  "@save": {
+    "description": "Save button"
+  },
+  "clear": "Clear",
+  "@clear": {
+    "description": "Clear button"
+  },
+  "calculate": "Calculate",
+  "@calculate": {
+    "description": "Calculate button"
+  },
+  "result": "Result",
+  "@result": {
+    "description": "Result label"
+  },
+  "score": "Score",
+  "@score": {
+    "description": "Score label"
+  },
+  "normal": "Normal",
+  "@normal": {
+    "description": "Normal status"
+  },
+  "mild": "Mild",
+  "@mild": {
+    "description": "Mild severity"
+  },
+  "moderate": "Moderate",
+  "@moderate": {
+    "description": "Moderate severity"
+  },
+  "severe": "Severe",
+  "@severe": {
+    "description": "Severe severity"
+  },
+  "critical": "Critical",
+  "@critical": {
+    "description": "Critical severity"
+  },
+  "glasgowComaScale": "Glasgow Coma Scale (GCS)",
+  "@glasgowComaScale": {
+    "description": "Glasgow Coma Scale title"
+  },
+  "glasgowComaScaleDescription": "Assessment of consciousness level",
+  "@glasgowComaScaleDescription": {
+    "description": "Glasgow Coma Scale description"
+  },
+  "eyeResponse": "Eye Response",
+  "@eyeResponse": {
+    "description": "Eye response section"
+  },
+  "verbalResponse": "Verbal Response",
+  "@verbalResponse": {
+    "description": "Verbal response section"
+  },
+  "motorResponse": "Motor Response",
+  "@motorResponse": {
+    "description": "Motor response section"
+  },
+  "total": "Total",
+  "@total": {
+    "description": "Total score label"
+  },
+  "home": "Home",
+  "@home": {
+    "description": "Home tab label"
+  },
+  "other": "Other",
+  "@other": {
+    "description": "Other tab label"
+  },
+  "refresh": "Refresh",
+  "@refresh": {
+    "description": "Refresh button"
+  },
+  "clearAll": "Clear All",
+  "@clearAll": {
+    "description": "Clear all button"
+  },
+  "back": "Back",
+  "@back": {
+    "description": "Back button"
+  },
+  
+  "apache2Score": "APACHE II Score",
+  "@apache2Score": {
+    "description": "APACHE II Score title"
+  },
+  "apache2Description": "Acute Physiology and Chronic Health Evaluation",
+  "@apache2Description": {
+    "description": "APACHE II Score description"
+  },
+  "sofaScore": "SOFA Score",
+  "@sofaScore": {
+    "description": "SOFA Score title"
+  },
+  "sofaDescription": "Sequential Organ Failure Assessment",
+  "@sofaDescription": {
+    "description": "SOFA Score description"
+  },
+  "sapsScore": "SAPS II Score",
+  "@sapsScore": {
+    "description": "SAPS II Score title"
+  },
+  "sapsDescription": "Simplified Acute Physiology Score",
+  "@sapsDescription": {
+    "description": "SAPS II Score description"
+  },
+  "bradenScale": "Braden Scale",
+  "@bradenScale": {
+    "description": "Braden Scale title"
+  },
+  "bradenDescription": "Pressure Ulcer Risk Assessment",
+  "@bradenDescription": {
+    "description": "Braden Scale description"
+  },
+  "nihssScore": "NIHSS",
+  "@nihssScore": {
+    "description": "NIHSS title"
+  },
+  "nihssDescription": "National Institutes of Health Stroke Scale",
+  "@nihssDescription": {
+    "description": "NIHSS description"
+  },
+  "rassScore": "RASS",
+  "@rassScore": {
+    "description": "RASS title"
+  },
+  "rassDescription": "Richmond Agitation-Sedation Scale",
+  "@rassDescription": {
+    "description": "RASS description"
+  },
+  "camIcuScore": "CAM-ICU",
+  "@camIcuScore": {
+    "description": "CAM-ICU title"
+  },
+  "camIcuDescription": "Confusion Assessment Method for ICU",
+  "@camIcuDescription": {
+    "description": "CAM-ICU description"
+  },
+  
+  "respiratorySystem": "Respiratory System",
+  "@respiratorySystem": {
+    "description": "Respiratory system"
+  },
+  "cardiovascularSystem": "Cardiovascular System",
+  "@cardiovascularSystem": {
+    "description": "Cardiovascular system"
+  },
+  "nervousSystem": "Nervous System",
+  "@nervousSystem": {
+    "description": "Nervous system"
+  },
+  "renalSystem": "Renal System",
+  "@renalSystem": {
+    "description": "Renal system"
+  },
+  "hepaticSystem": "Hepatic System",
+  "@hepaticSystem": {
+    "description": "Hepatic system"
+  },
+  "coagulationSystem": "Coagulation System",
+  "@coagulationSystem": {
+    "description": "Coagulation system"
+  },
+  
+  "bloodPressure": "Blood Pressure",
+  "@bloodPressure": {
+    "description": "Blood pressure"
+  },
+  "heartRate": "Heart Rate",
+  "@heartRate": {
+    "description": "Heart rate"
+  },
+  "temperature": "Temperature",
+  "@temperature": {
+    "description": "Temperature"
+  },
+  "respiratoryRate": "Respiratory Rate",
+  "@respiratoryRate": {
+    "description": "Respiratory rate"
+  },
+  "oxygenSaturation": "Oxygen Saturation",
+  "@oxygenSaturation": {
+    "description": "Oxygen saturation"
+  },
+  
+  "labResults": "Laboratory Results",
+  "@labResults": {
+    "description": "Laboratory results"
+  },
+  "bloodGas": "Blood Gas Analysis",
+  "@bloodGas": {
+    "description": "Blood gas analysis"
+  },
+  "completeBloodCount": "Complete Blood Count",
+  "@completeBloodCount": {
+    "description": "Complete blood count"
+  },
+  "liverFunction": "Liver Function Tests",
+  "@liverFunction": {
+    "description": "Liver function tests"
+  },
+  "kidneyFunction": "Kidney Function Tests",
+  "@kidneyFunction": {
+    "description": "Kidney function tests"
+  },
+  "electrolytes": "Electrolytes",
+  "@electrolytes": {
+    "description": "Electrolytes"
+  },
+  
+  "intensive_care": "Intensive Care",
+  "@intensive_care": {
+    "description": "Intensive care"
+  },
+  "emergency_medicine": "Emergency Medicine",
+  "@emergency_medicine": {
+    "description": "Emergency medicine"
+  },
+  "critical_care": "Critical Care",
+  "@critical_care": {
+    "description": "Critical care"
+  },
+  "patient_monitoring": "Patient Monitoring",
+  "@patient_monitoring": {
+    "description": "Patient monitoring"
+  },
+  "medical_calculation": "Medical Calculation",
+  "@medical_calculation": {
+    "description": "Medical calculation"
+  },
+  
+  "references": "References",
+  "@references": {
+    "description": "References section"
+  },
+  "medical_disclaimer": "FOR HEALTHCARE PROFESSIONALS ONLY\nReference tool - Not a substitute for clinical judgment",
+  "@medical_disclaimer": {
+    "description": "Medical disclaimer text for healthcare professionals"
+  },
+  "medical_references_title": "Medical References & Citations",
+  "@medical_references_title": {
+    "description": "Medical references page title"
+  },
+  "medical_disclaimer_title": "Medical Disclaimer",
+  "@medical_disclaimer_title": {
+    "description": "Medical disclaimer section title"
+  },
+  "medical_disclaimer_content": "DR-ICU is intended for educational and reference purposes only for qualified healthcare professionals. This app should NOT replace clinical judgment, institutional protocols, or professional medical training. All medical information is based on established clinical guidelines and literature as cited below.",
+  "@medical_disclaimer_content": {
+    "description": "Detailed medical disclaimer content"
+  },
+  "medical_literature": "Medical Literature",
+  "@medical_literature": {
+    "description": "Medical literature"
+  },
+  "evidence_based": "Evidence-Based",
+  "@evidence_based": {
+    "description": "Evidence-based"
+  },
+  "clinical_guidelines": "Clinical Guidelines",
+  "@clinical_guidelines": {
+    "description": "Clinical guidelines"
+  },
+  
+  "gcs_eye_spontaneous": "Opens eyes spontaneously",
+  "@gcs_eye_spontaneous": {
+    "description": "GCS Eye Response - Spontaneous"
+  },
+  "gcs_eye_to_voice": "Opens eyes to verbal command",
+  "@gcs_eye_to_voice": {
+    "description": "GCS Eye Response - To voice"
+  },
+  "gcs_eye_to_pain": "Opens eyes to painful stimulus",
+  "@gcs_eye_to_pain": {
+    "description": "GCS Eye Response - To pain"
+  },
+  "gcs_eye_none": "Does not open eyes",
+  "@gcs_eye_none": {
+    "description": "GCS Eye Response - None"
+  },
+  
+  "gcs_verbal_oriented": "Oriented and converses normally",
+  "@gcs_verbal_oriented": {
+    "description": "GCS Verbal Response - Oriented"
+  },
+  "gcs_verbal_confused": "Confused conversation",
+  "@gcs_verbal_confused": {
+    "description": "GCS Verbal Response - Confused"
+  },
+  "gcs_verbal_inappropriate": "Inappropriate responses",
+  "@gcs_verbal_inappropriate": {
+    "description": "GCS Verbal Response - Inappropriate"
+  },
+  "gcs_verbal_incomprehensible": "Incomprehensible speech",
+  "@gcs_verbal_incomprehensible": {
+    "description": "GCS Verbal Response - Incomprehensible"
+  },
+  "gcs_verbal_none": "Makes no sounds",
+  "@gcs_verbal_none": {
+    "description": "GCS Verbal Response - None"
+  },
+  
+  "gcs_motor_obeys": "Obeys commands",
+  "@gcs_motor_obeys": {
+    "description": "GCS Motor Response - Obeys commands"
+  },
+  "gcs_motor_localizes": "Localizes painful stimuli",
+  "@gcs_motor_localizes": {
+    "description": "GCS Motor Response - Localizes pain"
+  },
+  "gcs_motor_withdrawal": "Withdraws from pain",
+  "@gcs_motor_withdrawal": {
+    "description": "GCS Motor Response - Withdrawal"
+  },
+  "gcs_motor_flexion": "Abnormal flexion posturing",
+  "@gcs_motor_flexion": {
+    "description": "GCS Motor Response - Abnormal flexion"
+  },
+  "gcs_motor_extension": "Abnormal extension posturing",
+  "@gcs_motor_extension": {
+    "description": "GCS Motor Response - Abnormal extension"
+  },
+  "gcs_motor_none": "Makes no movements",
+  "@gcs_motor_none": {
+    "description": "GCS Motor Response - None"
+  },
+  
+  "mild_brain_injury": "Mild Brain Injury",
+  "@mild_brain_injury": {
+    "description": "GCS interpretation - mild injury"
+  },
+  "moderate_brain_injury": "Moderate Brain Injury",
+  "@moderate_brain_injury": {
+    "description": "GCS interpretation - moderate injury"
+  },
+  "severe_brain_injury": "Severe Brain Injury",
+  "@severe_brain_injury": {
+    "description": "GCS interpretation - severe injury"
+  },
+  
+  "please_select_responses": "Please select responses",
+  "@please_select_responses": {
+    "description": "Instruction to select responses"
+  },
+  "reset": "Reset",
+  "@reset": {
+    "description": "Reset button"
+  },
+  "total_gcs_score": "Total GCS Score",
+  "@total_gcs_score": {
+    "description": "Total GCS score label"
+  },
+  
+  "systolic_pressure": "Systolic Pressure",
+  "@systolic_pressure": {
+    "description": "Systolic blood pressure"
+  },
+  "diastolic_pressure": "Diastolic Pressure", 
+  "@diastolic_pressure": {
+    "description": "Diastolic blood pressure"
+  },
+  "mean_arterial_pressure": "Mean Arterial Pressure",
+  "@mean_arterial_pressure": {
+    "description": "Mean arterial pressure"
+  },
+  
+  "age": "Age",
+  "@age": {
+    "description": "Patient age"
+  },
+  "weight": "Weight",
+  "@weight": {
+    "description": "Patient weight"
+  },
+  "height": "Height",
+  "@height": {
+    "description": "Patient height"
+  },
+  "bmi": "Body Mass Index (BMI)",
+  "@bmi": {
+    "description": "Body mass index"
+  },
+  "bsa": "Body Surface Area (BSA)",
+  "@bsa": {
+    "description": "Body surface area"
+  },
+  "please_enter_parameters": "Please enter parameters",
+  "@please_enter_parameters": {
+    "description": "Message when no parameters entered"
+  },
+  "very_low_mortality_risk": "Very low mortality risk",
+  "@very_low_mortality_risk": {
+    "description": "Very low mortality risk interpretation"
+  },
+  "low_mortality_risk": "Low mortality risk",
+  "@low_mortality_risk": {
+    "description": "Low mortality risk interpretation"
+  },
+  "moderate_mortality_risk": "Moderate mortality risk",
+  "@moderate_mortality_risk": {
+    "description": "Moderate mortality risk interpretation"
+  },
+  "high_mortality_risk": "High mortality risk",
+  "@high_mortality_risk": {
+    "description": "High mortality risk interpretation"
+  },
+  "very_high_mortality_risk": "Very high mortality risk",
+  "@very_high_mortality_risk": {
+    "description": "Very high mortality risk interpretation"
+  },
+  "extremely_high_mortality_risk": "Extremely high mortality risk",
+  "@extremely_high_mortality_risk": {
+    "description": "Extremely high mortality risk interpretation"
+  },
+  "predicted_mortality_rate": "Predicted mortality rate",
+  "@predicted_mortality_rate": {
+    "description": "Predicted mortality rate label"
+  },
+  "vital_signs": "Vital Signs",
+  "@vital_signs": {
+    "description": "Vital signs section"
+  },
+  "laboratory_tests": "Laboratory Tests",
+  "@laboratory_tests": {
+    "description": "Laboratory tests section"
+  },
+  "chronic_health": "Chronic Health",
+  "@chronic_health": {
+    "description": "Chronic health section"
+  },
+  "age_years": "Age (years)",
+  "@age_years": {
+    "description": "Age input label"
+  },
+  "years": "years",
+  "@years": {
+    "description": "Years unit"
+  },
+  "age_score": "Age score",
+  "@age_score": {
+    "description": "Age score label"
+  },
+  "temperature_celsius": "Temperature (°C)",
+  "@temperature_celsius": {
+    "description": "Temperature input label"
+  },
+  "map_mmhg": "MAP (mmHg)",
+  "@map_mmhg": {
+    "description": "Mean arterial pressure input label"
+  },
+  "heart_rate_per_min": "Heart rate (/min)",
+  "@heart_rate_per_min": {
+    "description": "Heart rate input label"
+  },
+  "respiratory_rate_per_min": "Respiratory rate (/min)",
+  "@respiratory_rate_per_min": {
+    "description": "Respiratory rate input label"
+  },
+  "blood_ph": "Blood pH",
+  "@blood_ph": {
+    "description": "Blood pH input label"
+  },
+  "sodium_meq_l": "Sodium (mEq/L)",
+  "@sodium_meq_l": {
+    "description": "Sodium input label"
+  },
+  "potassium_meq_l": "Potassium (mEq/L)",
+  "@potassium_meq_l": {
+    "description": "Potassium input label"
+  },
+  "creatinine_mg_dl": "Creatinine (mg/dL)",
+  "@creatinine_mg_dl": {
+    "description": "Creatinine input label"
+  },
+  "hematocrit_percent": "Hematocrit (%)",
+  "@hematocrit_percent": {
+    "description": "Hematocrit input label"
+  },
+  "wbc_count": "WBC count (1000/µL)",
+  "@wbc_count": {
+    "description": "White blood cell count input label"
+  },
+  "chronic_disease_history": "Chronic disease history:",
+  "@chronic_disease_history": {
+    "description": "Chronic disease history label"
+  },
+  "none": "None",
+  "@none": {
+    "description": "None option"
+  },
+  "has_non_surgical_or_emergency": "Has (non-surgical or emergency surgery)",
+  "@has_non_surgical_or_emergency": {
+    "description": "Chronic health with non-surgical or emergency surgery"
+  },
+  "has_elective_surgery": "Has (elective surgery)",
+  "@has_elective_surgery": {
+    "description": "Chronic health with elective surgery"
+  },
+  "no_organ_failure": "No organ failure",
+  "@no_organ_failure": {
+    "description": "SOFA score interpretation for no organ failure"
+  },
+  "mild_organ_failure": "Mild organ failure",
+  "@mild_organ_failure": {
+    "description": "SOFA score interpretation for mild organ failure"
+  },
+  "moderate_organ_failure": "Moderate organ failure",
+  "@moderate_organ_failure": {
+    "description": "SOFA score interpretation for moderate organ failure"
+  },
+  "severe_organ_failure": "Severe organ failure",
+  "@severe_organ_failure": {
+    "description": "SOFA score interpretation for severe organ failure"
+  },
+  "very_severe_multi_organ_failure": "Very severe multi-organ failure",
+  "@very_severe_multi_organ_failure": {
+    "description": "SOFA score interpretation for very severe multi-organ failure"
+  },
+  "respiratory_system": "Respiratory System",
+  "@respiratory_system": {
+    "description": "Respiratory system assessment"
+  },
+  "cardiovascular_system": "Cardiovascular System",
+  "@cardiovascular_system": {
+    "description": "Cardiovascular system assessment"
+  },
+  "hepatic_system": "Hepatic System", 
+  "@hepatic_system": {
+    "description": "Hepatic system assessment"
+  },
+  "coagulation_system": "Coagulation System",
+  "@coagulation_system": {
+    "description": "Coagulation system assessment"
+  },
+  "renal_system": "Renal System",
+  "@renal_system": {
+    "description": "Renal system assessment"
+  },
+  "neurological_system": "Neurological System",
+  "@neurological_system": {
+    "description": "Neurological system assessment"
+  },
+  "mortality_rate": "Mortality rate",
+  "@mortality_rate": {
+    "description": "Mortality rate label"
+  },
+  "pao2_fio2_mmhg": "PaO2/FiO2 (mmHg)",
+  "@pao2_fio2_mmhg": {
+    "description": "PaO2/FiO2 ratio input label"
+  },
+  "if_not_ventilated_helper": "If not ventilated, enter SpO2/FiO2 x 315",
+  "@if_not_ventilated_helper": {
+    "description": "Helper text for PaO2/FiO2 calculation"
+  },
+  "mean_arterial_pressure_or_vasopressors": "Mean arterial pressure or vasopressors",
+  "@mean_arterial_pressure_or_vasopressors": {
+    "description": "Cardiovascular assessment label"
+  },
+  "no_hypotension": "No hypotension",
+  "@no_hypotension": {
+    "description": "No hypotension option"
+  },
+  "map_less_than_70": "MAP < 70 mmHg",
+  "@map_less_than_70": {
+    "description": "MAP less than 70 mmHg"
+  },
+  "dopamine_dobutamine": "Dopamine ≤ 5 or dobutamine (any dose)",
+  "@dopamine_dobutamine": {
+    "description": "Low dose vasopressor option"
+  },
+  "dopamine_5_15": "Dopamine 5-15 or epinephrine ≤ 0.1 or norepinephrine ≤ 0.1",
+  "@dopamine_5_15": {
+    "description": "Medium dose vasopressor option"
+  },
+  "dopamine_greater_15": "Dopamine > 15 or epinephrine > 0.1 or norepinephrine > 0.1",
+  "@dopamine_greater_15": {
+    "description": "High dose vasopressor option"
+  },
+  "bilirubin_mg_dl": "Bilirubin (mg/dL)",
+  "@bilirubin_mg_dl": {
+    "description": "Bilirubin input label"
+  },
+  "platelets_1000_ul": "Platelets (1000/µL)",
+  "@platelets_1000_ul": {
+    "description": "Platelet count input label"
+  },
+  "glasgow_coma_scale_score": "Glasgow Coma Scale Score",
+  "@glasgow_coma_scale_score": {
+    "description": "GCS score for SOFA"
+  },
+  "creatinine_or_urine_output": "Creatinine or urine output",
+  "@creatinine_or_urine_output": {
+    "description": "Renal assessment label"
+  },
+  "creatinine_mg_dl_label": "Creatinine (mg/dL)",
+  "@creatinine_mg_dl_label": {
+    "description": "Creatinine input label for SOFA"
+  },
+  "urine_output_ml_day": "Urine output (ml/day)",
+  "@urine_output_ml_day": {
+    "description": "Urine output input label"
+  },
+  "enter_total_bilirubin_value": "Enter total bilirubin value",
+  "@enter_total_bilirubin_value": {
+    "description": "Helper text for bilirubin input"
+  },
+  "enter_platelet_count": "Enter platelet count",
+  "@enter_platelet_count": {
+    "description": "Helper text for platelet input"
+  },
+  "enter_creatinine_value": "Enter creatinine value",
+  "@enter_creatinine_value": {
+    "description": "Helper text for creatinine input"
+  },
+  "enter_urine_output_24h": "Enter 24-hour urine output",
+  "@enter_urine_output_24h": {
+    "description": "Helper text for urine output input"
+  },
+  "creatinine_unit": "Creatinine unit",
+  "@creatinine_unit": {
+    "description": "Creatinine unit dropdown label"
+  },
+  "conversion_note": "Conversion: 1 mg/dL = 88.4 umol/L",
+  "@conversion_note": {
+    "description": "Unit conversion note"
+  },
+  "score_colon": "Score: ",
+  "@score_colon": {
+    "description": "Score label with colon"
+  },
+  "bilirubin_unit_label": "Bilirubin Unit",
+  "@bilirubin_unit_label": {
+    "description": "Bilirubin unit dropdown label"
+  },
+  "bilirubin_conversion_note": "Conversion: 1 mg/dL = 17.1 umol/L",
+  "@bilirubin_conversion_note": {
+    "description": "Bilirubin unit conversion note"
+  },
+  "saps2Score": "SAPS II Score",
+  "@saps2Score": {
+    "description": "SAPS II scoring system title"
+  },
+  "physiological_score": "Physiological Score",
+  "@physiological_score": {
+    "description": "Physiological parameters section"
+  },
+  "admission_type": "Admission Type",
+  "@admission_type": {
+    "description": "Type of ICU admission"
+  },
+  "chronic_diseases": "Chronic Diseases",
+  "@chronic_diseases": {
+    "description": "Chronic disease conditions"
+  },
+  "scheduled_surgery": "Scheduled surgery",
+  "@scheduled_surgery": {
+    "description": "Scheduled surgical admission"
+  },
+  "unscheduled_surgery": "Unscheduled surgery",
+  "@unscheduled_surgery": {
+    "description": "Emergency surgical admission"
+  },
+  "medical_admission": "Medical admission",
+  "@medical_admission": {
+    "description": "Non-surgical medical admission"
+  },
+  "saps2_mortality_note": "SAPS II mortality prediction is based on the first 24 hours of ICU admission",
+  "@saps2_mortality_note": {
+    "description": "SAPS II mortality prediction note"
+  },
+  "basic_information": "Basic Information",
+  "@basic_information": {
+    "description": "Basic information section header"
+  },
+  "heart_rate_bpm": "Heart rate (/min)",
+  "@heart_rate_bpm": {
+    "description": "Heart rate input field with beats per minute unit"
+  },
+  "systolic_bp_mmhg": "Systolic blood pressure (mmHg)",
+  "@systolic_bp_mmhg": {
+    "description": "Systolic blood pressure input field with mmHg unit"
+  },
+  "urine_output_l_day": "Urine output (L/day)",
+  "@urine_output_l_day": {
+    "description": "Urine output input field with liters per day unit"
+  },
+  "nihss_score": "NIHSS Score",
+  "@nihss_score": {
+    "description": "NIHSS score title"
+  },
+  "nihss_mild_stroke": "Mild stroke",
+  "@nihss_mild_stroke": {
+    "description": "NIHSS mild stroke severity"
+  },
+  "nihss_moderate_stroke": "Moderate stroke", 
+  "@nihss_moderate_stroke": {
+    "description": "NIHSS moderate stroke severity"
+  },
+  "nihss_severe_stroke": "Severe stroke",
+  "@nihss_severe_stroke": {
+    "description": "NIHSS severe stroke severity"
+  },
+  "nihss_very_severe_stroke": "Very severe stroke",
+  "@nihss_very_severe_stroke": {
+    "description": "NIHSS very severe stroke severity"
+  },
+  "nihss_good_prognosis": "Good prognosis, high recovery potential",
+  "@nihss_good_prognosis": {
+    "description": "NIHSS good prognosis description"
+  },
+  "nihss_fair_prognosis": "Fair prognosis, requires rehabilitation",
+  "@nihss_fair_prognosis": {
+    "description": "NIHSS fair prognosis description"
+  },
+  "nihss_poor_prognosis": "Poor prognosis, severe dependency",
+  "@nihss_poor_prognosis": {
+    "description": "NIHSS poor prognosis description"
+  },
+  "nihss_very_poor_prognosis": "Very poor prognosis, high mortality",
+  "@nihss_very_poor_prognosis": {
+    "description": "NIHSS very poor prognosis description"
+  },
+  "prognosis": "Prognosis:",
+  "@prognosis": {
+    "description": "Prognosis label"
+  },
+  "potassium_mmol": "Potassium (mmol/L)",
+  "@potassium_mmol": {
+    "description": "Potassium level input field"
+  },
+  "sodium_mmol": "Sodium (mmol/L)",
+  "@sodium_mmol": {
+    "description": "Sodium level input field"
+  },
+  "bicarbonate_mmol": "HCO3⁻ (mmol/L)",
+  "@bicarbonate_mmol": {
+    "description": "Bicarbonate level input field"
+  },
+  "glasgow_coma_scale": "Glasgow Coma Scale",
+  "@glasgow_coma_scale": {
+    "description": "Glasgow Coma Scale assessment label"
+  },
+  "admission_chronic_disease": "Admission Type & Chronic Disease",
+  "@admission_chronic_disease": {
+    "description": "Admission and chronic disease section header"
+  },
+  "gcs_less_than_6": "GCS < 6",
+  "@gcs_less_than_6": {
+    "description": "Glasgow Coma Scale less than 6"
+  },
+  "gcs_6_to_8": "GCS 6-8",
+  "@gcs_6_to_8": {
+    "description": "Glasgow Coma Scale 6 to 8"
+  },
+  "gcs_9_to_10": "GCS 9-10",
+  "@gcs_9_to_10": {
+    "description": "Glasgow Coma Scale 9 to 10"
+  },
+  "gcs_11_to_13": "GCS 11-13",
+  "@gcs_11_to_13": {
+    "description": "Glasgow Coma Scale 11 to 13"
+  },
+  "gcs_14_to_15": "GCS 14-15",
+  "@gcs_14_to_15": {
+    "description": "Glasgow Coma Scale 14 to 15"
+  },
+  "admission_type_label": "Admission Type:",
+  "@admission_type_label": {
+    "description": "Admission type selection label"
+  },
+  "chronic_diseases_label": "Chronic Diseases:",
+  "@chronic_diseases_label": {
+    "description": "Chronic diseases selection label"
+  },
+  "qsofa_score": "qSOFA Score",
+  "@qsofa_score": {
+    "description": "Quick Sequential Organ Failure Assessment title"
+  },
+  "qsofa_description": "Quick SOFA for Sepsis Screening",
+  "@qsofa_description": {
+    "description": "qSOFA score description"
+  },
+  "routine_monitoring": "Routine monitoring, no special intervention needed",
+  "@routine_monitoring": {
+    "description": "Low risk recommendation"
+  },
+  "sepsis_evaluation": "Consider sepsis evaluation and immediate management",
+  "@sepsis_evaluation": {
+    "description": "High risk recommendation"
+  },
+  "low_risk": "Low Risk",
+  "@low_risk": {
+    "description": "Low risk level"
+  },
+  "high_risk": "High Risk",
+  "@high_risk": {
+    "description": "High risk level"
+  },
+  "mortality_low": "< 10%",
+  "@mortality_low": {
+    "description": "Low mortality risk percentage"
+  },
+  "mortality_high": "≥ 10%",
+  "@mortality_high": {
+    "description": "High mortality risk percentage"
+  },
+  "mortality": "Mortality",
+  "@mortality": {
+    "description": "Mortality label"
+  },
+  "action": "Action",
+  "@action": {
+    "description": "Clinical action label"
+  },
+  "recommendations": "Recommendations:",
+  "@recommendations": {
+    "description": "Recommendations label"
+  },
+  "qsofa_criteria": "qSOFA Criteria",
+  "@qsofa_criteria": {
+    "description": "qSOFA criteria section title"
+  },
+  "respiratory_rate": "Respiratory Rate",
+  "@respiratory_rate": {
+    "description": "Respiratory rate label"
+  },
+  "systolic_bp": "Systolic Blood Pressure",
+  "@systolic_bp": {
+    "description": "Systolic blood pressure label"
+  },
+  "altered_mentation": "Altered Mental Status",
+  "@altered_mentation": {
+    "description": "Altered mental status label"
+  },
+  "respiratory_rate_helper": "+1 point if ≥22 breaths/min",
+  "@respiratory_rate_helper": {
+    "description": "Respiratory rate helper text"
+  },
+  "systolic_bp_helper": "+1 point if ≤100 mmHg",
+  "@systolic_bp_helper": {
+    "description": "Systolic BP helper text"
+  },
+  "no": "No",
+  "@no": {
+    "description": "No option"
+  },
+  "yes_gcs_less_15": "Yes (GCS <15)",
+  "@yes_gcs_less_15": {
+    "description": "Yes with GCS less than 15"
+  },
+  "positive_criteria": "Positive Criteria ({count})",
+  "@positive_criteria": {
+    "description": "Positive criteria count",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "continue_current_treatment": "Continue current monitoring and treatment",
+  "@continue_current_treatment": {
+    "description": "Low risk clinical action"
+  },
+  "initiate_sepsis_bundle": "Initiate sepsis bundle protocol within 1 hour",
+  "@initiate_sepsis_bundle": {
+    "description": "High risk clinical action"
+  },
+  "nihss_1a_consciousness": "1a. Level of Consciousness",
+  "@nihss_1a_consciousness": {
+    "description": "NIHSS consciousness assessment"
+  },
+  "nihss_1b_questions": "1b. Questions (current month, age)",
+  "@nihss_1b_questions": {
+    "description": "NIHSS questions assessment"
+  },
+  "nihss_1c_commands": "1c. Commands (open/close eyes, grip/release hand)",
+  "@nihss_1c_commands": {
+    "description": "NIHSS commands assessment"
+  },
+  "nihss_2_gaze": "2. Horizontal Eye Movement",
+  "@nihss_2_gaze": {
+    "description": "NIHSS gaze assessment"
+  },
+  "nihss_3_visual": "3. Visual Fields",
+  "@nihss_3_visual": {
+    "description": "NIHSS visual fields assessment"
+  },
+  "nihss_4_facial": "4. Facial Palsy",
+  "@nihss_4_facial": {
+    "description": "NIHSS facial palsy assessment"
+  },
+  "nihss_5a_left_arm": "5a. Left Arm Motor",
+  "@nihss_5a_left_arm": {
+    "description": "NIHSS left arm motor assessment"
+  },
+  "nihss_5b_right_arm": "5b. Right Arm Motor",
+  "@nihss_5b_right_arm": {
+    "description": "NIHSS right arm motor assessment"
+  },
+  "nihss_6a_left_leg": "6a. Left Leg Motor",
+  "@nihss_6a_left_leg": {
+    "description": "NIHSS left leg motor assessment"
+  },
+  "nihss_6b_right_leg": "6b. Right Leg Motor",
+  "@nihss_6b_right_leg": {
+    "description": "NIHSS right leg motor assessment"
+  },
+  "nihss_7_ataxia": "7. Limb Ataxia (finger-nose, heel-shin)",
+  "@nihss_7_ataxia": {
+    "description": "NIHSS ataxia assessment"
+  },
+  "nihss_8_sensory": "8. Sensory",
+  "@nihss_8_sensory": {
+    "description": "NIHSS sensory assessment"
+  },
+  "nihss_9_language": "9. Best Language (aphasia)",
+  "@nihss_9_language": {
+    "description": "NIHSS language assessment"
+  },
+  "nihss_10_dysarthria": "10. Dysarthria (speech articulation)",
+  "@nihss_10_dysarthria": {
+    "description": "NIHSS dysarthria assessment"
+  },
+  "nihss_11_extinction": "11. Extinction and Inattention",
+  "@nihss_11_extinction": {
+    "description": "NIHSS extinction assessment"
+  },
+  "nihss_consciousness_0": "Alert",
+  "@nihss_consciousness_0": {
+    "description": "NIHSS consciousness level 0"
+  },
+  "nihss_consciousness_1": "Drowsy but arousable",
+  "@nihss_consciousness_1": {
+    "description": "NIHSS consciousness level 1"
+  },
+  "nihss_consciousness_2": "Obtunded, requires repeated stimulation",
+  "@nihss_consciousness_2": {
+    "description": "NIHSS consciousness level 2"
+  },
+  "nihss_consciousness_3": "Responds only with reflex motor or autonomic effects or totally unresponsive",
+  "@nihss_consciousness_3": {
+    "description": "NIHSS consciousness level 3"
+  },
+  "nihss_questions_0": "Answers both questions correctly",
+  "@nihss_questions_0": {
+    "description": "NIHSS questions level 0"
+  },
+  "nihss_questions_1": "Answers one question correctly",
+  "@nihss_questions_1": {
+    "description": "NIHSS questions level 1"
+  },
+  "nihss_questions_2": "Answers neither question correctly",
+  "@nihss_questions_2": {
+    "description": "NIHSS questions level 2"
+  },
+  "nihss_commands_0": "Performs both tasks correctly",
+  "@nihss_commands_0": {
+    "description": "NIHSS commands level 0"
+  },
+  "nihss_commands_1": "Performs one task correctly",
+  "@nihss_commands_1": {
+    "description": "NIHSS commands level 1"
+  },
+  "nihss_commands_2": "Performs neither task correctly",
+  "@nihss_commands_2": {
+    "description": "NIHSS commands level 2"
+  },
+  "nihss_gaze_0": "Normal",
+  "@nihss_gaze_0": {
+    "description": "NIHSS gaze level 0"
+  },
+  "nihss_gaze_1": "Partial gaze palsy",
+  "@nihss_gaze_1": {
+    "description": "NIHSS gaze level 1"
+  },
+  "nihss_gaze_2": "Forced deviation or total gaze paresis",
+  "@nihss_gaze_2": {
+    "description": "NIHSS gaze level 2"
+  },
+  "nihss_visual_0": "No visual loss",
+  "@nihss_visual_0": {
+    "description": "NIHSS visual level 0"
+  },
+  "nihss_visual_1": "Partial hemianopia",
+  "@nihss_visual_1": {
+    "description": "NIHSS visual level 1"
+  },
+  "nihss_visual_2": "Complete hemianopia",
+  "@nihss_visual_2": {
+    "description": "NIHSS visual level 2"
+  },
+  "nihss_visual_3": "Bilateral hemianopia",
+  "@nihss_visual_3": {
+    "description": "NIHSS visual level 3"
+  },
+  "nihss_facial_0": "Normal symmetric movements",
+  "@nihss_facial_0": {
+    "description": "NIHSS facial level 0"
+  },
+  "nihss_facial_1": "Minor paralysis",
+  "@nihss_facial_1": {
+    "description": "NIHSS facial level 1"
+  },
+  "nihss_facial_2": "Partial paralysis",
+  "@nihss_facial_2": {
+    "description": "NIHSS facial level 2"
+  },
+  "nihss_facial_3": "Complete paralysis",
+  "@nihss_facial_3": {
+    "description": "NIHSS facial level 3"
+  },
+  "nihss_arm_0": "No drift, limb holds 90° for 10 seconds",
+  "@nihss_arm_0": {
+    "description": "NIHSS arm level 0"
+  },
+  "nihss_arm_1": "Drift, limb holds 90° but drifts down before 10 seconds",
+  "@nihss_arm_1": {
+    "description": "NIHSS arm level 1"
+  },
+  "nihss_arm_2": "Some effort against gravity, limb cannot get to or maintain 90°",
+  "@nihss_arm_2": {
+    "description": "NIHSS arm level 2"
+  },
+  "nihss_arm_3": "No effort against gravity, limb falls",
+  "@nihss_arm_3": {
+    "description": "NIHSS arm level 3"
+  },
+  "nihss_arm_4": "No movement (amputation, joint fusion)",
+  "@nihss_arm_4": {
+    "description": "NIHSS arm level 4"
+  },
+  "nihss_leg_0": "No drift, leg holds 30° for 5 seconds",
+  "@nihss_leg_0": {
+    "description": "NIHSS leg level 0"
+  },
+  "nihss_leg_1": "Drift, leg falls by the end of the 5-second period",
+  "@nihss_leg_1": {
+    "description": "NIHSS leg level 1"
+  },
+  "nihss_leg_2": "Some effort against gravity, leg falls to bed by 5 seconds",
+  "@nihss_leg_2": {
+    "description": "NIHSS leg level 2"
+  },
+  "nihss_leg_3": "No effort against gravity, leg falls immediately",
+  "@nihss_leg_3": {
+    "description": "NIHSS leg level 3"
+  },
+  "nihss_leg_4": "No movement (amputation, joint fusion)",
+  "@nihss_leg_4": {
+    "description": "NIHSS leg level 4"
+  },
+  "nihss_ataxia_0": "Absent",
+  "@nihss_ataxia_0": {
+    "description": "NIHSS ataxia level 0"
+  },
+  "nihss_ataxia_1": "Present in one limb",
+  "@nihss_ataxia_1": {
+    "description": "NIHSS ataxia level 1"
+  },
+  "nihss_ataxia_2": "Present in two limbs",
+  "@nihss_ataxia_2": {
+    "description": "NIHSS ataxia level 2"
+  },
+  "nihss_sensory_0": "Normal; no sensory loss",
+  "@nihss_sensory_0": {
+    "description": "NIHSS sensory level 0"
+  },
+  "nihss_sensory_1": "Mild-to-moderate sensory loss",
+  "@nihss_sensory_1": {
+    "description": "NIHSS sensory level 1"
+  },
+  "nihss_sensory_2": "Severe or total sensory loss",
+  "@nihss_sensory_2": {
+    "description": "NIHSS sensory level 2"
+  },
+  "nihss_language_0": "No aphasia; normal",
+  "@nihss_language_0": {
+    "description": "NIHSS language level 0"
+  },
+  "nihss_language_1": "Mild-to-moderate aphasia",
+  "@nihss_language_1": {
+    "description": "NIHSS language level 1"
+  },
+  "nihss_language_2": "Severe aphasia",
+  "@nihss_language_2": {
+    "description": "NIHSS language level 2"
+  },
+  "nihss_language_3": "Mute, global aphasia",
+  "@nihss_language_3": {
+    "description": "NIHSS language level 3"
+  },
+  "nihss_dysarthria_0": "Normal",
+  "@nihss_dysarthria_0": {
+    "description": "NIHSS dysarthria level 0"
+  },
+  "nihss_dysarthria_1": "Mild-to-moderate dysarthria",
+  "@nihss_dysarthria_1": {
+    "description": "NIHSS dysarthria level 1"
+  },
+  "nihss_dysarthria_2": "Severe dysarthria",
+  "@nihss_dysarthria_2": {
+    "description": "NIHSS dysarthria level 2"
+  },
+  "nihss_extinction_0": "No abnormality",
+  "@nihss_extinction_0": {
+    "description": "NIHSS extinction level 0"
+  },
+  "nihss_extinction_1": "Visual, tactile, auditory, spatial, or personal inattention",
+  "@nihss_extinction_1": {
+    "description": "NIHSS extinction level 1"
+  },
+  "nihss_extinction_2": "Profound hemi-inattention or extinction",
+  "@nihss_extinction_2": {
+    "description": "NIHSS extinction level 2"
+  },
+  "nihss_recommendation_mild": "Medical treatment, early rehabilitation",
+  "@nihss_recommendation_mild": {
+    "description": "NIHSS mild recommendation"
+  },
+  "nihss_recommendation_moderate": "Consider vascular intervention, active rehabilitation",
+  "@nihss_recommendation_moderate": {
+    "description": "NIHSS moderate recommendation"
+  },
+  "nihss_recommendation_severe": "Active intervention if within golden time, ICU monitoring",
+  "@nihss_recommendation_severe": {
+    "description": "NIHSS severe recommendation"
+  },
+  "nihss_recommendation_very_severe": "Supportive care, consider limitation of treatment",
+  "@nihss_recommendation_very_severe": {
+    "description": "NIHSS very severe recommendation"
+  },
+  "nihss_score_display": "NIHSS Score",
+  "@nihss_score_display": {
+    "description": "NIHSS score display title"
+  },
+  "nihss_severity_classification": "Stroke Severity Classification",
+  "@nihss_severity_classification": {
+    "description": "NIHSS severity classification title"
+  },
+  "nihss_score_range_mild": "0-4 points",
+  "@nihss_score_range_mild": {
+    "description": "NIHSS mild score range"
+  },
+  "nihss_score_range_moderate": "5-15 points",
+  "@nihss_score_range_moderate": {
+    "description": "NIHSS moderate score range"
+  },
+  "nihss_score_range_severe": "16-20 points",
+  "@nihss_score_range_severe": {
+    "description": "NIHSS severe score range"
+  },
+  "nihss_score_range_very_severe": "21-42 points",
+  "@nihss_score_range_very_severe": {
+    "description": "NIHSS very severe score range"
+  },
+  "nihss_clinical_note": "Note: NIHSS is assessed within the first 24 hours and monitored for progression. Decreasing scores indicate improvement, increasing scores indicate worsening. Should be combined with clinical assessment and imaging to determine treatment.",
+  "@nihss_clinical_note": {
+    "description": "NIHSS clinical assessment note"
+  },
+  "reference_materials": "Reference Materials",
+  "@reference_materials": {
+    "description": "Reference materials section title"
+  },
+  "score_label": "Score",
+  "@score_label": {
+    "description": "Score label for assessment items"
+  },
+  "sepsis_risk_stratification": "Sepsis Risk Stratification",
+  "@sepsis_risk_stratification": {
+    "description": "qSOFA sepsis risk stratification title"
+  },
+  "clinical_information": "Clinical Information",
+  "@clinical_information": {
+    "description": "Clinical information section title"
+  },
+  "qsofa_clinical_content": "qSOFA (Quick SOFA) is a simple and rapid sepsis screening tool\n\nAdvantages:\n• Simple, no laboratory tests required\n• Quick bedside implementation\n• Early sepsis recognition\n• Activates treatment protocols\n\nLimitations:\n• Lower sensitivity than full SOFA\n• Does not replace clinical assessment\n• May miss early sepsis\n• Must be combined with infection suspicion\n\nSepsis 3.0 Definition:\n• Sepsis = Infection + qSOFA ≥2\n• Septic shock = Sepsis + vasopressor + lactate >2\n• Treatment within \"Golden Hour\"\n\nImportant notes:\n• qSOFA does not diagnose sepsis\n• Only a screening tool\n• Requires comprehensive clinical assessment\n• Continuous monitoring needed",
+  "@qsofa_clinical_content": {
+    "description": "qSOFA clinical information content"
+  },
+  "qsofa_respiratory_rate_criterion": "Respiratory rate ≥22",
+  "@qsofa_respiratory_rate_criterion": {
+    "description": "qSOFA respiratory rate criterion"
+  },
+  "qsofa_respiratory_rate_description": "Respiratory rate ≥22 breaths/min",
+  "@qsofa_respiratory_rate_description": {
+    "description": "qSOFA respiratory rate description"
+  },
+  "qsofa_altered_mentation_criterion": "Altered mental status",
+  "@qsofa_altered_mentation_criterion": {
+    "description": "qSOFA altered mental status criterion"
+  },
+  "qsofa_altered_mentation_description": "Change in mental status (GCS <15)",
+  "@qsofa_altered_mentation_description": {
+    "description": "qSOFA altered mental status description"
+  },
+  "qsofa_systolic_bp_criterion": "Systolic BP ≤100",
+  "@qsofa_systolic_bp_criterion": {
+    "description": "qSOFA systolic blood pressure criterion"
+  },
+  "qsofa_systolic_bp_description": "Systolic blood pressure ≤100 mmHg",
+  "@qsofa_systolic_bp_description": {
+    "description": "qSOFA systolic blood pressure description"
+  },
+  "qsofa_low_risk": "Low risk",
+  "@qsofa_low_risk": {
+    "description": "qSOFA low risk level"
+  },
+  "qsofa_high_risk": "High risk",
+  "@qsofa_high_risk": {
+    "description": "qSOFA high risk level"
+  },
+  "qsofa_routine_monitoring": "Routine monitoring",
+  "@qsofa_routine_monitoring": {
+    "description": "qSOFA low risk management"
+  },
+  "qsofa_immediate_sepsis_bundle": "Immediate sepsis bundle",
+  "@qsofa_immediate_sepsis_bundle": {
+    "description": "qSOFA high risk management"
+  },
+  "sepsis_bundle_hour_1": "Sepsis Bundle - Hour 1",
+  "@sepsis_bundle_hour_1": {
+    "description": "Sepsis bundle title"
+  },
+  "lactate_measurement": "1. Lactate measurement",
+  "@lactate_measurement": {
+    "description": "Sepsis bundle item 1"
+  },
+  "lactate_description": "Obtain blood lactate test",
+  "@lactate_description": {
+    "description": "Lactate measurement description"
+  },
+  "blood_culture": "2. Blood culture",
+  "@blood_culture": {
+    "description": "Sepsis bundle item 2"
+  },
+  "blood_culture_description": "Blood culture before antibiotics",
+  "@blood_culture_description": {
+    "description": "Blood culture description"
+  },
+  "antibiotics": "3. Antibiotics",
+  "@antibiotics": {
+    "description": "Sepsis bundle item 3"
+  },
+  "antibiotics_description": "Broad-spectrum antibiotics within 1 hour",
+  "@antibiotics_description": {
+    "description": "Antibiotics description"
+  },
+  "fluid_resuscitation": "4. Fluid resuscitation",
+  "@fluid_resuscitation": {
+    "description": "Sepsis bundle item 4"
+  },
+  "fluid_description": "30ml/kg if hypotensive or lactate ≥4",
+  "@fluid_description": {
+    "description": "Fluid resuscitation description"
+  },
+  "vasopressor": "5. Vasopressor",
+  "@vasopressor": {
+    "description": "Sepsis bundle item 5"
+  },
+  "vasopressor_description": "If hypotension not responsive to fluids",
+  "@vasopressor_description": {
+    "description": "Vasopressor description"
+  },
+  "child_pugh_score": "Child-Pugh Score",
+  "@child_pugh_score": {
+    "description": "Child-Pugh score title"
+  },
+  "child_pugh_classification": "Child-Pugh Classification",
+  "@child_pugh_classification": {
+    "description": "Child-Pugh classification title"
+  },
+  "mild_liver_disease": "Mild liver disease",
+  "@mild_liver_disease": {
+    "description": "Child-Pugh Class A description"
+  },
+  "moderate_liver_disease": "Moderate liver disease",
+  "@moderate_liver_disease": {
+    "description": "Child-Pugh Class B description"
+  },
+  "severe_liver_disease": "Severe liver disease",
+  "@severe_liver_disease": {
+    "description": "Child-Pugh Class C description"
+  },
+  "low_operative_risk": "Low operative risk (10%)",
+  "@low_operative_risk": {
+    "description": "Child-Pugh Class A operative risk"
+  },
+  "moderate_operative_risk": "Moderate operative risk (30%)",
+  "@moderate_operative_risk": {
+    "description": "Child-Pugh Class B operative risk"
+  },
+  "high_operative_risk": "High operative risk (82%)",
+  "@high_operative_risk": {
+    "description": "Child-Pugh Class C operative risk"
+  },
+  "child_pugh_laboratory_tests": "Laboratory Tests",
+  "@child_pugh_laboratory_tests": {
+    "description": "Child-Pugh laboratory tests section title"
+  },
+  "clinical_symptoms": "Clinical Symptoms",
+  "@clinical_symptoms": {
+    "description": "Clinical symptoms section title"
+  },
+  "ascites": "Ascites",
+  "@ascites": {
+    "description": "Ascites assessment"
+  },
+  "hepatic_encephalopathy": "Hepatic Encephalopathy",
+  "@hepatic_encephalopathy": {
+    "description": "Hepatic encephalopathy assessment"
+  },
+  "ascites_none": "None",
+  "@ascites_none": {
+    "description": "No ascites option"
+  },
+  "ascites_mild_moderate": "Mild-moderate (treatable)",
+  "@ascites_mild_moderate": {
+    "description": "Mild to moderate ascites option"
+  },
+  "ascites_severe": "Severe (refractory to treatment)",
+  "@ascites_severe": {
+    "description": "Severe ascites option"
+  },
+  "encephalopathy_none": "None",
+  "@encephalopathy_none": {
+    "description": "No encephalopathy option"
+  },
+  "encephalopathy_grade_1_2": "Grade I-II (mild-moderate)",
+  "@encephalopathy_grade_1_2": {
+    "description": "Grade 1-2 encephalopathy option"
+  },
+  "encephalopathy_grade_3_4": "Grade III-IV (severe)",
+  "@encephalopathy_grade_3_4": {
+    "description": "Grade 3-4 encephalopathy option"
+  },
+  "one_year_survival": "1-year survival",
+  "@one_year_survival": {
+    "description": "One year survival label"
+  },
+  "two_year_survival": "2-year survival",
+  "@two_year_survival": {
+    "description": "Two year survival label"
+  },
+  "reference_material": "Reference Material",
+  "@reference_material": {
+    "description": "Reference material section title"
+  },
+  "bilirubin": "Bilirubin",
+  "@bilirubin": {
+    "description": "Bilirubin lab test"
+  },
+  "albumin": "Albumin",
+  "@albumin": {
+    "description": "Albumin lab test"
+  },
+  "inr_prothrombin_time": "INR/Prothrombin Time",
+  "@inr_prothrombin_time": {
+    "description": "INR/Prothrombin Time lab test"
+  },
+  "enter_value": "Enter value",
+  "@enter_value": {
+    "description": "Input field placeholder"
+  },
+  "child_pugh_score_display": "Score: {score}",
+  "@child_pugh_score_display": {
+    "description": "Child-Pugh score display label",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "class_a_info": "• Class A (5-6 points): Good prognosis, suitable for surgery",
+  "@class_a_info": {
+    "description": "Class A clinical information"
+  },
+  "class_b_info": "• Class B (7-9 points): Moderate prognosis, consider intervention",
+  "@class_b_info": {
+    "description": "Class B clinical information"
+  },
+  "class_c_info": "• Class C (10-15 points): Poor prognosis, liver transplant priority",
+  "@class_c_info": {
+    "description": "Class C clinical information"
+  },
+  "child_pugh_clinical_information": "Clinical Information",
+  "@child_pugh_clinical_information": {
+    "description": "Child-Pugh clinical information section title"
+  },
+  "child_pugh_usage": "• Child-Pugh is used to assess the severity of cirrhosis",
+  "@child_pugh_usage": {
+    "description": "Child-Pugh usage description"
+  },
+  "meld_combination": "• Often combined with MELD score in liver disease assessment",
+  "@meld_combination": {
+    "description": "MELD score combination note"
+  },
+  "submit": "Submit",
+  "@submit": {
+    "description": "Submit button"
+  },
+  "edit": "Edit",
+  "@edit": {
+    "description": "Edit button"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "Delete button"
+  },
+  "add": "Add",
+  "@add": {
+    "description": "Add button"
+  },
+  "view": "View",
+  "@view": {
+    "description": "View button"
+  },
+  "print": "Print",
+  "@print": {
+    "description": "Print button"
+  },
+  "export": "Export",
+  "@export": {
+    "description": "Export button"
+  },
+  "import": "Import",
+  "@import": {
+    "description": "Import button"
+  },
+  "share": "Share",
+  "@share": {
+    "description": "Share button"
+  },
+  "copy": "Copy",
+  "@copy": {
+    "description": "Copy button"
+  },
+  "paste": "Paste",
+  "@paste": {
+    "description": "Paste button"
+  },
+  "cut": "Cut",
+  "@cut": {
+    "description": "Cut button"
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "Undo button"
+  },
+  "redo": "Redo",
+  "@redo": {
+    "description": "Redo button"
+  },
+  "help": "Help",
+  "@help": {
+    "description": "Help button"
+  },
+  "about": "About",
+  "@about": {
+    "description": "About button"
+  },
+  "contact": "Contact",
+  "@contact": {
+    "description": "Contact button"
+  },
+  "feedback": "Feedback",
+  "@feedback": {
+    "description": "Feedback button"
+  },
+  "report_issue": "Report Issue",
+  "@report_issue": {
+    "description": "Report issue button"
+  },
+  "privacy_policy": "Privacy Policy",
+  "@privacy_policy": {
+    "description": "Privacy policy link"
+  },
+  "terms_of_service": "Terms of Service",
+  "@terms_of_service": {
+    "description": "Terms of service link"
+  },
+  "version": "Version",
+  "@version": {
+    "description": "Version label"
+  },
+  "update": "Update",
+  "@update": {
+    "description": "Update button"
+  },
+  "loading": "Loading",
+  "@loading": {
+    "description": "Loading status"
+  },
+  "error": "Error",
+  "@error": {
+    "description": "Error status"
+  },
+  "success": "Success",
+  "@success": {
+    "description": "Success status"
+  },
+  "warning": "Warning",
+  "@warning": {
+    "description": "Warning status"
+  },
+  "info": "Information",
+  "@info": {
+    "description": "Information status"
+  },
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Confirm button"
+  },
+  "ok": "OK",
+  "@ok": {
+    "description": "OK button"
+  },
+  "close": "Close",
+  "@close": {
+    "description": "Close button"
+  },
+  "minimize": "Minimize",
+  "@minimize": {
+    "description": "Minimize button"
+  },
+  "maximize": "Maximize",
+  "@maximize": {
+    "description": "Maximize button"
+  },
+  "next": "Next",
+  "@next": {
+    "description": "Next button"
+  },
+  "previous": "Previous",
+  "@previous": {
+    "description": "Previous button"
+  },
+  "first": "First",
+  "@first": {
+    "description": "First button"
+  },
+  "last": "Last",
+  "@last": {
+    "description": "Last button"
+  },
+  "page": "Page",
+  "@page": {
+    "description": "Page label"
+  },
+  "show": "Show",
+  "@show": {
+    "description": "Show button"
+  },
+  "hide": "Hide",
+  "@hide": {
+    "description": "Hide button"
+  },
+  "expand": "Expand",
+  "@expand": {
+    "description": "Expand button"
+  },
+  "collapse": "Collapse",
+  "@collapse": {
+    "description": "Collapse button"
+  },
+  "sort": "Sort",
+  "@sort": {
+    "description": "Sort button"
+  },
+  "filter": "Filter",
+  "@filter": {
+    "description": "Filter button"
+  },
+  "group": "Group",
+  "@group": {
+    "description": "Group button"
+  },
+  "ungroup": "Ungroup",
+  "@ungroup": {
+    "description": "Ungroup button"
+  },
+  "select_all": "Select All",
+  "@select_all": {
+    "description": "Select all button"
+  },
+  "deselect_all": "Deselect All",
+  "@deselect_all": {
+    "description": "Deselect all button"
+  },
+  "invert_selection": "Invert Selection",
+  "@invert_selection": {
+    "description": "Invert selection button"
+  },
+  "cha2ds2_vasc_score": "CHA₂DS₂-VASc Score",
+  "@cha2ds2_vasc_score": {
+    "description": "CHA2DS2-VASc score title"
+  },
+  "risk_very_low": "Very low risk",
+  "@risk_very_low": {
+    "description": "Very low risk level"
+  },
+  "risk_low": "Low risk",
+  "@risk_low": {
+    "description": "Low risk level"
+  },
+  "risk_moderate": "Moderate risk",
+  "@risk_moderate": {
+    "description": "Moderate risk level"
+  },
+  "risk_high": "High risk",
+  "@risk_high": {
+    "description": "High risk level"
+  },
+  "stroke_risk_per_year": "Stroke risk/year: {risk}",
+  "@stroke_risk_per_year": {
+    "description": "Annual stroke risk display",
+    "placeholders": {
+      "risk": {
+        "type": "String"
+      }
+    }
+  },
+  "no_anticoagulation_needed": "No anticoagulation needed",
+  "@no_anticoagulation_needed": {
+    "description": "No anticoagulation recommendation"
+  },
+  "consider_anticoagulation_or_aspirin": "Consider anticoagulation or aspirin",
+  "@consider_anticoagulation_or_aspirin": {
+    "description": "Consider anticoagulation recommendation"
+  },
+  "oral_anticoagulation_recommended": "Oral anticoagulation recommended",
+  "@oral_anticoagulation_recommended": {
+    "description": "Oral anticoagulation recommendation"
+  },
+  "major_risk_factors": "Major Risk Factors",
+  "@major_risk_factors": {
+    "description": "Major risk factors section title"
+  },
+  "cha2ds2_vasc_usage": "• CHA₂DS₂-VASc is used to assess stroke risk in patients with non-valvular atrial fibrillation",
+  "@cha2ds2_vasc_usage": {
+    "description": "CHA2DS2-VASc usage description"
+  },
+  "anticoagulation_male_recommendation": "• Score ≥ 2 (male) or ≥ 3 (female): anticoagulation recommended",
+  "@anticoagulation_male_recommendation": {
+    "description": "Male anticoagulation recommendation"
+  },
+  "anticoagulation_consideration": "• Score = 1 (male) or = 2 (female): consider anticoagulation",
+  "@anticoagulation_consideration": {
+    "description": "Anticoagulation consideration note"
+  },
+  "hasbled_combination": "• Should be considered together with HAS-BLED score to assess bleeding risk",
+  "@hasbled_combination": {
+    "description": "HAS-BLED combination note"
+  },
+  "aids": "AIDS",
+  "@aids": {
+    "description": "Acquired immunodeficiency syndrome"
+  },
+  "hematologic_malignancy": "Hematologic malignancy",
+  "@hematologic_malignancy": {
+    "description": "Blood cancer conditions"
+  },
+  "metastatic_cancer": "Metastatic cancer",
+  "@metastatic_cancer": {
+    "description": "Cancer with metastases"
+  },
+  "systolic_blood_pressure": "Systolic blood pressure",
+  "@systolic_blood_pressure": {
+    "description": "Systolic BP measurement"
+  },
+  "blood_urea_nitrogen": "Blood urea nitrogen (BUN)",
+  "@blood_urea_nitrogen": {
+    "description": "BUN lab value"
+  },
+  "bicarbonate": "Bicarbonate",
+  "@bicarbonate": {
+    "description": "Serum bicarbonate level"
+  },
+  "low_moderate_risk": "Low-moderate risk",
+  "@low_moderate_risk": {
+    "description": "SAPS II low-moderate risk interpretation"
+  },
+  "moderate_risk": "Moderate risk",
+  "@moderate_risk": {
+    "description": "SAPS II moderate risk interpretation"
+  },
+  "extremely_high_risk": "Extremely high risk",
+  "@extremely_high_risk": {
+    "description": "SAPS II extremely high risk interpretation"
+  },
+  "age_and_gender_factors": "Age and Gender Factors",
+  "@age_and_gender_factors": {
+    "description": "Age and gender factors section title"
+  },
+  "important_information": "Important Information",
+  "@important_information": {
+    "description": "Important information section title"
+  },
+  "age_label": "Age:",
+  "@age_label": {
+    "description": "Age input label"
+  },
+  "enter_age": "Enter age",
+  "@enter_age": {
+    "description": "Age input placeholder"
+  },
+  "cha2ds2_age_score": "Age score: {score} (65-74: 1pt, ≥75: 2pts)",
+  "@cha2ds2_age_score": {
+    "description": "CHA2DS2-VASc age score display",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "cha2ds2_chf_description": "Congestive heart failure",
+  "@cha2ds2_chf_description": {
+    "description": "CHA2DS2-VASc CHF description"
+  },
+  "cha2ds2_hypertension_description": "Hypertension",
+  "@cha2ds2_hypertension_description": {
+    "description": "CHA2DS2-VASc hypertension description"
+  },
+  "cha2ds2_diabetes_description": "Diabetes mellitus",
+  "@cha2ds2_diabetes_description": {
+    "description": "CHA2DS2-VASc diabetes description"
+  },
+  "cha2ds2_stroke_description": "History of stroke/TIA",
+  "@cha2ds2_stroke_description": {
+    "description": "CHA2DS2-VASc stroke history description"
+  },
+  "cha2ds2_vascular_description": "Peripheral vascular disease/MI/aortic plaque",
+  "@cha2ds2_vascular_description": {
+    "description": "CHA2DS2-VASc vascular disease description"
+  },
+  "gender_label": "Gender:",
+  "@gender_label": {
+    "description": "Gender selection label"
+  },
+  "male": "Male",
+  "@male": {
+    "description": "Male gender option"
+  },
+  "female": "Female",
+  "@female": {
+    "description": "Female gender option"
+  },
+  "zero_points": "0 points",
+  "@zero_points": {
+    "description": "Zero points indication"
+  },
+  "one_point": "1 point",
+  "@one_point": {
+    "description": "One point indication"
+  },
+  "meld_score": "MELD Score",
+  "@meld_score": {
+    "description": "MELD score title"
+  },
+  "meld_parameters": "MELD Parameters",
+  "@meld_parameters": {
+    "description": "MELD parameters section title"
+  },
+  "transplant_guidelines": "Transplant Guidelines",
+  "@transplant_guidelines": {
+    "description": "Transplant guidelines section title"
+  },
+  "meld_risk_low": "Low",
+  "@meld_risk_low": {
+    "description": "MELD low risk level"
+  },
+  "meld_risk_low_moderate": "Low-moderate",
+  "@meld_risk_low_moderate": {
+    "description": "MELD low-moderate risk level"
+  },
+  "meld_risk_moderate": "Moderate",
+  "@meld_risk_moderate": {
+    "description": "MELD moderate risk level"
+  },
+  "meld_risk_high": "High",
+  "@meld_risk_high": {
+    "description": "MELD high risk level"
+  },
+  "meld_risk_very_high": "Very high",
+  "@meld_risk_very_high": {
+    "description": "MELD very high risk level"
+  },
+  "risk_text": "risk",
+  "@risk_text": {
+    "description": "Risk text"
+  },
+  "priority_low": "Low priority",
+  "@priority_low": {
+    "description": "Low transplant priority"
+  },
+  "priority_moderate": "Moderate priority",
+  "@priority_moderate": {
+    "description": "Moderate transplant priority"
+  },
+  "priority_high": "High priority",
+  "@priority_high": {
+    "description": "High transplant priority"
+  },
+  "dialysis": "Dialysis",
+  "@dialysis": {
+    "description": "Dialysis checkbox label"
+  },
+  "dialysis_description": "Has undergone dialysis at least twice in the past week or CVVHD for 24h",
+  "@dialysis_description": {
+    "description": "Dialysis checkbox description"
+  },
+  "creatinine_helper": "Maximum 4.0 mg/dL (354 umol/L), minimum 1.0 mg/dL (88 umol/L)",
+  "@creatinine_helper": {
+    "description": "Creatinine input helper text"
+  },
+  "bilirubin_helper": "Total bilirubin, minimum 1.0 mg/dL (17 umol/L)",
+  "@bilirubin_helper": {
+    "description": "Bilirubin input helper text"
+  },
+  "inr_helper": "International Normalized Ratio, minimum 1.0",
+  "@inr_helper": {
+    "description": "INR input helper text"
+  },
+  "mortality_3_month": "3-month mortality",
+  "@mortality_3_month": {
+    "description": "3-month mortality risk label"
+  },
+  "transplant_priority": "Transplant priority",
+  "@transplant_priority": {
+    "description": "Transplant priority label"
+  },
+  "meld_recommendations": "Recommendations:",
+  "@meld_recommendations": {
+    "description": "MELD Recommendations label"
+  },
+  "meld_follow_up": "Regular follow-up, manage cirrhosis complications",
+  "@meld_follow_up": {
+    "description": "MELD low score recommendation"
+  },
+  "meld_evaluation": "Liver transplant evaluation, screen for complications",
+  "@meld_evaluation": {
+    "description": "MELD moderate-low score recommendation"
+  },
+  "meld_waitlist": "Add to transplant waitlist",
+  "@meld_waitlist": {
+    "description": "MELD moderate score recommendation"
+  },
+  "meld_high_priority": "High priority transplant, close monitoring",
+  "@meld_high_priority": {
+    "description": "MELD high score recommendation"
+  },
+  "meld_urgent": "Urgent transplant needed, consider ICU",
+  "@meld_urgent": {
+    "description": "MELD very high score recommendation"
+  },
+  "meld_risk_stratification": "MELD Risk Stratification",
+  "@meld_risk_stratification": {
+    "description": "MELD risk stratification section title"
+  },
+  "meld_follow_up_action": "Regular follow-up",
+  "@meld_follow_up_action": {
+    "description": "MELD low score action"
+  },
+  "meld_evaluation_action": "Liver transplant evaluation",
+  "@meld_evaluation_action": {
+    "description": "MELD moderate-low score action"
+  },
+  "meld_waitlist_action": "Waitlist",
+  "@meld_waitlist_action": {
+    "description": "MELD moderate score action"
+  },
+  "meld_high_priority_action": "High priority",
+  "@meld_high_priority_action": {
+    "description": "MELD high score action"
+  },
+  "meld_urgent_action": "Urgent transplant",
+  "@meld_urgent_action": {
+    "description": "MELD very high score action"
+  },
+  "meld_follow_up_title": "MELD <15: Follow-up",
+  "@meld_follow_up_title": {
+    "description": "MELD follow-up guideline title"
+  },
+  "meld_waitlist_title": "MELD 15-24: Waitlist",
+  "@meld_waitlist_title": {
+    "description": "MELD waitlist guideline title"
+  },
+  "meld_high_priority_title": "MELD ≥25: High Priority",
+  "@meld_high_priority_title": {
+    "description": "MELD high priority guideline title"
+  },
+  "routine_visit_6_months": "Routine visit every 6 months",
+  "@routine_visit_6_months": {
+    "description": "Routine medical visit guideline"
+  },
+  "liver_ultrasound_6_months": "Liver ultrasound every 6 months",
+  "@liver_ultrasound_6_months": {
+    "description": "Liver ultrasound guideline"
+  },
+  "afp_every_6_months": "AFP every 6 months",
+  "@afp_every_6_months": {
+    "description": "AFP test guideline"
+  },
+  "screen_complications": "Screen for complications",
+  "@screen_complications": {
+    "description": "Complication screening guideline"
+  },
+  "add_to_waitlist": "Add to transplant waitlist",
+  "@add_to_waitlist": {
+    "description": "Transplant waitlist guideline"
+  },
+  "comprehensive_evaluation": "Comprehensive evaluation",
+  "grace_score_title": "GRACE Score",
+  "@grace_score_title": {"description": "GRACE score title"},
+  "grace_risk_low": "Low risk",
+  "@grace_risk_low": {"description": "GRACE low risk"},
+  "grace_risk_moderate": "Moderate risk",
+  "@grace_risk_moderate": {"description": "GRACE moderate risk"},
+  "grace_risk_high": "High risk",
+  "@grace_risk_high": {"description": "GRACE high risk"},
+  "grace_risk_very_high": "Very high risk",
+  "@grace_risk_very_high": {"description": "GRACE very high risk"},
+  "grace_recommendation": "Recommendation:",
+  "@grace_recommendation": {"description": "GRACE recommendation label"},
+  "grace_intervention_strategy": "Intervention strategy:",
+  "@grace_intervention_strategy": {"description": "GRACE intervention strategy label"},
+  "grace_intervention_timing": "Intervention timing:",
+  "@grace_intervention_timing": {"description": "GRACE intervention timing label"},
+  "grace_detailed_intervention_timing": "Detailed intervention timing:",
+  "@grace_detailed_intervention_timing": {"description": "GRACE detailed intervention timing label"},
+  "grace_reference_title": "Reference",
+  "@grace_reference_title": {"description": "GRACE reference section title"},
+  "grace_reference_text": "Fox KA, et al. Prediction of risk of death and myocardial infarction in the six months after presentation with acute coronary syndrome: prospective multinational observational study (GRACE). BMJ. 2006;333(7578):1091.",
+  "@grace_reference_text": {"description": "GRACE reference citation text"},
+  "grace_mortality_6_month_low": "< 1%",
+  "@grace_mortality_6_month_low": {"description": "GRACE 6-month mortality low risk"},
+  "grace_mortality_6_month_moderate": "1-3%",
+  "@grace_mortality_6_month_moderate": {"description": "GRACE 6-month mortality moderate risk"},
+  "grace_mortality_6_month_high": "3-8%",
+  "@grace_mortality_6_month_high": {"description": "GRACE 6-month mortality high risk"},
+  "grace_mortality_6_month_very_high": "> 8%",
+  "@grace_mortality_6_month_very_high": {"description": "GRACE 6-month mortality very high risk"},
+  "grace_mortality_hospital_low": "< 2%",
+  "@grace_mortality_hospital_low": {"description": "GRACE hospital mortality low risk"},
+  "grace_mortality_hospital_moderate": "2-5%",
+  "@grace_mortality_hospital_moderate": {"description": "GRACE hospital mortality moderate risk"},
+  "grace_mortality_hospital_high": "5-12%",
+  "@grace_mortality_hospital_high": {"description": "GRACE hospital mortality high risk"},
+  "grace_mortality_hospital_very_high": "> 12%",
+  "@grace_mortality_hospital_very_high": {"description": "GRACE hospital mortality very high risk"},
+  "grace_strategy_conservative": "Conservative strategy",
+  "@grace_strategy_conservative": {"description": "GRACE conservative intervention strategy"},
+  "grace_strategy_selective": "Selective intervention strategy",
+  "@grace_strategy_selective": {"description": "GRACE selective intervention strategy"},
+  "grace_strategy_early": "Early intervention strategy",
+  "@grace_strategy_early": {"description": "GRACE early intervention strategy"},
+  "grace_strategy_immediate": "Immediate intervention strategy",
+  "@grace_strategy_immediate": {"description": "GRACE immediate intervention strategy"},
+  "grace_timing_72h": "Intervention within 72 hours",
+  "@grace_timing_72h": {"description": "GRACE intervention timing 72 hours"},
+  "grace_timing_24_72h": "Intervention within 24-72 hours",
+  "@grace_timing_24_72h": {"description": "GRACE intervention timing 24-72 hours"},
+  "grace_timing_24h": "Intervention within 24 hours",
+  "@grace_timing_24h": {"description": "GRACE intervention timing 24 hours"},
+  "grace_timing_2h": "Emergency intervention within 2 hours",
+  "@grace_timing_2h": {"description": "GRACE intervention timing 2 hours"},
+  "grace_detailed_timing_low": "Intervention timing: Within 72 hours\\n• PCI can be delayed if no complications\\n• Monitoring at cardiology ward\\n• Optimal medical therapy first",
+  "@grace_detailed_timing_low": {"description": "GRACE detailed timing for low risk"},
+  "grace_detailed_timing_moderate": "Intervention timing: Within 24-72 hours\\n• Selective PCI based on symptoms\\n• Close monitoring at CCU\\n• Ready for intervention when needed",
+  "@grace_detailed_timing_moderate": {"description": "GRACE detailed timing for moderate risk"},
+  "grace_detailed_timing_high": "Intervention timing: Within 24 hours\\n• Early PCI recommended\\n• Intensive CCU monitoring\\n• Prepare for urgent intervention",
+  "@grace_detailed_timing_high": {"description": "GRACE detailed timing for high risk"},
+  "grace_detailed_timing_very_high": "Intervention timing: Emergency within 2 hours\\n• Immediate PCI required\\n• ICU monitoring\\n• Emergency cardiac catheterization",
+  "@grace_detailed_timing_very_high": {"description": "GRACE detailed timing for very high risk"},
+  "grace_6_month_mortality": "6-month mortality",
+  "@grace_6_month_mortality": {"description": "GRACE 6-month mortality label"},
+  "grace_hospital_mortality": "Hospital mortality",
+  "@grace_hospital_mortality": {"description": "GRACE hospital mortality label"},
+  "grace_intervention_strategy_label": "Treatment strategy:",
+  "@grace_intervention_strategy_label": {"description": "GRACE intervention strategy label"},
+  "grace_clinical_info_title": "Clinical Information",
+  "@grace_clinical_info_title": {"description": "GRACE clinical information title"},
+  "grace_clinical_info_content": "GRACE Score assesses mortality risk in patients with acute coronary syndrome (ACS)\\n\\nClinical applications:\\n• Risk stratification and treatment strategy selection\\n• Decide early intervention vs conservative treatment\\n• Prognosis counseling for patients and families\\n• Assessment of referral indications\\n\\nIntervention strategy by timing:\\n• Low risk (≤108): Intervention within 72h - PCI can be delayed\\n• Moderate risk (109-140): Intervention within 24-72h - Selective PCI\\n• High risk (141-200): Intervention within 24h - Early PCI recommended\\n• Very high risk (>200): Emergency intervention within 2h - Emergency PCI\\n\\nNotes:\\n• Higher score indicates greater mortality risk\\n• Must combine with overall clinical assessment\\n• Regular monitoring and reassessment\\n• Applies to both STEMI and NSTEMI/UA",
+  "@grace_clinical_info_content": {"description": "GRACE clinical information content"},
+  "grace_detailed_timing_title": "Detailed intervention timing:",
+  "@grace_detailed_timing_title": {"description": "GRACE detailed timing section title"},
+  "grace_age_label": "Age (years)",
+  "@grace_age_label": {"description": "GRACE age input label"},
+  "grace_heart_rate_label": "Heart rate (/min)",
+  "@grace_heart_rate_label": {"description": "GRACE heart rate input label"},
+  "grace_systolic_bp_label": "Systolic blood pressure (mmHg)",
+  "@grace_systolic_bp_label": {"description": "GRACE systolic BP input label"},
+  "grace_creatinine_label": "Creatinine",
+  "@grace_creatinine_label": {"description": "GRACE creatinine input label"},
+  "grace_creatinine_unit_label": "Creatinine unit",
+  "@grace_creatinine_unit_label": {"description": "GRACE creatinine unit label"},
+  "grace_heart_failure_title": "Heart failure or left ventricular dysfunction",
+  "@grace_heart_failure_title": {"description": "GRACE heart failure checkbox title"},
+  "grace_cardiac_arrest_title": "In-hospital cardiac arrest",
+  "@grace_cardiac_arrest_title": {"description": "GRACE cardiac arrest checkbox title"},
+  "grace_st_elevation_title": "ST elevation on ECG",
+  "@grace_st_elevation_title": {"description": "GRACE ST elevation checkbox title"},
+  "grace_elevated_markers_title": "Elevated cardiac enzymes (Troponin/CK-MB)",
+  "@grace_elevated_markers_title": {"description": "GRACE elevated markers checkbox title"},
+  "grace_input_parameters": "Input Parameters",
+  "@grace_input_parameters": {"description": "GRACE input parameters section title"},
+  "grace_clinical_factors": "Clinical Factors",
+  "@grace_clinical_factors": {"description": "GRACE clinical factors section title"},
+  "grace_risk_stratification": "Risk Stratification",
+  "@grace_risk_stratification": {"description": "GRACE risk stratification section title"},
+  "grace_risk_level": "Risk Level",
+  "@grace_risk_level": {"description": "GRACE risk level column header"},
+  "grace_6_month_mort": "6-month Mortality",
+  "@grace_6_month_mort": {"description": "GRACE 6-month mortality column header"},
+  "grace_hospital_mort": "Hospital Mortality",
+  "@grace_hospital_mort": {"description": "GRACE hospital mortality column header"},
+  "grace_intervention_timing_column": "Intervention Timing",
+  "@grace_intervention_timing_column": {"description": "GRACE intervention timing column header"},
+  "grace_recommendation_low": "Outpatient treatment may be considered, regular monitoring",
+  "@grace_recommendation_low": {"description": "GRACE low risk recommendation"},
+  "grace_recommendation_moderate": "Hospital admission for monitoring, treatment according to ACS guidelines",
+  "@grace_recommendation_moderate": {"description": "GRACE moderate risk recommendation"},
+  "grace_recommendation_high": "Early intervention needed, consider high-level referral",
+  "@grace_recommendation_high": {"description": "GRACE high risk recommendation"},
+  "grace_recommendation_very_high": "Immediate emergency intervention, ICU monitoring, early PCI",
+  "@grace_recommendation_very_high": {"description": "GRACE very high risk recommendation"},
+  "grace_recommendations_label": "Recommendations:",
+  "@grace_recommendations_label": {"description": "GRACE recommendations section label"},
+  "grace_intervention_timing_label": "Intervention timing:",
+  "@grace_intervention_timing_label": {"description": "GRACE intervention timing section label"},
+  "grace_per_minute_unit": "/min",
+  "@grace_per_minute_unit": {"description": "GRACE per minute unit for heart rate"},
+  "@comprehensive_evaluation": {
+    "description": "Medical evaluation guideline"
+  },
+  "follow_up_3_months": "Follow-up every 3 months",
+  "@follow_up_3_months": {
+    "description": "Follow-up guideline"
+  },
+  "screen_liver_cancer": "Screen for liver cancer",
+  "@screen_liver_cancer": {
+    "description": "Liver cancer screening guideline"
+  },
+  "high_priority_transplant": "High priority transplant",
+  "@high_priority_transplant": {
+    "description": "High priority transplant guideline"
+  },
+  "weekly_monitoring": "Weekly monitoring",
+  "@weekly_monitoring": {
+    "description": "Weekly monitoring guideline"
+  },
+  "consider_living_donor": "Consider living donor transplant",
+  "@consider_living_donor": {
+    "description": "Living donor transplant guideline"
+  },
+  "intensive_support": "Intensive support",
+  "@intensive_support": {
+    "description": "Intensive medical support guideline"
+  },
+  "meld_clinical_info": "MELD Score assesses the severity of end-stage liver disease\n\nMELD Formula:\n3.78 × ln(bilirubin) + 11.2 × ln(INR) + 9.57 × ln(creatinine) + 6.43\n\nAdjustments:\n• Creatinine: minimum 1.0, maximum 4.0 mg/dL\n• If on dialysis: creatinine = 4.0 mg/dL\n• Bilirubin and INR: minimum 1.0\n• MELD score: minimum 6, maximum 40\n\nClinical applications:\n• Liver transplant prioritization per UNOS\n• Short-term mortality prediction\n• Intervention decisions\n• Disease progression monitoring\n\nMELD-Na (improved):\n• Adds serum sodium\n• Improves accuracy\n• Widely used currently\n\nPriority exceptions:\n• Liver cancer (HCC)\n• Fulminant liver disease\n• Rare diseases\n• Special circumstances\n\nLimitations:\n• Does not include complications\n• Changes over time\n• Requires comprehensive assessment\n• Does not predict post-transplant function",
+  "@meld_clinical_info": {
+    "description": "MELD clinical information text"
+  },
+  "meld_reference_text": "Kamath PS, et al. A model to predict survival in patients with end-stage liver disease. Hepatology. 2001;33(2):464-70.",
+  "@meld_reference_text": {
+    "description": "MELD score reference citation"
+  },
+  "clinical_scores_title": "Clinical Scores",
+  "@clinical_scores_title": {
+    "description": "Clinical scores page title"
+  },
+  "clinical_scores_subtitle": "Common scores used in ICU",
+  "@clinical_scores_subtitle": {
+    "description": "Clinical scores page subtitle"
+  },
+  "gcs_list_description": "Eye, verbal, motor response assessment",
+  "@gcs_list_description": {
+    "description": "Glasgow Coma Scale list description"
+  },
+  "apache_list_description": "ICU mortality prediction",
+  "@apache_list_description": {
+    "description": "APACHE II list description"
+  },
+  "sofa_list_description": "Multi-organ failure assessment",
+  "@sofa_list_description": {
+    "description": "SOFA Score list description"
+  },
+  "saps_list_description": "ICU patient mortality prediction",
+  "@saps_list_description": {
+    "description": "SAPS II list description"
+  },
+  "qsofa_list_description": "Sepsis screening outside ICU",
+  "@qsofa_list_description": {
+    "description": "qSOFA Score list description"
+  },
+  "mews_list_description": "Early warning system for patient status",
+  "@mews_list_description": {
+    "description": "MEWS list description"
+  },
+  "pews_list_description": "Pediatric early warning system",
+  "@pews_list_description": {
+    "description": "PEWS list description"
+  },
+  "grace_list_description": "Risk assessment in acute coronary syndrome",
+  "@grace_list_description": {
+    "description": "GRACE Score list description"
+  },
+  "timi_stemi_list_description": "STEMI mortality risk assessment",
+  "@timi_stemi_list_description": {
+    "description": "TIMI STEMI list description"
+  },
+  "timi_ua_nstemi_list_description": "UA/NSTEMI risk assessment",
+  "@timi_ua_nstemi_list_description": {
+    "description": "TIMI UA/NSTEMI list description"
+  },
+  "crusade_list_description": "Bleeding risk in acute coronary syndrome",
+  "@crusade_list_description": {
+    "description": "CRUSADE Score list description"
+  },
+  "has_bled_list_description": "Bleeding risk assessment during anticoagulation",
+  "@has_bled_list_description": {
+    "description": "HAS-BLED Score list description"
+  },
+  "improve_list_description": "Bleeding risk in medical patients",
+  "@improve_list_description": {
+    "description": "IMPROVE Bleeding Risk list description"
+  },
+  "cha2ds2_vasc_list_description": "Stroke risk assessment in atrial fibrillation",
+  "@cha2ds2_vasc_list_description": {
+    "description": "CHA2DS2-VASc list description"
+  },
+  "wells_dvt_list_description": "Deep vein thrombosis probability assessment",
+  "@wells_dvt_list_description": {
+    "description": "Wells DVT Score list description"
+  },
+  "padua_list_description": "Venous thromboembolism risk assessment",
+  "@padua_list_description": {
+    "description": "Padua Prediction Score list description"
+  },
+  "abcd2_list_description": "Stroke risk after transient ischemic attack",
+  "@abcd2_list_description": {
+    "description": "ABCD2 Score list description"
+  },
+  "nihss_list_description": "Stroke severity assessment",
+  "@nihss_list_description": {
+    "description": "NIHSS list description"
+  },
+  "race_list_description": "Large vessel occlusion screening",
+  "@race_list_description": {
+    "description": "RACE Scale list description"
+  },
+  "aspect_list_description": "Brain infarct area assessment on CT",
+  "@aspect_list_description": {
+    "description": "ASPECT Score list description"
+  },
+  "sgarbossa_list_description": "STEMI diagnosis with left bundle branch block",
+  "@sgarbossa_list_description": {
+    "description": "Modified Sgarbossa Criteria list description"
+  },
+  "ranson_list_description": "Acute pancreatitis severity assessment",
+  "@ranson_list_description": {
+    "description": "Ranson Criteria list description"
+  },
+  "child_pugh_list_description": "Liver disease severity assessment",
+  "@child_pugh_list_description": {
+    "description": "Child-Pugh Score list description"
+  },
+  "meld_list_description": "End-stage liver disease mortality prediction",
+  "@meld_list_description": {
+    "description": "MELD Score list description"
+  },
+  "curb65_list_description": "Community-acquired pneumonia severity assessment",
+  "@curb65_list_description": {
+    "description": "CURB-65 list description"
+  },
+  "psi_list_description": "Pneumonia severity index",
+  "@psi_list_description": {
+    "description": "PSI list description"
+  },
+  "asa_list_description": "Preoperative physical status classification",
+  "@asa_list_description": {
+    "description": "ASA Physical Status list description"
+  },
+  "cardiac_risk_list_description": "Perioperative cardiac risk assessment",
+  "@cardiac_risk_list_description": {
+    "description": "Revised Cardiac Risk Index list description"
+  },
+  "apgar_list_description": "Postoperative outcome prediction",
+  "@apgar_list_description": {
+    "description": "Surgical Apgar Score list description"
+  },
+  "preop_mortality_list_description": "Preoperative mortality prediction",
+  "@preop_mortality_list_description": {
+    "description": "Preoperative Mortality Prediction list description"
+  },
+  "dapt_list_description": "Dual antiplatelet therapy duration decision",
+  "@dapt_list_description": {
+    "description": "DAPT Score list description"
+  },
+  "creatinine_clearance_list_description": "Kidney function assessment",
+  "@creatinine_clearance_list_description": {
+    "description": "Creatinine Clearance list description"
+  },
+  "mdrd_list_description": "Glomerular filtration rate calculation",
+  "@mdrd_list_description": {
+    "description": "MDRD GFR list description"
+  },
+  "search_scores_hint": "Search clinical scores...",
+  "@search_scores_hint": {
+    "description": "Hint text for search field in clinical scores"
+  },
+  "mews_title": "MEWS Score",
+  "@mews_title": {
+    "description": "MEWS page title"
+  },
+  "mews_interpretation_enter_data": "Please enter vital signs",
+  "@mews_interpretation_enter_data": {
+    "description": "MEWS interpretation when no data entered"
+  },
+  "mews_interpretation_stable": "Stable condition - routine monitoring",
+  "@mews_interpretation_stable": {
+    "description": "MEWS interpretation for low scores"
+  },
+  "mews_interpretation_increased": "Increased monitoring required",
+  "@mews_interpretation_increased": {
+    "description": "MEWS interpretation for moderate scores"
+  },
+  "mews_interpretation_warning": "Warning - urgent medical assessment required",
+  "@mews_interpretation_warning": {
+    "description": "MEWS interpretation for high scores"
+  },
+  "mews_interpretation_critical": "High alert - immediate intervention required",
+  "@mews_interpretation_critical": {
+    "description": "MEWS interpretation for critical scores"
+  },
+  "mews_action_routine": "Monitor every 12 hours",
+  "@mews_action_routine": {
+    "description": "MEWS action for routine monitoring"
+  },
+  "mews_action_increased": "Monitor every 4-6 hours, notify doctor",
+  "@mews_action_increased": {
+    "description": "MEWS action for increased monitoring"
+  },
+  "mews_action_urgent": "Monitor hourly, call doctor immediately",
+  "@mews_action_urgent": {
+    "description": "MEWS action for urgent cases"
+  },
+  "mews_action_critical": "Continuous monitoring, emergency report",
+  "@mews_action_critical": {
+    "description": "MEWS action for critical cases"
+  },
+  "mews_systolic_bp": "Systolic Blood Pressure (mmHg)",
+  "@mews_systolic_bp": {
+    "description": "MEWS systolic blood pressure parameter"
+  },
+  "mews_heart_rate": "Heart Rate (bpm)",
+  "@mews_heart_rate": {
+    "description": "MEWS heart rate parameter"
+  },
+  "mews_respiratory_rate": "Respiratory Rate (breaths/min)",
+  "@mews_respiratory_rate": {
+    "description": "MEWS respiratory rate parameter"
+  },
+  "mews_temperature": "Temperature (°C)",
+  "@mews_temperature": {
+    "description": "MEWS temperature parameter"
+  },
+  "mews_consciousness_level": "Consciousness Level (AVPU)",
+  "@mews_consciousness_level": {
+    "description": "MEWS consciousness level parameter"
+  },
+  "mews_enter_value": "Enter value",
+  "@mews_enter_value": {
+    "description": "Hint text for MEWS input fields"
+  },
+  "mews_score_label": "Score: {score}",
+  "@mews_score_label": {
+    "description": "MEWS score label",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "mews_avpu_alert": "Alert (Alert)",
+  "@mews_avpu_alert": {
+    "description": "MEWS AVPU Alert option"
+  },
+  "mews_avpu_alert_subtitle": "Patient alert, well oriented",
+  "@mews_avpu_alert_subtitle": {
+    "description": "MEWS AVPU Alert description"
+  },
+  "mews_avpu_voice": "Voice (Responds to voice)",
+  "@mews_avpu_voice": {
+    "description": "MEWS AVPU Voice option"
+  },
+  "mews_avpu_voice_subtitle": "Only responds to loud voice",
+  "@mews_avpu_voice_subtitle": {
+    "description": "MEWS AVPU Voice description"
+  },
+  "mews_avpu_pain": "Pain (Responds to pain)",
+  "@mews_avpu_pain": {
+    "description": "MEWS AVPU Pain option"
+  },
+  "mews_avpu_pain_subtitle": "Only responds to painful stimuli",
+  "@mews_avpu_pain_subtitle": {
+    "description": "MEWS AVPU Pain description"
+  },
+  "mews_avpu_unresponsive": "Unresponsive (Unresponsive)",
+  "@mews_avpu_unresponsive": {
+    "description": "MEWS AVPU Unresponsive option"
+  },
+  "mews_avpu_unresponsive_subtitle": "No response to any stimuli",
+  "@mews_avpu_unresponsive_subtitle": {
+    "description": "MEWS AVPU Unresponsive description"
+  },
+  "mews_references_title": "References",
+  "@mews_references_title": {
+    "description": "MEWS references section title"
+  },
+  "pews_title": "PEWS Score",
+  "@pews_title": {
+    "description": "PEWS page title"
+  },
+  "pews_risk_low": "Low",
+  "@pews_risk_low": {
+    "description": "PEWS low risk level"
+  },
+  "pews_risk_medium": "Medium", 
+  "@pews_risk_medium": {
+    "description": "PEWS medium risk level"
+  },
+  "pews_risk_high": "High",
+  "@pews_risk_high": {
+    "description": "PEWS high risk level"
+  },
+  "pews_risk_critical": "Critical",
+  "@pews_risk_critical": {
+    "description": "PEWS critical risk level"
+  },
+  "pews_age_label": "Age",
+  "@pews_age_label": {
+    "description": "PEWS age input label"
+  },
+  "pews_age_helper": "Needed to calculate normal values by age",
+  "@pews_age_helper": {
+    "description": "PEWS age input helper text"
+  },
+  "pews_heart_rate_label": "Heart Rate",
+  "@pews_heart_rate_label": {
+    "description": "PEWS heart rate input label"
+  },
+  "pews_heart_rate_helper": "Abnormal monitoring by age",
+  "@pews_heart_rate_helper": {
+    "description": "PEWS heart rate input helper text"
+  },
+  "pews_respiratory_rate_label": "Respiratory Rate", 
+  "@pews_respiratory_rate_label": {
+    "description": "PEWS respiratory rate input label"
+  },
+  "pews_respiratory_rate_helper": "Normal values vary by age group",
+  "@pews_respiratory_rate_helper": {
+    "description": "PEWS respiratory rate input helper text"
+  },
+  "pews_systolic_bp_label": "Systolic Blood Pressure",
+  "@pews_systolic_bp_label": {
+    "description": "PEWS systolic BP input label"
+  },
+  "pews_systolic_bp_helper": "Hypotension is a late sign in children",
+  "@pews_systolic_bp_helper": {
+    "description": "PEWS systolic BP input helper text"
+  },
+  "pews_consciousness_level": "Consciousness Level",
+  "@pews_consciousness_level": {
+    "description": "PEWS consciousness level section title"
+  },
+  "pews_consciousness_alert": "Alert (0)",
+  "@pews_consciousness_alert": {
+    "description": "PEWS consciousness alert option"
+  },
+  "pews_consciousness_voice": "Responds to voice (+1)",
+  "@pews_consciousness_voice": {
+    "description": "PEWS consciousness voice option"
+  },
+  "pews_consciousness_pain": "Responds to pain (+2)",
+  "@pews_consciousness_pain": {
+    "description": "PEWS consciousness pain option"
+  },
+  "pews_consciousness_unresponsive": "Unresponsive (+3)",
+  "@pews_consciousness_unresponsive": {
+    "description": "PEWS consciousness unresponsive option"
+  },
+  "pews_oxygen_therapy": "Oxygen Therapy",
+  "@pews_oxygen_therapy": {
+    "description": "PEWS oxygen therapy section title"
+  },
+  "pews_oxygen_room_air": "Room air (0)",
+  "@pews_oxygen_room_air": {
+    "description": "PEWS oxygen room air option"
+  },
+  "pews_oxygen_nasal_cannula": "Nasal cannula (+1)",
+  "@pews_oxygen_nasal_cannula": {
+    "description": "PEWS oxygen nasal cannula option"
+  },
+  "pews_oxygen_face_mask": "Face mask (+2)",
+  "@pews_oxygen_face_mask": {
+    "description": "PEWS oxygen face mask option"
+  },
+  "pews_oxygen_high_flow": "High flow oxygen/Non-invasive ventilation (+3)",
+  "@pews_oxygen_high_flow": {
+    "description": "PEWS oxygen high flow option"
+  },
+  "pews_risk_level": "Risk {level}",
+  "@pews_risk_level": {
+    "description": "PEWS risk level display",
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "pews_response_level": "Response Level",
+  "@pews_response_level": {
+    "description": "PEWS response level section title"
+  },
+  "pews_monitoring_frequency": "Monitoring Frequency",
+  "@pews_monitoring_frequency": {
+    "description": "PEWS monitoring frequency section title"
+  },
+  "pews_clinical_response": "Clinical Response",
+  "@pews_clinical_response": {
+    "description": "PEWS clinical response section title"
+  },
+  "pews_response_routine": "Routine monitoring",
+  "@pews_response_routine": {
+    "description": "PEWS routine response level"
+  },
+  "pews_response_increased": "Increased monitoring",
+  "@pews_response_increased": {
+    "description": "PEWS increased monitoring response"
+  },
+  "pews_response_active": "Active intervention",
+  "@pews_response_active": {
+    "description": "PEWS active intervention response"
+  },
+  "pews_frequency_4_6_hours": "Every 4-6 hours",
+  "@pews_frequency_4_6_hours": {
+    "description": "PEWS monitoring frequency for low risk"
+  },
+  "pews_frequency_1_hour": "Every hour",
+  "@pews_frequency_1_hour": {
+    "description": "PEWS monitoring frequency for medium risk"
+  },
+  "pews_frequency_continuous": "Continuous",
+  "@pews_frequency_continuous": {
+    "description": "PEWS monitoring frequency for high risk"
+  },
+  "pews_action_continue_care": "Continue current care, routine monitoring",
+  "@pews_action_continue_care": {
+    "description": "PEWS action for low scores"
+  },
+  "pews_action_notify_doctor": "Notify doctor, increase monitoring, consider transfer",
+  "@pews_action_notify_doctor": {
+    "description": "PEWS action for medium scores"
+  },
+  "pews_action_emergency_team": "Call pediatric emergency team immediately, prepare ICU transfer",
+  "@pews_action_emergency_team": {
+    "description": "PEWS action for high scores"
+  },
+  "pews_consciousness_title": "Consciousness Level",
+  "@pews_consciousness_title": {
+    "description": "PEWS consciousness level section header"
+  },
+  
+  "pews_protocol_routine_title": "PEWS 0-3: Routine Care",
+  "@pews_protocol_routine_title": {"description": "PEWS routine care protocol title"},
+  "pews_protocol_increased_title": "PEWS 4-6: Increased Monitoring",
+  "@pews_protocol_increased_title": {"description": "PEWS increased monitoring protocol title"},
+  "pews_protocol_urgent_title": "PEWS ≥7: Urgent Intervention",
+  "@pews_protocol_urgent_title": {"description": "PEWS urgent intervention protocol title"},
+  
+  "pews_protocol_routine_1": "Monitor vital signs every 4-6 hours",
+  "@pews_protocol_routine_1": {"description": "PEWS routine care protocol step 1"},
+  "pews_protocol_routine_2": "Record PEWS score",
+  "@pews_protocol_routine_2": {"description": "PEWS routine care protocol step 2"},
+  "pews_protocol_routine_3": "Continue treatment plan",
+  "@pews_protocol_routine_3": {"description": "PEWS routine care protocol step 3"},
+  "pews_protocol_routine_4": "Reassess if condition changes",
+  "@pews_protocol_routine_4": {"description": "PEWS routine care protocol step 4"},
+  
+  "pews_protocol_increased_1": "Notify attending physician",
+  "@pews_protocol_increased_1": {"description": "PEWS increased monitoring protocol step 1"},
+  "pews_protocol_increased_2": "Monitor vital signs every 1-2 hours",
+  "@pews_protocol_increased_2": {"description": "PEWS increased monitoring protocol step 2"},
+  "pews_protocol_increased_3": "Review underlying cause",
+  "@pews_protocol_increased_3": {"description": "PEWS increased monitoring protocol step 3"},
+  "pews_protocol_increased_4": "Consider pediatric consultation",
+  "@pews_protocol_increased_4": {"description": "PEWS increased monitoring protocol step 4"},
+  
+  "pews_protocol_urgent_1": "Call pediatric emergency team immediately",
+  "@pews_protocol_urgent_1": {"description": "PEWS urgent intervention protocol step 1"},
+  "pews_protocol_urgent_2": "Continuous monitoring",
+  "@pews_protocol_urgent_2": {"description": "PEWS urgent intervention protocol step 2"},
+  "pews_protocol_urgent_3": "Prepare for PICU transfer",
+  "@pews_protocol_urgent_3": {"description": "PEWS urgent intervention protocol step 3"},
+  "pews_protocol_urgent_4": "ABC assessment",
+  "@pews_protocol_urgent_4": {"description": "PEWS urgent intervention protocol step 4"},
+  
+  "pews_clinical_info_title": "Clinical Information",
+  "@pews_clinical_info_title": {"description": "PEWS clinical information section title"},
+  "pews_clinical_info_description": "PEWS (Pediatric Early Warning Score) is a screening tool to identify children at risk of deterioration early\n\nAdvantages:\n• Early identification of critically ill children\n• Guides level of intervention\n• Improves treatment outcomes\n• Reduces cardiac arrest outside ICU\n\nNormal values by age:\n• <1 year: HR 100-170, RR 30-45\n• 1-5 years: HR 90-130, RR 20-35\n• 6-12 years: HR 80-110, RR 15-25\n• >12 years: HR 70-90, RR 12-22\n\nPediatric physiological characteristics:\n• Limited cardiopulmonary reserve\n• Hypotension is a late sign\n• Tachycardia and tachypnea are early signs\n• Altered consciousness indicates danger\n\nImportant considerations:\n• Adjust for age\n• Assess overall clinical picture\n• Monitor trends in changes\n• Combine with physical examination",
+  "@pews_clinical_info_description": {"description": "PEWS clinical information content"},
+  
+  "pews_references_title": "References",
+  "@pews_references_title": {"description": "PEWS references section title"},
+  "pews_references_text": "Monaghan A. Detecting and managing deterioration in children. Paediatr Nurs. 2005;17(1):32-5.\n\nPearson GA, et al. Should paediatric early warning scores be used in all pediatric wards? Arch Dis Child. 2017;102(1):4-6.\n\nLambert V, et al. The Paediatric Early Warning System (PEWS): where we are now and where we need to go. Clin Risk. 2017;23(1):12-19.",
+  "@pews_references_text": {"description": "PEWS references text"},
+  
+  "pews_response_protocol_title": "Response Protocol",
+  "@pews_response_protocol_title": {"description": "PEWS response protocol section title"},
+  
+  "pews_interp_low_risk": "Low risk",
+  "@pews_interp_low_risk": {"description": "PEWS low risk interpretation"},
+  "pews_interp_moderate_risk": "Moderate risk", 
+  "@pews_interp_moderate_risk": {"description": "PEWS moderate risk interpretation"},
+  "pews_interp_high_risk": "High risk",
+  "@pews_interp_high_risk": {"description": "PEWS high risk interpretation"},
+  "pews_interp_frequency_4_6h": "Every 4-6h",
+  "@pews_interp_frequency_4_6h": {"description": "PEWS monitoring frequency 4-6 hours"},
+  "pews_interp_frequency_1_2h": "Every 1-2h",
+  "@pews_interp_frequency_1_2h": {"description": "PEWS monitoring frequency 1-2 hours"},
+  "pews_interp_frequency_continuous": "Continuous",
+  "@pews_interp_frequency_continuous": {"description": "PEWS continuous monitoring"},
+  "pews_interp_routine_care": "Routine care",
+  "@pews_interp_routine_care": {"description": "PEWS routine care action"},
+  "pews_interp_notify_physician": "Notify physician",
+  "@pews_interp_notify_physician": {"description": "PEWS notify physician action"},
+  "pews_interp_emergency_team": "Pediatric emergency team",
+  "@pews_interp_emergency_team": {"description": "PEWS emergency team action"},
+  
+  "pews_risk_stratification_title": "PEWS Risk Stratification",
+  "@pews_risk_stratification_title": {"description": "PEWS risk stratification section title"},
+  
+  "pews_recommendation_title": "Recommendation:",
+  "@pews_recommendation_title": {"description": "PEWS recommendation section title"},
+  "pews_vital_signs_title": "Vital Signs",
+  "@pews_vital_signs_title": {"description": "PEWS vital signs section title"},
+  
+  "pews_age_unit": "years",
+  "@pews_age_unit": {"description": "PEWS age unit"},
+  "unit_per_minute": "/min",
+  "@unit_per_minute": {},
+  
+  "sepsis_bundle_lactate_title": "1. Lactate Measurement",
+  "@sepsis_bundle_lactate_title": {},
+  "sepsis_bundle_lactate_desc": "Obtain serum lactate level",
+  "@sepsis_bundle_lactate_desc": {},
+  "sepsis_bundle_blood_culture_title": "2. Blood Cultures",
+  "@sepsis_bundle_blood_culture_title": {},
+  "sepsis_bundle_blood_culture_desc": "Obtain before antibiotic administration",
+  "@sepsis_bundle_blood_culture_desc": {},
+  "sepsis_bundle_antibiotics_title": "3. Broad-spectrum Antibiotics",
+  "@sepsis_bundle_antibiotics_title": {},
+  "sepsis_bundle_antibiotics_desc": "Administer within 1 hour",
+  "@sepsis_bundle_antibiotics_desc": {},
+  "sepsis_bundle_fluid_title": "4. Fluid Resuscitation",
+  "@sepsis_bundle_fluid_title": {},
+  "sepsis_bundle_fluid_desc": "30ml/kg if hypotensive or lactate ≥4",
+  "@sepsis_bundle_fluid_desc": {},
+  "sepsis_bundle_vasopressor_title": "5. Vasopressor",
+  "@sepsis_bundle_vasopressor_title": {},
+  "sepsis_bundle_vasopressor_desc": "If hypotension persists after fluid resuscitation",
+  "@sepsis_bundle_vasopressor_desc": {}
+}

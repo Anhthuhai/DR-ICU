@@ -104,80 +104,152 @@ class _DaptScorePageState extends State<DaptScorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('DAPT Score'),
-        backgroundColor: Colors.cyan.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
+      body: CustomScrollView(
+        slivers: [
+          // Main AppBar (sticky)
+          SliverAppBar(
+            pinned: true,
+            title: const Text('DAPT Score'),
+            backgroundColor: Colors.cyan.shade700,
+            foregroundColor: Colors.white,
+          ),
+          
+          // Score Display Header (sticky)
+          SliverAppBar(
+            pinned: true,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            backgroundColor: recommendationColor.withValues(alpha: 0.1),
+            flexibleSpace: Container(
               decoration: BoxDecoration(
                 color: recommendationColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: recommendationColor.withValues(alpha: 0.3)),
+                border: Border(
+                  bottom: BorderSide(color: recommendationColor.withValues(alpha: 0.3)),
+                ),
               ),
-              child: Column(
-                children: [
-                  Text(
-                    'DAPT Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: recommendationColor,
-                    ),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'DAPT Score',
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: recommendationColor,
+                              ),
+                            ),
+                            Text(
+                              recommendation,
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: AppTheme.darkGrey,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        '$_daptScore',
+                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: recommendationColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$_daptScore',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: recommendationColor,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    recommendation,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRecommendationInfo(),
-                ],
+                ),
               ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Recommendation Info
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: recommendationColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: recommendationColor.withValues(alpha: 0.3)),
+                  ),
+                  child: _buildRecommendationInfo(),
+                ),
 
-            // Input Parameters
-            _buildPatientFactors(),
-            _buildClinicalFactors(),
+                // Input Parameters
+                _buildPatientFactors(),
+                _buildClinicalFactors(),
 
-            // Risk-Benefit Analysis
-            _buildRiskBenefitAnalysis(),
+                // Risk-Benefit Analysis
+                _buildRiskBenefitAnalysis(),
 
-            // Clinical Guidelines
-            _buildClinicalGuidelines(),
+                // Clinical Guidelines
+                _buildClinicalGuidelines(),
 
-            // Clinical Information
-            _buildClinicalInfo(),
+                // Clinical Information
+                _buildClinicalInfo(),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+                // Medical Citation
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.blue.shade200),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                          const SizedBox(width: 6),
+                          Text(
+                            'Tài liệu tham khảo',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'Yeh RW, Secemsky EA, Kereiakes DJ, et al. Development and validation of a prediction rule for benefit and harm of dual antiplatelet therapy beyond 1 year after percutaneous coronary intervention. JAMA. 2016;315(16):1735-49.',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.blue.shade600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildRecommendationInfo() {
     return Container(
+      margin: const EdgeInsets.only(top: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade50,

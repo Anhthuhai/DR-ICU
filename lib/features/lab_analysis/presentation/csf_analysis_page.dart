@@ -461,6 +461,10 @@ class _CsfAnalysisPageState extends State<CsfAnalysisPage> {
               ],
               
               if (_showResults) _buildResultsCard(),
+
+              // Medical Citation
+              const SizedBox(height: 16),
+              _buildCitationWidget(),
             ],
           ),
         ),
@@ -875,5 +879,43 @@ class _CsfAnalysisPageState extends State<CsfAnalysisPage> {
       default:
         return Icons.help;
     }
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Seehusen DA, et al. Cerebrospinal fluid analysis. Am Fam Physician. 2003;68(6):1103-8.\n\nStraus SE, et al. How do I perform a lumbar puncture and analyze the results to diagnose bacterial meningitis? JAMA. 2006;296(16):2012-22.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

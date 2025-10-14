@@ -519,6 +519,10 @@ class _AsciticFluidAnalysisPageState extends State<AsciticFluidAnalysisPage> {
               ],
               
               if (_showResults) _buildResultsCard(),
+
+              // Medical Citation
+              const SizedBox(height: 16),
+              _buildCitationWidget(),
             ],
           ),
         ),
@@ -1045,6 +1049,44 @@ class _AsciticFluidAnalysisPageState extends State<AsciticFluidAnalysisPage> {
             )),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Runyon BA, et al. The serum-ascites albumin gradient is superior to the exudate-transudate concept in the differential diagnosis of ascites. Ann Intern Med. 1992;117(3):215-20.\n\nWiegand J, Berg T. The etiology, diagnosis and prevention of liver cirrhosis: part 1 of a series on liver cirrhosis. Dtsch Arztebl Int. 2013;110(6):85-91.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
       ),
     );
   }

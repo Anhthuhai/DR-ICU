@@ -181,79 +181,111 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('HAS-BLED Score'),
-        backgroundColor: Colors.red.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'HAS-BLED Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+      body: CustomScrollView(
+        slivers: [
+          // Sticky App Bar
+          SliverAppBar(
+            title: const Text('HAS-BLED Score'),
+            backgroundColor: Colors.red.shade700,
+            foregroundColor: Colors.white,
+            floating: false,
+            pinned: true,
+            snap: false,
+            expandedHeight: 0,
+          ),
+          
+          // Sticky Score Header
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            flexibleSpace: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: riskColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      'HAS-BLED',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$_totalScore/9',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+                    const SizedBox(width: 16),
+                    Text(
+                      '$_totalScore/9',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                        fontSize: 24,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    riskLevel,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        riskLevel,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: riskColor,
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+                  ],
+                ),
               ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Risk Info
+                _buildRiskInfo(),
 
-            // Risk Factors
-            _buildRiskFactorsSection(),
+                // Risk Factors
+                _buildRiskFactorsSection(),
 
-            // Active Risk Factors
-            if (_totalScore > 0) _buildActiveFactors(),
+                // Active Risk Factors
+                if (_totalScore > 0) _buildActiveFactors(),
 
-            // Risk Stratification
-            _buildRiskStratification(),
+                // Risk Stratification
+                _buildRiskStratification(),
 
-            // Clinical Approach
-            _buildClinicalApproach(),
+                // Clinical Approach
+                _buildClinicalApproach(),
 
-            // Clinical Information
-            _buildClinicalInfo(),
+                // Clinical Information
+                _buildClinicalInfo(),
+
+                const SizedBox(height: 16),
+                Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              child: _buildCitationWidget(),
+            ),
 
             const SizedBox(height: 20),
-          ],
-        ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildRiskInfo() {
     return Container(
+      margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
@@ -766,6 +798,44 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
             '• Có thể điều chỉnh yếu tố nguy cơ\n'
             '• Theo dõi chặt chẽ nếu điểm số cao',
             style: TextStyle(height: 1.4),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Pisters R, et al. A novel user-friendly score (HAS-BLED) to assess 1-year risk of major bleeding in patients with atrial fibrillation. Chest. 2010;138(5):1093-100.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
           ),
         ],
       ),

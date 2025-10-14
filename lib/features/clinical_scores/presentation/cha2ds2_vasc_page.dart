@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
 class Cha2ds2VascPage extends StatefulWidget {
@@ -35,17 +36,30 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
     return Colors.red;
   }
 
-  String get riskLevel {
+  Color _getSolidBackgroundColor() {
     if (totalScore == 0) {
-      return 'Nguy cơ rất thấp';
+      return Colors.green.shade100;
     }
     if (totalScore == 1) {
-      return 'Nguy cơ thấp';
+      return Colors.yellow.shade100;
     }
     if (totalScore <= 3) {
-      return 'Nguy cơ trung bình';
+      return Colors.orange.shade100;
     }
-    return 'Nguy cơ cao';
+    return Colors.red.shade100;
+  }
+
+  String getRiskLevel(AppLocalizations localizations) {
+    if (totalScore == 0) {
+      return localizations.risk_very_low;
+    }
+    if (totalScore == 1) {
+      return localizations.risk_low;
+    }
+    if (totalScore <= 3) {
+      return localizations.risk_moderate;
+    }
+    return localizations.risk_high;
   }
 
   String get annualStrokeRisk {
@@ -64,35 +78,96 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
     }
   }
 
-  String get anticoagulationRecommendation {
+  String getAnticoagulationRecommendation(AppLocalizations localizations) {
     if (totalScore == 0) {
-      return 'Không cần kháng đông';
+      return localizations.no_anticoagulation_needed;
     }
     if (totalScore == 1) {
-      return 'Cân nhắc kháng đông hoặc aspirin';
+      return localizations.consider_anticoagulation_or_aspirin;
     }
-    return 'Khuyến cáo kháng đông đường uống';
+    return localizations.oral_anticoagulation_recommended;
   }
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    final riskLevel = getRiskLevel(localizations);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('CHA₂DS₂-VASc Score'),
-        backgroundColor: Colors.purple.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: const Text('CHA₂DS₂-VASc Score'),
+            backgroundColor: Colors.teal.shade100,
+            pinned: true,
+            floating: false,
+          ),
+          SliverAppBar(
+            pinned: true,
+            floating: false,
+            toolbarHeight: 70,
+            backgroundColor: _getSolidBackgroundColor(),
+            flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: scoreColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
+                color: _getSolidBackgroundColor(),
+                border: Border(
+                  bottom: BorderSide(color: Colors.grey.shade300, width: 1),
+                ),
+              ),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'CHA₂DS₂-VASc Score',
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text(
+                            '$totalScore',
+                            style: const TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
+                          ),
+                          Text(
+                            riskLevel,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Score Display
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: scoreColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
                 border: Border.all(color: scoreColor.withValues(alpha: 0.3)),
               ),
               child: Column(
@@ -114,7 +189,7 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    riskLevel,
+                    getRiskLevel(localizations),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppTheme.darkGrey,
@@ -122,14 +197,14 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Nguy cơ đột quỵ/năm: $annualStrokeRisk',
+                    localizations.stroke_risk_per_year(annualStrokeRisk),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: AppTheme.darkGrey,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    anticoagulationRecommendation,
+                    getAnticoagulationRecommendation(localizations),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: AppTheme.darkGrey,
@@ -142,12 +217,12 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
 
             // Risk Factors
             _buildSection(
-              'Yếu tố nguy cơ chính',
+              localizations.major_risk_factors,
               Colors.red.shade600,
               [
                 _buildRiskFactorCard(
                   'Congestive Heart Failure',
-                  'Suy tim sung huyết',
+                  localizations.cha2ds2_chf_description,
                   Icons.favorite_border,
                   1,
                   chfScore,
@@ -155,7 +230,7 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                 ),
                 _buildRiskFactorCard(
                   'Hypertension',
-                  'Tăng huyết áp',
+                  localizations.cha2ds2_hypertension_description,
                   Icons.trending_up,
                   1,
                   hypertensionScore,
@@ -163,7 +238,7 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                 ),
                 _buildRiskFactorCard(
                   'Diabetes mellitus',
-                  'Đái tháo đường',
+                  localizations.cha2ds2_diabetes_description,
                   Icons.bloodtype,
                   1,
                   diabetesScore,
@@ -171,7 +246,7 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                 ),
                 _buildRiskFactorCard(
                   'Stroke/TIA History',
-                  'Tiền sử đột quỵ/TIA',
+                  localizations.cha2ds2_stroke_description,
                   Icons.psychology,
                   2,
                   strokeScore,
@@ -179,7 +254,7 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                 ),
                 _buildRiskFactorCard(
                   'Vascular Disease',
-                  'Bệnh mạch máu ngoại biên/MI/aortic plaque',
+                  localizations.cha2ds2_vascular_description,
                   Icons.device_hub,
                   1,
                   vascularDiseaseScore,
@@ -189,11 +264,11 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
             ),
 
             _buildSection(
-              'Yếu tố tuổi tác và giới tính',
+              localizations.age_and_gender_factors,
               Colors.blue.shade600,
               [
-                _buildAgeSection(),
-                _buildGenderSection(),
+                _buildAgeSection(localizations),
+                _buildGenderSection(localizations),
               ],
             ),
 
@@ -211,11 +286,11 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.info, color: Colors.blue.shade600),
+                      Icon(Icons.info_outline, color: Colors.blue.shade700),
                       const SizedBox(width: 8),
                       Text(
-                        'Thông tin quan trọng',
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        localizations.clinical_information,
+                        style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Colors.blue.shade600,
                         ),
@@ -223,20 +298,28 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    '• CHA₂DS₂-VASc được sử dụng để đánh giá nguy cơ đột quỵ ở bệnh nhân rung nhĩ không do bệnh van tim\n'
-                    '• Điểm ≥ 2 (nam) hoặc ≥ 3 (nữ): khuyến cáo kháng đông\n'
-                    '• Điểm = 1 (nam) hoặc = 2 (nữ): cân nhắc kháng đông\n'
-                    '• Cần cân nhắc cùng với HAS-BLED score để đánh giá nguy cơ chảy máu',
-                    style: TextStyle(height: 1.4),
+                  Text(
+                    '${localizations.cha2ds2_vasc_usage}\n'
+                    '${localizations.anticoagulation_male_recommendation}\n'
+                    '${localizations.anticoagulation_consideration}\n'
+                    '${localizations.hasbled_combination}',
+                    style: const TextStyle(height: 1.4),
                   ),
                 ],
               ),
             ),
 
+            const SizedBox(height: 16),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              child: _buildCitationWidget(localizations),
+            ),
+
             const SizedBox(height: 20),
           ],
         ),
+      ),
+        ],
       ),
     );
   }
@@ -341,21 +424,21 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
     );
   }
 
-  Widget _buildAgeSection() {
+  Widget _buildAgeSection(AppLocalizations localizations) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Tuổi:',
-          style: TextStyle(fontWeight: FontWeight.w500),
+        Text(
+          localizations.age_label,
+          style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         const SizedBox(height: 8),
         TextField(
           controller: ageController,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            labelText: 'Nhập tuổi',
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            labelText: localizations.enter_age,
+            border: const OutlineInputBorder(),
           ),
           // ignore: deprecated_member_use
           onChanged: (value) {
@@ -379,7 +462,7 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
-            'Điểm tuổi: $ageScore (65-74: 1pt, ≥75: 2pts)',
+            localizations.cha2ds2_age_score(ageScore),
             style: TextStyle(
               fontWeight: FontWeight.w500,
               color: ageScore > 0 ? Colors.blue.shade700 : Colors.grey.shade600,
@@ -390,21 +473,21 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
     );
   }
 
-  Widget _buildGenderSection() {
+  Widget _buildGenderSection(AppLocalizations localizations) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 16),
-        const Text(
-          'Giới tính:',
-          style: TextStyle(fontWeight: FontWeight.w500),
+        Text(
+          localizations.gender_label,
+          style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         Row(
           children: [
             Expanded(
               child: RadioListTile<int>(
-                title: const Text('Nam'),
-                subtitle: const Text('0 điểm'),
+                title: Text(localizations.male),
+                subtitle: Text(localizations.zero_points),
                 value: 0,
                 // ignore: deprecated_member_use
                 groupValue: sexScore,
@@ -415,8 +498,8 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
             ),
             Expanded(
               child: RadioListTile<int>(
-                title: const Text('Nữ'),
-                subtitle: const Text('1 điểm'),
+                title: Text(localizations.female),
+                subtitle: Text(localizations.one_point),
                 value: 1,
                 // ignore: deprecated_member_use
                 groupValue: sexScore,
@@ -428,6 +511,44 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
           ],
         ),
       ],
+    );
+  }
+
+  Widget _buildCitationWidget(AppLocalizations localizations) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                localizations.references,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Lip GY, et al. Refining clinical risk stratification for predicting stroke and thromboembolism in atrial fibrillation using a novel risk factor-based approach: the euro heart survey on atrial fibrillation. Chest. 2010;137(2):263-72.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

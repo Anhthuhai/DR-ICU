@@ -198,6 +198,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
         title: const Text('CRUSADE Bleeding Risk'),
         backgroundColor: Colors.red.shade800,
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -254,6 +255,44 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
 
             // Clinical Information
             _buildClinicalInfo(),
+
+            // Medical Citation
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.blue.shade200),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Tài liệu tham khảo',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Subherwal S, Bach RG, Chen AY, et al. Baseline risk of major bleeding in non-ST-segment-elevation myocardial infarction: the CRUSADE (Can Rapid risk stratification of Unstable angina patients Suppress ADverse outcomes with Early implementation) Bleeding Score. Circulation. 2009;119(14):1873-82.',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.blue.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
             const SizedBox(height: 20),
           ],

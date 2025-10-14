@@ -1,0 +1,1190 @@
+{
+  "@@locale": "vi",
+  "appTitle": "DR ICU",
+  "welcomeMessage": "Chào mừng đến với DR ICU",
+  "welcomeSubtitle": "Công cụ hỗ trợ cho bác sĩ và sinh viên thực hành tại khoa hồi sức tích cực",
+  "clinicalScores": "Thang điểm lâm sàng",
+  "clinicalScoresDescription": "Glasgow, APACHE, SOFA...",
+  "emergencyProtocols": "Quy trình cấp cứu",
+  "emergencyProtocolsDescription": "Quy trình hồi sức cấp cứu",
+  "diagnosticTools": "Công cụ chẩn đoán",
+  "diagnosticToolsDescription": "Phân tích xét nghiệm, hướng dẫn hình ảnh",
+  "calculationTools": "Công cụ tính toán",
+  "calculationToolsDescription": "Tính BMI, BSA, các chỉ số y tế",
+  "cha2ds2_vasc_score": "Thang điểm CHA₂DS₂-VASc",
+  "@cha2ds2_vasc_score": {
+    "description": "CHA2DS2-VASc score title"
+  },
+  "risk_very_low": "Nguy cơ rất thấp",
+  "@risk_very_low": {
+    "description": "Very low risk level"
+  },
+  "risk_low": "Nguy cơ thấp",
+  "@risk_low": {
+    "description": "Low risk level"
+  },
+  "risk_moderate": "Nguy cơ trung bình",
+  "@risk_moderate": {
+    "description": "Moderate risk level"
+  },
+  "risk_high": "Nguy cơ cao",
+  "@risk_high": {
+    "description": "High risk level"
+  },
+  "stroke_risk_per_year": "Nguy cơ đột quỵ/năm: {risk}",
+  "@stroke_risk_per_year": {
+    "description": "Annual stroke risk display",
+    "placeholders": {
+      "risk": {
+        "type": "String"
+      }
+    }
+  },
+  "no_anticoagulation_needed": "Không cần kháng đông",
+  "@no_anticoagulation_needed": {
+    "description": "No anticoagulation recommendation"
+  },
+  "consider_anticoagulation_or_aspirin": "Cân nhắc kháng đông hoặc aspirin",
+  "@consider_anticoagulation_or_aspirin": {
+    "description": "Consider anticoagulation recommendation"
+  },
+  "oral_anticoagulation_recommended": "Khuyến cáo kháng đông đường uống",
+  "@oral_anticoagulation_recommended": {
+    "description": "Oral anticoagulation recommendation"
+  },
+  "major_risk_factors": "Yếu tố nguy cơ chính",
+  "@major_risk_factors": {
+    "description": "Major risk factors section title"
+  },
+  "cha2ds2_vasc_usage": "• CHA₂DS₂-VASc được sử dụng để đánh giá nguy cơ đột quỵ ở bệnh nhân rung nhĩ không do bệnh van tim",
+  "@cha2ds2_vasc_usage": {
+    "description": "CHA2DS2-VASc usage description"
+  },
+  "anticoagulation_male_recommendation": "• Điểm ≥ 2 (nam) hoặc ≥ 3 (nữ): khuyến cáo kháng đông",
+  "@anticoagulation_male_recommendation": {
+    "description": "Male anticoagulation recommendation"
+  },
+  "anticoagulation_consideration": "• Điểm = 1 (nam) hoặc = 2 (nữ): cân nhắc kháng đông",
+  "@anticoagulation_consideration": {
+    "description": "Anticoagulation consideration note"
+  },
+  "hasbled_combination": "• Cần cân nhắc cùng với HAS-BLED score để đánh giá nguy cơ chảy máu",
+  "@hasbled_combination": {
+    "description": "HAS-BLED combination note"
+  },
+  "unitConverter": "Chuyển đổi",
+  "unitConverterDescription": "Chuyển đổi đơn vị y tế",
+  "labAnalysis": "Xét nghiệm",
+  "labAnalysisDescription": "Phân tích kết quả xét nghiệm",
+  "guidelines": "Hướng dẫn",
+  "guidelinesDescription": "Hướng dẫn thực hành lâm sàng",
+  "entertainment": "Giải trí",
+  "entertainmentDescription": "Câu đố và trò chơi y khoa",
+  "bookmarks": "Đánh dấu",
+  "search": "Tìm kiếm",
+  "notifications": "Thông báo",
+  "settings": "Cài đặt",
+  "language": "Ngôn ngữ",
+  "languageSelection": "Chọn ngôn ngữ",
+  "english": "English",
+  "vietnamese": "Tiếng Việt",
+  "cancel": "Hủy",
+  "save": "Lưu",
+  "clear": "Xóa",
+  "calculate": "Tính toán",
+  "result": "Kết quả",
+  "score": "Điểm",
+  "normal": "Bình thường",
+  "mild": "Nhẹ",
+  "moderate": "Vừa",
+  "severe": "Nặng",
+  "critical": "Nguy kịch",
+  "glasgowComaScale": "Thang điểm Glasgow",
+  "glasgowComaScaleDescription": "Đánh giá mức độ ý thức bệnh nhân",
+  "eyeResponse": "Phản ứng mắt",
+  "verbalResponse": "Phản ứng lời nói",
+  "motorResponse": "Phản ứng vận động",
+  "total": "Tổng",
+  "home": "Trang chủ",
+  "other": "Khác",
+  "refresh": "Làm mới",
+  "clearAll": "Xóa tất cả",
+  "back": "Quay lại",
+  
+  "apache2Score": "Thang điểm APACHE II",
+  "apache2Description": "Đánh giá sinh lý cấp tính và sức khỏe mãn tính",
+  "sofaScore": "Thang điểm SOFA",
+  "sofaDescription": "Đánh giá suy cơ quan tuần tự",
+  "sapsScore": "Thang điểm SAPS II",
+  "sapsDescription": "Thang điểm sinh lý cấp tính đơn giản",
+  "bradenScale": "Thang Braden",
+  "bradenDescription": "Đánh giá nguy cơ loét do tỳ đè",
+  "nihssScore": "Thang NIHSS",
+  "nihssDescription": "Thang đánh giá đột quỵ quốc gia Mỹ",
+  "rassScore": "Thang RASS",
+  "rassDescription": "Thang đánh giá kích động - an thần Richmond",
+  "camIcuScore": "CAM-ICU",
+  "camIcuDescription": "Phương pháp đánh giá lú lẫn trong ICU",
+  
+  "respiratorySystem": "Hệ hô hấp",
+  "cardiovascularSystem": "Hệ tim mạch",
+  "nervousSystem": "Hệ thần kinh",
+  "renalSystem": "Hệ thận",
+  "hepaticSystem": "Hệ gan",
+  "coagulationSystem": "Hệ đông máu",
+  
+  "bloodPressure": "Huyết áp",
+  "heartRate": "Nhịp tim",
+  "temperature": "Nhiệt độ",
+  "respiratoryRate": "Nhịp thở",
+  "oxygenSaturation": "Độ bão hòa oxy",
+  
+  "labResults": "Kết quả xét nghiệm",
+  "bloodGas": "Khí máu",
+  "completeBloodCount": "Công thức máu",
+  "liverFunction": "Chức năng gan",
+  "kidneyFunction": "Chức năng thận",
+  "electrolytes": "Điện giải",
+  
+  "intensive_care": "Hồi sức tích cực",
+  "emergency_medicine": "Y học cấp cứu",
+  "critical_care": "Chăm sóc đặc biệt",
+  "patient_monitoring": "Theo dõi bệnh nhân",
+  "medical_calculation": "Tính toán y khoa",
+  
+  "references": "Tài liệu tham khảo",
+  "@references": {
+    "description": "References section"
+  },
+  "medical_disclaimer": "DÀNH CHO NHÂN VIÊN Y TẾ\nCông cụ tham khảo - Không thay thế phán đoán lâm sàng",
+  "@medical_disclaimer": {
+    "description": "Medical disclaimer text for healthcare professionals"
+  },
+  "medical_references_title": "Tài Liệu Tham Khảo & Trích Dẫn Y Khoa",
+  "@medical_references_title": {
+    "description": "Medical references page title"
+  },
+  "medical_disclaimer_title": "Tuyên Bố Y Khoa",
+  "@medical_disclaimer_title": {
+    "description": "Medical disclaimer section title"
+  },
+  "medical_disclaimer_content": "DR-ICU được thiết kế chỉ nhằm mục đích giáo dục và tham khảo cho các nhân viên y tế có chuyên môn. Ứng dụng này KHÔNG nên thay thế phán đoán lâm sàng, quy trình của cơ sở y tế, hoặc đào tạo y khoa chuyên nghiệp. Tất cả thông tin y khoa đều dựa trên các hướng dẫn lâm sàng và tài liệu đã được thiết lập như được trích dẫn bên dưới.",
+  "@medical_disclaimer_content": {
+    "description": "Detailed medical disclaimer content"
+  },
+  "medical_literature": "Tài liệu y khoa",
+  "evidence_based": "Dựa trên bằng chứng",
+  "clinical_guidelines": "Hướng dẫn lâm sàng",
+  
+  "gcs_eye_spontaneous": "Mở mắt tự phát",
+  "gcs_eye_to_voice": "Mở mắt khi gọi",
+  "gcs_eye_to_pain": "Mở mắt khi đau",
+  "gcs_eye_none": "Không mở mắt",
+  
+  "gcs_verbal_oriented": "Nói chuyện bình thường",
+  "gcs_verbal_confused": "Nói lẫn, nhầm lẫn",
+  "gcs_verbal_inappropriate": "Nói từng từ không liên quan",
+  "gcs_verbal_incomprehensible": "Chỉ phát ra âm thanh",
+  "gcs_verbal_none": "Không phản ứng",
+  
+  "gcs_motor_obeys": "Làm theo lệnh",
+  "gcs_motor_localizes": "Định vị đau",
+  "gcs_motor_withdrawal": "Rút tay khi đau",
+  "gcs_motor_flexion": "Tư thế gấp bất thường",
+  "gcs_motor_extension": "Tư thế duỗi bất thường",
+  "gcs_motor_none": "Không phản ứng",
+  
+  "mild_brain_injury": "Chấn thương não nhẹ",
+  "moderate_brain_injury": "Chấn thương não trung bình",
+  "severe_brain_injury": "Chấn thương não nặng",
+  
+  "please_select_responses": "Vui lòng chọn các phản ứng",
+  "reset": "Đặt lại",
+  "total_gcs_score": "Tổng điểm GCS",
+  
+  "systolic_pressure": "Huyết áp tâm thu",
+  "diastolic_pressure": "Huyết áp tâm trương",
+  "mean_arterial_pressure": "Huyết áp trung bình",
+  
+  "age": "Tuổi",
+  "weight": "Cân nặng", 
+  "height": "Chiều cao",
+  "bmi": "Chỉ số khối cơ thể (BMI)",
+  "bsa": "Diện tích bề mặt cơ thể (BSA)",
+  "please_enter_parameters": "Vui lòng nhập các thông số",
+  "very_low_mortality_risk": "Nguy cơ tử vong rất thấp",
+  "low_mortality_risk": "Nguy cơ tử vong thấp",
+  "moderate_mortality_risk": "Nguy cơ tử vong trung bình",
+  "high_mortality_risk": "Nguy cơ tử vong cao",
+  "very_high_mortality_risk": "Nguy cơ tử vong rất cao",
+  "extremely_high_mortality_risk": "Nguy cơ tử vong cực kỳ cao",
+  "predicted_mortality_rate": "Tỷ lệ tử vong dự đoán",
+  "vital_signs": "Sinh hiệu",
+  "laboratory_tests": "Xét nghiệm",
+  "chronic_health": "Sức khỏe mãn tính",
+  "age_years": "Tuổi (năm)",
+  "years": "năm",
+  "age_score": "Điểm tuổi",
+  "temperature_celsius": "Nhiệt độ (°C)",
+  "map_mmhg": "MAP (mmHg)",
+  "heart_rate_per_min": "Nhịp tim (/phút)",
+  "respiratory_rate_per_min": "Nhịp thở (/phút)",
+  "blood_ph": "pH máu",
+  "sodium_meq_l": "Natri (mEq/L)",
+  "potassium_meq_l": "Kali (mEq/L)",
+  "creatinine_mg_dl": "Creatinin (mg/dL)",
+  "hematocrit_percent": "Hematocrit (%)",
+  "wbc_count": "Số lượng BC (1000/µL)",
+  "chronic_disease_history": "Tiền sử bệnh mạn tính nghiêm trọng:",
+  "none": "Không có",
+  "has_non_surgical_or_emergency": "Có (không phẫu thuật hoặc phẫu thuật cấp cứu)",
+  "has_elective_surgery": "Có (phẫu thuật chương trình)",
+  "no_organ_failure": "Không có suy cơ quan",
+  "mild_organ_failure": "Suy cơ quan nhẹ",
+  "moderate_organ_failure": "Suy cơ quan trung bình", 
+  "severe_organ_failure": "Suy cơ quan nặng",
+  "very_severe_multi_organ_failure": "Suy đa cơ quan rất nặng",
+  "respiratory_system": "Hệ hô hấp",
+  "cardiovascular_system": "Hệ tim mạch",
+  "hepatic_system": "Hệ gan",
+  "coagulation_system": "Hệ đông máu",
+  "renal_system": "Hệ thận",
+  "neurological_system": "Hệ thần kinh",
+  "mortality_rate": "Tỷ lệ tử vong",
+  "pao2_fio2_mmhg": "PaO2/FiO2 (mmHg)",
+  "if_not_ventilated_helper": "Nếu không thở máy, nhập SpO2/FiO2 x 315",
+  "mean_arterial_pressure_or_vasopressors": "Huyết áp trung bình hoặc thuốc vận mạch",
+  "no_hypotension": "Không hạ huyết áp",
+  "map_less_than_70": "MAP < 70 mmHg",
+  "dopamine_dobutamine": "Dopamine ≤ 5 hoặc dobutamine (liều bất kỳ)",
+  "dopamine_5_15": "Dopamine 5-15 hoặc epinephrine ≤ 0.1 hoặc norepinephrine ≤ 0.1",
+  "dopamine_greater_15": "Dopamine > 15 hoặc epinephrine > 0.1 hoặc norepinephrine > 0.1",
+  "bilirubin_mg_dl": "Bilirubin (mg/dL)",
+  "platelets_1000_ul": "Tiểu cầu (1000/µL)",
+  "glasgow_coma_scale_score": "Điểm Glasgow Coma Scale",
+  "creatinine_or_urine_output": "Creatinin hoặc lượng nước tiểu",
+  "creatinine_mg_dl_label": "Creatinin (mg/dL)",
+  "urine_output_ml_day": "Lượng nước tiểu (ml/ngày)",
+  "enter_total_bilirubin_value": "Nhập giá trị bilirubin toàn phần",
+  "enter_platelet_count": "Nhập số lượng tiểu cầu",
+  "enter_creatinine_value": "Nhập giá trị creatinin",
+  "enter_urine_output_24h": "Nhập lượng nước tiểu 24 giờ",
+  "creatinine_unit": "Đơn vị Creatinine",
+  "conversion_note": "Chuyển đổi: 1 mg/dL = 88.4 umol/L",
+  "@conversion_note": {
+    "description": "Unit conversion note"
+  },
+  "score_colon": "Điểm: ",
+  "@score_colon": {
+    "description": "Score label with colon"
+  },
+  "bilirubin_unit_label": "Đơn vị Bilirubin",
+  "@bilirubin_unit_label": {
+    "description": "Bilirubin unit dropdown label"
+  },
+  "bilirubin_conversion_note": "Chuyển đổi: 1 mg/dL = 17.1 umol/L",
+  "@bilirubin_conversion_note": {
+    "description": "Bilirubin unit conversion note"
+  },
+  "saps2Score": "SAPS II Score",
+  "physiological_score": "Điểm sinh lý",
+  "admission_type": "Loại nhập viện",
+  "chronic_diseases": "Bệnh mãn tính",
+  "scheduled_surgery": "Phẫu thuật theo kế hoạch",
+  "unscheduled_surgery": "Phẫu thuật cấp cứu",
+  "medical_admission": "Nhập viện nội khoa",
+  "saps2_mortality_note": "Dự đoán tử vong SAPS II dựa trên 24 giờ đầu nhập ICU",
+  "basic_information": "Thông tin cơ bản",
+  "heart_rate_bpm": "Nhịp tim (/phút)",
+  "systolic_bp_mmhg": "Huyết áp tâm thu (mmHg)",
+  "urine_output_l_day": "Nước tiểu (L/ngày)",
+  "nihss_score": "Thang NIHSS",
+  "nihss_mild_stroke": "Đột quỵ nhẹ",
+  "nihss_moderate_stroke": "Đột quỵ vừa",
+  "nihss_severe_stroke": "Đột quỵ nặng", 
+  "nihss_very_severe_stroke": "Đột quỵ rất nặng",
+  "nihss_good_prognosis": "Tiên lượng tốt, hồi phục cao",
+  "nihss_fair_prognosis": "Tiên lượng khá, cần phục hồi chức năng",
+  "nihss_poor_prognosis": "Tiên lượng xấu, phụ thuộc nặng",
+  "nihss_very_poor_prognosis": "Tiên lượng rất xấu, tử vong cao",
+  "prognosis": "Tiên lượng:",
+  "potassium_mmol": "Kali (mmol/L)",
+  "sodium_mmol": "Natri (mmol/L)",
+  "bicarbonate_mmol": "HCO3⁻ (mmol/L)",
+  "glasgow_coma_scale": "Thang Glasgow Coma Scale",
+  "admission_chronic_disease": "Loại nhập viện & Bệnh mạn tính",
+  "gcs_less_than_6": "GCS < 6",
+  "gcs_6_to_8": "GCS 6-8",
+  "gcs_9_to_10": "GCS 9-10",
+  "gcs_11_to_13": "GCS 11-13",
+  "gcs_14_to_15": "GCS 14-15",
+  "admission_type_label": "Loại nhập viện:",
+  "chronic_diseases_label": "Bệnh mạn tính:",
+  "qsofa_score": "Thang qSOFA",
+  "qsofa_description": "Quick SOFA cho tầm soát nhiễm khuẩn huyết",
+  "routine_monitoring": "Theo dõi thường quy, không cần can thiệp đặc biệt",
+  "sepsis_evaluation": "Xem xét đánh giá nhiễm khuẩn huyết và xử trí ngay lập tức",
+  "aids": "AIDS",
+  "hematologic_malignancy": "Ung thư máu",
+  "metastatic_cancer": "Ung thư di căn",
+  "systolic_blood_pressure": "Huyết áp tâm thu",
+  "blood_urea_nitrogen": "Ure máu (BUN)",
+  "bicarbonate": "Bicarbonate",
+  "low_risk": "Nguy cơ thấp",
+  "high_risk": "Nguy cơ cao",
+  "mortality_low": "< 10%",
+  "mortality_high": "≥ 10%",
+  "mortality": "Tử vong",
+  "action": "Hành động",
+  "recommendations": "Khuyến nghị:",
+  "qsofa_criteria": "Tiêu chí qSOFA",
+  "respiratory_rate": "Nhịp thở",
+  "systolic_bp": "Huyết áp tâm thu",
+  "altered_mentation": "Trạng thái tâm thần",
+  "respiratory_rate_helper": "+1 điểm nếu ≥22 lần/phút",
+  "systolic_bp_helper": "+1 điểm nếu ≤100 mmHg",
+  "no": "Không",
+  "yes_gcs_less_15": "Có (GCS <15)",
+  "positive_criteria": "Tiêu chí dương tính ({count})",
+  "continue_current_treatment": "Tiếp tục theo dõi và điều trị hiện tại",
+  "initiate_sepsis_bundle": "Khởi động quy trình sepsis bundle trong 1 giờ",
+  "nihss_1a_consciousness": "1a. Ý thức",
+  "nihss_1b_questions": "1b. Trả lời câu hỏi (tháng hiện tại, tuổi)",
+  "nihss_1c_commands": "1c. Thực hiện lệnh (mở/nhắm mắt, nắm/mở bàn tay)",
+  "nihss_2_gaze": "2. Vận nhãn (nhìn theo ngón tay)",
+  "nihss_3_visual": "3. Trường nhìn",
+  "nihss_4_facial": "4. Liệt mặt",
+  "nihss_5a_left_arm": "5a. Vận động tay trái",
+  "nihss_5b_right_arm": "5b. Vận động tay phải",
+  "nihss_6a_left_leg": "6a. Vận động chân trái",
+  "nihss_6b_right_leg": "6b. Vận động chân phải",
+  "nihss_7_ataxia": "7. Mất điều hòa chi (finger-nose, heel-shin)",
+  "nihss_8_sensory": "8. Cảm giác",
+  "nihss_9_language": "9. Ngôn ngữ (thất ngôn)",
+  "nihss_10_dysarthria": "10. Khó nói (rối loạn phát âm)",
+  "nihss_11_extinction": "11. Loại trừ và thiếu chú ý",
+  "nihss_consciousness_0": "Tỉnh táo",
+  "nihss_consciousness_1": "Lơ mơ nhưng kích thích được",
+  "nihss_consciousness_2": "Hôn mê, cần kích thích liên tục",
+  "nihss_consciousness_3": "Hôn mê sâu",
+  "nihss_questions_0": "Trả lời đúng cả 2 câu",
+  "nihss_questions_1": "Trả lời đúng 1 câu",
+  "nihss_questions_2": "Không trả lời đúng câu nào",
+  "nihss_commands_0": "Thực hiện đúng cả 2 lệnh",
+  "nihss_commands_1": "Thực hiện đúng 1 lệnh",
+  "nihss_commands_2": "Không thực hiện đúng lệnh nào",
+  "nihss_gaze_0": "Bình thường",
+  "nihss_gaze_1": "Liệt nhìn một phần",
+  "nihss_gaze_2": "Liệt nhìn hoàn toàn",
+  "nihss_visual_0": "Không khiếm khuyết",
+  "nihss_visual_1": "Khiếm khuyết 1/4 trường nhìn",
+  "nihss_visual_2": "Khiếm khuyết nửa trường nhìn",
+  "nihss_visual_3": "Mù hoàn toàn",
+  "nihss_facial_0": "Bình thường",
+  "nihss_facial_1": "Liệt nhẹ (mất đối xứng nhẹ)",
+  "nihss_facial_2": "Liệt vừa (liệt vùng dưới mặt)",
+  "nihss_facial_3": "Liệt hoàn toàn",
+  "nihss_arm_0": "Bình thường, giữ 10 giây",
+  "nihss_arm_1": "Rơi từ từ trong 10 giây",
+  "nihss_arm_2": "Rơi ngay, có cố gắng chống lại trọng lực",
+  "nihss_arm_3": "Không chuyển động",
+  "nihss_arm_4": "Không đánh giá được (cắt cụt, khớp cứng)",
+  "nihss_leg_0": "Bình thường, giữ 5 giây",
+  "nihss_leg_1": "Rơi từ từ trong 5 giây",
+  "nihss_leg_2": "Rơi ngay, có cố gắng chống lại trọng lực",
+  "nihss_leg_3": "Không chuyển động",
+  "nihss_leg_4": "Không đánh giá được (cắt cụt, khớp cứng)",
+  "nihss_ataxia_0": "Không có",
+  "nihss_ataxia_1": "Có ở 1 chi",
+  "nihss_ataxia_2": "Có ở 2 chi",
+  "nihss_sensory_0": "Bình thường",
+  "nihss_sensory_1": "Giảm cảm giác nhẹ đến vừa",
+  "nihss_sensory_2": "Mất cảm giác hoàn toàn",
+  "nihss_language_0": "Bình thường",
+  "nihss_language_1": "Thất ngôn nhẹ đến vừa",
+  "nihss_language_2": "Thất ngôn nặng",
+  "nihss_language_3": "Câm hoàn toàn",
+  "nihss_dysarthria_0": "Bình thường",
+  "nihss_dysarthria_1": "Nhẹ đến vừa",
+  "nihss_dysarthria_2": "Nặng (câm hoặc không thể hiểu)",
+  "nihss_extinction_0": "Bình thường",
+  "nihss_extinction_1": "Thiếu chú ý hoặc loại trừ một phương thức",
+  "nihss_extinction_2": "Thiếu chú ý hoàn toàn ở một bên",
+  "nihss_recommendation_mild": "Điều trị nội khoa, phục hồi chức năng sớm",
+  "nihss_recommendation_moderate": "Cân nhắc can thiệp mạch máu, phục hồi chức năng tích cực",
+  "nihss_recommendation_severe": "Can thiệp tích cực nếu trong golden time, ICU monitoring",
+  "nihss_recommendation_very_severe": "Điều trị hỗ trợ, cân nhắc giới hạn điều trị",
+  "nihss_score_display": "Điểm NIHSS",
+  "nihss_severity_classification": "Phân tầng mức độ đột quỵ",
+  "nihss_score_range_mild": "0-4 điểm",
+  "nihss_score_range_moderate": "5-15 điểm",
+  "nihss_score_range_severe": "16-20 điểm",
+  "nihss_score_range_very_severe": "21-42 điểm",
+  "nihss_clinical_note": "Lưu ý: NIHSS được đánh giá trong 24h đầu và theo dõi diễn biến. Điểm số giảm cho thấy cải thiện, tăng cho thấy xấu đi. Cần kết hợp với đánh giá lâm sàng và hình ảnh học để quyết định điều trị.",
+  "reference_materials": "Tài liệu tham khảo",
+  "score_label": "Điểm",
+  "sepsis_risk_stratification": "Phân tầng nguy cơ sepsis",
+  "clinical_information": "Thông tin lâm sàng",
+  "qsofa_clinical_content": "qSOFA (Quick SOFA) là công cụ sàng lọc sepsis đơn giản và nhanh chóng\n\nƯu điểm:\n• Đơn giản, không cần xét nghiệm\n• Thực hiện nhanh tại bedside\n• Giúp nhận diện sớm sepsis\n• Kích hoạt quy trình điều trị\n\nGiới hạn:\n• Độ nhạy thấp hơn SOFA đầy đủ\n• Không thay thế đánh giá lâm sàng\n• Có thể bỏ sót sepsis sớm\n• Cần kết hợp với nghi ngờ nhiễm trùng\n\nSepsis 3.0 Definition:\n• Sepsis = Nhiễm trùng + qSOFA ≥2\n• Sốc sepsis = Sepsis + vasopressor + lactate >2\n• Điều trị trong \"Golden Hour\"\n\nLưu ý quan trọng:\n• qSOFA không chẩn đoán sepsis\n• Chỉ là công cụ sàng lọc\n• Cần đánh giá tổng thể lâm sàng\n• Theo dõi diễn biến liên tục",
+  "qsofa_respiratory_rate_criterion": "Tần số thở ≥22",
+  "qsofa_respiratory_rate_description": "Tần số thở ≥22 lần/phút",
+  "qsofa_altered_mentation_criterion": "Rối loạn ý thức",
+  "qsofa_altered_mentation_description": "Thay đổi tình trạng tâm thần (GCS <15)",
+  "qsofa_systolic_bp_criterion": "Huyết áp tâm thu ≤100",
+  "qsofa_systolic_bp_description": "Huyết áp tâm thu ≤100 mmHg",
+  "qsofa_low_risk": "Nguy cơ thấp",
+  "qsofa_high_risk": "Nguy cơ cao",
+  "qsofa_routine_monitoring": "Theo dõi thường quy",
+  "qsofa_immediate_sepsis_bundle": "Sepsis bundle tức thì",
+  "sepsis_bundle_hour_1": "Sepsis Bundle - Hour 1",
+  "lactate_measurement": "1. Lactate đo lường",
+  "lactate_description": "Lấy máu xét nghiệm lactate",
+  "blood_culture": "2. Cấy máu",
+  "blood_culture_description": "Cấy máu trước khi dùng kháng sinh",
+  "antibiotics": "3. Kháng sinh",
+  "antibiotics_description": "Kháng sinh phổ rộng trong 1 giờ",
+  "fluid_resuscitation": "4. Dịch truyền",
+  "fluid_description": "30ml/kg nếu hạ huyết áp hoặc lactate ≥4",
+  "vasopressor": "5. Vasopressor",
+  "vasopressor_description": "Nếu hạ huyết áp không đáp ứng với dịch truyền",
+  "@vasopressor_description": {
+    "description": "Vasopressor description"
+  },
+  "child_pugh_score": "Thang điểm Child-Pugh",
+  "@child_pugh_score": {
+    "description": "Child-Pugh score title"
+  },
+  "child_pugh_classification": "Phân loại Child-Pugh",
+  "@child_pugh_classification": {
+    "description": "Child-Pugh classification title"
+  },
+  "mild_liver_disease": "Bệnh gan nhẹ",
+  "@mild_liver_disease": {
+    "description": "Child-Pugh Class A description"
+  },
+  "moderate_liver_disease": "Bệnh gan trung bình",
+  "@moderate_liver_disease": {
+    "description": "Child-Pugh Class B description"
+  },
+  "severe_liver_disease": "Bệnh gan nặng",
+  "@severe_liver_disease": {
+    "description": "Child-Pugh Class C description"
+  },
+  "low_operative_risk": "Nguy cơ phẫu thuật thấp (10%)",
+  "@low_operative_risk": {
+    "description": "Child-Pugh Class A operative risk"
+  },
+  "moderate_operative_risk": "Nguy cơ phẫu thuật trung bình (30%)",
+  "@moderate_operative_risk": {
+    "description": "Child-Pugh Class B operative risk"
+  },
+  "high_operative_risk": "Nguy cơ phẫu thuật cao (82%)",
+  "@high_operative_risk": {
+    "description": "Child-Pugh Class C operative risk"
+  },
+  "child_pugh_laboratory_tests": "Xét nghiệm",
+  "@child_pugh_laboratory_tests": {
+    "description": "Child-Pugh laboratory tests section title"
+  },
+  "clinical_symptoms": "Triệu chứng lâm sàng",
+  "@clinical_symptoms": {
+    "description": "Clinical symptoms section title"
+  },
+  "ascites": "Cổ trướng",
+  "@ascites": {
+    "description": "Ascites assessment"
+  },
+  "hepatic_encephalopathy": "Bệnh não gan",
+  "@hepatic_encephalopathy": {
+    "description": "Hepatic encephalopathy assessment"
+  },
+  "ascites_none": "Không",
+  "@ascites_none": {
+    "description": "No ascites option"
+  },
+  "ascites_mild_moderate": "Nhẹ-trung bình (điều trị được)",
+  "@ascites_mild_moderate": {
+    "description": "Mild to moderate ascites option"
+  },
+  "ascites_severe": "Nặng (kháng trị)",
+  "@ascites_severe": {
+    "description": "Severe ascites option"
+  },
+  "encephalopathy_none": "Không",
+  "@encephalopathy_none": {
+    "description": "No encephalopathy option"
+  },
+  "encephalopathy_grade_1_2": "Độ I-II (nhẹ-trung bình)",
+  "@encephalopathy_grade_1_2": {
+    "description": "Grade 1-2 encephalopathy option"
+  },
+  "encephalopathy_grade_3_4": "Độ III-IV (nặng)",
+  "@encephalopathy_grade_3_4": {
+    "description": "Grade 3-4 encephalopathy option"
+  },
+  "one_year_survival": "Sống còn 1 năm",
+  "@one_year_survival": {
+    "description": "One year survival label"
+  },
+  "two_year_survival": "Sống còn 2 năm",
+  "@two_year_survival": {
+    "description": "Two year survival label"
+  },
+  "reference_material": "Tài liệu tham khảo",
+  "@reference_material": {
+    "description": "Reference material section title"
+  },
+  "bilirubin": "Bilirubin",
+  "@bilirubin": {
+    "description": "Bilirubin lab test"
+  },
+  "albumin": "Albumin",
+  "@albumin": {
+    "description": "Albumin lab test"
+  },
+  "inr_prothrombin_time": "INR/Thời gian Prothrombin",
+  "@inr_prothrombin_time": {
+    "description": "INR/Prothrombin Time lab test"
+  },
+  "enter_value": "Nhập giá trị",
+  "@enter_value": {
+    "description": "Input field placeholder"
+  },
+  "child_pugh_score_display": "Điểm: {score}",
+  "@child_pugh_score_display": {
+    "description": "Child-Pugh score display label",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "class_a_info": "• Class A (5-6 điểm): Dự hậu tốt, có thể phẫu thuật",
+  "@class_a_info": {
+    "description": "Class A clinical information"
+  },
+  "class_b_info": "• Class B (7-9 điểm): Dự hậu trung bình, cân nhắc can thiệp",
+  "@class_b_info": {
+    "description": "Class B clinical information"
+  },
+  "class_c_info": "• Class C (10-15 điểm): Dự hậu xấu, ưu tiên ghép gan",
+  "@class_c_info": {
+    "description": "Class C clinical information"
+  },
+  "child_pugh_clinical_information": "Thông tin lâm sàng",
+  "@child_pugh_clinical_information": {
+    "description": "Child-Pugh clinical information section title"
+  },
+  "child_pugh_usage": "• Child-Pugh được sử dụng để đánh giá mức độ nặng của xơ gan",
+  "@child_pugh_usage": {
+    "description": "Child-Pugh usage description"
+  },
+  "meld_combination": "• Thường kết hợp với MELD score trong đánh giá bệnh gan",
+  "@meld_combination": {
+    "description": "MELD score combination note"
+  },
+  "low_moderate_risk": "Nguy cơ trung bình thấp",
+  "moderate_risk": "Nguy cơ trung bình",
+  "extremely_high_risk": "Nguy cơ cực kỳ cao",
+  "submit": "Gửi",
+  "edit": "Chỉnh sửa",
+  "delete": "Xóa",
+  "add": "Thêm",
+  "view": "Xem",
+  "print": "In",
+  "export": "Xuất",
+  "import": "Nhập",
+  "share": "Chia sẻ",
+  "copy": "Sao chép",
+  "paste": "Dán",
+  "cut": "Cắt",
+  "undo": "Hoàn tác",
+  "redo": "Làm lại",
+  "help": "Trợ giúp",
+  "about": "Về chúng tôi",
+  "contact": "Liên hệ",
+  "feedback": "Phản hồi",
+  "report_issue": "Báo cáo lỗi",
+  "privacy_policy": "Chính sách bảo mật",
+  "terms_of_service": "Điều khoản dịch vụ",
+  "version": "Phiên bản",
+  "update": "Cập nhật",
+  "loading": "Đang tải",
+  "error": "Lỗi",
+  "success": "Thành công",
+  "warning": "Cảnh báo",
+  "info": "Thông tin",
+  "confirm": "Xác nhận",
+  "yes": "Có",
+  "ok": "OK",
+  "close": "Đóng",
+  "minimize": "Thu nhỏ",
+  "maximize": "Phóng to",
+  "next": "Tiếp theo",
+  "previous": "Trước đó",
+  "first": "Đầu tiên",
+  "last": "Cuối cùng",
+  "page": "Trang",
+  "show": "Hiển thị",
+  "hide": "Ẩn",
+  "expand": "Mở rộng",
+  "collapse": "Thu gọn",
+  "sort": "Sắp xếp",
+  "filter": "Lọc",
+  "group": "Nhóm",
+  "ungroup": "Bỏ nhóm",
+  "select_all": "Chọn tất cả",
+  "deselect_all": "Bỏ chọn tất cả",
+  "invert_selection": "Đảo ngược lựa chọn",
+  "age_and_gender_factors": "Yếu tố tuổi tác và giới tính",
+  "@age_and_gender_factors": {
+    "description": "Age and gender factors section title"
+  },
+  "important_information": "Thông tin quan trọng",
+  "@important_information": {
+    "description": "Important information section title"
+  },
+  "age_label": "Tuổi:",
+  "@age_label": {
+    "description": "Age input label"
+  },
+  "enter_age": "Nhập tuổi",
+  "@enter_age": {
+    "description": "Age input placeholder"
+  },
+  "cha2ds2_age_score": "Điểm tuổi: {score} (65-74: 1pt, ≥75: 2pts)",
+  "@cha2ds2_age_score": {
+    "description": "CHA2DS2-VASc age score display",
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "cha2ds2_chf_description": "Suy tim sung huyết",
+  "@cha2ds2_chf_description": {
+    "description": "CHA2DS2-VASc CHF description"
+  },
+  "cha2ds2_hypertension_description": "Tăng huyết áp",
+  "@cha2ds2_hypertension_description": {
+    "description": "CHA2DS2-VASc hypertension description"
+  },
+  "cha2ds2_diabetes_description": "Đái tháo đường",
+  "@cha2ds2_diabetes_description": {
+    "description": "CHA2DS2-VASc diabetes description"
+  },
+  "cha2ds2_stroke_description": "Tiền sử đột quỵ/TIA",
+  "@cha2ds2_stroke_description": {
+    "description": "CHA2DS2-VASc stroke history description"
+  },
+  "cha2ds2_vascular_description": "Bệnh mạch máu ngoại biên/MI/aortic plaque",
+  "@cha2ds2_vascular_description": {
+    "description": "CHA2DS2-VASc vascular disease description"
+  },
+  "gender_label": "Giới tính:",
+  "@gender_label": {
+    "description": "Gender selection label"
+  },
+  "male": "Nam",
+  "@male": {
+    "description": "Male gender option"
+  },
+  "female": "Nữ",
+  "@female": {
+    "description": "Female gender option"
+  },
+  "zero_points": "0 điểm",
+  "@zero_points": {
+    "description": "Zero points indication"
+  },
+  "one_point": "1 điểm",
+  "@one_point": {
+    "description": "One point indication"
+  },
+  "meld_score": "Thang điểm MELD",
+  "@meld_score": {
+    "description": "MELD score title"
+  },
+  "meld_parameters": "Thông số MELD",
+  "@meld_parameters": {
+    "description": "MELD parameters section title"
+  },
+  "transplant_guidelines": "Hướng dẫn ghép gan",
+  "@transplant_guidelines": {
+    "description": "Transplant guidelines section title"
+  },
+  "meld_risk_low": "Thấp",
+  "@meld_risk_low": {
+    "description": "MELD low risk level"
+  },
+  "meld_risk_low_moderate": "Trung bình thấp",
+  "@meld_risk_low_moderate": {
+    "description": "MELD low-moderate risk level"
+  },
+  "meld_risk_moderate": "Trung bình",
+  "@meld_risk_moderate": {
+    "description": "MELD moderate risk level"
+  },
+  "meld_risk_high": "Cao",
+  "@meld_risk_high": {
+    "description": "MELD high risk level"
+  },
+  "meld_risk_very_high": "Rất cao",
+  "@meld_risk_very_high": {
+    "description": "MELD very high risk level"
+  },
+  "risk_text": "Nguy cơ",
+  "@risk_text": {
+    "description": "Risk text"
+  },
+  "priority_low": "Ưu tiên thấp",
+  "@priority_low": {
+    "description": "Low transplant priority"
+  },
+  "priority_moderate": "Ưu tiên trung bình",
+  "@priority_moderate": {
+    "description": "Moderate transplant priority"
+  },
+  "priority_high": "Ưu tiên cao",
+  "@priority_high": {
+    "description": "High transplant priority"
+  },
+  "dialysis": "Chạy thận",
+  "@dialysis": {
+    "description": "Dialysis checkbox label"
+  },
+  "dialysis_description": "Đã chạy thận ít nhất 2 lần trong tuần qua hoặc CVVHD 24h",
+  "@dialysis_description": {
+    "description": "Dialysis checkbox description"
+  },
+  "creatinine_helper": "Tối đa 4.0 mg/dL (354 umol/L), tối thiểu 1.0 mg/dL (88 umol/L)",
+  "@creatinine_helper": {
+    "description": "Creatinine input helper text"
+  },
+  "bilirubin_helper": "Bilirubin toàn phần, tối thiểu 1.0 mg/dL (17 umol/L)",
+  "@bilirubin_helper": {
+    "description": "Bilirubin input helper text"
+  },
+  "inr_helper": "International Normalized Ratio, tối thiểu 1.0",
+  "@inr_helper": {
+    "description": "INR input helper text"
+  },
+  "mortality_3_month": "Tử vong 3 tháng",
+  "@mortality_3_month": {
+    "description": "3-month mortality risk label"
+  },
+  "transplant_priority": "Ưu tiên ghép gan",
+  "@transplant_priority": {
+    "description": "Transplant priority label"
+  },
+  "meld_recommendations": "Khuyến nghị:",
+  "@meld_recommendations": {
+    "description": "MELD Recommendations label"
+  },
+  "meld_follow_up": "Theo dõi định kỳ, quản lý biến chứng xơ gan",
+  "@meld_follow_up": {
+    "description": "MELD low score recommendation"
+  },
+  "meld_evaluation": "Đánh giá ghép gan, tầm soát biến chứng",
+  "@meld_evaluation": {
+    "description": "MELD moderate-low score recommendation"
+  },
+  "meld_waitlist": "Đưa vào danh sách chờ ghép gan",
+  "@meld_waitlist": {
+    "description": "MELD moderate score recommendation"
+  },
+  "meld_high_priority": "Ưu tiên cao ghép gan, theo dõi chặt chẽ",
+  "@meld_high_priority": {
+    "description": "MELD high score recommendation"
+  },
+  "meld_urgent": "Cần ghép gan khẩn cấp, xem xét ICU",
+  "@meld_urgent": {
+    "description": "MELD very high score recommendation"
+  },
+  "meld_risk_stratification": "Phân tầng nguy cơ MELD",
+  "@meld_risk_stratification": {
+    "description": "MELD risk stratification section title"
+  },
+  "meld_follow_up_action": "Theo dõi định kỳ",
+  "@meld_follow_up_action": {
+    "description": "MELD low score action"
+  },
+  "meld_evaluation_action": "Đánh giá ghép gan",
+  "@meld_evaluation_action": {
+    "description": "MELD moderate-low score action"
+  },
+  "meld_waitlist_action": "Danh sách chờ",
+  "@meld_waitlist_action": {
+    "description": "MELD moderate score action"
+  },
+  "meld_high_priority_action": "Ưu tiên cao",
+  "@meld_high_priority_action": {
+    "description": "MELD high score action"
+  },
+  "meld_urgent_action": "Ghép khẩn cấp",
+  "@meld_urgent_action": {
+    "description": "MELD very high score action"
+  },
+  "meld_follow_up_title": "MELD <15: Theo dõi",
+  "@meld_follow_up_title": {
+    "description": "MELD follow-up guideline title"
+  },
+  "meld_waitlist_title": "MELD 15-24: Danh sách chờ",
+  "@meld_waitlist_title": {
+    "description": "MELD waitlist guideline title"
+  },
+  "meld_high_priority_title": "MELD ≥25: Ưu tiên cao",
+  "@meld_high_priority_title": {
+    "description": "MELD high priority guideline title"
+  },
+  "routine_visit_6_months": "Khám định kỳ 6 tháng",
+  "@routine_visit_6_months": {
+    "description": "Routine medical visit guideline"
+  },
+  "liver_ultrasound_6_months": "Siêu âm gan 6 tháng",
+  "@liver_ultrasound_6_months": {
+    "description": "Liver ultrasound guideline"
+  },
+  "afp_every_6_months": "AFP mỗi 6 tháng",
+  "@afp_every_6_months": {
+    "description": "AFP test guideline"
+  },
+  "screen_complications": "Tầm soát biến chứng",
+  "@screen_complications": {
+    "description": "Complication screening guideline"
+  },
+  "add_to_waitlist": "Đưa vào danh sách chờ ghép",
+  "@add_to_waitlist": {
+    "description": "Transplant waitlist guideline"
+  },
+  "comprehensive_evaluation": "Đánh giá toàn diện",
+  "@comprehensive_evaluation": {
+    "description": "Medical evaluation guideline"
+  },
+  "follow_up_3_months": "Theo dõi 3 tháng",
+  "@follow_up_3_months": {
+    "description": "Follow-up guideline"
+  },
+  "screen_liver_cancer": "Tầm soát ung thư gan",
+  "@screen_liver_cancer": {
+    "description": "Liver cancer screening guideline"
+  },
+  "high_priority_transplant": "Ưu tiên cao ghép gan",
+  "@high_priority_transplant": {
+    "description": "High priority transplant guideline"
+  },
+  "weekly_monitoring": "Theo dõi hàng tuần",
+  "@weekly_monitoring": {
+    "description": "Weekly monitoring guideline"
+  },
+  "consider_living_donor": "Cân nhắc ghép sống",
+  "@consider_living_donor": {
+    "description": "Living donor transplant guideline"
+  },
+  "intensive_support": "Hỗ trợ tích cực",
+  "@intensive_support": {
+    "description": "Intensive medical support guideline"
+  },
+  "meld_clinical_info": "MELD Score đánh giá mức độ nặng bệnh gan giai đoạn cuối\n\nCông thức MELD:\n3.78 × ln(bilirubin) + 11.2 × ln(INR) + 9.57 × ln(creatinine) + 6.43\n\nCác điều chỉnh:\n• Creatinine: tối thiểu 1.0, tối đa 4.0 mg/dL\n• Nếu chạy thận: creatinine = 4.0 mg/dL\n• Bilirubin và INR: tối thiểu 1.0\n• Điểm MELD: tối thiểu 6, tối đa 40\n\nỨng dụng lâm sàng:\n• Ưu tiên ghép gan theo UNOS\n• Dự đoán tử vong ngắn hạn\n• Quyết định can thiệp\n• Theo dõi tiến triển bệnh\n\nMELD-Na (cải tiến):\n• Bổ sung natri huyết thanh\n• Cải thiện độ chính xác\n• Sử dụng rộng rãi hiện nay\n\nNgoại lệ ưu tiên:\n• Ung thư gan (HCC)\n• Bệnh gan fulminant\n• Các bệnh hiếm gặp\n• Tình trạng đặc biệt\n\nHạn chế:\n• Không bao gồm biến chứng\n• Thay đổi theo thời gian\n• Cần đánh giá tổng thể\n• Không dự đoán chức năng sau ghép",
+  "@meld_clinical_info": {
+    "description": "MELD clinical information text"
+  },
+  "meld_reference_text": "Kamath PS, et al. A model to predict survival in patients with end-stage liver disease. Hepatology. 2001;33(2):464-70.",
+  "@meld_reference_text": {
+    "description": "MELD score reference citation"
+  },
+  "clinical_scores_title": "Thang điểm lâm sàng",
+  "@clinical_scores_title": {
+    "description": "Clinical scores page title"
+  },
+  "clinical_scores_subtitle": "Các thang điểm thường dùng trong ICU",
+  "gcs_list_description": "Đánh giá mức độ ý thức bệnh nhân",
+  "apache_list_description": "Dự đoán tỷ lệ tử vong trong ICU",
+  "sofa_list_description": "Đánh giá suy đa tạng",
+  "saps_list_description": "Dự đoán tỷ lệ tử vong bệnh nhân ICU",
+  "qsofa_list_description": "Sàng lọc nhiễm khuẩn huyết ngoài ICU",
+  "mews_list_description": "Hệ thống cảnh báo sớm tình trạng bệnh nhân",
+  "pews_list_description": "Hệ thống cảnh báo sớm nhi khoa",
+  "grace_list_description": "Đánh giá nguy cơ trong hội chứng mạch vành cấp",
+  "@grace_list_description": {"description": "GRACE score list description"},
+  "timi_stemi_list_description": "Đánh giá nguy cơ tử vong STEMI",
+  "timi_ua_nstemi_list_description": "Đánh giá nguy cơ UA/NSTEMI",
+  "crusade_list_description": "Nguy cơ chảy máu trong hội chứng mạch vành cấp",
+  "has_bled_list_description": "Đánh giá nguy cơ chảy máu khi chống đông",
+  "improve_list_description": "Nguy cơ chảy máu ở bệnh nhân nội khoa",
+  "cha2ds2_vasc_list_description": "Đánh giá nguy cơ đột quỵ trong rung nhĩ",
+  "wells_dvt_list_description": "Đánh giá xác suất huyết khối tĩnh mạch sâu",
+  "padua_list_description": "Đánh giá nguy cơ huyết khối tĩnh mạch",
+  "abcd2_list_description": "Nguy cơ đột quỵ sau cơn thiếu máu não thoáng qua",
+  "nihss_list_description": "Đánh giá mức độ nghiêm trọng đột quỵ",
+  "race_list_description": "Sàng lọc tắc mạch máu lớn",
+  "aspect_list_description": "Đánh giá diện tích nhồi máu não trên CT",
+  "sgarbossa_list_description": "Chẩn đoán STEMI với block nhánh trái",
+  "ranson_list_description": "Đánh giá mức độ nghiêm trọng viêm tụy cấp",
+  "child_pugh_list_description": "Đánh giá mức độ nghiêm trọng bệnh gan",
+  "meld_list_description": "Dự đoán tỷ lệ tử vong bệnh gan giai đoạn cuối",
+  "curb65_list_description": "Đánh giá mức độ nghiêm trọng viêm phổi cộng đồng",
+  "psi_list_description": "Chỉ số mức độ nghiêm trọng viêm phổi",
+  "asa_list_description": "Phân loại tình trạng thể lực trước phẫu thuật",
+  "cardiac_risk_list_description": "Đánh giá nguy cơ tim mạch phẫu thuật",
+  "apgar_list_description": "Dự đoán kết quả sau phẫu thuật",
+  "preop_mortality_list_description": "Dự đoán tỷ lệ tử vong trước phẫu thuật",
+  "dapt_list_description": "Quyết định thời gian điều trị kháng tiểu cầu kép",
+  "creatinine_clearance_list_description": "Đánh giá chức năng thận",
+  "mdrd_list_description": "Tính toán tốc độ lọc cầu thận",
+  "search_scores_hint": "Tìm kiếm thang điểm...",
+  "mews_title": "Thang điểm MEWS",
+  "mews_interpretation_enter_data": "Vui lòng nhập các thông số sinh hiệu",
+  "mews_interpretation_stable": "Tình trạng ổn định - theo dõi thường quy",
+  "mews_interpretation_increased": "Cần tăng cường theo dõi",
+  "mews_interpretation_warning": "Cảnh báo - cần đánh giá y tế khẩn cấp",
+  "mews_interpretation_critical": "Cảnh báo cao - cần can thiệp ngay lập tức",
+  "mews_action_routine": "Theo dõi 12 giờ/lần",
+  "mews_action_increased": "Theo dõi 4-6 giờ/lần, thông báo bác sĩ",
+  "mews_action_urgent": "Theo dõi 1 giờ/lần, gọi bác sĩ ngay",
+  "mews_action_critical": "Theo dõi liên tục, báo cáo khẩn cấp",
+  "mews_systolic_bp": "Huyết áp tâm thu (mmHg)",
+  "mews_heart_rate": "Nhịp tim (lần/phút)",
+  "mews_respiratory_rate": "Nhịp thở (lần/phút)",
+  "mews_temperature": "Nhiệt độ (°C)",
+  "mews_consciousness_level": "Mức độ ý thức (AVPU)",
+  "mews_enter_value": "Nhập giá trị",
+  "mews_score_label": "Điểm: {score}",
+  "mews_avpu_alert": "Alert (Tỉnh táo)",
+  "mews_avpu_alert_subtitle": "Bệnh nhân tỉnh táo, định hướng tốt",
+  "mews_avpu_voice": "Voice (Phản ứng với tiếng nói)",
+  "mews_avpu_voice_subtitle": "Chỉ phản ứng khi gọi to",
+  "mews_avpu_pain": "Pain (Phản ứng với đau)",
+  "mews_avpu_pain_subtitle": "Chỉ phản ứng khi kích thích đau",
+  "mews_avpu_unresponsive": "Unresponsive (Không phản ứng)",
+  "mews_avpu_unresponsive_subtitle": "Không phản ứng với bất kỳ kích thích nào",
+  "mews_references_title": "Tài liệu tham khảo",
+  "pews_title": "Thang điểm PEWS",
+  "pews_risk_low": "Thấp",
+  "pews_risk_medium": "Trung bình", 
+  "pews_risk_high": "Cao",
+  "pews_risk_critical": "Nghiêm trọng",
+  "pews_age_label": "Tuổi",
+  "pews_age_helper": "Cần để tính giá trị bình thường theo tuổi",
+  "pews_heart_rate_label": "Nhịp tim",
+  "pews_heart_rate_helper": "Theo dõi bất thường theo tuổi",
+  "pews_respiratory_rate_label": "Nhịp thở", 
+  "pews_respiratory_rate_helper": "Giá trị bình thường khác theo nhóm tuổi",
+  "pews_systolic_bp_label": "Huyết áp tâm thu",
+  "pews_systolic_bp_helper": "Hạ huyết áp là dấu hiệu muộn ở trẻ em",
+  "pews_consciousness_level": "Mức độ ý thức",
+  "pews_consciousness_alert": "Tỉnh táo (0)",
+  "pews_consciousness_voice": "Phản ứng với tiếng nói (+1)",
+  "pews_consciousness_pain": "Phản ứng với đau (+2)",
+  "pews_consciousness_unresponsive": "Không phản ứng (+3)",
+  "pews_oxygen_therapy": "Liệu pháp oxy",
+  "pews_oxygen_room_air": "Khí trời (0)",
+  "pews_oxygen_nasal_cannula": "Thông mũi (+1)",
+  "pews_oxygen_face_mask": "Mặt nạ oxy (+2)",
+  "pews_oxygen_high_flow": "Oxy lưu lượng cao/Thở máy không xâm lấn (+3)",
+  "pews_risk_level": "Nguy cơ {level}",
+  "pews_response_level": "Mức độ đáp ứng",
+  "pews_monitoring_frequency": "Tần suất theo dõi",
+  "pews_clinical_response": "Phản ứng lâm sàng",
+  "pews_response_routine": "Theo dõi thường quy",
+  "pews_response_increased": "Tăng cường theo dõi",
+  "pews_response_active": "Can thiệp tích cực",
+  "pews_frequency_4_6_hours": "Mỗi 4-6 giờ",
+  "pews_frequency_1_hour": "Mỗi giờ",
+  "pews_frequency_continuous": "Liên tục",
+  "pews_action_continue_care": "Tiếp tục chăm sóc hiện tại, theo dõi định kỳ",
+  "pews_action_notify_doctor": "Thông báo bác sĩ, tăng cường theo dõi, xem xét chuyển khoa",
+  "pews_action_emergency_team": "Gọi team cấp cứu nhi khoa ngay lập tức, chuẩn bị chuyển ICU",
+  "pews_consciousness_title": "Mức độ ý thức",
+  
+  "pews_protocol_routine_title": "PEWS 0-3: Chăm sóc thường quy",
+  "@pews_protocol_routine_title": {"description": "PEWS routine care protocol title"},
+  "pews_protocol_increased_title": "PEWS 4-6: Tăng cường theo dõi",
+  "@pews_protocol_increased_title": {"description": "PEWS increased monitoring protocol title"},
+  "pews_protocol_urgent_title": "PEWS ≥7: Can thiệp tích cực",
+  "@pews_protocol_urgent_title": {"description": "PEWS urgent intervention protocol title"},
+  
+  "pews_protocol_routine_1": "Theo dõi sinh hiệu 4-6 giờ/lần",
+  "@pews_protocol_routine_1": {"description": "PEWS routine care protocol step 1"},
+  "pews_protocol_routine_2": "Ghi nhận điểm PEWS",
+  "@pews_protocol_routine_2": {"description": "PEWS routine care protocol step 2"},
+  "pews_protocol_routine_3": "Tiếp tục kế hoạch điều trị",
+  "@pews_protocol_routine_3": {"description": "PEWS routine care protocol step 3"},
+  "pews_protocol_routine_4": "Đánh giá lại nếu tình trạng thay đổi",
+  "@pews_protocol_routine_4": {"description": "PEWS routine care protocol step 4"},
+  
+  "pews_protocol_increased_1": "Thông báo bác sĩ trực",
+  "@pews_protocol_increased_1": {"description": "PEWS increased monitoring protocol step 1"},
+  "pews_protocol_increased_2": "Theo dõi sinh hiệu 1-2 giờ/lần",
+  "@pews_protocol_increased_2": {"description": "PEWS increased monitoring protocol step 2"},
+  "pews_protocol_increased_3": "Xem xét nguyên nhân",
+  "@pews_protocol_increased_3": {"description": "PEWS increased monitoring protocol step 3"},
+  "pews_protocol_increased_4": "Cân nhắc chuyển khoa nhi",
+  "@pews_protocol_increased_4": {"description": "PEWS increased monitoring protocol step 4"},
+  
+  "pews_protocol_urgent_1": "Gọi team cấp cứu nhi ngay",
+  "@pews_protocol_urgent_1": {"description": "PEWS urgent intervention protocol step 1"},
+  "pews_protocol_urgent_2": "Theo dõi liên tục",
+  "@pews_protocol_urgent_2": {"description": "PEWS urgent intervention protocol step 2"},
+  "pews_protocol_urgent_3": "Chuẩn bị chuyển PICU",
+  "@pews_protocol_urgent_3": {"description": "PEWS urgent intervention protocol step 3"},
+  "pews_protocol_urgent_4": "ABC assessment",
+  "@pews_protocol_urgent_4": {"description": "PEWS urgent intervention protocol step 4"},
+  
+  "pews_clinical_info_title": "Thông tin lâm sàng",
+  "pews_clinical_info_description": "PEWS (Pediatric Early Warning Score) là công cụ sàng lọc để nhận diện sớm trẻ em có nguy cơ xấu đi\n\nƯu điểm:\n• Nhận diện sớm trẻ em bệnh nặng\n• Hướng dẫn mức độ can thiệp\n• Cải thiện kết quả điều trị\n• Giảm cardiac arrest ngoài ICU\n\nGiá trị bình thường theo tuổi:\n• <1 tuổi: HR 100-170, RR 30-45\n• 1-5 tuổi: HR 90-130, RR 20-35\n• 6-12 tuổi: HR 80-110, RR 15-25\n• >12 tuổi: HR 70-90, RR 12-22\n\nĐặc điểm sinh lý trẻ em:\n• Dự trữ tâm phổi hạn chế\n• Hạ huyết áp là dấu hiệu muộn\n• Tachycardia và tachypnea là dấu hiệu sớm\n• Rối loạn ý thức báo hiệu nguy hiểm\n\nLưu ý quan trọng:\n• Điều chỉnh theo độ tuổi\n• Đánh giá tổng thể lâm sàng\n• Theo dõi xu hướng thay đổi\n• Kết hợp với khám thực thể",
+  
+  "pews_references_title": "Tài liệu tham khảo",
+  "pews_references_text": "Monaghan A. Detecting and managing deterioration in children. Paediatr Nurs. 2005;17(1):32-5.\n\nPearson GA, et al. Should paediatric early warning scores be used in all pediatric wards? Arch Dis Child. 2017;102(1):4-6.\n\nLambert V, et al. The Paediatric Early Warning System (PEWS): where we are now and where we need to go. Clin Risk. 2017;23(1):12-19.",
+  
+  "pews_response_protocol_title": "Quy trình đáp ứng",
+  
+  "pews_interp_low_risk": "Nguy cơ thấp",
+  "pews_interp_moderate_risk": "Nguy cơ trung bình", 
+  "pews_interp_high_risk": "Nguy cơ cao",
+  "pews_interp_frequency_4_6h": "Mỗi 4-6h",
+  "pews_interp_frequency_1_2h": "Mỗi 1-2h",
+  "pews_interp_frequency_continuous": "Liên tục",
+  "pews_interp_routine_care": "Chăm sóc thường quy",
+  "pews_interp_notify_physician": "Thông báo bác sĩ",
+  "pews_interp_emergency_team": "Team cấp cứu nhi",
+  
+  "pews_risk_stratification_title": "Phân tầng nguy cơ PEWS",
+  
+  "pews_recommendation_title": "Khuyến nghị:",
+  "pews_vital_signs_title": "Thông số sinh hiệu",
+  
+  "pews_age_unit": "năm",
+  "unit_per_minute": "/phút",
+  
+  "sepsis_bundle_lactate_title": "1. Lactate đo lường",
+  "sepsis_bundle_lactate_desc": "Lấy máu xét nghiệm lactate",
+  "sepsis_bundle_blood_culture_title": "2. Cấy máu",
+  "sepsis_bundle_blood_culture_desc": "Cấy máu trước khi dùng kháng sinh",
+  "sepsis_bundle_antibiotics_title": "3. Kháng sinh",
+  "sepsis_bundle_antibiotics_desc": "Kháng sinh phổ rộng trong 1 giờ",
+  "sepsis_bundle_fluid_title": "4. Dịch truyền",
+  "sepsis_bundle_fluid_desc": "30ml/kg nếu hạ huyết áp hoặc lactate ≥4",
+  "sepsis_bundle_vasopressor_title": "5. Vasopressor",
+  "sepsis_bundle_vasopressor_desc": "Nếu hạ huyết áp không đáp ứng dịch",
+  "grace_score_title": "Thang điểm GRACE",
+  "@grace_score_title": {"description": "GRACE score title"},
+  "grace_risk_low": "Nguy cơ thấp",
+  "@grace_risk_low": {"description": "GRACE low risk"},
+  "grace_risk_moderate": "Nguy cơ trung bình",
+  "@grace_risk_moderate": {"description": "GRACE moderate risk"},
+  "grace_risk_high": "Nguy cơ cao",
+  "@grace_risk_high": {"description": "GRACE high risk"},
+  "grace_risk_very_high": "Nguy cơ rất cao",
+  "@grace_risk_very_high": {"description": "GRACE very high risk"},
+  "grace_recommendation": "Khuyến nghị:",
+  "@grace_recommendation": {"description": "GRACE recommendation label"},
+  "grace_intervention_strategy": "Chiến lược can thiệp:",
+  "@grace_intervention_strategy": {"description": "GRACE intervention strategy label"},
+  "grace_intervention_timing": "Thời điểm can thiệp:",
+  "@grace_intervention_timing": {"description": "GRACE intervention timing label"},
+  "grace_detailed_intervention_timing": "Chi tiết thời điểm can thiệp:",
+  "@grace_detailed_intervention_timing": {"description": "GRACE detailed intervention timing label"},
+  "grace_reference_title": "Tài liệu tham khảo",
+  "@grace_reference_title": {"description": "GRACE reference section title"},
+  "grace_reference_text": "Fox KA, et al. Dự đoán nguy cơ tử vong và nhồi máu cơ tim trong 6 tháng sau khi nhập viện với hội chứng mạch vành cấp: nghiên cứu quan sát đa quốc gia tiến cứu (GRACE). BMJ. 2006;333(7578):1091.",
+  "@grace_reference_text": {"description": "GRACE reference citation text"},
+  "grace_mortality_6_month_low": "< 1%",
+  "@grace_mortality_6_month_low": {"description": "GRACE 6-month mortality low risk"},
+  "grace_mortality_6_month_moderate": "1-3%",
+  "@grace_mortality_6_month_moderate": {"description": "GRACE 6-month mortality moderate risk"},
+  "grace_mortality_6_month_high": "3-8%",
+  "@grace_mortality_6_month_high": {"description": "GRACE 6-month mortality high risk"},
+  "grace_mortality_6_month_very_high": "> 8%",
+  "@grace_mortality_6_month_very_high": {"description": "GRACE 6-month mortality very high risk"},
+  "grace_mortality_hospital_low": "< 2%",
+  "@grace_mortality_hospital_low": {"description": "GRACE hospital mortality low risk"},
+  "grace_mortality_hospital_moderate": "2-5%",
+  "@grace_mortality_hospital_moderate": {"description": "GRACE hospital mortality moderate risk"},
+  "grace_mortality_hospital_high": "5-12%",
+  "@grace_mortality_hospital_high": {"description": "GRACE hospital mortality high risk"},
+  "grace_mortality_hospital_very_high": "> 12%",
+  "@grace_mortality_hospital_very_high": {"description": "GRACE hospital mortality very high risk"},
+  "grace_strategy_conservative": "Chiến lược bảo tồn",
+  "@grace_strategy_conservative": {"description": "GRACE conservative intervention strategy"},
+  "grace_strategy_selective": "Chiến lược can thiệp chọn lọc",
+  "@grace_strategy_selective": {"description": "GRACE selective intervention strategy"},
+  "grace_strategy_early": "Chiến lược can thiệp sớm",
+  "@grace_strategy_early": {"description": "GRACE early intervention strategy"},
+  "grace_strategy_immediate": "Chiến lược can thiệp ngay lập tức",
+  "@grace_strategy_immediate": {"description": "GRACE immediate intervention strategy"},
+  "grace_timing_72h": "Can thiệp trong vòng 72 giờ",
+  "@grace_timing_72h": {"description": "GRACE intervention timing 72 hours"},
+  "grace_timing_24_72h": "Can thiệp trong vòng 24-72 giờ",
+  "@grace_timing_24_72h": {"description": "GRACE intervention timing 24-72 hours"},
+  "grace_timing_24h": "Can thiệp trong vòng 24 giờ",
+  "@grace_timing_24h": {"description": "GRACE intervention timing 24 hours"},
+  "grace_timing_2h": "Can thiệp khẩn cấp trong vòng 2 giờ",
+  "@grace_timing_2h": {"description": "GRACE intervention timing 2 hours"},
+  "grace_detailed_timing_low": "Thời gian can thiệp: Trong vòng 72 giờ\\n• PCI có thể trì hoãn nếu không có biến chứng\\n• Theo dõi tại khoa nội tim mạch\\n• Điều trị nội khoa tối ưu trước tiên",
+  "@grace_detailed_timing_low": {"description": "GRACE detailed timing for low risk"},
+  "grace_detailed_timing_moderate": "Thời gian can thiệp: Trong vòng 24-72 giờ\\n• PCI chọn lọc dựa trên triệu chứng\\n• Theo dõi chặt chẽ tại CCU\\n• Chuẩn bị sẵn sàng can thiệp khi cần",
+  "@grace_detailed_timing_moderate": {"description": "GRACE detailed timing for moderate risk"},
+  "grace_detailed_timing_high": "Thời gian can thiệp: Trong vòng 24 giờ\\n• PCI sớm được khuyến cáo\\n• Theo dõi tích cực tại CCU\\n• Chuẩn bị can thiệp khẩn cấp",
+  "@grace_detailed_timing_high": {"description": "GRACE detailed timing for high risk"},
+  "grace_detailed_timing_very_high": "Thời gian can thiệp: Khẩn cấp trong vòng 2 giờ\\n• PCI ngay lập tức được yêu cầu\\n• Theo dõi ICU\\n• Thông tim cấp cứu",
+  "@grace_detailed_timing_very_high": {"description": "GRACE detailed timing for very high risk"},
+  "grace_6_month_mortality": "Tử vong 6 tháng",
+  "@grace_6_month_mortality": {"description": "GRACE 6-month mortality label"},
+  "grace_hospital_mortality": "Tử vong nội viện",
+  "@grace_hospital_mortality": {"description": "GRACE hospital mortality label"},
+  "grace_intervention_strategy_label": "Chiến lược điều trị:",
+  "@grace_intervention_strategy_label": {"description": "GRACE intervention strategy label"},
+  "grace_clinical_info_title": "Thông tin lâm sàng",
+  "@grace_clinical_info_title": {"description": "GRACE clinical information title"},
+  "grace_clinical_info_content": "GRACE Score đánh giá nguy cơ tử vong ở bệnh nhân hội chứng mạch vành cấp (ACS)\\n\\nỨng dụng lâm sàng:\\n• Phân tầng nguy cơ và lựa chọn chiến lược điều trị\\n• Quyết định can thiệp sớm hay bảo tồn\\n• Tư vấn tiên lượng cho bệnh nhân và gia đình\\n• Đánh giá chỉ định chuyển tuyến\\n\\nChiến lược can thiệp theo thời gian:\\n• Nguy cơ thấp (≤108): Can thiệp trong 72h - PCI có thể trì hoãn\\n• Nguy cơ trung bình (109-140): Can thiệp trong 24-72h - PCI chọn lọc\\n• Nguy cơ cao (141-200): Can thiệp trong 24h - PCI sớm được khuyến cáo\\n• Nguy cơ rất cao (>200): Can thiệp khẩn cấp trong 2h - PCI cấp cứu\\n\\nLưu ý:\\n• Điểm số càng cao, nguy cơ tử vong càng lớn\\n• Cần kết hợp với đánh giá lâm sàng tổng thể\\n• Theo dõi và tái đánh giá định kỳ\\n• Áp dụng cho cả STEMI và NSTEMI/UA",
+  "@grace_clinical_info_content": {"description": "GRACE clinical information content"},
+  "grace_detailed_timing_title": "Chi tiết thời điểm can thiệp:",
+  "@grace_detailed_timing_title": {"description": "GRACE detailed timing section title"},
+  "grace_age_label": "Tuổi (năm)",
+  "@grace_age_label": {"description": "GRACE age input label"},
+  "grace_heart_rate_label": "Nhịp tim (/phút)",
+  "@grace_heart_rate_label": {"description": "GRACE heart rate input label"},
+  "grace_systolic_bp_label": "Huyết áp tâm thu (mmHg)",
+  "@grace_systolic_bp_label": {"description": "GRACE systolic BP input label"},
+  "grace_creatinine_label": "Creatinine",
+  "@grace_creatinine_label": {"description": "GRACE creatinine input label"},
+  "grace_creatinine_unit_label": "Đơn vị Creatinine",
+  "@grace_creatinine_unit_label": {"description": "GRACE creatinine unit label"},
+  "grace_heart_failure_title": "Suy tim hoặc rối loạn chức năng thất trái",
+  "@grace_heart_failure_title": {"description": "GRACE heart failure checkbox title"},
+  "grace_cardiac_arrest_title": "Ngừng tim tại viện",
+  "@grace_cardiac_arrest_title": {"description": "GRACE cardiac arrest checkbox title"},
+  "grace_st_elevation_title": "Chênh ST trên ECG",
+  "@grace_st_elevation_title": {"description": "GRACE ST elevation checkbox title"},
+  "grace_elevated_markers_title": "Tăng enzyme tim (Troponin/CK-MB)",
+  "@grace_elevated_markers_title": {"description": "GRACE elevated markers checkbox title"},
+  "grace_input_parameters": "Thông số đầu vào",
+  "@grace_input_parameters": {"description": "GRACE input parameters section title"},
+  "grace_clinical_factors": "Yếu tố lâm sàng",
+  "@grace_clinical_factors": {"description": "GRACE clinical factors section title"},
+  "grace_risk_stratification": "Phân tầng nguy cơ",
+  "@grace_risk_stratification": {"description": "GRACE risk stratification section title"},
+  "grace_risk_level": "Mức độ nguy cơ",
+  "@grace_risk_level": {"description": "GRACE risk level column header"},
+  "grace_6_month_mort": "Tử vong 6 tháng",
+  "@grace_6_month_mort": {"description": "GRACE 6-month mortality column header"},
+  "grace_hospital_mort": "Tử vong nội viện",
+  "@grace_hospital_mort": {"description": "GRACE hospital mortality column header"},
+  "grace_intervention_timing_column": "Thời điểm can thiệp",
+  "@grace_intervention_timing_column": {"description": "GRACE intervention timing column header"},
+  "grace_recommendation_low": "Điều trị ngoại trú có thể xem xét, theo dõi thường xuyên",
+  "@grace_recommendation_low": {"description": "GRACE low risk recommendation"},
+  "grace_recommendation_moderate": "Nhập viện theo dõi, điều trị theo hướng dẫn ACS",
+  "@grace_recommendation_moderate": {"description": "GRACE moderate risk recommendation"},
+  "grace_recommendation_high": "Cần can thiệp sớm, xem xét chuyển tuyến cao",
+  "@grace_recommendation_high": {"description": "GRACE high risk recommendation"},
+  "grace_recommendation_very_high": "Can thiệp cấp cứu ngay, ICU monitoring, PCI sớm",
+  "@grace_recommendation_very_high": {"description": "GRACE very high risk recommendation"},
+  "grace_recommendations_label": "Khuyến nghị:",
+  "@grace_recommendations_label": {"description": "GRACE recommendations section label"},
+  "grace_intervention_timing_label": "Thời gian can thiệp:",
+  "@grace_intervention_timing_label": {"description": "GRACE intervention timing section label"},
+  "grace_per_minute_unit": "/phút",
+  "@grace_per_minute_unit": {"description": "GRACE per minute unit for heart rate"}
+}

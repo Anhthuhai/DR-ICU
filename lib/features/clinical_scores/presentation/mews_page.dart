@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class MEWSPage extends StatefulWidget {
   const MEWSPage({super.key});
@@ -25,20 +26,20 @@ class _MEWSPageState extends State<MEWSPage> {
   int get totalScore => systolicBPScore + heartRateScore + respiratoryRateScore + 
                        temperatureScore + avpuScore;
 
-  String get interpretation {
+  String getInterpretation(AppLocalizations localizations) {
     if (totalScore == 0) {
-      return 'Vui lòng nhập các thông số sinh hiệu';
+      return localizations.mews_interpretation_enter_data;
     }
     if (totalScore <= 2) {
-      return 'Tình trạng ổn định - theo dõi thường quy';
+      return localizations.mews_interpretation_stable;
     }
     if (totalScore <= 3) {
-      return 'Cần tăng cường theo dõi';
+      return localizations.mews_interpretation_increased;
     }
     if (totalScore <= 5) {
-      return 'Cảnh báo - cần đánh giá y tế khẩn cấp';
+      return localizations.mews_interpretation_warning;
     }
-    return 'Cảnh báo cao - cần can thiệp ngay lập tức';
+    return localizations.mews_interpretation_critical;
   }
 
   Color get scoreColor {
@@ -57,17 +58,17 @@ class _MEWSPageState extends State<MEWSPage> {
     return Colors.red;
   }
 
-  String get actionRequired {
+  String getActionRequired(AppLocalizations localizations) {
     if (totalScore <= 2) {
-      return 'Theo dõi 12 giờ/lần';
+      return localizations.mews_action_routine;
     }
     if (totalScore <= 3) {
-      return 'Theo dõi 4-6 giờ/lần, thông báo bác sĩ';
+      return localizations.mews_action_increased;
     }
     if (totalScore <= 5) {
-      return 'Theo dõi 1 giờ/lần, gọi bác sĩ ngay';
+      return localizations.mews_action_urgent;
     }
-    return 'Theo dõi liên tục, báo cáo khẩn cấp';
+    return localizations.mews_action_critical;
   }
 
   @override
@@ -81,9 +82,11 @@ class _MEWSPageState extends State<MEWSPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MEWS Score'),
+        title: Text(localizations.mews_title),
         backgroundColor: AppTheme.primaryBlue,
         foregroundColor: Colors.white,
         actions: [
@@ -131,7 +134,7 @@ class _MEWSPageState extends State<MEWSPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  interpretation,
+                  getInterpretation(localizations),
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: scoreColor,
                     fontWeight: FontWeight.w600,
@@ -140,7 +143,7 @@ class _MEWSPageState extends State<MEWSPage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  actionRequired,
+                  getActionRequired(localizations),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: scoreColor,
                     fontWeight: FontWeight.w500,
@@ -157,7 +160,7 @@ class _MEWSPageState extends State<MEWSPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 _buildVitalSignSection(
-                  'Huyết áp tâm thu (mmHg)',
+                  localizations.mews_systolic_bp,
                   systolicBPController,
                   Icons.favorite,
                   Colors.red.shade600,
@@ -178,11 +181,12 @@ class _MEWSPageState extends State<MEWSPage> {
                     });
                   },
                   systolicBPScore,
+                  localizations,
                 ),
                 const SizedBox(height: 16),
                 
                 _buildVitalSignSection(
-                  'Nhịp tim (lần/phút)',
+                  localizations.mews_heart_rate,
                   heartRateController,
                   Icons.monitor_heart,
                   Colors.blue.shade600,
@@ -205,11 +209,12 @@ class _MEWSPageState extends State<MEWSPage> {
                     });
                   },
                   heartRateScore,
+                  localizations,
                 ),
                 const SizedBox(height: 16),
                 
                 _buildVitalSignSection(
-                  'Nhịp thở (lần/phút)',
+                  localizations.mews_respiratory_rate,
                   respiratoryRateController,
                   Icons.air,
                   Colors.teal.shade600,
@@ -230,11 +235,12 @@ class _MEWSPageState extends State<MEWSPage> {
                     });
                   },
                   respiratoryRateScore,
+                  localizations,
                 ),
                 const SizedBox(height: 16),
                 
                 _buildVitalSignSection(
-                  'Nhiệt độ (°C)',
+                  localizations.mews_temperature,
                   temperatureController,
                   Icons.device_thermostat,
                   Colors.orange.shade600,
@@ -251,10 +257,16 @@ class _MEWSPageState extends State<MEWSPage> {
                     });
                   },
                   temperatureScore,
+                  localizations,
                 ),
                 const SizedBox(height: 16),
                 
-                _buildAVPUSection(),
+                _buildAVPUSection(localizations),
+                
+                // Medical Citation
+                const SizedBox(height: 16),
+                _buildCitationWidget(localizations),
+                
                 const SizedBox(height: 20),
               ],
             ),
@@ -271,6 +283,7 @@ class _MEWSPageState extends State<MEWSPage> {
     Color color,
     Function(String) onChanged,
     int score,
+    AppLocalizations localizations,
   ) {
     return Container(
       padding: const EdgeInsets.all(16),
@@ -306,7 +319,7 @@ class _MEWSPageState extends State<MEWSPage> {
                   decoration: InputDecoration(
                     border: const OutlineInputBorder(),
                     isDense: true,
-                    hintText: 'Nhập giá trị',
+                    hintText: localizations.mews_enter_value,
                   ),
                   // ignore: deprecated_member_use
                   onChanged: null,
@@ -321,7 +334,7 @@ class _MEWSPageState extends State<MEWSPage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  'Điểm: $score',
+                  localizations.mews_score_label(score),
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -335,7 +348,7 @@ class _MEWSPageState extends State<MEWSPage> {
     );
   }
 
-  Widget _buildAVPUSection() {
+  Widget _buildAVPUSection(AppLocalizations localizations) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -351,7 +364,7 @@ class _MEWSPageState extends State<MEWSPage> {
               Icon(Icons.psychology, color: Colors.purple.shade600, size: 24),
               const SizedBox(width: 8),
               Text(
-                'Mức độ ý thức (AVPU)',
+                localizations.mews_consciousness_level,
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
@@ -364,8 +377,8 @@ class _MEWSPageState extends State<MEWSPage> {
           Column(
             children: [
               RadioListTile<int>(
-                title: const Text('Alert (Tỉnh táo)'),
-                subtitle: const Text('Bệnh nhân tỉnh táo, định hướng tốt'),
+                title: Text(localizations.mews_avpu_alert),
+                subtitle: Text(localizations.mews_avpu_alert_subtitle),
                 value: 0,
                 // ignore: deprecated_member_use
                 groupValue: avpuScore,
@@ -374,8 +387,8 @@ class _MEWSPageState extends State<MEWSPage> {
                 dense: true,
               ),
               RadioListTile<int>(
-                title: const Text('Voice (Phản ứng với tiếng nói)'),
-                subtitle: const Text('Chỉ phản ứng khi gọi to'),
+                title: Text(localizations.mews_avpu_voice),
+                subtitle: Text(localizations.mews_avpu_voice_subtitle),
                 value: 1,
                 // ignore: deprecated_member_use
                 groupValue: avpuScore,
@@ -384,8 +397,8 @@ class _MEWSPageState extends State<MEWSPage> {
                 dense: true,
               ),
               RadioListTile<int>(
-                title: const Text('Pain (Phản ứng với đau)'),
-                subtitle: const Text('Chỉ phản ứng khi kích thích đau'),
+                title: Text(localizations.mews_avpu_pain),
+                subtitle: Text(localizations.mews_avpu_pain_subtitle),
                 value: 2,
                 // ignore: deprecated_member_use
                 groupValue: avpuScore,
@@ -394,8 +407,8 @@ class _MEWSPageState extends State<MEWSPage> {
                 dense: true,
               ),
               RadioListTile<int>(
-                title: const Text('Unresponsive (Không phản ứng)'),
-                subtitle: const Text('Không phản ứng với bất kỳ kích thích nào'),
+                title: Text(localizations.mews_avpu_unresponsive),
+                subtitle: Text(localizations.mews_avpu_unresponsive_subtitle),
                 value: 3,
                 // ignore: deprecated_member_use
                 groupValue: avpuScore,
@@ -420,5 +433,43 @@ class _MEWSPageState extends State<MEWSPage> {
     heartRateController.clear();
     respiratoryRateController.clear();
     temperatureController.clear();
+  }
+
+  Widget _buildCitationWidget(AppLocalizations localizations) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                localizations.mews_references_title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Subbe CP, et al. Validation of a modified Early Warning Score in medical admissions. QJM. 2001;94(10):521-6.\n\nGoldhill DR, et al. A physiologically-based early warning score for ward patients: the association between score and outcome. Anaesthesia. 2005;60(6):547-53.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

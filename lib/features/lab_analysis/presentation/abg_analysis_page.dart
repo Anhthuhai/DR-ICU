@@ -361,6 +361,8 @@ class _ABGAnalysisPageState extends State<ABGAnalysisPage> {
               const SizedBox(height: 16),
               _buildResultsCard(),
             ],
+            const SizedBox(height: 16),
+            _buildCitationWidget(),
           ],
         ),
       ),
@@ -583,6 +585,46 @@ class _ABGAnalysisPageState extends State<ABGAnalysisPage> {
             style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'West JB. Respiratory Physiology: The Essentials. 10th ed. 2016.\n'
+            'Kacmarek RM, et al. Egan\'s Fundamentals of Respiratory Care. 12th ed. 2020.\n'
+            'Rose BD, Post TW. Clinical Physiology of Acid-Base and Electrolyte Disorders. 5th ed. 2001.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
             ),
           ),
         ],

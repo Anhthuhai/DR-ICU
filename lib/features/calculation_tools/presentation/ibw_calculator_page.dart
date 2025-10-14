@@ -546,9 +546,51 @@ class _IBWCalculatorPageState extends State<IBWCalculatorPage> {
                   ),
                 ),
               ],
+
+              // Medical Citation
+              const SizedBox(height: 16),
+              _buildCitationWidget(),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Devine BJ. Gentamicin therapy. Drug Intell Clin Pharm. 1974;8:650-5.\n\nRobinson JD, et al. Determination of ideal body weight for drug dosage calculations. Am J Hosp Pharm. 1983;40(6):1016-9.\n\nWinter MA, et al. Basic clinical pharmacokinetics. 3rd ed. Vancouver: Applied Therapeutics; 1994.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
       ),
     );
   }

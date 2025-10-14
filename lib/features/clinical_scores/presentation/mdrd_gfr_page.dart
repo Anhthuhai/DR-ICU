@@ -256,6 +256,44 @@ class _MdrdGfrPageState extends State<MdrdGfrPage> {
             // Clinical Information
             _buildClinicalInfo(),
 
+            // Medical Citation
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.blue.shade200),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Tài liệu tham khảo',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Levey AS, Bosch JP, Lewis JB, et al. A more accurate method to estimate glomerular filtration rate from serum creatinine: a new prediction equation. Modification of Diet in Renal Disease Study Group. Ann Intern Med. 1999;130(6):461-70.',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.blue.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             const SizedBox(height: 20),
           ],
         ),

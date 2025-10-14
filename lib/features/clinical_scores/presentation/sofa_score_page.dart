@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
 class SOFAScorePage extends StatefulWidget {
@@ -32,20 +33,21 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
   int get totalScore => respiratoryScore + cardiovascularScore + hepaticScore + 
                        coagulationScore + renalScore + neurologicalScore;
 
-  String get interpretation {
+  String interpretation(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (totalScore == 0) {
-      return 'Không có suy cơ quan';
+      return l10n.no_organ_failure;
     }
     if (totalScore <= 6) {
-      return 'Suy cơ quan nhẹ';
+      return l10n.mild_organ_failure;
     }
     if (totalScore <= 9) {
-      return 'Suy cơ quan trung bình';
+      return l10n.moderate_organ_failure;
     }
     if (totalScore <= 12) {
-      return 'Suy cơ quan nặng';
+      return l10n.severe_organ_failure;
     }
-    return 'Suy đa cơ quan rất nặng';
+    return l10n.very_severe_multi_organ_failure;
   }
 
   Color get scoreColor {
@@ -106,93 +108,105 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('SOFA Score'),
-        backgroundColor: AppTheme.primaryBlue,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: _resetAll,
+      body: CustomScrollView(
+        slivers: [
+          // Sticky App Bar
+          SliverAppBar(
+            title: Text(l10n.sofaScore),
+            backgroundColor: AppTheme.primaryBlue,
+            foregroundColor: Colors.white,
+            floating: false,
+            pinned: true,
+            snap: false,
+            expandedHeight: 0,
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: _resetAll,
+              ),
+            ],
           ),
-        ],
-      ),
-      body: Column(
-        children: [
-          // Score Display
-          Container(
-            width: double.infinity,
-            margin: const EdgeInsets.all(16),
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              color: scoreColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: scoreColor.withValues(alpha: 0.3)),
+          
+          // Sticky Score Header
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            flexibleSpace: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: scoreColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: scoreColor.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      'SOFA',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: scoreColor,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Text(
+                      '$totalScore',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: scoreColor,
+                        fontSize: 24,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        mortalityRisk,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: scoreColor,
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
             child: Column(
               children: [
-                Text(
-                  'SOFA Score',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: AppTheme.darkGrey,
+                // Organ Systems
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      _buildRespiratorySection(),
+                      const SizedBox(height: 16),
+                      _buildCardiovascularSection(),
+                      const SizedBox(height: 16),
+                      _buildHepaticSection(),
+                      const SizedBox(height: 16),
+                      _buildCoagulationSection(),
+                      const SizedBox(height: 16),
+                      _buildRenalSection(),
+                      const SizedBox(height: 16),
+                      _buildNeurologicalSection(),
+                      const SizedBox(height: 16),
+                      _buildSOFACitation(),
+                      const SizedBox(height: 20),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  totalScore.toString(),
-                  style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                    color: scoreColor,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  '(R$respiratoryScore + CV$cardiovascularScore + H$hepaticScore + C$coagulationScore + R$renalScore + N$neurologicalScore)',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppTheme.mediumGrey,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  interpretation,
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: scoreColor,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                if (totalScore > 0) ...[
-                  const SizedBox(height: 4),
-                  Text(
-                    'Tỷ lệ tử vong: $mortalityRisk',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: scoreColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ],
-              ],
-            ),
-          ),
-
-          // Organ Systems
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              children: [
-                _buildRespiratorySection(),
-                const SizedBox(height: 16),
-                _buildCardiovascularSection(),
-                const SizedBox(height: 16),
-                _buildHepaticSection(),
-                const SizedBox(height: 16),
-                _buildCoagulationSection(),
-                const SizedBox(height: 16),
-                _buildRenalSection(),
-                const SizedBox(height: 16),
-                _buildNeurologicalSection(),
-                const SizedBox(height: 20),
               ],
             ),
           ),
@@ -202,18 +216,19 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
   }
 
   Widget _buildRespiratorySection() {
+    final l10n = AppLocalizations.of(context)!;
     return _buildOrganSection(
-      'Hệ hô hấp',
+      l10n.respiratory_system,
       Colors.blue.shade600,
       Icons.air,
       [
         TextField(
           controller: pao2Controller,
           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          decoration: const InputDecoration(
-            labelText: 'PaO2/FiO2 (mmHg)',
-            border: OutlineInputBorder(),
-            helperText: 'Nếu không thở máy, nhập SpO2/FiO2 x 315',
+          decoration: InputDecoration(
+            labelText: l10n.pao2_fio2_mmhg,
+            border: const OutlineInputBorder(),
+            helperText: l10n.if_not_ventilated_helper,
           ),
           // ignore: deprecated_member_use
           onChanged: (value) {
@@ -246,12 +261,13 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
   }
 
   Widget _buildCardiovascularSection() {
+    final l10n = AppLocalizations.of(context)!;
     return _buildOrganSection(
-      'Hệ tim mạch',
+      l10n.cardiovascular_system,
       Colors.red.shade600,
       Icons.favorite,
       [
-        const Text('Huyết áp và vận mạch:', style: TextStyle(fontWeight: FontWeight.w600)),
+        Text(l10n.mean_arterial_pressure_or_vasopressors, style: const TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(height: 8),
         Column(
           children: [
@@ -265,7 +281,7 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('MAP < 70 mmHg'),
+              title: Text(l10n.map_less_than_70),
               value: 1,
               // ignore: deprecated_member_use
               groupValue: cardiovascularScore,
@@ -274,7 +290,7 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('Dopamine ≤ 5 hoặc Dobutamine'),
+              title: Text(l10n.dopamine_dobutamine),
               value: 2,
               // ignore: deprecated_member_use
               groupValue: cardiovascularScore,
@@ -283,7 +299,7 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('Dopamine 5-15 hoặc Adrenaline ≤ 0.1'),
+              title: Text(l10n.dopamine_5_15),
               value: 3,
               // ignore: deprecated_member_use
               groupValue: cardiovascularScore,
@@ -292,7 +308,7 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('Dopamine > 15 hoặc Adrenaline > 0.1'),
+              title: Text(l10n.dopamine_greater_15),
               value: 4,
               // ignore: deprecated_member_use
               groupValue: cardiovascularScore,
@@ -307,8 +323,9 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
   }
 
   Widget _buildHepaticSection() {
+    final l10n = AppLocalizations.of(context)!;
     return _buildOrganSection(
-      'Hệ gan',
+      l10n.hepatic_system,
       Colors.amber.shade700,
       Icons.healing,
       [
@@ -319,9 +336,9 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
               controller: bilirubinController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(
-                labelText: 'Bilirubin ($bilirubinUnit)',
+                labelText: '${l10n.bilirubin_mg_dl.split('(')[0]}($bilirubinUnit)',
                 border: const OutlineInputBorder(),
-                helperText: 'Nhập giá trị bilirubin toàn phần',
+                helperText: l10n.enter_total_bilirubin_value,
               ),
               // ignore: deprecated_member_use
               onChanged: (value) {
@@ -354,9 +371,9 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
               width: double.infinity,
               child: DropdownButtonFormField<String>(
                 initialValue: bilirubinUnit,
-                decoration: const InputDecoration(
-                  labelText: 'Đơn vị Bilirubin',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: l10n.bilirubin_unit_label,
+                  border: const OutlineInputBorder(),
                 ),
                 items: const [
                   DropdownMenuItem(value: 'mg/dL', child: Text('mg/dL')),
@@ -403,7 +420,7 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
             border: Border.all(color: Colors.blue.shade200),
           ),
           child: Text(
-            'Chuyển đổi: 1 mg/dL = 17.1 umol/L',
+            l10n.bilirubin_conversion_note,
             style: TextStyle(
               fontSize: 12,
               color: Colors.blue.shade700,
@@ -417,8 +434,9 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
   }
 
   Widget _buildCoagulationSection() {
+    final l10n = AppLocalizations.of(context)!;
     return _buildOrganSection(
-      'Hệ đông máu',
+      l10n.coagulation_system,
       Colors.purple.shade600,
       Icons.bloodtype,
       [
@@ -426,10 +444,10 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
           controller: plateletsController,
           keyboardType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          decoration: const InputDecoration(
-            labelText: 'Tiểu cầu (x10³/μL)',
-            border: OutlineInputBorder(),
-            helperText: 'Nhập số lượng tiểu cầu',
+          decoration: InputDecoration(
+            labelText: l10n.platelets_1000_ul,
+            border: const OutlineInputBorder(),
+            helperText: l10n.enter_platelet_count,
           ),
           // ignore: deprecated_member_use
           onChanged: (value) {
@@ -462,8 +480,9 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
   }
 
   Widget _buildRenalSection() {
+    final l10n = AppLocalizations.of(context)!;
     return _buildOrganSection(
-      'Hệ thận',
+      l10n.renal_system,
       Colors.teal.shade600,
       Icons.water_drop,
       [
@@ -474,8 +493,9 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
               controller: creatinineController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
               decoration: InputDecoration(
-                labelText: 'Creatinine ($creatinineUnit)',
+                labelText: '${l10n.creatinine_mg_dl_label.split('(')[0]}($creatinineUnit)',
                 border: const OutlineInputBorder(),
+                helperText: l10n.enter_creatinine_value,
               ),
               // ignore: deprecated_member_use
               onChanged: (value) {
@@ -508,9 +528,9 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
               width: double.infinity,
               child: DropdownButtonFormField<String>(
                 initialValue: creatinineUnit,
-                decoration: const InputDecoration(
-                  labelText: 'Đơn vị Creatinine',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: l10n.creatinine_unit,
+                  border: const OutlineInputBorder(),
                 ),
                 items: const [
                   DropdownMenuItem(value: 'mg/dL', child: Text('mg/dL')),
@@ -557,7 +577,7 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
             border: Border.all(color: Colors.blue.shade200),
           ),
           child: Text(
-            'Chuyển đổi: 1 mg/dL = 88.4 umol/L',
+            l10n.conversion_note,
             style: TextStyle(
               fontSize: 12,
               color: Colors.blue.shade700,
@@ -570,10 +590,10 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
           controller: urineController,
           keyboardType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          decoration: const InputDecoration(
-            labelText: 'Nước tiểu (mL/ngày)',
-            border: OutlineInputBorder(),
-            helperText: 'Tổng lượng nước tiểu 24h',
+          decoration: InputDecoration(
+            labelText: l10n.urine_output_ml_day,
+            border: const OutlineInputBorder(),
+            helperText: l10n.enter_urine_output_24h,
           ),
           // ignore: deprecated_member_use
           onChanged: (value) {
@@ -597,12 +617,13 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
   }
 
   Widget _buildNeurologicalSection() {
+    final l10n = AppLocalizations.of(context)!;
     return _buildOrganSection(
-      'Hệ thần kinh',
+      l10n.neurological_system,
       Colors.indigo.shade600,
       Icons.psychology,
       [
-        const Text('Glasgow Coma Scale:', style: TextStyle(fontWeight: FontWeight.w600)),
+        Text(l10n.glasgow_coma_scale_score, style: const TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(height: 8),
         Column(
           children: [
@@ -690,11 +711,12 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
   }
 
   Widget _buildScoreIndicator(int score) {
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.only(top: 8),
       child: Row(
         children: [
-          const Text('Điểm: ', style: TextStyle(fontWeight: FontWeight.w500)),
+          Text(l10n.score_colon, style: const TextStyle(fontWeight: FontWeight.w500)),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
@@ -729,5 +751,44 @@ class _SOFAScorePageState extends State<SOFAScorePage> {
     plateletsController.clear();
     creatinineController.clear();
     urineController.clear();
+  }
+
+  Widget _buildSOFACitation() {
+    final l10n = AppLocalizations.of(context)!;
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                l10n.references,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Vincent JL, Moreno R, Takala J, et al. The SOFA (Sepsis-related Organ Failure Assessment) score to describe organ dysfunction/failure. Intensive Care Med. 1996;22(7):707-10.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

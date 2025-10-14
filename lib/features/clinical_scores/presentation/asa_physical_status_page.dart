@@ -210,6 +210,44 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
             // Additional Information
             if (asaClass > 0) _buildAdditionalInfo(),
 
+            // Medical Citation
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.blue.shade200),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Tài liệu tham khảo',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'American Society of Anesthesiologists. ASA Physical Status Classification System. Last approved by the ASA House of Delegates on October 15, 2014, and last amended on December 13, 2020.',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.blue.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             const SizedBox(height: 20),
           ],
         ),

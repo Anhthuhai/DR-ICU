@@ -625,6 +625,10 @@ class _CreatinineCalculatorPageState extends State<CreatinineCalculatorPage> {
                   ),
                 ),
               ],
+
+              // Medical Citation
+              const SizedBox(height: 16),
+              _buildCitationWidget(),
             ],
           ),
         ),
@@ -660,5 +664,43 @@ class _CreatinineCalculatorPageState extends State<CreatinineCalculatorPage> {
       default:
         return '';
     }
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. Nephron. 1976;16(1):31-41.\n\nLevey AS, et al. A more accurate method to estimate glomerular filtration rate from serum creatinine: a new prediction equation. Ann Intern Med. 1999;130(6):461-70.\n\nLevey AS, et al. A new equation to estimate glomerular filtration rate. Ann Intern Med. 2009;150(9):604-12.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

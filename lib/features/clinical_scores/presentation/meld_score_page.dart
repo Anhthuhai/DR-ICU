@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class MeldScorePage extends StatefulWidget {
   const MeldScorePage({super.key});
@@ -178,20 +179,20 @@ class _MeldScorePageState extends State<MeldScorePage> {
     return Colors.red.shade900;
   }
 
-  String get riskLevel {
+  String getRiskLevel(AppLocalizations localizations) {
     if (_meldScore < 10) {
-      return 'Thấp';
+      return localizations.meld_risk_low;
     }
     if (_meldScore < 15) {
-      return 'Trung bình thấp';
+      return localizations.meld_risk_low_moderate;
     }
     if (_meldScore < 20) {
-      return 'Trung bình';
+      return localizations.meld_risk_moderate;
     }
     if (_meldScore < 25) {
-      return 'Cao';
+      return localizations.meld_risk_high;
     }
-    return 'Rất cao';
+    return localizations.meld_risk_very_high;
   }
 
   String get mortalityRisk3Month {
@@ -210,105 +211,161 @@ class _MeldScorePageState extends State<MeldScorePage> {
     return '>90%';
   }
 
-  String get transplantPriority {
+  String getTransplantPriority(AppLocalizations localizations) {
     if (_meldScore < 15) {
-      return 'Ưu tiên thấp';
+      return localizations.priority_low;
     }
     if (_meldScore < 25) {
-      return 'Ưu tiên trung bình';
+      return localizations.priority_moderate;
     }
-    return 'Ưu tiên cao';
+    return localizations.priority_high;
   }
 
-  String get recommendations {
+  String getRecommendations(AppLocalizations localizations) {
     if (_meldScore < 10) {
-      return 'Theo dõi định kỳ, quản lý biến chứng xơ gan';
+      return localizations.meld_follow_up;
     }
     if (_meldScore < 15) {
-      return 'Đánh giá ghép gan, tầm soát biến chứng';
+      return localizations.meld_evaluation;
     }
     if (_meldScore < 20) {
-      return 'Đưa vào danh sách chờ ghép gan';
+      return localizations.meld_waitlist;
     }
     if (_meldScore < 25) {
-      return 'Ưu tiên cao ghép gan, theo dõi chặt chẽ';
+      return localizations.meld_high_priority;
     }
-    return 'Cần ghép gan khẩn cấp, xem xét ICU';
+    return localizations.meld_urgent;
+  }
+
+  Color _getSolidBackgroundColor() {
+    if (_meldScore < 10) {
+      return Colors.green.shade100;
+    }
+    if (_meldScore < 15) {
+      return Colors.yellow.shade100;
+    }
+    if (_meldScore < 20) {
+      return Colors.orange.shade100;
+    }
+    if (_meldScore < 25) {
+      return Colors.red.shade200;
+    }
+    return Colors.red.shade300;
   }
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('MELD Score'),
-        backgroundColor: Colors.brown.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
+      body: CustomScrollView(
+        slivers: [
+          // Main AppBar (sticky)
+          SliverAppBar(
+            pinned: true,
+            title: Text(localizations.meld_score),
+            backgroundColor: Colors.brown.shade700,
+            foregroundColor: Colors.white,
+          ),
+          
+          // Score Display Header (sticky)
+          SliverAppBar(
+            pinned: true,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            backgroundColor: _getSolidBackgroundColor(),
+            flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                color: _getSolidBackgroundColor(),
+                border: Border(
+                  bottom: BorderSide(color: Colors.grey.shade300, width: 1),
+                ),
               ),
-              child: Column(
-                children: [
-                  Text(
-                    'MELD Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            localizations.meld_score,
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: riskColor,
+                            ),
+                          ),
+                          Text(
+                            '${localizations.risk_text} ${getRiskLevel(localizations)}',
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppTheme.darkGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        _meldScore > 0 ? _meldScore.toStringAsFixed(1) : '0',
+                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: riskColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    _meldScore > 0 ? _meldScore.toStringAsFixed(1) : '0',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Nguy cơ $riskLevel',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+                ),
               ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Risk Info
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: riskColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                  ),
+                  child: _buildRiskInfo(localizations),
+                ),
 
-            // Input Parameters
-            _buildInputSection(),
+                // Input Parameters
+                _buildInputSection(localizations),
 
-            // Risk Stratification
-            _buildRiskStratification(),
+                // Risk Stratification
+                _buildRiskStratification(localizations),
 
-            // Transplant Guidelines
-            _buildTransplantGuidelines(),
+                // Transplant Guidelines
+                _buildTransplantGuidelines(localizations),
 
-            // Clinical Information
-            _buildClinicalInfo(),
+                // Clinical Information
+                _buildClinicalInfo(localizations),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+                // Medical Citation
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildCitationWidget(localizations),
+                ),
+
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildRiskInfo() {
+  Widget _buildRiskInfo(AppLocalizations localizations) {
     return Container(
+      margin: const EdgeInsets.only(top: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
@@ -323,7 +380,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
               Column(
                 children: [
                   Text(
-                    'Tử vong 3 tháng',
+                    localizations.mortality_3_month,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -343,7 +400,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
               Column(
                 children: [
                   Text(
-                    'Ưu tiên ghép gan',
+                    localizations.transplant_priority,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -351,7 +408,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    transplantPriority,
+                    getTransplantPriority(localizations),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
@@ -379,7 +436,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
                     Icon(Icons.assignment, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      localizations.meld_recommendations,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -389,7 +446,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  recommendations,
+                  getRecommendations(localizations),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -402,7 +459,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
     );
   }
 
-  Widget _buildInputSection() {
+  Widget _buildInputSection(AppLocalizations localizations) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -415,7 +472,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thông số MELD',
+            localizations.meld_parameters,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.brown.shade700,
@@ -426,7 +483,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
           // Creatinine with unit conversion
           _buildLabInputWithUnit(
             'Creatinine',
-            'Tối đa 4.0 mg/dL (354 umol/L), tối thiểu 1.0 mg/dL (88 umol/L)',
+            localizations.creatinine_helper,
             _creatinineController,
             _creatinineUnit,
             ['mg/dL', 'umol/L'],
@@ -443,7 +500,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
           // Bilirubin with unit conversion  
           _buildLabInputWithUnit(
             'Bilirubin',
-            'Bilirubin toàn phần, tối thiểu 1.0 mg/dL (17 umol/L)',
+            localizations.bilirubin_helper,
             _bilirubinController,
             _bilirubinUnit,
             ['mg/dL', 'umol/L'],
@@ -469,14 +526,14 @@ class _MeldScorePageState extends State<MeldScorePage> {
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'International Normalized Ratio, tối thiểu 1.0',
+              helperText: localizations.inr_helper,
             ),
           ),
           const SizedBox(height: 16),
           
           CheckboxListTile(
-            title: const Text('Chạy thận'),
-            subtitle: const Text('Đã chạy thận ít nhất 2 lần trong tuần qua hoặc CVVHD 24h'),
+            title: Text(localizations.dialysis),
+            subtitle: Text(localizations.dialysis_description),
             value: _dialysis,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -492,7 +549,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
     );
   }
 
-  Widget _buildRiskStratification() {
+  Widget _buildRiskStratification(AppLocalizations localizations) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -505,18 +562,18 @@ class _MeldScorePageState extends State<MeldScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ MELD',
+            localizations.meld_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('<10', 'Thấp', '1.9%', 'Theo dõi định kỳ', Colors.green),
-          _buildRiskItem('10-14', 'Trung bình thấp', '6.0%', 'Đánh giá ghép gan', Colors.yellow.shade700),
-          _buildRiskItem('15-19', 'Trung bình', '19.6%', 'Danh sách chờ', Colors.orange),
-          _buildRiskItem('20-24', 'Cao', '76.0%', 'Ưu tiên cao', Colors.red.shade600),
-          _buildRiskItem('≥25', 'Rất cao', '>90%', 'Ghép khẩn cấp', Colors.red.shade900),
+          _buildRiskItem('<10', localizations.meld_risk_low, '1.9%', localizations.meld_follow_up_action, Colors.green),
+          _buildRiskItem('10-14', localizations.meld_risk_low_moderate, '6.0%', localizations.meld_evaluation_action, Colors.yellow.shade700),
+          _buildRiskItem('15-19', localizations.meld_risk_moderate, '19.6%', localizations.meld_waitlist_action, Colors.orange),
+          _buildRiskItem('20-24', localizations.meld_risk_high, '76.0%', localizations.meld_high_priority_action, Colors.red.shade600),
+          _buildRiskItem('≥25', localizations.meld_risk_very_high, '>90%', localizations.meld_urgent_action, Colors.red.shade900),
         ],
       ),
     );
@@ -580,7 +637,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
     );
   }
 
-  Widget _buildTransplantGuidelines() {
+  Widget _buildTransplantGuidelines(AppLocalizations localizations) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -593,7 +650,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Hướng dẫn ghép gan',
+            localizations.transplant_guidelines,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
@@ -601,34 +658,34 @@ class _MeldScorePageState extends State<MeldScorePage> {
           ),
           const SizedBox(height: 16),
           _buildGuidelineCard(
-            'MELD <15: Theo dõi',
+            localizations.meld_follow_up_title,
             [
-              'Khám định kỳ 6 tháng',
-              'Siêu âm gan 6 tháng',
-              'AFP mỗi 6 tháng',
-              'Tầm soát biến chứng',
+              localizations.routine_visit_6_months,
+              localizations.liver_ultrasound_6_months,
+              localizations.afp_every_6_months,
+              localizations.screen_complications,
             ],
             Colors.green,
           ),
           const SizedBox(height: 12),
           _buildGuidelineCard(
-            'MELD 15-24: Danh sách chờ',
+            localizations.meld_waitlist_title,
             [
-              'Đưa vào danh sách chờ ghép',
-              'Đánh giá toàn diện',
-              'Theo dõi 3 tháng',
-              'Tầm soát ung thư gan',
+              localizations.add_to_waitlist,
+              localizations.comprehensive_evaluation,
+              localizations.follow_up_3_months,
+              localizations.screen_liver_cancer,
             ],
             Colors.orange,
           ),
           const SizedBox(height: 12),
           _buildGuidelineCard(
-            'MELD ≥25: Ưu tiên cao',
+            localizations.meld_high_priority_title,
             [
-              'Ưu tiên cao ghép gan',
-              'Theo dõi hàng tuần',
-              'Cân nhắc ghép sống',
-              'Hỗ trợ tích cực',
+              localizations.high_priority_transplant,
+              localizations.weekly_monitoring,
+              localizations.consider_living_donor,
+              localizations.intensive_support,
             ],
             Colors.red,
           ),
@@ -694,7 +751,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
     );
   }
 
-  Widget _buildClinicalInfo() {
+  Widget _buildClinicalInfo(AppLocalizations localizations) {
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
@@ -711,7 +768,7 @@ class _MeldScorePageState extends State<MeldScorePage> {
               Icon(Icons.info, color: Colors.teal.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                localizations.clinical_information,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.teal.shade600,
@@ -720,34 +777,8 @@ class _MeldScorePageState extends State<MeldScorePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'MELD Score đánh giá mức độ nặng bệnh gan giai đoạn cuối\n\n'
-            'Công thức MELD:\n'
-            '3.78 × ln(bilirubin) + 11.2 × ln(INR) + 9.57 × ln(creatinine) + 6.43\n\n'
-            'Các điều chỉnh:\n'
-            '• Creatinine: tối thiểu 1.0, tối đa 4.0 mg/dL\n'
-            '• Nếu chạy thận: creatinine = 4.0 mg/dL\n'
-            '• Bilirubin và INR: tối thiểu 1.0\n'
-            '• Điểm MELD: tối thiểu 6, tối đa 40\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Ưu tiên ghép gan theo UNOS\n'
-            '• Dự đoán tử vong ngắn hạn\n'
-            '• Quyết định can thiệp\n'
-            '• Theo dõi tiến triển bệnh\n\n'
-            'MELD-Na (cải tiến):\n'
-            '• Bổ sung natri huyết thanh\n'
-            '• Cải thiện độ chính xác\n'
-            '• Sử dụng rộng rãi hiện nay\n\n'
-            'Ngoại lệ ưu tiên:\n'
-            '• Ung thư gan (HCC)\n'
-            '• Bệnh gan fulminant\n'
-            '• Các bệnh hiếm gặp\n'
-            '• Tình trạng đặc biệt\n\n'
-            'Hạn chế:\n'
-            '• Không bao gồm biến chứng\n'
-            '• Thay đổi theo thời gian\n'
-            '• Cần đánh giá tổng thể\n'
-            '• Không dự đoán chức năng sau ghép',
+          Text(
+            localizations.meld_clinical_info,
             style: TextStyle(height: 1.4),
           ),
         ],
@@ -761,5 +792,43 @@ class _MeldScorePageState extends State<MeldScorePage> {
     _bilirubinController.dispose();
     _inrController.dispose();
     super.dispose();
+  }
+
+  Widget _buildCitationWidget(AppLocalizations localizations) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                localizations.references,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            localizations.meld_reference_text,
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

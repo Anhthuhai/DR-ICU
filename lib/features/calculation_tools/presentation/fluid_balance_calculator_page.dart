@@ -763,6 +763,10 @@ class _FluidBalanceCalculatorPageState extends State<FluidBalanceCalculatorPage>
                   ),
                 ),
               ),
+
+              // Medical Citation
+              const SizedBox(height: 16),
+              _buildCitationWidget(),
             ],
           ),
         ),
@@ -855,5 +859,43 @@ class _FluidBalanceCalculatorPageState extends State<FluidBalanceCalculatorPage>
       default:
         return false;
     }
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Malbrain ML, et al. Fluid overload, de-resuscitation, and outcomes in critically ill or injured patients: a systematic review with suggestions for clinical practice. Anaesthesiol Intensive Ther. 2014;46(5):361-80.\n\nBoyd JH, et al. Fluid resuscitation in septic shock: a positive fluid balance and elevated central venous pressure are associated with increased mortality. Crit Care Med. 2011;39(2):259-65.\n\nVincent JL, De Backer D. Circulatory shock. N Engl J Med. 2013;369(18):1726-34.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

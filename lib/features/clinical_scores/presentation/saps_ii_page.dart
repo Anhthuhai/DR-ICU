@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
 class SAPSII extends StatefulWidget {
@@ -83,26 +84,27 @@ class _SAPSIIState extends State<SAPSII> {
     }
   }
 
-  String get interpretation {
+  String interpretation(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (totalScore == 0) {
-      return 'Vui lòng nhập các thông số';
+      return l10n.please_enter_parameters;
     }
     if (totalScore <= 29) {
-      return 'Nguy cơ thấp';
+      return l10n.low_risk;
     }
     if (totalScore <= 39) {
-      return 'Nguy cơ trung bình thấp';
+      return l10n.low_moderate_risk;
     }
     if (totalScore <= 49) {
-      return 'Nguy cơ trung bình';
+      return l10n.moderate_risk;
     }
     if (totalScore <= 59) {
-      return 'Nguy cơ cao';
+      return l10n.high_mortality_risk;
     }
     if (totalScore <= 69) {
-      return 'Nguy cơ rất cao';
+      return l10n.very_high_mortality_risk;
     }
-    return 'Nguy cơ cực kỳ cao';
+    return l10n.extremely_high_risk;
   }
 
   // Unit conversion functions
@@ -203,9 +205,15 @@ class _SAPSIIState extends State<SAPSII> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final totalScore = this.totalScore;
+    final mortalityRisk = this.mortalityRisk;
+    final interpretationText = interpretation(context);
+    final scoreColor = this.scoreColor;
+    
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SAPS II Score'),
+        title: Text(l10n.saps2Score),
         backgroundColor: AppTheme.primaryBlue,
         foregroundColor: Colors.white,
         actions: [
@@ -230,7 +238,7 @@ class _SAPSIIState extends State<SAPSII> {
             child: Column(
               children: [
                 Text(
-                  'SAPS II Score',
+                  l10n.saps2Score,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -245,7 +253,7 @@ class _SAPSIIState extends State<SAPSII> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  interpretation,
+                  interpretationText,
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: scoreColor,
                     fontWeight: FontWeight.w600,
@@ -254,7 +262,7 @@ class _SAPSIIState extends State<SAPSII> {
                 if (totalScore > 0) ...[
                   const SizedBox(height: 8),
                   Text(
-                    'Tỷ lệ tử vong dự đoán: ${mortalityRisk.toStringAsFixed(0)}%',
+                    '${l10n.predicted_mortality_rate}: ${mortalityRisk.toStringAsFixed(0)}%',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: scoreColor,
                       fontWeight: FontWeight.w500,
@@ -270,15 +278,20 @@ class _SAPSIIState extends State<SAPSII> {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
-                _buildDemographicsSection(),
+                _buildDemographicsSection(l10n),
                 const SizedBox(height: 16),
-                _buildVitalSignsSection(),
+                _buildVitalSignsSection(l10n),
                 const SizedBox(height: 16),
-                _buildLabValuesSection(),
+                                _buildLabValuesSection(l10n),
                 const SizedBox(height: 16),
-                _buildNeurologicalSection(),
+                _buildNeurologicalSection(l10n),
                 const SizedBox(height: 16),
-                _buildAdmissionSection(),
+                _buildAdmissionSection(l10n),
+                
+                // Medical Citation
+                const SizedBox(height: 16),
+                _buildCitationWidget(),
+                
                 const SizedBox(height: 20),
               ],
             ),
@@ -288,19 +301,19 @@ class _SAPSIIState extends State<SAPSII> {
     );
   }
 
-  Widget _buildDemographicsSection() {
+  Widget _buildDemographicsSection(AppLocalizations l10n) {
     return _buildSection(
-      'Thông tin cơ bản',
+      l10n.basic_information,
       Colors.blue.shade600,
       [
         TextField(
           controller: ageController,
           keyboardType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          decoration: const InputDecoration(
-            labelText: 'Tuổi (năm)',
-            border: OutlineInputBorder(),
-            suffixText: 'năm',
+          decoration: InputDecoration(
+            labelText: l10n.age_years,
+            border: const OutlineInputBorder(),
+            suffixText: l10n.years,
           ),
           // ignore: deprecated_member_use
           onChanged: (value) {
@@ -330,18 +343,18 @@ class _SAPSIIState extends State<SAPSII> {
         if (ageScore > 0) 
           Padding(
             padding: const EdgeInsets.only(top: 8),
-            child: Text('Điểm tuổi: $ageScore', style: TextStyle(color: Colors.blue.shade600, fontWeight: FontWeight.w600)),
+            child: Text('${l10n.age_score}: $ageScore', style: TextStyle(color: Colors.blue.shade600, fontWeight: FontWeight.w600)),
           ),
       ],
     );
   }
 
-  Widget _buildVitalSignsSection() {
+  Widget _buildVitalSignsSection(AppLocalizations l10n) {
     return _buildSection(
-      'Sinh hiệu',
+      l10n.vital_signs,
       Colors.red.shade600,
       [
-        _buildVitalSignRow('Nhịp tim (/phút)', hrController, (value) {
+        _buildVitalSignRow(l10n.heart_rate_bpm, hrController, (value) {
           int hr = int.tryParse(value) ?? 0;
           setState(() {
             if (hr < 40) {
@@ -362,7 +375,7 @@ class _SAPSIIState extends State<SAPSII> {
           });
         }, heartRateScore),
         
-        _buildVitalSignRow('Huyết áp tâm thu (mmHg)', sbpController, (value) {
+        _buildVitalSignRow(l10n.systolic_bp_mmhg, sbpController, (value) {
           int sbp = int.tryParse(value) ?? 0;
           setState(() {
             if (sbp < 70) {
@@ -380,7 +393,7 @@ class _SAPSIIState extends State<SAPSII> {
           });
         }, systolicBPScore),
         
-        _buildVitalSignRow('Nhiệt độ (°C)', tempController, (value) {
+        _buildVitalSignRow(l10n.temperature_celsius, tempController, (value) {
           double temp = double.tryParse(value) ?? 0;
           setState(() {
             if (temp < 39.0) {
@@ -395,9 +408,9 @@ class _SAPSIIState extends State<SAPSII> {
     );
   }
 
-  Widget _buildLabValuesSection() {
+  Widget _buildLabValuesSection(AppLocalizations l10n) {
     return _buildSection(
-      'Xét nghiệm',
+      l10n.laboratory_tests,
       Colors.purple.shade600,
       [
         _buildVitalSignRow('PaO2/FiO2', pao2Controller, (value) {
@@ -415,7 +428,7 @@ class _SAPSIIState extends State<SAPSII> {
           });
         }, pao2fio2Score),
         
-        _buildVitalSignRow('Nước tiểu (L/ngày)', urineController, (value) {
+        _buildVitalSignRow(l10n.urine_output_l_day, urineController, (value) {
           double urine = double.tryParse(value) ?? 0;
           setState(() {
             if (urine < 0.5) {
@@ -458,7 +471,7 @@ class _SAPSIIState extends State<SAPSII> {
           bunScore,
         ),
 
-        _buildVitalSignRow('WBC (×10³/μL)', wbcController, (value) {
+        _buildVitalSignRow(l10n.wbc_count, wbcController, (value) {
           double wbc = double.tryParse(value) ?? 0;
           setState(() {
             if (wbc < 1.0) {
@@ -473,7 +486,7 @@ class _SAPSIIState extends State<SAPSII> {
           });
         }, wbcScore),
 
-        _buildVitalSignRow('Kali (mmol/L)', kController, (value) {
+        _buildVitalSignRow(l10n.potassium_mmol, kController, (value) {
           double k = double.tryParse(value) ?? 0;
           setState(() {
             if (k < 3.0) {
@@ -488,7 +501,7 @@ class _SAPSIIState extends State<SAPSII> {
           });
         }, potassiumScore),
 
-        _buildVitalSignRow('Natri (mmol/L)', naController, (value) {
+        _buildVitalSignRow(l10n.sodium_mmol, naController, (value) {
           double na = double.tryParse(value) ?? 0;
           setState(() {
             if (na < 125) {
@@ -503,7 +516,7 @@ class _SAPSIIState extends State<SAPSII> {
           });
         }, sodiumScore),
 
-        _buildVitalSignRow('HCO3⁻ (mmol/L)', hco3Controller, (value) {
+        _buildVitalSignRow(l10n.bicarbonate_mmol, hco3Controller, (value) {
           double hco3 = double.tryParse(value) ?? 0;
           setState(() {
             if (hco3 < 15) {
@@ -521,17 +534,17 @@ class _SAPSIIState extends State<SAPSII> {
     );
   }
 
-  Widget _buildNeurologicalSection() {
+  Widget _buildNeurologicalSection(AppLocalizations l10n) {
     return _buildSection(
-      'Hệ thần kinh',
+      l10n.neurological_system,
       Colors.indigo.shade600,
       [
-        const Text('Glasgow Coma Scale:', style: TextStyle(fontWeight: FontWeight.w600)),
+        Text('${l10n.glasgow_coma_scale}:', style: const TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(height: 8),
         Column(
           children: [
             RadioListTile<int>(
-              title: const Text('GCS < 6'),
+              title: Text(l10n.gcs_less_than_6),
               value: 26,
               // ignore: deprecated_member_use
               groupValue: gcsScore,
@@ -540,7 +553,7 @@ class _SAPSIIState extends State<SAPSII> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('GCS 6-8'),
+              title: Text(l10n.gcs_6_to_8),
               value: 13,
               // ignore: deprecated_member_use
               groupValue: gcsScore,
@@ -549,7 +562,7 @@ class _SAPSIIState extends State<SAPSII> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('GCS 9-10'),
+              title: Text(l10n.gcs_9_to_10),
               value: 7,
               // ignore: deprecated_member_use
               groupValue: gcsScore,
@@ -558,7 +571,7 @@ class _SAPSIIState extends State<SAPSII> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('GCS 11-13'),
+              title: Text(l10n.gcs_11_to_13),
               value: 5,
               // ignore: deprecated_member_use
               groupValue: gcsScore,
@@ -567,7 +580,7 @@ class _SAPSIIState extends State<SAPSII> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('GCS 14-15'),
+              title: Text(l10n.gcs_14_to_15),
               value: 0,
               // ignore: deprecated_member_use
               groupValue: gcsScore,
@@ -581,17 +594,17 @@ class _SAPSIIState extends State<SAPSII> {
     );
   }
 
-  Widget _buildAdmissionSection() {
+  Widget _buildAdmissionSection(AppLocalizations l10n) {
     return _buildSection(
-      'Loại nhập viện & Bệnh mạn tính',
+      l10n.admission_chronic_disease,
       Colors.orange.shade600,
       [
-        const Text('Loại nhập viện:', style: TextStyle(fontWeight: FontWeight.w600)),
+        Text(l10n.admission_type_label, style: const TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(height: 8),
         Column(
           children: [
             RadioListTile<int>(
-              title: const Text('Phẫu thuật chương trình'),
+              title: Text(l10n.scheduled_surgery),
               value: 0,
               // ignore: deprecated_member_use
               groupValue: admissionTypeScore,
@@ -600,7 +613,7 @@ class _SAPSIIState extends State<SAPSII> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('Nội khoa'),
+              title: Text(l10n.medical_admission),
               value: 6,
               // ignore: deprecated_member_use
               groupValue: admissionTypeScore,
@@ -609,7 +622,7 @@ class _SAPSIIState extends State<SAPSII> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('Phẫu thuật cấp cứu'),
+              title: Text(l10n.unscheduled_surgery),
               value: 8,
               // ignore: deprecated_member_use
               groupValue: admissionTypeScore,
@@ -620,12 +633,12 @@ class _SAPSIIState extends State<SAPSII> {
           ],
         ),
         const SizedBox(height: 16),
-        const Text('Bệnh mạn tính:', style: TextStyle(fontWeight: FontWeight.w600)),
+        Text(l10n.chronic_diseases_label, style: const TextStyle(fontWeight: FontWeight.w600)),
         const SizedBox(height: 8),
         Column(
           children: [
             RadioListTile<int>(
-              title: const Text('Không có'),
+              title: Text(l10n.none),
               value: 0,
               // ignore: deprecated_member_use
               groupValue: chronicScore,
@@ -634,7 +647,7 @@ class _SAPSIIState extends State<SAPSII> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('AIDS'),
+              title: Text(l10n.aids),
               value: 17,
               // ignore: deprecated_member_use
               groupValue: chronicScore,
@@ -643,7 +656,7 @@ class _SAPSIIState extends State<SAPSII> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('Ung thư di căn'),
+              title: Text(l10n.metastatic_cancer),
               value: 9,
               // ignore: deprecated_member_use
               groupValue: chronicScore,
@@ -652,7 +665,7 @@ class _SAPSIIState extends State<SAPSII> {
               dense: true,
             ),
             RadioListTile<int>(
-              title: const Text('Ung thư máu'),
+              title: Text(l10n.hematologic_malignancy),
               value: 10,
               // ignore: deprecated_member_use
               groupValue: chronicScore,
@@ -830,5 +843,43 @@ class _SAPSIIState extends State<SAPSII> {
     kController.clear();
     naController.clear();
     hco3Controller.clear();
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Le Gall JR, et al. A new Simplified Acute Physiology Score (SAPS II) based on a European/North American multicenter study. JAMA. 1993;270(24):2957-63.\n\nMoreno RP, et al. SAPS 3--From evaluation of the patient to evaluation of the intensive care unit. Part 2: Development of a prognostic model for hospital mortality at ICU admission. Intensive Care Med. 2005;31(10):1345-55.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -250,6 +250,8 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
             _buildResultSection(),
             if (_selectedCategory != null) _buildMedicalInfoSection(),
           ],
+          const SizedBox(height: 16),
+          _buildCitationWidget(),
         ],
       ),
     );
@@ -905,6 +907,46 @@ class _UnitConverterPageState extends State<UnitConverterPage> {
           }).toList(),
         ),
       ],
+    );
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'International System of Units (SI). Bureau International des Poids et Mesures. 2019.\n'
+            'United States Pharmacopeia Convention. USP General Chapters. 2023.\n'
+            'World Health Organization. International Health Regulations. 2005.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

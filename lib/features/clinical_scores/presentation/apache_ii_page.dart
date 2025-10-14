@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
 class ApacheIIPage extends StatefulWidget {
@@ -76,26 +77,27 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
     }
   }
 
-  String get interpretation {
+  String interpretation(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (totalScore == 0) {
-      return 'Vui lòng nhập các thông số';
+      return l10n.please_enter_parameters;
     }
     if (totalScore <= 4) {
-      return 'Nguy cơ tử vong rất thấp';
+      return l10n.very_low_mortality_risk;
     }
     if (totalScore <= 9) {
-      return 'Nguy cơ tử vong thấp';
+      return l10n.low_mortality_risk;
     }
     if (totalScore <= 14) {
-      return 'Nguy cơ tử vong trung bình';
+      return l10n.moderate_mortality_risk;
     }
     if (totalScore <= 19) {
-      return 'Nguy cơ tử vong cao';
+      return l10n.high_mortality_risk;
     }
     if (totalScore <= 24) {
-      return 'Nguy cơ tử vong rất cao';
+      return l10n.very_high_mortality_risk;
     }
-    return 'Nguy cơ tử vong cực kỳ cao';
+    return l10n.extremely_high_mortality_risk;
   }
 
   Color get scoreColor {
@@ -134,9 +136,10 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('APACHE II Score'),
+        title: Text(l10n.apache2Score),
         backgroundColor: AppTheme.primaryBlue,
         foregroundColor: Colors.white,
         actions: [
@@ -161,7 +164,7 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
             child: Column(
               children: [
                 Text(
-                  'APACHE II Score',
+                  l10n.apache2Score,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -176,7 +179,7 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  interpretation,
+                  interpretation(context),
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: scoreColor,
                     fontWeight: FontWeight.w600,
@@ -185,7 +188,7 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
                 if (totalScore > 0) ...[
                   const SizedBox(height: 8),
                   Text(
-                    'Tỷ lệ tử vong dự đoán: ${mortalityRisk.toStringAsFixed(1)}%',
+                    '${l10n.predicted_mortality_rate}: ${mortalityRisk.toStringAsFixed(1)}%',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: scoreColor,
                       fontWeight: FontWeight.w500,
@@ -208,6 +211,8 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
                 _buildLabValuesSection(),
                 const SizedBox(height: 16),
                 _buildChronicHealthSection(),
+                const SizedBox(height: 16),
+                _buildCitationWidget(),
                 const SizedBox(height: 20),
               ],
             ),
@@ -218,18 +223,19 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
   }
 
   Widget _buildAgeSection() {
+    final l10n = AppLocalizations.of(context)!;
     return _buildSection(
-      'Tuổi',
+      l10n.age,
       Colors.blue.shade600,
       [
         TextField(
           controller: ageController,
           keyboardType: TextInputType.number,
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          decoration: const InputDecoration(
-            labelText: 'Tuổi (năm)',
-            border: OutlineInputBorder(),
-            suffixText: 'năm',
+          decoration: InputDecoration(
+            labelText: l10n.age_years,
+            border: const OutlineInputBorder(),
+            suffixText: l10n.years,
           ),
           // ignore: deprecated_member_use
           onChanged: (value) {
@@ -252,18 +258,19 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
         if (ageScore > 0) 
           Padding(
             padding: const EdgeInsets.only(top: 8),
-            child: Text('Điểm tuổi: $ageScore', style: TextStyle(color: Colors.blue.shade600, fontWeight: FontWeight.w600)),
+            child: Text('${l10n.age_score}: $ageScore', style: TextStyle(color: Colors.blue.shade600, fontWeight: FontWeight.w600)),
           ),
       ],
     );
   }
 
   Widget _buildVitalSignsSection() {
+    final l10n = AppLocalizations.of(context)!;
     return _buildSection(
-      'Sinh hiệu',
+      l10n.vital_signs,
       Colors.red.shade600,
       [
-        _buildVitalSignRow('Nhiệt độ (°C)', tempController, (value) {
+        _buildVitalSignRow(l10n.temperature_celsius, tempController, (value) {
           double temp = double.tryParse(value) ?? 0;
           setState(() {
             if (temp < 30 || temp >= 41) {
@@ -280,7 +287,7 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
           });
         }, tempScore),
         
-        _buildVitalSignRow('MAP (mmHg)', mapController, (value) {
+        _buildVitalSignRow(l10n.map_mmhg, mapController, (value) {
           int map = int.tryParse(value) ?? 0;
           setState(() {
             if (map < 50 || map >= 160) {
@@ -295,7 +302,7 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
           });
         }, mapScore),
         
-        _buildVitalSignRow('Nhịp tim (/phút)', hrController, (value) {
+        _buildVitalSignRow(l10n.heart_rate_per_min, hrController, (value) {
           int hr = int.tryParse(value) ?? 0;
           setState(() {
             if (hr < 40 || hr >= 180) {
@@ -310,7 +317,7 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
           });
         }, hrScore),
         
-        _buildVitalSignRow('Nhịp thở (/phút)', rrController, (value) {
+        _buildVitalSignRow(l10n.respiratory_rate_per_min, rrController, (value) {
           int rr = int.tryParse(value) ?? 0;
           setState(() {
             if (rr < 6 || rr >= 50) {
@@ -329,11 +336,12 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
   }
 
   Widget _buildLabValuesSection() {
+    final l10n = AppLocalizations.of(context)!;
     return _buildSection(
-      'Xét nghiệm',
+      l10n.laboratory_tests,
       Colors.purple.shade600,
       [
-        _buildVitalSignRow('pH máu', pHController, (value) {
+        _buildVitalSignRow(l10n.blood_ph, pHController, (value) {
           double ph = double.tryParse(value) ?? 0;
           setState(() {
             if (ph < 7.15 || ph >= 7.7) {
@@ -348,7 +356,7 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
           });
         }, pHScore),
         
-        _buildVitalSignRow('Natri (mEq/L)', naController, (value) {
+        _buildVitalSignRow(l10n.sodium_meq_l, naController, (value) {
           int na = int.tryParse(value) ?? 0;
           setState(() {
             if (na < 111 || na >= 180) {
@@ -363,7 +371,7 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
           });
         }, naScore),
         
-        _buildVitalSignRow('Kali (mEq/L)', kController, (value) {
+        _buildVitalSignRow(l10n.potassium_meq_l, kController, (value) {
           double k = double.tryParse(value) ?? 0;
           setState(() {
             if (k < 2.5 || k >= 7) {
@@ -382,17 +390,18 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
   }
 
   Widget _buildChronicHealthSection() {
+    final l10n = AppLocalizations.of(context)!;
     return _buildSection(
-      'Bệnh mạn tính',
+      l10n.chronic_health,
       Colors.orange.shade600,
       [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Tiền sử bệnh mạn tính nghiêm trọng:', style: TextStyle(fontWeight: FontWeight.w600)),
+            Text(l10n.chronic_disease_history, style: const TextStyle(fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             RadioListTile<int>(
-              title: const Text('Không có'),
+              title: Text(l10n.none),
               value: 0,
               // ignore: deprecated_member_use
               groupValue: chronicHealthScore,
@@ -400,7 +409,7 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
               onChanged: (value) => setState(() => chronicHealthScore = value!),
             ),
             RadioListTile<int>(
-              title: const Text('Có (không phẫu thuật hoặc phẫu thuật cấp cứu)'),
+              title: Text(l10n.has_non_surgical_or_emergency),
               value: 5,
               // ignore: deprecated_member_use
               groupValue: chronicHealthScore,
@@ -408,7 +417,7 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
               onChanged: (value) => setState(() => chronicHealthScore = value!),
             ),
             RadioListTile<int>(
-              title: const Text('Có (phẫu thuật chương trình)'),
+              title: Text(l10n.has_elective_surgery),
               value: 2,
               // ignore: deprecated_member_use
               groupValue: chronicHealthScore,
@@ -504,5 +513,44 @@ class _ApacheIIPageState extends State<ApacheIIPage> {
     creatController.clear();
     hctController.clear();
     wbcController.clear();
+  }
+
+  Widget _buildCitationWidget() {
+    final l10n = AppLocalizations.of(context)!;
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                l10n.references,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Knaus WA, Draper EA, Wagner DP, Zimmerman JE. APACHE II: a severity of disease classification system. Crit Care Med. 1985;13(10):818-29.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

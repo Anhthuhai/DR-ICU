@@ -378,6 +378,9 @@ class _BSACalculatorPageState extends State<BSACalculatorPage> {
                   ),
                 ),
               ),
+              
+              const SizedBox(height: 16),
+              _buildCitationWidget(),
             ],
           ),
         ),
@@ -461,5 +464,44 @@ class _BSACalculatorPageState extends State<BSACalculatorPage> {
       default:
         return false;
     }
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'DuBois D, DuBois EF. A formula to estimate the approximate surface area. Arch Intern Med. 1916;17(6):863-71.\n'
+            'Mosteller RD. Simplified calculation of body-surface area. N Engl J Med. 1987;317(17):1098.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

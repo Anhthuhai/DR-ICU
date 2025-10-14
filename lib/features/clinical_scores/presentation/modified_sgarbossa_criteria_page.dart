@@ -138,6 +138,44 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
             // Clinical Information
             _buildClinicalInfo(),
 
+            // Medical Citation
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.blue.shade200),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Tài liệu tham khảo',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Smith SW, Dodd KW, Henry TD, et al. Diagnosis of ST-elevation myocardial infarction in the presence of left bundle branch block with the ST-elevation to S-wave ratio in a modified Sgarbossa rule. Ann Emerg Med. 2012;60(6):766-76.',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.blue.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             const SizedBox(height: 20),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class GlasgowComaScalePage extends StatefulWidget {
   const GlasgowComaScalePage({super.key});
@@ -15,18 +16,19 @@ class _GlasgowComaScalePageState extends State<GlasgowComaScalePage> {
 
   int get totalScore => eyeResponse + verbalResponse + motorResponse;
 
-  String get interpretation {
+  String interpretation(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     if (totalScore == 0) {
-      return 'Vui lòng chọn các phản ứng';
+      return l10n.please_select_responses;
     }
     if (totalScore >= 13) {
-      return 'Chấn thương não nhẹ';
+      return l10n.mild_brain_injury;
     }
     if (totalScore >= 9) {
-      return 'Chấn thương não trung bình';
+      return l10n.moderate_brain_injury;
     }
     if (totalScore >= 3) {
-      return 'Chấn thương não nặng';
+      return l10n.severe_brain_injury;
     }
     return '';
   }
@@ -46,11 +48,13 @@ class _GlasgowComaScalePageState extends State<GlasgowComaScalePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Glasgow Coma Scale'),
+        title: Text(l10n.glasgowComaScale),
         backgroundColor: AppTheme.primaryBlue,
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -69,7 +73,7 @@ class _GlasgowComaScalePageState extends State<GlasgowComaScalePage> {
               child: Column(
                 children: [
                   Text(
-                    'Tổng điểm GCS',
+                    l10n.total_gcs_score,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: AppTheme.darkGrey,
                     ),
@@ -91,7 +95,7 @@ class _GlasgowComaScalePageState extends State<GlasgowComaScalePage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    interpretation,
+                    interpretation(context),
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(
                       color: scoreColor,
                       fontWeight: FontWeight.w600,
@@ -108,13 +112,13 @@ class _GlasgowComaScalePageState extends State<GlasgowComaScalePage> {
               child: ListView(
                 children: [
                   _buildAssessmentSection(
-                    'Phản ứng mắt (Eye Response)',
+                    '${l10n.eyeResponse} (Eye Response)',
                     eyeResponse,
                     [
-                      AssessmentOption(4, 'Mở mắt tự phát'),
-                      AssessmentOption(3, 'Mở mắt khi gọi'),
-                      AssessmentOption(2, 'Mở mắt khi đau'),
-                      AssessmentOption(1, 'Không mở mắt'),
+                      AssessmentOption(4, l10n.gcs_eye_spontaneous),
+                      AssessmentOption(3, l10n.gcs_eye_to_voice),
+                      AssessmentOption(2, l10n.gcs_eye_to_pain),
+                      AssessmentOption(1, l10n.gcs_eye_none),
                     ],
                     (value) => setState(() => eyeResponse = value),
                     Colors.blue.shade600,
@@ -122,14 +126,14 @@ class _GlasgowComaScalePageState extends State<GlasgowComaScalePage> {
                   const SizedBox(height: 20),
                   
                   _buildAssessmentSection(
-                    'Phản ứng lời nói (Verbal Response)',
+                    '${l10n.verbalResponse} (Verbal Response)',
                     verbalResponse,
                     [
-                      AssessmentOption(5, 'Nói chuyện bình thường'),
-                      AssessmentOption(4, 'Nói lẫn, nhầm lẫn'),
-                      AssessmentOption(3, 'Nói từng từ không liên quan'),
-                      AssessmentOption(2, 'Chỉ phát ra âm thanh'),
-                      AssessmentOption(1, 'Không phản ứng'),
+                      AssessmentOption(5, l10n.gcs_verbal_oriented),
+                      AssessmentOption(4, l10n.gcs_verbal_confused),
+                      AssessmentOption(3, l10n.gcs_verbal_inappropriate),
+                      AssessmentOption(2, l10n.gcs_verbal_incomprehensible),
+                      AssessmentOption(1, l10n.gcs_verbal_none),
                     ],
                     (value) => setState(() => verbalResponse = value),
                     Colors.green.shade600,
@@ -137,18 +141,56 @@ class _GlasgowComaScalePageState extends State<GlasgowComaScalePage> {
                   const SizedBox(height: 20),
                   
                   _buildAssessmentSection(
-                    'Phản ứng vận động (Motor Response)',
+                    '${l10n.motorResponse} (Motor Response)',
                     motorResponse,
                     [
-                      AssessmentOption(6, 'Làm theo lệnh'),
-                      AssessmentOption(5, 'Định vị đau'),
-                      AssessmentOption(4, 'Rút tay khi đau'),
-                      AssessmentOption(3, 'Tư thế gấp bất thường'),
-                      AssessmentOption(2, 'Tư thế duỗi bất thường'),
-                      AssessmentOption(1, 'Không phản ứng'),
+                      AssessmentOption(6, l10n.gcs_motor_obeys),
+                      AssessmentOption(5, l10n.gcs_motor_localizes),
+                      AssessmentOption(4, l10n.gcs_motor_withdrawal),
+                      AssessmentOption(3, l10n.gcs_motor_flexion),
+                      AssessmentOption(2, l10n.gcs_motor_extension),
+                      AssessmentOption(1, l10n.gcs_motor_none),
                     ],
                     (value) => setState(() => motorResponse = value),
                     Colors.purple.shade600,
+                  ),
+                  
+                  // Medical Citation
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.blue.shade50,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.blue.shade200),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                            const SizedBox(width: 6),
+                            Text(
+                              l10n.references,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blue.shade700,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          'Teasdale G, Jennett B. Assessment of coma and impaired consciousness. A practical scale. Lancet. 1974;2(7872):81-4.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.blue.shade600,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -170,9 +212,9 @@ class _GlasgowComaScalePageState extends State<GlasgowComaScalePage> {
                   backgroundColor: AppTheme.mediumGrey,
                   padding: const EdgeInsets.symmetric(vertical: 12),
                 ),
-                child: const Text(
-                  'Đặt lại',
-                  style: TextStyle(
+                child: Text(
+                  l10n.reset,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w600,
                   ),
@@ -252,6 +294,8 @@ class _GlasgowComaScalePageState extends State<GlasgowComaScalePage> {
             ),
           ),
         )),
+        
+        const SizedBox(height: 20),
       ],
     );
   }

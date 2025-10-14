@@ -1,0 +1,89 @@
+## FOR APP STORE CONNECT - ENGLISH DESCRIPTION
+## (Copy text below to App Store Connect)
+
+DR-ICU: Essential ICU Medical Calculator
+
+Transform your critical care practice with DR-ICU, the comprehensive medical calculator designed specifically for intensive care unit professionals. This powerful tool puts over 30 evidence-based clinical scores and calculations at your fingertips.
+
+🏥 KEY FEATURES:
+• 30+ Clinical Scores: GCS, APACHE II, SOFA, SAPS II, Braden Scale, NIHSS, RASS, CAM-ICU
+• Laboratory Analysis: Blood count, ABG, liver/kidney function, cardiac biomarkers  
+• Medical Calculations: Fluid balance, medication dosing, ventilator settings
+• Evidence-Based: Full medical literature citations included
+• Offline Ready: Works without internet connection
+• Bilingual: English and Vietnamese support
+
+👩‍⚕️ PERFECT FOR:
+• ICU physicians and nurses
+• Emergency medicine doctors  
+• Medical residents and students
+• Critical care professionals
+
+🌟 WHY CHOOSE DR-ICU:
+✅ Evidence-based calculations with medical references
+✅ User-friendly interface for busy clinical environments  
+✅ No patient data storage - complete privacy
+✅ Regular updates with latest clinical guidelines
+✅ HIPAA-compliant design
+
+Transform your critical care practice today with DR-ICU - where medical precision meets clinical convenience.
+
+---
+
+## FOR APP STORE CONNECT - VIETNAMESE DESCRIPTION  
+## (Copy text below to App Store Connect)
+
+DR-ICU: Ứng Dụng Tính Toán Y Khoa Chăm Sóc Đặc Biệt
+
+Nâng cao chất lượng chăm sóc bệnh nhân tại khoa Hồi sức Cấp cứu với DR-ICU - ứng dụng tính toán y khoa toàn diện được thiết kế đặc biệt cho các chuyên gia y tế. Công cụ mạnh mẽ này cung cấp hơn 30 thang điểm lâm sàng dựa trên bằng chứng khoa học.
+
+🏥 TÍNH NĂNG CHÍNH:
+• 30+ Thang Điểm Lâm Sàng: GCS, APACHE II, SOFA, SAPS II, Braden, NIHSS, RASS, CAM-ICU
+• Phân Tích Xét Nghiệm: Công thức máu, khí máu, chức năng gan/thận, sinh học tim mạch
+• Tính Toán Y Khoa: Cân bằng dịch, liều thuốc, cài đặt máy thở
+• Dựa Trên Bằng Chứng: Bao gồm trích dẫn tài liệu y khoa đầy đủ
+• Hoạt Động Offline: Làm việc không cần internet
+• Song Ngữ: Hỗ trợ tiếng Anh và tiếng Việt
+
+👩‍⚕️ HOÀN HẢO CHO:
+• Bác sĩ và y tá khoa Hồi sức Cấp cứu
+• Bác sĩ cấp cứu
+• Bác sĩ nội trú và sinh viên y khoa  
+• Chuyên gia chăm sóc đặc biệt
+
+🌟 TẠI SAO CHỌN DR-ICU:
+✅ Tính toán dựa trên bằng chứng với tài liệu tham khảo y khoa
+✅ Giao diện thân thiện cho môi trường lâm sàng bận rộn
+✅ Không lưu trữ dữ liệu bệnh nhân - hoàn toàn riêng tư
+✅ Cập nhật thường xuyên với hướng dẫn lâm sàng mới nhất
+✅ Thiết kế tuân thủ HIPAA
+
+Nâng cao thực hành chăm sóc đặc biệt của bạn ngay hôm nay với DR-ICU - nơi độ chính xác y khoa gặp gỡ sự tiện lợi lâm sàng.
+
+---
+
+## KEYWORDS FOR APP STORE CONNECT
+
+English Keywords:
+medical calculator,ICU,intensive care,clinical scores,medical scores,healthcare,critical care,APACHE,SOFA,Glasgow Coma Scale,medical tools,hospital,emergency medicine,clinical decision support,evidence-based medicine,medical reference,nursing,physician,patient care,medical education
+
+Vietnamese Keywords:  
+máy tính y khoa,ICU,hồi sức cấp cứu,điểm lâm sàng,điểm y khoa,chăm sóc sức khỏe,chăm sóc đặc biệt,APACHE,SOFA,thang điểm Glasgow,công cụ y tế,bệnh viện,y học cấp cứu,hỗ trợ quyết định lâm sàng,y học dựa trên bằng chứng,tài liệu y khoa,điều dưỡng,bác sĩ,chăm sóc bệnh nhân,giáo dục y khoa
+
+---
+
+## WHAT'S NEW IN VERSION 1.0.1
+
+Enhanced user interface with improved AppBar design featuring medical-themed logo. Added comprehensive medical literature references with 30+ citations for evidence-based practice. Implemented custom launch screen with professional medical design. Improved app performance, stability, and user experience. Optimized bilingual support for English and Vietnamese languages. Fixed code analysis issues for better app quality.
+
+---
+
+## PROMOTIONAL TEXT (170 characters max)
+
+Transform critical care with 30+ evidence-based medical calculators. ICU scores, lab analysis, medication dosing - all offline, bilingual, HIPAA-compliant.
+
+---
+
+## SUBTITLE (30 characters max)
+
+Essential ICU Medical Calculator

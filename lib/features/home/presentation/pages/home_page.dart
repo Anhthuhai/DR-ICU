@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../main.dart';
 import '../../../clinical_scores/presentation/clinical_scores_page.dart';
 import '../../../unit_converter/presentation/pages/unit_converter_page.dart';
 import '../../../lab_analysis/presentation/lab_analysis_home_page.dart';
 import '../../../calculation_tools/presentation/calculation_tools_page.dart';
 import '../../../emergency_protocols/presentation/emergency_protocols_page.dart';
 import '../../../bookmarks/presentation/bookmarks_page.dart';
-import '../../../search/presentation/search_page.dart';
 import '../../../notifications/presentation/notifications_page.dart';
+import '../../../settings/presentation/language_selection_page.dart';
+import '../../../settings/presentation/language_test_page.dart';
+import '../../../references/presentation/medical_references_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,36 +21,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-
-  final List<BottomNavigationBarItem> _navItems = [
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.home_rounded),
-      label: 'Trang chủ',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.calculate_rounded),
-      label: 'Thang điểm',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.swap_horiz_rounded),
-      label: 'Chuyển đổi',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.science_rounded),
-      label: 'Xét nghiệm',
-    ),
-    const BottomNavigationBarItem(
-      icon: Icon(Icons.more_horiz),
-      label: 'Khác',
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('DR ICU'),
+        title: Image.asset(
+          'assets/icons/app_icon.png',
+          height: 36,
+          width: 36,
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -61,14 +44,41 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.library_books),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SearchPage(),
+                  builder: (context) => const MedicalReferencesPage(),
                 ),
               );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.bug_report),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LanguageTestPage(),
+                ),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.language),
+            onPressed: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LanguageSelectionPage(),
+                ),
+              );
+              // Restart app if language changed
+              if (result == true && mounted) {
+                // Force rebuild the entire app with new locale
+                DrIcuApp.restartApp();
+              }
             },
           ),
           IconButton(
@@ -85,46 +95,23 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: _buildCurrentPage(),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        items: _navItems,
-        selectedItemColor: AppTheme.primaryBlue,
-        unselectedItemColor: AppTheme.mediumGrey,
-      ),
     );
   }
 
   Widget _buildCurrentPage() {
-    switch (_selectedIndex) {
-      case 0:
-        return _buildHomePage();
-      case 1:
-        return _buildScoringPage();
-      case 2:
-        return _buildConverterPage();
-      case 3:
-        return _buildLabAnalysisPage();
-      case 4:
-        return _buildMorePage();
-      default:
-        return _buildHomePage();
-    }
+    return _buildHomePage();
   }
 
   Widget _buildHomePage() {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Chào mừng đến với DR ICU',
+            l10n.welcomeMessage,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: AppTheme.primaryBlue,
@@ -132,7 +119,7 @@ class _HomePageState extends State<HomePage> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Công cụ hỗ trợ cho bác sĩ và sinh viên thực hành tại khoa hồi sức tích cực',
+            l10n.welcomeSubtitle,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: AppTheme.darkGrey,
               fontWeight: FontWeight.w500,
@@ -143,48 +130,56 @@ class _HomePageState extends State<HomePage> {
             child: ListView(
               children: [
                 _buildFeatureCard(
-                  'Thang điểm lâm sàng',
-                  'Glasgow, APACHE, SOFA...',
+                  l10n.clinicalScores,
+                  l10n.clinicalScoresDescription,
                   Icons.calculate_rounded,
                   Colors.blue.shade400,
                   () {
-                    setState(() {
-                      _selectedIndex = 1;
-                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ClinicalScoresPage(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 12),
                 _buildFeatureCard(
-                  'Chuyển đổi đơn vị',
-                  'mg/dl ↔ mmol/l',
+                  l10n.unitConverter,
+                  l10n.unitConverterDescription,
                   Icons.swap_horiz_rounded,
                   Colors.green.shade400,
                   () {
-                    setState(() {
-                      _selectedIndex = 2;
-                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const UnitConverterPage(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 12),
                 _buildFeatureCard(
-                  'Phân tích xét nghiệm',
-                  'Dịch màng, khí máu...',
+                  l10n.labAnalysis,
+                  l10n.labAnalysisDescription,
                   Icons.science_rounded,
                   Colors.purple.shade400,
                   () {
-                    setState(() {
-                      _selectedIndex = 3;
-                    });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LabAnalysisHomePage(),
+                      ),
+                    );
                   },
                 ),
                 const SizedBox(height: 12),
                 _buildFeatureCard(
-                  'Công cụ tính toán',
-                  'BMI, BSA, Creatinine Clearance...',
+                  l10n.calculationTools,
+                  l10n.calculationToolsDescription,
                   Icons.functions_rounded,
                   Colors.indigo.shade400,
                   () {
-                    // TODO: Navigate to calculation tools
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -195,8 +190,8 @@ class _HomePageState extends State<HomePage> {
                 ),
                 const SizedBox(height: 12),
                 _buildFeatureCard(
-                  'Hướng dẫn cấp cứu',
-                  'Sơ đồ xử lý nhanh',
+                  l10n.emergencyProtocols,
+                  l10n.emergencyProtocolsDescription,
                   Icons.medical_services_rounded,
                   Colors.red.shade400,
                   () {
@@ -209,26 +204,31 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 const SizedBox(height: 12),
-                _buildFeatureCard(
-                  'Cập nhật mới',
-                  'Guidelines & Research',
-                  Icons.article_rounded,
-                  Colors.orange.shade400,
-                  () {
-                    // TODO: Navigate to guidelines
-                  },
-                ),
-                const SizedBox(height: 12),
-                _buildFeatureCard(
-                  'Giải trí',
-                  'Thư giãn & giảm stress',
-                  Icons.music_note_rounded,
-                  Colors.teal.shade400,
-                  () {
-                    setState(() {
-                      _selectedIndex = 4;
-                    });
-                  },
+                
+                // Medical Disclaimer
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.orange.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.orange.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          l10n.medical_disclaimer,
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.orange.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -306,32 +306,6 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildScoringPage() {
-    return const ClinicalScoresPage();
-  }
-
-  Widget _buildConverterPage() {
-    return const UnitConverterPage();
-  }
-
-  Widget _buildLabAnalysisPage() {
-    return const LabAnalysisHomePage();
-  }
-
-  Widget _buildMorePage() {
-    return const Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(Icons.more_horiz, size: 64, color: AppTheme.mediumGrey),
-          SizedBox(height: 16),
-          Text('Tính năng khác'),
-          Text('Hướng dẫn, giải trí...'),
-        ],
       ),
     );
   }

@@ -199,79 +199,118 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Wells DVT Score'),
-        backgroundColor: Colors.blue.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
+      body: CustomScrollView(
+        slivers: [
+          // Main AppBar (sticky)
+          SliverAppBar(
+            pinned: true,
+            title: const Text('Wells DVT Score'),
+            backgroundColor: Colors.blue.shade700,
+            foregroundColor: Colors.white,
+          ),
+          
+          // Score Display Header (sticky)
+          SliverAppBar(
+            pinned: true,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            backgroundColor: riskColor.withValues(alpha: 0.1),
+            flexibleSpace: Container(
               decoration: BoxDecoration(
                 color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                border: Border(
+                  bottom: BorderSide(color: riskColor.withValues(alpha: 0.3)),
+                ),
               ),
-              child: Column(
-                children: [
-                  Text(
-                    'Wells DVT Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Wells DVT Score',
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: riskColor,
+                            ),
+                          ),
+                          Text(
+                            riskLevel,
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: AppTheme.darkGrey,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        '$_totalScore',
+                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: riskColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$_totalScore',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    riskLevel,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+                ),
               ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Risk Info
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: riskColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                  ),
+                  child: _buildRiskInfo(),
+                ),
 
-            // Clinical Criteria
-            _buildCriteriaSection(),
+                // Clinical Criteria
+                _buildCriteriaSection(),
 
-            // Active Criteria
-            if (_totalScore != 0) _buildActiveCriteria(),
+                // Active Criteria
+                if (_totalScore != 0) _buildActiveCriteria(),
 
-            // Risk Stratification
-            _buildRiskStratification(),
+                // Risk Stratification
+                _buildRiskStratification(),
 
-            // Clinical Approach
-            _buildClinicalApproach(),
+                // Clinical Approach
+                _buildClinicalApproach(),
 
-            // Clinical Information
-            _buildClinicalInfo(),
+                // Clinical Information
+                _buildClinicalInfo(),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+                // Medical Citation
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildCitationWidget(),
+                ),
+
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildRiskInfo() {
     return Container(
+      margin: const EdgeInsets.only(top: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
@@ -811,6 +850,44 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
             '• Hội chứng chèn ép\n'
             '• Viêm khớp',
             style: TextStyle(height: 1.4),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Wells PS, et al. Evaluation of D-dimer in the diagnosis of suspected deep-vein thrombosis. N Engl J Med. 2003;349(13):1227-35.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
           ),
         ],
       ),

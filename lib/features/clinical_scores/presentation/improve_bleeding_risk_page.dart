@@ -256,6 +256,44 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
             // Clinical Information
             _buildClinicalInfo(),
 
+            // Medical Citation
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.blue.shade200),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Tài liệu tham khảo',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Hostler DC, Marx ES, Moores LK, et al. Validation of the International Medical Prevention Registry on Venous Thromboembolism bleeding risk score. Chest. 2016;149(2):372-9.',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.blue.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             const SizedBox(height: 20),
           ],
         ),

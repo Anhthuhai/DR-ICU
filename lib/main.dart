@@ -1,13 +1,52 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
 import 'core/theme/app_theme.dart';
+import 'core/services/language_service.dart';
 import 'features/home/presentation/pages/home_page.dart';
 
+// Global key to restart app
+final GlobalKey<DrIcuAppState> drIcuAppKey = GlobalKey<DrIcuAppState>();
+
 void main() {
-  runApp(const DrIcuApp());
+  runApp(DrIcuApp(key: drIcuAppKey));
 }
 
-class DrIcuApp extends StatelessWidget {
+class DrIcuApp extends StatefulWidget {
   const DrIcuApp({super.key});
+
+  @override
+  State<DrIcuApp> createState() => DrIcuAppState();
+  
+  // Static method to restart app
+  static void restartApp() {
+    drIcuAppKey.currentState?._loadLocale();
+  }
+}
+
+class DrIcuAppState extends State<DrIcuApp> {
+  Locale? _locale;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadLocale();
+  }
+
+  Future<void> _loadLocale() async {
+    final locale = await LanguageService.getLocale();
+    if (mounted) {
+      setState(() {
+        _locale = locale;
+      });
+    }
+  }
+
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +55,14 @@ class DrIcuApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light,
+      locale: _locale,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: LanguageService.getSupportedLocales(),
       home: const HomePage(),
       debugShowCheckedModeBanner: false,
     );

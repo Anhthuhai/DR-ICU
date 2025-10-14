@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class ChildPughPage extends StatefulWidget {
   const ChildPughPage({super.key});
@@ -43,11 +44,11 @@ class _ChildPughPageState extends State<ChildPughPage> {
     }
   }
 
-  String get severity {
+  String getSeverity(AppLocalizations localizations) {
     switch (childPughClass) {
-      case 'A': return 'Bệnh gan nhẹ';
-      case 'B': return 'Bệnh gan trung bình';
-      case 'C': return 'Bệnh gan nặng';
+      case 'A': return localizations.mild_liver_disease;
+      case 'B': return localizations.moderate_liver_disease;
+      case 'C': return localizations.severe_liver_disease;
       default: return '';
     }
   }
@@ -70,11 +71,11 @@ class _ChildPughPageState extends State<ChildPughPage> {
     }
   }
 
-  String get operativeRisk {
+  String getOperativeRisk(AppLocalizations localizations) {
     switch (childPughClass) {
-      case 'A': return 'Nguy cơ phẫu thuật thấp (10%)';
-      case 'B': return 'Nguy cơ phẫu thuật trung bình (30%)';
-      case 'C': return 'Nguy cơ phẫu thuật cao (82%)';
+      case 'A': return localizations.low_operative_risk;
+      case 'B': return localizations.moderate_operative_risk;
+      case 'C': return localizations.high_operative_risk;
       default: return '';
     }
   }
@@ -89,9 +90,10 @@ class _ChildPughPageState extends State<ChildPughPage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Child-Pugh Score'),
+        title: Text(localizations.child_pugh_score),
         backgroundColor: Colors.amber.shade700,
         foregroundColor: Colors.white,
       ),
@@ -111,7 +113,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
               child: Column(
                 children: [
                   Text(
-                    'Child-Pugh Classification',
+                    localizations.child_pugh_classification,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: scoreColor,
@@ -140,25 +142,26 @@ class _ChildPughPageState extends State<ChildPughPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    severity,
+                    getSeverity(localizations),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppTheme.darkGrey,
                     ),
                   ),
                   const SizedBox(height: 12),
-                  _buildSurvivalInfo(),
+                  _buildSurvivalInfo(localizations),
                 ],
               ),
             ),
 
             // Laboratory values
             _buildSection(
-              'Xét nghiệm',
+              localizations.child_pugh_laboratory_tests,
               Colors.blue.shade600,
               [
                 _buildLabInputWithUnit(
-                  'Bilirubin',
+                  localizations,
+                  localizations.bilirubin,
                   bilirubinController,
                   Icons.water_drop,
                   (value) {
@@ -199,7 +202,8 @@ class _ChildPughPageState extends State<ChildPughPage> {
                   },
                 ),
                 _buildLabInput(
-                  'Albumin (g/dL)',
+                  localizations,
+                  '${localizations.albumin} (g/dL)',
                   albuminController,
                   Icons.science,
                   (value) {
@@ -218,7 +222,8 @@ class _ChildPughPageState extends State<ChildPughPage> {
                   '>3.5: 1pt, 2.8-3.5: 2pts, <2.8: 3pts',
                 ),
                 _buildLabInput(
-                  'INR/Prothrombin Time',
+                  localizations,
+                  localizations.inr_prothrombin_time,
                   prothrombinController,
                   Icons.timer,
                   (value) {
@@ -241,29 +246,29 @@ class _ChildPughPageState extends State<ChildPughPage> {
 
             // Clinical findings
             _buildSection(
-              'Triệu chứng lâm sàng',
+              localizations.clinical_symptoms,
               Colors.purple.shade600,
               [
                 _buildClinicalFinding(
-                  'Cổ trướng',
+                  localizations.ascites,
                   Icons.airline_seat_recline_extra,
                   ascitesScore,
                   [
-                    {'label': 'Không', 'value': 1},
-                    {'label': 'Ít - vừa (điều trị được)', 'value': 2},
-                    {'label': 'Nhiều (điều trị kháng thuốc)', 'value': 3},
+                    {'label': localizations.ascites_none, 'value': 1},
+                    {'label': localizations.ascites_mild_moderate, 'value': 2},
+                    {'label': localizations.ascites_severe, 'value': 3},
                   ],
                   (value) => setState(() => ascitesScore = value),
                 ),
                 const SizedBox(height: 16),
                 _buildClinicalFinding(
-                  'Bệnh não gan',
+                  localizations.hepatic_encephalopathy,
                   Icons.psychology,
                   encephalopathyScore,
                   [
-                    {'label': 'Không', 'value': 1},
-                    {'label': 'Độ I-II (nhẹ-vừa)', 'value': 2},
-                    {'label': 'Độ III-IV (nặng)', 'value': 3},
+                    {'label': localizations.encephalopathy_none, 'value': 1},
+                    {'label': localizations.encephalopathy_grade_1_2, 'value': 2},
+                    {'label': localizations.encephalopathy_grade_3_4, 'value': 3},
                   ],
                   (value) => setState(() => encephalopathyScore = value),
                 ),
@@ -271,7 +276,45 @@ class _ChildPughPageState extends State<ChildPughPage> {
             ),
 
             // Reference information
-            _buildInfoBox(),
+            _buildInfoBox(localizations),
+
+            // Medical Citation
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.blue.shade200),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        localizations.reference_material,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Child CG, Turcotte JG. Surgery and portal hypertension. Major Probl Clin Surg. 1964;1:1-85. Modified by Pugh RN, Murray-Lyon IM, Dawson JL, et al. Transection of the oesophagus for bleeding oesophageal varices. Br J Surg. 1973;60(8):646-9.',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.blue.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
 
             const SizedBox(height: 20),
           ],
@@ -306,7 +349,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
     );
   }
 
-  Widget _buildSurvivalInfo() {
+  Widget _buildSurvivalInfo(AppLocalizations localizations) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -322,7 +365,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
               Column(
                 children: [
                   Text(
-                    'Sống còn 1 năm',
+                    localizations.one_year_survival,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -341,7 +384,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
               Column(
                 children: [
                   Text(
-                    'Sống còn 2 năm',
+                    localizations.two_year_survival,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -361,7 +404,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
           ),
           const SizedBox(height: 12),
           Text(
-            operativeRisk,
+            getOperativeRisk(localizations),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
               color: AppTheme.darkGrey,
@@ -374,6 +417,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
   }
 
   Widget _buildLabInputWithUnit(
+    AppLocalizations localizations,
     String title,
     TextEditingController controller,
     IconData icon,
@@ -406,7 +450,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
-                  'Điểm: $score',
+                  localizations.child_pugh_score_display(score),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: score > 0 ? scoreColor : Colors.grey,
@@ -423,8 +467,8 @@ class _ChildPughPageState extends State<ChildPughPage> {
                 child: TextField(
                   controller: controller,
                   keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    labelText: 'Nhập giá trị',
+                  decoration: InputDecoration(
+                    labelText: localizations.enter_value,
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   ),
@@ -466,6 +510,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
   }
 
   Widget _buildLabInput(
+    AppLocalizations localizations,
     String title,
     TextEditingController controller,
     IconData icon,
@@ -495,7 +540,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
-                  'Điểm: $score',
+                  localizations.child_pugh_score_display(score),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: score > 0 ? scoreColor : Colors.grey,
@@ -508,8 +553,8 @@ class _ChildPughPageState extends State<ChildPughPage> {
           TextField(
             controller: controller,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'Nhập giá trị',
+            decoration: InputDecoration(
+              labelText: localizations.enter_value,
               border: OutlineInputBorder(),
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             ),
@@ -565,7 +610,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
     );
   }
 
-  Widget _buildInfoBox() {
+  Widget _buildInfoBox(AppLocalizations localizations) {
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
@@ -582,7 +627,7 @@ class _ChildPughPageState extends State<ChildPughPage> {
               Icon(Icons.info, color: Colors.amber.shade700),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                localizations.child_pugh_clinical_information,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.amber.shade700,
@@ -591,12 +636,12 @@ class _ChildPughPageState extends State<ChildPughPage> {
             ],
           ),
           const SizedBox(height: 8),
-          const Text(
-            '• Child-Pugh được sử dụng để đánh giá mức độ nặng của xơ gan\n'
-            '• Class A (5-6 điểm): Dự hậu tốt, có thể phẫu thuật\n'
-            '• Class B (7-9 điểm): Dự hậu trung bình, cân nhắc can thiệp\n'
-            '• Class C (10-15 điểm): Dự hậu xấu, ưu tiên ghép gan\n'
-            '• Thường kết hợp với MELD score trong đánh giá bệnh gan',
+          Text(
+            '${localizations.child_pugh_usage}\n'
+            '${localizations.class_a_info}\n'
+            '${localizations.class_b_info}\n'
+            '${localizations.class_c_info}\n'
+            '${localizations.meld_combination}',
             style: TextStyle(height: 1.4),
           ),
         ],

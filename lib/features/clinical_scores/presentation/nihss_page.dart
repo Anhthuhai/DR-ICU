@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 
 class NihssPage extends StatefulWidget {
   const NihssPage({super.key});
@@ -43,192 +44,205 @@ class _NihssPageState extends State<NihssPage> {
     return Colors.red.shade800;
   }
 
-  String get severity {
+  Color _getSolidBackgroundColor() {
     if (totalScore <= 4) {
-      return 'Đột quỵ nhẹ';
+      return Colors.green.shade100;
     }
     if (totalScore <= 15) {
-      return 'Đột quỵ vừa';
+      return Colors.orange.shade100;
     }
     if (totalScore <= 20) {
-      return 'Đột quỵ nặng';
+      return Colors.red.shade100;
     }
-    return 'Đột quỵ rất nặng';
+    return Colors.red.shade200;
   }
 
-  String get prognosis {
+  String severity(AppLocalizations l10n) {
     if (totalScore <= 4) {
-      return 'Tiên lượng tốt, hồi phục cao';
+      return l10n.nihss_mild_stroke;
     }
     if (totalScore <= 15) {
-      return 'Tiên lượng khá, cần phục hồi chức năng';
+      return l10n.nihss_moderate_stroke;
     }
     if (totalScore <= 20) {
-      return 'Tiên lượng xấu, phụ thuộc nặng';
+      return l10n.nihss_severe_stroke;
     }
-    return 'Tiên lượng rất xấu, tử vong cao';
+    return l10n.nihss_very_severe_stroke;
   }
 
-  String get recommendations {
+  String prognosis(AppLocalizations l10n) {
     if (totalScore <= 4) {
-      return 'Điều trị nội khoa, phục hồi chức năng sớm';
+      return l10n.nihss_good_prognosis;
     }
     if (totalScore <= 15) {
-      return 'Cân nhắc can thiệp mạch máu, phục hồi chức năng tích cực';
+      return l10n.nihss_fair_prognosis;
     }
     if (totalScore <= 20) {
-      return 'Can thiệp tích cực nếu trong golden time, ICU monitoring';
+      return l10n.nihss_poor_prognosis;
     }
-    return 'Điều trị hỗ trợ, cân nhắc giới hạn điều trị';
+    return l10n.nihss_very_poor_prognosis;
   }
 
-  List<Map<String, dynamic>> get nihssItems {
+  String recommendations(AppLocalizations l10n) {
+    if (totalScore <= 4) {
+      return l10n.nihss_recommendation_mild;
+    }
+    if (totalScore <= 15) {
+      return l10n.nihss_recommendation_moderate;
+    }
+    if (totalScore <= 20) {
+      return l10n.nihss_recommendation_severe;
+    }
+    return l10n.nihss_recommendation_very_severe;
+  }
+
+  List<Map<String, dynamic>> nihssItems(AppLocalizations l10n) {
     return [
       {
         'key': 'consciousness',
-        'title': '1a. Ý thức',
+        'title': l10n.nihss_1a_consciousness,
         'options': [
-          {'value': 0, 'text': 'Tỉnh táo'},
-          {'value': 1, 'text': 'Lơ mơ nhưng kích thích được'},
-          {'value': 2, 'text': 'Hôn mê, cần kích thích liên tục'},
-          {'value': 3, 'text': 'Hôn mê sâu'},
+          {'value': 0, 'text': l10n.nihss_consciousness_0},
+          {'value': 1, 'text': l10n.nihss_consciousness_1},
+          {'value': 2, 'text': l10n.nihss_consciousness_2},
+          {'value': 3, 'text': l10n.nihss_consciousness_3},
         ],
       },
       {
         'key': 'questions',
-        'title': '1b. Trả lời câu hỏi (tháng hiện tại, tuổi)',
+        'title': l10n.nihss_1b_questions,
         'options': [
-          {'value': 0, 'text': 'Trả lời đúng cả 2 câu'},
-          {'value': 1, 'text': 'Trả lời đúng 1 câu'},
-          {'value': 2, 'text': 'Không trả lời đúng câu nào'},
+          {'value': 0, 'text': l10n.nihss_questions_0},
+          {'value': 1, 'text': l10n.nihss_questions_1},
+          {'value': 2, 'text': l10n.nihss_questions_2},
         ],
       },
       {
         'key': 'commands',
-        'title': '1c. Thực hiện lệnh (mở/nhắm mắt, nắm/mở bàn tay)',
+        'title': l10n.nihss_1c_commands,
         'options': [
-          {'value': 0, 'text': 'Thực hiện đúng cả 2 lệnh'},
-          {'value': 1, 'text': 'Thực hiện đúng 1 lệnh'},
-          {'value': 2, 'text': 'Không thực hiện đúng lệnh nào'},
+          {'value': 0, 'text': l10n.nihss_commands_0},
+          {'value': 1, 'text': l10n.nihss_commands_1},
+          {'value': 2, 'text': l10n.nihss_commands_2},
         ],
       },
       {
         'key': 'gaze',
-        'title': '2. Vận nhãn (nhìn theo ngón tay)',
+        'title': l10n.nihss_2_gaze,
         'options': [
-          {'value': 0, 'text': 'Bình thường'},
-          {'value': 1, 'text': 'Liệt nhìn một phần'},
-          {'value': 2, 'text': 'Liệt nhìn hoàn toàn'},
+          {'value': 0, 'text': l10n.nihss_gaze_0},
+          {'value': 1, 'text': l10n.nihss_gaze_1},
+          {'value': 2, 'text': l10n.nihss_gaze_2},
         ],
       },
       {
         'key': 'visual',
-        'title': '3. Trường nhìn',
+        'title': l10n.nihss_3_visual,
         'options': [
-          {'value': 0, 'text': 'Không khiếm khuyết'},
-          {'value': 1, 'text': 'Khiếm khuyết 1/4 trường nhìn'},
-          {'value': 2, 'text': 'Khiếm khuyết nửa trường nhìn'},
-          {'value': 3, 'text': 'Mù hoàn toàn'},
+          {'value': 0, 'text': l10n.nihss_visual_0},
+          {'value': 1, 'text': l10n.nihss_visual_1},
+          {'value': 2, 'text': l10n.nihss_visual_2},
+          {'value': 3, 'text': l10n.nihss_visual_3},
         ],
       },
       {
         'key': 'facial',
-        'title': '4. Liệt mặt',
+        'title': l10n.nihss_4_facial,
         'options': [
-          {'value': 0, 'text': 'Bình thường'},
-          {'value': 1, 'text': 'Liệt nhẹ (mất đối xứng nhẹ)'},
-          {'value': 2, 'text': 'Liệt vừa (liệt vùng dưới mặt)'},
-          {'value': 3, 'text': 'Liệt hoàn toàn'},
+          {'value': 0, 'text': l10n.nihss_facial_0},
+          {'value': 1, 'text': l10n.nihss_facial_1},
+          {'value': 2, 'text': l10n.nihss_facial_2},
+          {'value': 3, 'text': l10n.nihss_facial_3},
         ],
       },
       {
         'key': 'leftArm',
-        'title': '5a. Vận động tay trái',
+        'title': l10n.nihss_5a_left_arm,
         'options': [
-          {'value': 0, 'text': 'Bình thường, giữ 10 giây'},
-          {'value': 1, 'text': 'Rơi từ từ trong 10 giây'},
-          {'value': 2, 'text': 'Rơi ngay, có cố gắng chống lại trọng lực'},
-          {'value': 3, 'text': 'Không chuyển động'},
-          {'value': 4, 'text': 'Không đánh giá được (cắt cụt, khớp cứng)'},
+          {'value': 0, 'text': l10n.nihss_arm_0},
+          {'value': 1, 'text': l10n.nihss_arm_1},
+          {'value': 2, 'text': l10n.nihss_arm_2},
+          {'value': 3, 'text': l10n.nihss_arm_3},
+          {'value': 4, 'text': l10n.nihss_arm_4},
         ],
       },
       {
         'key': 'rightArm',
-        'title': '5b. Vận động tay phải',
+        'title': l10n.nihss_5b_right_arm,
         'options': [
-          {'value': 0, 'text': 'Bình thường, giữ 10 giây'},
-          {'value': 1, 'text': 'Rơi từ từ trong 10 giây'},
-          {'value': 2, 'text': 'Rơi ngay, có cố gắng chống lại trọng lực'},
-          {'value': 3, 'text': 'Không chuyển động'},
-          {'value': 4, 'text': 'Không đánh giá được (cắt cụt, khớp cứng)'},
+          {'value': 0, 'text': l10n.nihss_arm_0},
+          {'value': 1, 'text': l10n.nihss_arm_1},
+          {'value': 2, 'text': l10n.nihss_arm_2},
+          {'value': 3, 'text': l10n.nihss_arm_3},
+          {'value': 4, 'text': l10n.nihss_arm_4},
         ],
       },
       {
         'key': 'leftLeg',
-        'title': '6a. Vận động chân trái',
+        'title': l10n.nihss_6a_left_leg,
         'options': [
-          {'value': 0, 'text': 'Bình thường, giữ 5 giây'},
-          {'value': 1, 'text': 'Rơi từ từ trong 5 giây'},
-          {'value': 2, 'text': 'Rơi ngay, có cố gắng chống lại trọng lực'},
-          {'value': 3, 'text': 'Không chuyển động'},
-          {'value': 4, 'text': 'Không đánh giá được (cắt cụt, khớp cứng)'},
+          {'value': 0, 'text': l10n.nihss_leg_0},
+          {'value': 1, 'text': l10n.nihss_leg_1},
+          {'value': 2, 'text': l10n.nihss_leg_2},
+          {'value': 3, 'text': l10n.nihss_leg_3},
+          {'value': 4, 'text': l10n.nihss_leg_4},
         ],
       },
       {
         'key': 'rightLeg',
-        'title': '6b. Vận động chân phải',
+        'title': l10n.nihss_6b_right_leg,
         'options': [
-          {'value': 0, 'text': 'Bình thường, giữ 5 giây'},
-          {'value': 1, 'text': 'Rơi từ từ trong 5 giây'},
-          {'value': 2, 'text': 'Rơi ngay, có cố gắng chống lại trọng lực'},
-          {'value': 3, 'text': 'Không chuyển động'},
-          {'value': 4, 'text': 'Không đánh giá được (cắt cụt, khớp cứng)'},
+          {'value': 0, 'text': l10n.nihss_leg_0},
+          {'value': 1, 'text': l10n.nihss_leg_1},
+          {'value': 2, 'text': l10n.nihss_leg_2},
+          {'value': 3, 'text': l10n.nihss_leg_3},
+          {'value': 4, 'text': l10n.nihss_leg_4},
         ],
       },
       {
         'key': 'ataxia',
-        'title': '7. Mất điều hòa chi (finger-nose, heel-shin)',
+        'title': l10n.nihss_7_ataxia,
         'options': [
-          {'value': 0, 'text': 'Không có'},
-          {'value': 1, 'text': 'Có ở 1 chi'},
-          {'value': 2, 'text': 'Có ở 2 chi'},
+          {'value': 0, 'text': l10n.nihss_ataxia_0},
+          {'value': 1, 'text': l10n.nihss_ataxia_1},
+          {'value': 2, 'text': l10n.nihss_ataxia_2},
         ],
       },
       {
         'key': 'sensory',
-        'title': '8. Cảm giác',
+        'title': l10n.nihss_8_sensory,
         'options': [
-          {'value': 0, 'text': 'Bình thường'},
-          {'value': 1, 'text': 'Giảm cảm giác nhẹ đến vừa'},
-          {'value': 2, 'text': 'Mất cảm giác hoàn toàn'},
+          {'value': 0, 'text': l10n.nihss_sensory_0},
+          {'value': 1, 'text': l10n.nihss_sensory_1},
+          {'value': 2, 'text': l10n.nihss_sensory_2},
         ],
       },
       {
         'key': 'language',
-        'title': '9. Ngôn ngữ (thất ngôn)',
+        'title': l10n.nihss_9_language,
         'options': [
-          {'value': 0, 'text': 'Bình thường'},
-          {'value': 1, 'text': 'Thất ngôn nhẹ đến vừa'},
-          {'value': 2, 'text': 'Thất ngôn nặng'},
-          {'value': 3, 'text': 'Câm hoàn toàn'},
+          {'value': 0, 'text': l10n.nihss_language_0},
+          {'value': 1, 'text': l10n.nihss_language_1},
+          {'value': 2, 'text': l10n.nihss_language_2},
+          {'value': 3, 'text': l10n.nihss_language_3},
         ],
       },
       {
         'key': 'dysarthria',
-        'title': '10. Khó nói (rối loạn phát âm)',
+        'title': l10n.nihss_10_dysarthria,
         'options': [
-          {'value': 0, 'text': 'Bình thường'},
-          {'value': 1, 'text': 'Nhẹ đến vừa'},
-          {'value': 2, 'text': 'Nặng (câm hoặc không thể hiểu)'},
+          {'value': 0, 'text': l10n.nihss_dysarthria_0},
+          {'value': 1, 'text': l10n.nihss_dysarthria_1},
+          {'value': 2, 'text': l10n.nihss_dysarthria_2},
         ],
       },
       {
         'key': 'extinction',
-        'title': '11. Loại trừ và thiếu chú ý',
+        'title': l10n.nihss_11_extinction,
         'options': [
-          {'value': 0, 'text': 'Bình thường'},
-          {'value': 1, 'text': 'Thiếu chú ý hoặc loại trừ một phương thức'},
-          {'value': 2, 'text': 'Thiếu chú ý hoàn toàn ở một bên'},
+          {'value': 0, 'text': l10n.nihss_extinction_0},
+          {'value': 1, 'text': l10n.nihss_extinction_1},
+          {'value': 2, 'text': l10n.nihss_extinction_2},
         ],
       },
     ];
@@ -236,71 +250,108 @@ class _NihssPageState extends State<NihssPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('NIHSS Score'),
-        backgroundColor: Colors.purple.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
+      body: CustomScrollView(
+        slivers: [
+          // Main AppBar (sticky)
+          SliverAppBar(
+            pinned: true,
+            title: Text(l10n.nihss_score),
+            backgroundColor: Colors.purple.shade700,
+            foregroundColor: Colors.white,
+          ),
+          
+          // Score Display Header (sticky)
+          SliverAppBar(
+            pinned: true,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            backgroundColor: _getSolidBackgroundColor(),
+            flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: severityColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: severityColor.withValues(alpha: 0.3)),
+                color: _getSolidBackgroundColor(),
+                border: Border(
+                  bottom: BorderSide(color: severityColor, width: 2),
+                ),
               ),
-              child: Column(
-                children: [
-                  Text(
-                    'NIHSS Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: severityColor,
-                    ),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            l10n.nihss_score_display,
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: severityColor,
+                            ),
+                          ),
+                          Text(
+                            severity(l10n),
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Colors.grey.shade700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        '$totalScore/42',
+                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: severityColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$totalScore/42',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: severityColor,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    severity,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey.shade700,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  _buildPrognosisInfo(),
-                ],
+                ),
               ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Prognosis Info
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: severityColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: severityColor.withValues(alpha: 0.3)),
+                  ),
+                  child: _buildPrognosisInfo(l10n),
+                ),
 
-            // Assessment Items
-            ...nihssItems.map((item) => _buildAssessmentItem(item)),
+                // Assessment Items
+                ...nihssItems(l10n).map((item) => _buildAssessmentItem(item, l10n)),
 
-            // Reference and Clinical Info
-            _buildBottomInfo(),
+                // Reference and Clinical Info
+                _buildBottomInfo(l10n),
+                
+                const SizedBox(height: 16),
+                _buildCitationWidget(l10n),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildPrognosisInfo() {
+  Widget _buildPrognosisInfo(AppLocalizations l10n) {
     return Container(
+      margin: const EdgeInsets.only(top: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
@@ -315,7 +366,7 @@ class _NihssPageState extends State<NihssPage> {
               Icon(Icons.timeline, color: severityColor),
               const SizedBox(width: 8),
               Text(
-                'Tiên lượng:',
+                l10n.prognosis,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: severityColor,
@@ -325,7 +376,7 @@ class _NihssPageState extends State<NihssPage> {
           ),
           const SizedBox(height: 8),
           Text(
-            prognosis,
+            prognosis(l10n),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w500,
               color: Colors.grey.shade700,
@@ -337,7 +388,7 @@ class _NihssPageState extends State<NihssPage> {
               Icon(Icons.medical_services, color: severityColor),
               const SizedBox(width: 8),
               Text(
-                'Khuyến nghị:',
+                l10n.recommendations,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   color: severityColor,
@@ -347,7 +398,7 @@ class _NihssPageState extends State<NihssPage> {
           ),
           const SizedBox(height: 8),
           Text(
-            recommendations,
+            recommendations(l10n),
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Colors.grey.shade700,
             ),
@@ -357,7 +408,7 @@ class _NihssPageState extends State<NihssPage> {
     );
   }
 
-  Widget _buildAssessmentItem(Map<String, dynamic> item) {
+  Widget _buildAssessmentItem(Map<String, dynamic> item, AppLocalizations l10n) {
     String key = item['key'];
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -374,7 +425,7 @@ class _NihssPageState extends State<NihssPage> {
             ),
           ),
           subtitle: Text(
-            'Điểm: ${scores[key]}',
+            '${l10n.score_label}: ${scores[key]}',
             style: TextStyle(
               color: severityColor,
               fontWeight: FontWeight.w500,
@@ -412,7 +463,7 @@ class _NihssPageState extends State<NihssPage> {
     );
   }
 
-  Widget _buildBottomInfo() {
+  Widget _buildBottomInfo(AppLocalizations l10n) {
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
@@ -429,7 +480,7 @@ class _NihssPageState extends State<NihssPage> {
               Icon(Icons.info, color: Colors.blue.shade600),
               const SizedBox(width: 8),
               Text(
-                'Phân tầng mức độ đột quỵ',
+                l10n.nihss_severity_classification,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.blue.shade600,
@@ -438,16 +489,14 @@ class _NihssPageState extends State<NihssPage> {
             ],
           ),
           const SizedBox(height: 12),
-          _buildSeverityItem('0-4 điểm', 'Đột quỵ nhẹ', Colors.green),
-          _buildSeverityItem('5-15 điểm', 'Đột quỵ vừa', Colors.orange),
-          _buildSeverityItem('16-20 điểm', 'Đột quỵ nặng', Colors.red),
-          _buildSeverityItem('21-42 điểm', 'Đột quỵ rất nặng', Colors.red.shade800),
+          _buildSeverityItem(l10n.nihss_score_range_mild, l10n.nihss_mild_stroke, Colors.green),
+          _buildSeverityItem(l10n.nihss_score_range_moderate, l10n.nihss_moderate_stroke, Colors.orange),
+          _buildSeverityItem(l10n.nihss_score_range_severe, l10n.nihss_severe_stroke, Colors.red),
+          _buildSeverityItem(l10n.nihss_score_range_very_severe, l10n.nihss_very_severe_stroke, Colors.red.shade800),
           const SizedBox(height: 12),
-          const Text(
-            'Lưu ý: NIHSS được đánh giá trong 24h đầu và theo dõi diễn biến. '
-            'Điểm số giảm cho thấy cải thiện, tăng cho thấy xấu đi. '
-            'Cần kết hợp với đánh giá lâm sàng và hình ảnh học để quyết định điều trị.',
-            style: TextStyle(fontSize: 13, height: 1.4),
+          Text(
+            l10n.nihss_clinical_note,
+            style: const TextStyle(fontSize: 13, height: 1.4),
           ),
         ],
       ),
@@ -482,6 +531,45 @@ class _NihssPageState extends State<NihssPage> {
               style: TextStyle(
                 color: Colors.grey.shade700,
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCitationWidget(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                l10n.reference_materials,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Brott T, et al. Measurements of acute cerebral infarction: a clinical examination scale. Stroke. 1989;20(7):864-70.\n'
+            'Lyden P, et al. Improved reliability of the NIH Stroke Scale using video training. Stroke. 1994;25(11):2220-6.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
             ),
           ),
         ],

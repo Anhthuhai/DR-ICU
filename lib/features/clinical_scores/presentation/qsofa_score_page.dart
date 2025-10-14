@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class QsofaScorePage extends StatefulWidget {
   const QsofaScorePage({super.key});
@@ -55,51 +56,51 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
     return Colors.red;
   }
 
-  String get riskLevel {
+  String riskLevel(AppLocalizations l10n) {
     if (_totalScore <= 1) {
-      return 'Nguy cơ thấp';
+      return l10n.low_risk;
     }
-    return 'Nguy cơ cao';
+    return l10n.high_risk;
   }
 
-  String get mortalityRisk {
+  String mortalityRisk(AppLocalizations l10n) {
     if (_totalScore <= 1) {
-      return '< 10%';
+      return l10n.mortality_low;
     }
-    return '≥ 10%';
+    return l10n.mortality_high;
   }
 
-  String get recommendations {
+  String recommendations(AppLocalizations l10n) {
     if (_totalScore <= 1) {
-      return 'Theo dõi thường quy, không cần can thiệp đặc biệt';
+      return l10n.routine_monitoring;
     }
-    return 'Nghi ngờ sepsis, cần đánh giá và điều trị tích cực ngay lập tức';
+    return l10n.sepsis_evaluation;
   }
 
-  String get clinicalAction {
+  String clinicalAction(AppLocalizations l10n) {
     if (_totalScore <= 1) {
-      return 'Tiếp tục theo dõi và điều trị hiện tại';
+      return l10n.continue_current_treatment;
     }
-    return 'Khởi động quy trình sepsis bundle trong 1 giờ';
+    return l10n.initiate_sepsis_bundle;
   }
 
-  List<Map<String, dynamic>> get criteria {
+  List<Map<String, dynamic>> criteria(AppLocalizations l10n) {
     return [
       {
-        'criterion': 'Tần số thở ≥22',
-        'description': 'Tần số thở ≥22 lần/phút',
+        'criterion': l10n.qsofa_respiratory_rate_criterion,
+        'description': l10n.qsofa_respiratory_rate_description,
         'points': 1,
         'active': (int.tryParse(_respiratoryRateController.text) ?? 0) >= 22,
       },
       {
-        'criterion': 'Rối loạn ý thức',
-        'description': 'Thay đổi tình trạng tâm thần (GCS <15)',
+        'criterion': l10n.qsofa_altered_mentation_criterion,
+        'description': l10n.qsofa_altered_mentation_description,
         'points': 1,
         'active': _alteredMentation == 'yes',
       },
       {
-        'criterion': 'Huyết áp tâm thu ≤100',
-        'description': 'Huyết áp tâm thu ≤100 mmHg',
+        'criterion': l10n.qsofa_systolic_bp_criterion,
+        'description': l10n.qsofa_systolic_bp_description,
         'points': 1,
         'active': (int.tryParse(_systolicBpController.text) ?? 0) > 0 && 
                   (int.tryParse(_systolicBpController.text) ?? 0) <= 100,
@@ -109,80 +110,113 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('qSOFA Score'),
-        backgroundColor: Colors.orange.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'qSOFA Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+      body: CustomScrollView(
+        slivers: [
+          // Sticky App Bar
+          SliverAppBar(
+            title: Text(l10n.qsofa_score),
+            backgroundColor: Colors.orange.shade700,
+            foregroundColor: Colors.white,
+            floating: false,
+            pinned: true,
+            snap: false,
+            expandedHeight: 0,
+          ),
+          
+          // Sticky Score Header
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            flexibleSpace: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: riskColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      'qSOFA',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$_totalScore/3',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+                    const SizedBox(width: 16),
+                    Text(
+                      '$_totalScore/3',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                        fontSize: 24,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    riskLevel,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        riskLevel(l10n),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: riskColor,
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+                  ],
+                ),
               ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Risk Info
+                _buildRiskInfo(l10n),
 
-            // Input Parameters
-            _buildInputSection(),
+                // Input Parameters
+                _buildInputSection(),
 
-            // Active Criteria
-            if (_totalScore > 0) _buildActiveCriteria(),
+                // Active Criteria
+                if (_totalScore > 0) _buildActiveCriteria(l10n),
 
             // Risk Stratification
-            _buildRiskStratification(),
+            _buildRiskStratification(l10n),
 
             // Sepsis Bundle
             if (_totalScore >= 2) _buildSepsisBundle(),
 
             // Clinical Information
-            _buildClinicalInfo(),
+            _buildClinicalInfo(l10n),
+
+            // Medical Citation
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              child: _buildCitationWidget(l10n),
+            ),
 
             const SizedBox(height: 20),
-          ],
-        ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildRiskInfo() {
+  Widget _buildRiskInfo(AppLocalizations l10n) {
     return Container(
+      margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
@@ -197,7 +231,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
               Column(
                 children: [
                   Text(
-                    'Tử vong',
+                    l10n.mortality,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -205,7 +239,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    mortalityRisk,
+                    mortalityRisk(l10n),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -217,7 +251,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
               Column(
                 children: [
                   Text(
-                    'Hành động',
+                    l10n.action,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -225,7 +259,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    clinicalAction.split(' ').take(3).join(' '),
+                    clinicalAction(l10n).split(' ').take(3).join(' '),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
@@ -253,7 +287,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
                     Icon(Icons.assignment, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      l10n.recommendations,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -263,7 +297,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  recommendations,
+                  recommendations(l10n),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -277,6 +311,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
   }
 
   Widget _buildInputSection() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -289,7 +324,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tiêu chí qSOFA',
+            l10n.qsofa_criteria,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
@@ -301,14 +336,14 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
             controller: _respiratoryRateController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Tần số thở',
-              suffixText: 'lần/phút',
+              labelText: l10n.respiratory_rate,
+              suffixText: 'breaths/min',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: '+1 điểm nếu ≥22 lần/phút',
+              helperText: l10n.respiratory_rate_helper,
             ),
           ),
           const SizedBox(height: 16),
@@ -317,20 +352,20 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
             controller: _systolicBpController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Huyết áp tâm thu',
+              labelText: l10n.systolic_bp,
               suffixText: 'mmHg',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: '+1 điểm nếu ≤100 mmHg',
+              helperText: l10n.systolic_bp_helper,
             ),
           ),
           const SizedBox(height: 16),
           
           Text(
-            'Rối loạn ý thức',
+            l10n.altered_mentation,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -340,7 +375,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
             children: [
               Expanded(
                 child: RadioListTile<String>(
-                  title: const Text('Không'),
+                  title: Text(l10n.no),
                   value: 'no',
                   // ignore: deprecated_member_use
                   groupValue: _alteredMentation,
@@ -356,7 +391,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
               ),
               Expanded(
                 child: RadioListTile<String>(
-                  title: const Text('Có (GCS <15)'),
+                  title: Text(l10n.yes_gcs_less_15),
                   value: 'yes',
                   // ignore: deprecated_member_use
                   groupValue: _alteredMentation,
@@ -377,8 +412,8 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
     );
   }
 
-  Widget _buildActiveCriteria() {
-    List<Map<String, dynamic>> activeCriteria = criteria.where((criterion) => criterion['active']).toList();
+  Widget _buildActiveCriteria(AppLocalizations l10n) {
+    List<Map<String, dynamic>> activeCriteria = criteria(l10n).where((criterion) => criterion['active']).toList();
     
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -392,7 +427,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tiêu chí dương tính (${activeCriteria.length})',
+            l10n.positive_criteria(activeCriteria.length),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -454,7 +489,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
     );
   }
 
-  Widget _buildRiskStratification() {
+  Widget _buildRiskStratification(AppLocalizations l10n) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -467,15 +502,15 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ sepsis',
+            l10n.sepsis_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('0-1', 'Nguy cơ thấp', '< 10%', 'Theo dõi thường quy', Colors.green),
-          _buildRiskItem('≥2', 'Nguy cơ cao', '≥ 10%', 'Sepsis bundle tức thì', Colors.red),
+          _buildRiskItem('0-1', l10n.qsofa_low_risk, '< 10%', l10n.qsofa_routine_monitoring, Colors.green),
+          _buildRiskItem('≥2', l10n.qsofa_high_risk, '≥ 10%', l10n.qsofa_immediate_sepsis_bundle, Colors.red),
         ],
       ),
     );
@@ -539,6 +574,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
   }
 
   Widget _buildSepsisBundle() {
+    final l10n = AppLocalizations.of(context)!;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -555,7 +591,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
               Icon(Icons.warning, color: Colors.red.shade700),
               const SizedBox(width: 8),
               Text(
-                'Sepsis Bundle - Hour 1',
+                l10n.sepsis_bundle_hour_1,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.red.shade700,
@@ -564,11 +600,11 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
             ],
           ),
           const SizedBox(height: 16),
-          _buildBundleItem('1. Lactate đo lường', 'Lấy máu xét nghiệm lactate', Icons.science),
-          _buildBundleItem('2. Cấy máu', 'Cấy máu trước khi dùng kháng sinh', Icons.biotech),
-          _buildBundleItem('3. Kháng sinh', 'Kháng sinh phổ rộng trong 1 giờ', Icons.medication),
-          _buildBundleItem('4. Dịch truyền', '30ml/kg nếu hạ huyết áp hoặc lactate ≥4', Icons.water_drop),
-          _buildBundleItem('5. Vasopressor', 'Nếu hạ huyết áp không đáp ứng dịch', Icons.favorite),
+          _buildBundleItem(l10n.sepsis_bundle_lactate_title, l10n.sepsis_bundle_lactate_desc, Icons.science),
+          _buildBundleItem(l10n.sepsis_bundle_blood_culture_title, l10n.sepsis_bundle_blood_culture_desc, Icons.biotech),
+          _buildBundleItem(l10n.sepsis_bundle_antibiotics_title, l10n.sepsis_bundle_antibiotics_desc, Icons.medication),
+          _buildBundleItem(l10n.sepsis_bundle_fluid_title, l10n.sepsis_bundle_fluid_desc, Icons.water_drop),
+          _buildBundleItem(l10n.sepsis_bundle_vasopressor_title, l10n.sepsis_bundle_vasopressor_desc, Icons.favorite),
         ],
       ),
     );
@@ -610,7 +646,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
     );
   }
 
-  Widget _buildClinicalInfo() {
+  Widget _buildClinicalInfo(AppLocalizations l10n) {
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
@@ -627,7 +663,7 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
               Icon(Icons.info, color: Colors.teal.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                l10n.clinical_information,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.teal.shade600,
@@ -636,28 +672,9 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'qSOFA (Quick SOFA) là công cụ sàng lọc sepsis đơn giản và nhanh chóng\n\n'
-            'Ưu điểm:\n'
-            '• Đơn giản, không cần xét nghiệm\n'
-            '• Thực hiện nhanh tại bedside\n'
-            '• Giúp nhận diện sớm sepsis\n'
-            '• Kích hoạt quy trình điều trị\n\n'
-            'Giới hạn:\n'
-            '• Độ nhạy thấp hơn SOFA đầy đủ\n'
-            '• Không thay thế đánh giá lâm sàng\n'
-            '• Có thể bỏ sót sepsis sớm\n'
-            '• Cần kết hợp với nghi ngờ nhiễm trùng\n\n'
-            'Sepsis 3.0 Definition:\n'
-            '• Sepsis = Nhiễm trùng + qSOFA ≥2\n'
-            '• Sốc sepsis = Sepsis + vasopressor + lactate >2\n'
-            '• Điều trị trong "Golden Hour"\n\n'
-            'Lưu ý quan trọng:\n'
-            '• qSOFA không chẩn đoán sepsis\n'
-            '• Chỉ là công cụ sàng lọc\n'
-            '• Cần đánh giá tổng thể lâm sàng\n'
-            '• Theo dõi diễn biến liên tục',
-            style: TextStyle(height: 1.4),
+          Text(
+            l10n.qsofa_clinical_content,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
@@ -669,5 +686,43 @@ class _QsofaScorePageState extends State<QsofaScorePage> {
     _respiratoryRateController.dispose();
     _systolicBpController.dispose();
     super.dispose();
+  }
+
+  Widget _buildCitationWidget(AppLocalizations l10n) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                l10n.reference_materials,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Singer M, et al. The Third International Consensus Definitions for Sepsis and Septic Shock (Sepsis-3). JAMA. 2016;315(8):801-10.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

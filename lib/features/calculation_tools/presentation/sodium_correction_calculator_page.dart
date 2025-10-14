@@ -629,7 +629,6 @@ ${_correctedNa! < 120 ? '• NaCl 3% ưu tiên vì hạ natri nặng' : ''}
               '🚨 NGUY CƠ: Bù quá mức → Hypernatremia → ODS\n\n'
               '📖 Tham khảo: Dimeski G, Clin Biochem 2012',
             ),
-            _buildReferencesSection(),
           ],
         ),
       ),

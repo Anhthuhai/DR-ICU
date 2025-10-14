@@ -5,7 +5,6 @@ import 'bsa_calculator_page.dart';
 import 'ibw_calculator_page.dart';
 import 'creatinine_calculator_page.dart';
 import 'fluid_balance_calculator_page.dart';
-import 'dosage_calculator_page.dart';
 import 'sodium_correction_calculator_page.dart';
 
 class CalculationToolsPage extends StatelessWidget {
@@ -119,22 +118,6 @@ class CalculationToolsPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => const FluidBalanceCalculatorPage(),
-                        ),
-                      );
-                    },
-                  ),
-                  _buildCalculatorListItem(
-                    context,
-                    title: 'Dosage Calculator',
-                    subtitle: 'Drug Dosing',
-                    description: 'Tính liều thuốc',
-                    icon: Icons.medication,
-                    color: Colors.red.shade400,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DosageCalculatorPage(),
                         ),
                       );
                     },

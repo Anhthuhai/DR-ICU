@@ -456,6 +456,10 @@ class _PleuralFluidAnalysisPageState extends State<PleuralFluidAnalysisPage> {
                 const SizedBox(height: 16),
                 _buildResultsCard(),
               ],
+
+              // Medical Citation
+              const SizedBox(height: 16),
+              _buildCitationWidget(),
             ],
           ),
         ),
@@ -776,6 +780,44 @@ class _PleuralFluidAnalysisPageState extends State<PleuralFluidAnalysisPage> {
           Icon(Icons.warning, color: color, size: 20),
           const SizedBox(width: 8),
           Text('$test: $result'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCitationWidget() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                'Tài liệu tham khảo',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            'Light RW, et al. Pleural effusions: the diagnostic separation of transudates and exudates. Ann Intern Med. 1972;77(4):507-13.\n\nBielsa S, et al. Accuracy of pleural fluid cholesterol in separating transudative from exudative pleural effusions. Respirology. 2013;18(5):857-62.',
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
         ],
       ),
     );

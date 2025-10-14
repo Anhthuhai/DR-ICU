@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class GraceScorePage extends StatefulWidget {
   const GraceScorePage({super.key});
@@ -148,164 +149,183 @@ class _GraceScorePageState extends State<GraceScorePage> {
   }
 
   String get riskLevel {
+    final l10n = AppLocalizations.of(context)!;
     if (_totalScore <= 108) {
-      return 'Nguy cơ thấp';
+      return l10n.grace_risk_low;
     }
     if (_totalScore <= 140) {
-      return 'Nguy cơ trung bình';
+      return l10n.grace_risk_moderate;
     }
     if (_totalScore <= 200) {
-      return 'Nguy cơ cao';
+      return l10n.grace_risk_high;
     }
-    return 'Nguy cơ rất cao';
+    return l10n.grace_risk_very_high;
   }
 
   String get mortalityRisk {
+    final l10n = AppLocalizations.of(context)!;
     if (_totalScore <= 108) {
-      return '< 1%';
+      return l10n.grace_mortality_6_month_low;
     }
     if (_totalScore <= 140) {
-      return '1-3%';
+      return l10n.grace_mortality_6_month_moderate;
     }
     if (_totalScore <= 200) {
-      return '3-8%';
+      return l10n.grace_mortality_6_month_high;
     }
-    return '> 8%';
+    return l10n.grace_mortality_6_month_very_high;
   }
 
   String get hospitalizationMortality {
+    final l10n = AppLocalizations.of(context)!;
     if (_totalScore <= 108) {
-      return '< 2%';
+      return l10n.grace_mortality_hospital_low;
     }
     if (_totalScore <= 140) {
-      return '2-5%';
+      return l10n.grace_mortality_hospital_moderate;
     }
     if (_totalScore <= 200) {
-      return '5-12%';
+      return l10n.grace_mortality_hospital_high;
     }
-    return '> 12%';
+    return l10n.grace_mortality_hospital_very_high;
   }
 
   String get recommendations {
+    final l10n = AppLocalizations.of(context)!;
     if (_totalScore <= 108) {
-      return 'Điều trị ngoại trú có thể xem xét, theo dõi thường xuyên';
+      return l10n.grace_recommendation_low;
     }
     if (_totalScore <= 140) {
-      return 'Nhập viện theo dõi, điều trị theo hướng dẫn ACS';
+      return l10n.grace_recommendation_moderate;
     }
     if (_totalScore <= 200) {
-      return 'Cần can thiệp sớm, xem xét chuyển tuyến cao';
+      return l10n.grace_recommendation_high;
     }
-    return 'Can thiệp cấp cứu ngay, ICU monitoring, PCI sớm';
+    return l10n.grace_recommendation_very_high;
   }
 
   String get interventionStrategy {
+    final l10n = AppLocalizations.of(context)!;
     if (_totalScore <= 108) {
-      return 'Chiến lược bảo tồn';
+      return l10n.grace_strategy_conservative;
     }
     if (_totalScore <= 140) {
-      return 'Chiến lược can thiệp chọn lọc';
+      return l10n.grace_strategy_selective;
     }
     if (_totalScore <= 200) {
-      return 'Chiến lược can thiệp sớm';
+      return l10n.grace_strategy_early;
     }
-    return 'Chiến lược can thiệp ngay lập tức';
+    return l10n.grace_strategy_immediate;
   }
 
   String get interventionTiming {
+    final l10n = AppLocalizations.of(context)!;
     if (_totalScore <= 108) {
-      return 'Can thiệp trong vòng 72 giờ';
+      return l10n.grace_timing_72h;
     }
     if (_totalScore <= 140) {
-      return 'Can thiệp trong vòng 24-72 giờ';
+      return l10n.grace_timing_24_72h;
     }
     if (_totalScore <= 200) {
-      return 'Can thiệp trong vòng 24 giờ';
+      return l10n.grace_timing_24h;
     }
-    return 'Can thiệp khẩn cấp trong vòng 2 giờ';
+    return l10n.grace_timing_2h;
   }
 
   String get detailedInterventionTiming {
+    final l10n = AppLocalizations.of(context)!;
     if (_totalScore <= 108) {
-      return 'Thời gian can thiệp: Trong vòng 72 giờ\n'
-             '• PCI có thể trì hoãn nếu không có biến chứng\n'
-             '• Theo dõi tại khoa nội tim mạch\n'
-             '• Điều trị nội khoa tối ưu trước tiên';
+      return l10n.grace_detailed_timing_low;
     }
     if (_totalScore <= 140) {
-      return 'Thời gian can thiệp: Trong vòng 24-72 giờ\n'
-             '• PCI chọn lọc dựa trên triệu chứng\n'
-             '• Theo dõi chặt chẽ tại CCU\n'
-             '• Chuẩn bị sẵn sàng can thiệp khi cần';
+      return l10n.grace_detailed_timing_moderate;
     }
     if (_totalScore <= 200) {
-      return 'Thời gian can thiệp: Trong vòng 24 giờ\n'
-             '• PCI sớm được khuyến cáo\n'
-             '• Theo dõi ICU/CCU\n'
-             '• Đánh giá huyết động học thường xuyên';
+      return l10n.grace_detailed_timing_high;
     }
-    return 'Thời gian can thiệp: Khẩn cấp trong vòng 2 giờ\n'
-           '• PCI cấp cứu ngay lập tức\n'
-           '• Hồi sức tích cực tại ICU\n'
-           '• Chuẩn bị ECMO/IABP nếu cần thiết';
+    return l10n.grace_detailed_timing_very_high;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('GRACE Score'),
-        backgroundColor: Colors.red.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'GRACE Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+      body: CustomScrollView(
+        slivers: [
+          // Sticky App Bar
+          SliverAppBar(
+            title: Text(AppLocalizations.of(context)!.grace_score_title),
+            backgroundColor: Colors.red.shade700,
+            foregroundColor: Colors.white,
+            centerTitle: true,
+            floating: false,
+            pinned: true,
+            snap: false,
+            expandedHeight: 0,
+          ),
+          
+          // Sticky Score Header
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            flexibleSpace: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: riskColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      'GRACE',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    _totalScore.toString(),
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+                    const SizedBox(width: 16),
+                    Text(
+                      '$_totalScore',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                        fontSize: 24,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    riskLevel,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        riskLevel,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: riskColor,
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+                  ],
+                ),
               ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Risk Info
+                _buildRiskInfo(),
 
-            // Input Parameters
-            _buildInputSection(),
+                // Input Parameters
+                _buildInputSection(),
 
-            // Clinical Factors
+                // Clinical Factors
             _buildClinicalFactors(),
 
             // Risk Stratification
@@ -314,15 +334,56 @@ class _GraceScorePageState extends State<GraceScorePage> {
             // Clinical Information
             _buildClinicalInfo(),
 
+            // Medical Citation
+            Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.blue.shade200),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                      const SizedBox(width: 6),
+                      Text(
+                        AppLocalizations.of(context)!.grace_reference_title,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue.shade700,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    AppLocalizations.of(context)!.grace_reference_text,
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.blue.shade600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             const SizedBox(height: 20),
-          ],
-        ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildRiskInfo() {
     return Container(
+      margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.grey.shade50,
@@ -337,7 +398,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
                 child: Column(
                   children: [
                     Text(
-                      'Tử vong 6 tháng',
+                      AppLocalizations.of(context)!.grace_6_month_mortality,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade700,
@@ -364,7 +425,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
                 child: Column(
                   children: [
                     Text(
-                      'Tử vong nội viện',
+                      AppLocalizations.of(context)!.grace_hospital_mortality,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade700,
@@ -401,7 +462,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Chiến lược điều trị:',
+                  AppLocalizations.of(context)!.grace_intervention_strategy_label,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: riskColor,
@@ -417,7 +478,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Khuyến nghị:',
+                  AppLocalizations.of(context)!.grace_recommendations_label,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: riskColor,
@@ -432,7 +493,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Thời gian can thiệp:',
+                  AppLocalizations.of(context)!.grace_intervention_timing_label,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: riskColor,
@@ -467,7 +528,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thông số sinh tồn',
+            AppLocalizations.of(context)!.grace_input_parameters,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.red.shade700,
@@ -482,8 +543,8 @@ class _GraceScorePageState extends State<GraceScorePage> {
                   controller: _ageController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Tuổi',
-                    suffixText: 'năm',
+                    labelText: AppLocalizations.of(context)!.grace_age_label.split('(')[0].trim(),
+                    suffixText: AppLocalizations.of(context)!.years,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -498,8 +559,8 @@ class _GraceScorePageState extends State<GraceScorePage> {
                   controller: _heartRateController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Nhịp tim',
-                    suffixText: 'lần/phút',
+                    labelText: AppLocalizations.of(context)!.grace_heart_rate_label.split('(')[0].trim(),
+                    suffixText: AppLocalizations.of(context)!.grace_per_minute_unit,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -519,7 +580,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
                   controller: _systolicBPController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Huyết áp tâm thu',
+                    labelText: AppLocalizations.of(context)!.grace_systolic_bp_label.split('(')[0].trim(),
                     suffixText: 'mmHg',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -532,8 +593,8 @@ class _GraceScorePageState extends State<GraceScorePage> {
               const SizedBox(width: 12),
               Expanded(
                 child: _buildLabInputWithUnit(
-                  'Creatinine',
-                  'Tối đa 4.0 mg/dL (354 umol/L), tối thiểu 1.0 mg/dL (88 umol/L)',
+                  AppLocalizations.of(context)!.grace_creatinine_label,
+                  AppLocalizations.of(context)!.creatinine_helper,
                   _creatinineController,
                   _creatinineUnit,
                   ['mg/dL', 'umol/L'],
@@ -637,7 +698,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố lâm sàng',
+            AppLocalizations.of(context)!.grace_clinical_factors,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -646,7 +707,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
           const SizedBox(height: 16),
           
           CheckboxListTile(
-            title: const Text('Suy tim hoặc rối loạn chức năng thất trái'),
+            title: Text(AppLocalizations.of(context)!.grace_heart_failure_title),
             value: _heartFailure,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -659,7 +720,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Ngừng tim tại viện'),
+            title: Text(AppLocalizations.of(context)!.grace_cardiac_arrest_title),
             value: _cardiacArrest,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -672,7 +733,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Chênh ST trên ECG'),
+            title: Text(AppLocalizations.of(context)!.grace_st_elevation_title),
             value: _stElevation,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -685,7 +746,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Tăng enzyme tim (Troponin/CK-MB)'),
+            title: Text(AppLocalizations.of(context)!.grace_elevated_markers_title),
             value: _elevatedMarkers,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -714,7 +775,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ',
+            AppLocalizations.of(context)!.grace_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
@@ -734,7 +795,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
                 Container(
                   width: 60,
                   child: Text(
-                    'Điểm',
+                    AppLocalizations.of(context)!.score,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
@@ -745,7 +806,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
                 Expanded(
                   flex: 2,
                   child: Text(
-                    'Mức độ nguy cơ',
+                    AppLocalizations.of(context)!.grace_risk_level,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
@@ -755,18 +816,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
                 ),
                 Expanded(
                   child: Text(
-                    'TT 6m',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      color: Colors.green.shade700,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    'TT NV',
+                    AppLocalizations.of(context)!.grace_6_month_mort,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
@@ -777,7 +827,18 @@ class _GraceScorePageState extends State<GraceScorePage> {
                 ),
                 Expanded(
                   child: Text(
-                    'Can thiệp',
+                    AppLocalizations.of(context)!.grace_hospital_mort,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      color: Colors.green.shade700,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    AppLocalizations.of(context)!.grace_intervention_timing_column,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
@@ -791,10 +852,10 @@ class _GraceScorePageState extends State<GraceScorePage> {
           ),
           const SizedBox(height: 8),
           
-          _buildRiskItem('≤ 108', 'Nguy cơ thấp', '< 1%', '< 2%', '72h', Colors.green),
-          _buildRiskItem('109-140', 'Nguy cơ trung bình', '1-3%', '2-5%', '24-72h', Colors.yellow.shade700),
-          _buildRiskItem('141-200', 'Nguy cơ cao', '3-8%', '5-12%', '24h', Colors.orange),
-          _buildRiskItem('> 200', 'Nguy cơ rất cao', '> 8%', '> 12%', '2h', Colors.red),
+          _buildRiskItem('≤ 108', AppLocalizations.of(context)!.grace_risk_low, AppLocalizations.of(context)!.grace_mortality_6_month_low, AppLocalizations.of(context)!.grace_mortality_hospital_low, AppLocalizations.of(context)!.grace_timing_72h, Colors.green),
+          _buildRiskItem('109-140', AppLocalizations.of(context)!.grace_risk_moderate, AppLocalizations.of(context)!.grace_mortality_6_month_moderate, AppLocalizations.of(context)!.grace_mortality_hospital_moderate, AppLocalizations.of(context)!.grace_timing_24_72h, Colors.yellow.shade700),
+          _buildRiskItem('141-200', AppLocalizations.of(context)!.grace_risk_high, AppLocalizations.of(context)!.grace_mortality_6_month_high, AppLocalizations.of(context)!.grace_mortality_hospital_high, AppLocalizations.of(context)!.grace_timing_24h, Colors.orange),
+          _buildRiskItem('> 200', AppLocalizations.of(context)!.grace_risk_very_high, AppLocalizations.of(context)!.grace_mortality_6_month_very_high, AppLocalizations.of(context)!.grace_mortality_hospital_very_high, AppLocalizations.of(context)!.grace_timing_2h, Colors.red),
         ],
       ),
     );
@@ -874,7 +935,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
               Icon(Icons.info, color: Colors.purple.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.grace_clinical_info_title,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.purple.shade600,
@@ -883,24 +944,9 @@ class _GraceScorePageState extends State<GraceScorePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'GRACE Score đánh giá nguy cơ tử vong ở bệnh nhân hội chứng mạch vành cấp (ACS)\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Phân tầng nguy cơ và lựa chọn chiến lược điều trị\n'
-            '• Quyết định can thiệp sớm hay bảo tồn\n'
-            '• Tư vấn tiên lượng cho bệnh nhân và gia đình\n'
-            '• Đánh giá chỉ định chuyển tuyến\n\n'
-            'Chiến lược can thiệp theo thời gian:\n'
-            '• Nguy cơ thấp (≤108): Can thiệp trong 72h - PCI có thể trì hoãn\n'
-            '• Nguy cơ trung bình (109-140): Can thiệp trong 24-72h - PCI chọn lọc\n'
-            '• Nguy cơ cao (141-200): Can thiệp trong 24h - PCI sớm được khuyến cáo\n'
-            '• Nguy cơ rất cao (>200): Can thiệp khẩn cấp trong 2h - PCI cấp cứu\n\n'
-            'Lưu ý:\n'
-            '• Điểm số càng cao, nguy cơ tử vong càng lớn\n'
-            '• Cần kết hợp với đánh giá lâm sàng tổng thể\n'
-            '• Theo dõi và tái đánh giá định kỳ\n'
-            '• Áp dụng cho cả STEMI và NSTEMI/UA',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.grace_clinical_info_content.replaceAll('\\n', '\n'),
+            style: const TextStyle(height: 1.4),
           ),
           
           // Detailed intervention timing section
@@ -921,7 +967,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Chi tiết thời gian can thiệp cho điểm số hiện tại',
+                        AppLocalizations.of(context)!.grace_detailed_timing_title,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Colors.blue.shade600,
@@ -935,7 +981,7 @@ class _GraceScorePageState extends State<GraceScorePage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  detailedInterventionTiming,
+                  detailedInterventionTiming.replaceAll('\\n', '\n'),
                   style: const TextStyle(height: 1.4),
                 ),
               ],

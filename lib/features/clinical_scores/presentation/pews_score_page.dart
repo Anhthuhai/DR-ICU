@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class PewsScorePage extends StatefulWidget {
   const PewsScorePage({super.key});
@@ -212,118 +213,153 @@ class _PewsScorePageState extends State<PewsScorePage> {
     return Colors.red;
   }
 
-  String get riskLevel {
+  String getRiskLevel(AppLocalizations localizations) {
     if (_totalScore <= 3) {
-      return 'Thấp';
+      return localizations.pews_risk_low;
     }
     if (_totalScore <= 6) {
-      return 'Trung bình';
+      return localizations.pews_risk_medium;
     }
-    return 'Cao';
+    return localizations.pews_risk_high;
   }
 
-  String get responseLevel {
+  String getResponseLevel(AppLocalizations localizations) {
     if (_totalScore <= 3) {
-      return 'Theo dõi thường quy';
+      return localizations.pews_response_routine;
     }
     if (_totalScore <= 6) {
-      return 'Tăng cường theo dõi';
+      return localizations.pews_response_increased;
     }
-    return 'Can thiệp tích cực';
+    return localizations.pews_response_active;
   }
 
-  String get frequency {
+  String getFrequency(AppLocalizations localizations) {
     if (_totalScore <= 3) {
-      return 'Mỗi 4-6 giờ';
+      return localizations.pews_frequency_4_6_hours;
     }
     if (_totalScore <= 6) {
-      return 'Mỗi 1-2 giờ';
+      return localizations.pews_frequency_1_hour;
     }
-    return 'Liên tục';
+    return localizations.pews_frequency_continuous;
   }
 
-  String get recommendations {
+  String getClinicalResponse(AppLocalizations localizations) {
     if (_totalScore <= 3) {
-      return 'Tiếp tục chăm sóc hiện tại, theo dõi định kỳ';
+      return localizations.pews_action_continue_care;
     }
     if (_totalScore <= 6) {
-      return 'Thông báo bác sĩ, tăng cường theo dõi, xem xét chuyển khoa';
+      return localizations.pews_action_notify_doctor;
     }
-    return 'Gọi team cấp cứu nhi khoa ngay lập tức, chuẩn bị chuyển ICU';
+    return localizations.pews_action_emergency_team;
   }
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+    
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('PEWS Score'),
-        backgroundColor: Colors.pink.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'PEWS Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+      body: CustomScrollView(
+        slivers: [
+          // Sticky App Bar
+          SliverAppBar(
+            title: Text(localizations.pews_title),
+            backgroundColor: Colors.pink.shade700,
+            foregroundColor: Colors.white,
+            floating: false,
+            pinned: true,
+            snap: false,
+            expandedHeight: 0,
+          ),
+          
+          // Sticky Score Header
+          SliverAppBar(
+            pinned: true,
+            backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70,
+            flexibleSpace: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: riskColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  children: [
+                    Text(
+                      'PEWS Score',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$_totalScore',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+                    const SizedBox(width: 16),
+                    Text(
+                      '$_totalScore',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                        fontSize: 24,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Nguy cơ $riskLevel',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: Text(
+                        _totalScore <= 3 ? localizations.pews_interp_low_risk :
+                        _totalScore <= 6 ? localizations.pews_interp_moderate_risk :
+                        localizations.pews_interp_high_risk,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: riskColor,
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+                  ],
+                ),
               ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Risk Info
+                _buildRiskInfo(localizations),
 
-            // Input Parameters
-            _buildInputSection(),
+                // Input Parameters
+                _buildInputSection(localizations),
 
-            // Risk Stratification
-            _buildRiskStratification(),
+                // Risk Stratification
+                _buildRiskStratification(localizations),
 
-            // Response Protocol
-            _buildResponseProtocol(),
+                // Response Protocol
+                _buildResponseProtocol(localizations),
 
-            // Clinical Information
-            _buildClinicalInfo(),
+                // Clinical Information
+                _buildClinicalInfo(localizations),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+                // Medical Citation
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildCitationWidget(localizations),
+                ),
+
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildRiskInfo() {
+  Widget _buildRiskInfo(AppLocalizations localizations) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -332,84 +368,111 @@ class _PewsScorePageState extends State<PewsScorePage> {
         border: Border.all(color: Colors.grey.shade200),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                children: [
-                  Text(
-                    'Mức độ đáp ứng',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      localizations.pews_response_level,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                        fontSize: 11,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    responseLevel,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: riskColor,
+                    const SizedBox(height: 2),
+                    Text(
+                      getResponseLevel(localizations),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: riskColor,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Text(
-                    'Tần suất theo dõi',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
+              Expanded(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      localizations.pews_monitoring_frequency,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                        fontSize: 11,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    frequency,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: riskColor,
+                    const SizedBox(height: 2),
+                    Text(
+                      getFrequency(localizations),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: riskColor,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: riskColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: riskColor.withValues(alpha: 0.2)),
             ),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    Icon(Icons.assignment, color: riskColor, size: 20),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Khuyến nghị:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: riskColor,
+                    Icon(Icons.assignment, color: riskColor, size: 18),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        localizations.pews_recommendation_title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: riskColor,
+                          fontSize: 12,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
-                  recommendations,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  getClinicalResponse(localizations),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: AppTheme.darkGrey,
+                    fontSize: 11,
                   ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
@@ -419,7 +482,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
     );
   }
 
-  Widget _buildInputSection() {
+  Widget _buildInputSection(AppLocalizations localizations) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -432,7 +495,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thông số sinh hiệu',
+            localizations.pews_vital_signs_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.pink.shade700,
@@ -444,14 +507,14 @@ class _PewsScorePageState extends State<PewsScorePage> {
             controller: _ageController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Tuổi',
-              suffixText: 'năm',
+              labelText: localizations.pews_age_label,
+              suffixText: localizations.pews_age_unit,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'Cần để tính giá trị bình thường theo tuổi',
+              helperText: localizations.pews_age_helper,
             ),
           ),
           const SizedBox(height: 12),
@@ -460,14 +523,14 @@ class _PewsScorePageState extends State<PewsScorePage> {
             controller: _heartRateController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Tần số tim',
-              suffixText: 'lần/phút',
+              labelText: localizations.pews_heart_rate_label,
+              suffixText: localizations.unit_per_minute,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'Theo dõi bất thường theo tuổi',
+              helperText: localizations.pews_heart_rate_helper,
             ),
           ),
           const SizedBox(height: 12),
@@ -476,14 +539,14 @@ class _PewsScorePageState extends State<PewsScorePage> {
             controller: _respiratoryRateController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Tần số thở',
-              suffixText: 'lần/phút',
+              labelText: localizations.pews_respiratory_rate_label,
+              suffixText: localizations.unit_per_minute,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'Giá trị bình thường khác theo nhóm tuổi',
+              helperText: localizations.pews_respiratory_rate_helper,
             ),
           ),
           const SizedBox(height: 12),
@@ -492,20 +555,20 @@ class _PewsScorePageState extends State<PewsScorePage> {
             controller: _systolicBpController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Huyết áp tâm thu',
+              labelText: localizations.pews_systolic_bp_label,
               suffixText: 'mmHg',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'Hạ huyết áp là dấu hiệu muộn ở trẻ em',
+              helperText: localizations.pews_systolic_bp_helper,
             ),
           ),
           const SizedBox(height: 16),
           
           Text(
-            'Mức độ ý thức',
+            localizations.pews_consciousness_level,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -513,7 +576,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
           Column(
             children: [
               RadioListTile<String>(
-                title: const Text('Tỉnh táo (Alert)'),
+                title: Text(localizations.pews_consciousness_alert),
                 value: 'alert',
                 // ignore: deprecated_member_use
                 groupValue: _consciousnessLevel,
@@ -527,7 +590,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
                 contentPadding: EdgeInsets.zero,
               ),
               RadioListTile<String>(
-                title: const Text('Đáp ứng tiếng gọi (Voice) (+1)'),
+                title: Text(localizations.pews_consciousness_voice),
                 value: 'voice',
                 // ignore: deprecated_member_use
                 groupValue: _consciousnessLevel,
@@ -541,7 +604,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
                 contentPadding: EdgeInsets.zero,
               ),
               RadioListTile<String>(
-                title: const Text('Đáp ứng đau (Pain) (+2)'),
+                title: Text(localizations.pews_consciousness_pain),
                 value: 'pain',
                 // ignore: deprecated_member_use
                 groupValue: _consciousnessLevel,
@@ -555,7 +618,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
                 contentPadding: EdgeInsets.zero,
               ),
               RadioListTile<String>(
-                title: const Text('Không đáp ứng (Unresponsive) (+3)'),
+                title: Text(localizations.pews_consciousness_unresponsive),
                 value: 'unresponsive',
                 // ignore: deprecated_member_use
                 groupValue: _consciousnessLevel,
@@ -573,7 +636,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
           
           const SizedBox(height: 16),
           Text(
-            'Liệu pháp oxy',
+            localizations.pews_oxygen_therapy,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -581,7 +644,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
           Column(
             children: [
               RadioListTile<String>(
-                title: const Text('Không khí phòng'),
+                title: Text(localizations.pews_oxygen_room_air),
                 value: 'room_air',
                 // ignore: deprecated_member_use
                 groupValue: _oxygenTherapy,
@@ -595,7 +658,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
                 contentPadding: EdgeInsets.zero,
               ),
               RadioListTile<String>(
-                title: const Text('Ống thông mũi (+1)'),
+                title: Text(localizations.pews_oxygen_nasal_cannula),
                 value: 'nasal_cannula',
                 // ignore: deprecated_member_use
                 groupValue: _oxygenTherapy,
@@ -609,7 +672,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
                 contentPadding: EdgeInsets.zero,
               ),
               RadioListTile<String>(
-                title: const Text('Mặt nạ oxy (+2)'),
+                title: Text(localizations.pews_oxygen_face_mask),
                 value: 'face_mask',
                 // ignore: deprecated_member_use
                 groupValue: _oxygenTherapy,
@@ -643,7 +706,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
     );
   }
 
-  Widget _buildRiskStratification() {
+  Widget _buildRiskStratification(AppLocalizations localizations) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -656,16 +719,16 @@ class _PewsScorePageState extends State<PewsScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ PEWS',
+            localizations.pews_risk_stratification_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('0-3', 'Nguy cơ thấp', 'Mỗi 4-6h', 'Chăm sóc thường quy', Colors.green),
-          _buildRiskItem('4-6', 'Nguy cơ trung bình', 'Mỗi 1-2h', 'Thông báo bác sĩ', Colors.orange),
-          _buildRiskItem('≥7', 'Nguy cơ cao', 'Liên tục', 'Team cấp cứu nhi', Colors.red),
+          _buildRiskItem('0-3', localizations.pews_interp_low_risk, localizations.pews_interp_frequency_4_6h, localizations.pews_interp_routine_care, Colors.green),
+          _buildRiskItem('4-6', localizations.pews_interp_moderate_risk, localizations.pews_interp_frequency_1_2h, localizations.pews_interp_notify_physician, Colors.orange),
+          _buildRiskItem('≥7', localizations.pews_interp_high_risk, localizations.pews_interp_frequency_continuous, localizations.pews_interp_emergency_team, Colors.red),
         ],
       ),
     );
@@ -729,7 +792,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
     );
   }
 
-  Widget _buildResponseProtocol() {
+  Widget _buildResponseProtocol(AppLocalizations localizations) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -742,7 +805,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Quy trình đáp ứng',
+            localizations.pews_response_protocol_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
@@ -750,34 +813,34 @@ class _PewsScorePageState extends State<PewsScorePage> {
           ),
           const SizedBox(height: 16),
           _buildProtocolCard(
-            'PEWS 0-3: Chăm sóc thường quy',
+            localizations.pews_protocol_routine_title,
             [
-              'Theo dõi sinh hiệu 4-6 giờ/lần',
-              'Ghi nhận điểm PEWS',
-              'Tiếp tục kế hoạch điều trị',
-              'Đánh giá lại nếu tình trạng thay đổi',
+              localizations.pews_protocol_routine_1,
+              localizations.pews_protocol_routine_2,
+              localizations.pews_protocol_routine_3,
+              localizations.pews_protocol_routine_4,
             ],
             Colors.green,
           ),
           const SizedBox(height: 12),
           _buildProtocolCard(
-            'PEWS 4-6: Tăng cường theo dõi',
+            localizations.pews_protocol_increased_title,
             [
-              'Thông báo bác sĩ trực',
-              'Theo dõi sinh hiệu 1-2 giờ/lần',
-              'Xem xét nguyên nhân',
-              'Cân nhắc chuyển khoa nhi',
+              localizations.pews_protocol_increased_1,
+              localizations.pews_protocol_increased_2,
+              localizations.pews_protocol_increased_3,
+              localizations.pews_protocol_increased_4,
             ],
             Colors.orange,
           ),
           const SizedBox(height: 12),
           _buildProtocolCard(
-            'PEWS ≥7: Can thiệp tích cực',
+            localizations.pews_protocol_urgent_title,
             [
-              'Gọi team cấp cứu nhi ngay',
-              'Theo dõi liên tục',
-              'Chuẩn bị chuyển PICU',
-              'ABC assessment',
+              localizations.pews_protocol_urgent_1,
+              localizations.pews_protocol_urgent_2,
+              localizations.pews_protocol_urgent_3,
+              localizations.pews_protocol_urgent_4,
             ],
             Colors.red,
           ),
@@ -843,7 +906,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
     );
   }
 
-  Widget _buildClinicalInfo() {
+  Widget _buildClinicalInfo(AppLocalizations localizations) {
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
@@ -860,7 +923,7 @@ class _PewsScorePageState extends State<PewsScorePage> {
               Icon(Icons.info, color: Colors.teal.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                localizations.pews_clinical_info_title,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.teal.shade600,
@@ -869,29 +932,9 @@ class _PewsScorePageState extends State<PewsScorePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'PEWS (Pediatric Early Warning Score) là công cụ sàng lọc để nhận diện sớm trẻ em có nguy cơ xấu đi\n\n'
-            'Ưu điểm:\n'
-            '• Nhận diện sớm trẻ em bệnh nặng\n'
-            '• Hướng dẫn mức độ can thiệp\n'
-            '• Cải thiện kết quả điều trị\n'
-            '• Giảm cardiac arrest ngoài ICU\n\n'
-            'Giá trị bình thường theo tuổi:\n'
-            '• <1 tuổi: HR 100-170, RR 30-45\n'
-            '• 1-5 tuổi: HR 90-130, RR 20-35\n'
-            '• 6-12 tuổi: HR 80-110, RR 15-25\n'
-            '• >12 tuổi: HR 70-90, RR 12-22\n\n'
-            'Đặc điểm sinh lý trẻ em:\n'
-            '• Dự trữ tâm phổi hạn chế\n'
-            '• Hạ huyết áp là dấu hiệu muộn\n'
-            '• Tachycardia và tachypnea là dấu hiệu sớm\n'
-            '• Rối loạn ý thức báo hiệu nguy hiểm\n\n'
-            'Lưu ý quan trọng:\n'
-            '• Điều chỉnh theo độ tuổi\n'
-            '• Đánh giá tổng thể lâm sàng\n'
-            '• Theo dõi xu hướng thay đổi\n'
-            '• Kết hợp với khám thực thể',
-            style: TextStyle(height: 1.4),
+          Text(
+            localizations.pews_clinical_info_description,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
@@ -905,5 +948,43 @@ class _PewsScorePageState extends State<PewsScorePage> {
     _respiratoryRateController.dispose();
     _systolicBpController.dispose();
     super.dispose();
+  }
+
+  Widget _buildCitationWidget(AppLocalizations localizations) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.blue.shade50,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: Colors.blue.shade200),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+              const SizedBox(width: 6),
+              Text(
+                localizations.pews_references_title,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue.shade700,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          Text(
+            localizations.pews_references_text,
+            style: TextStyle(
+              fontSize: 11,
+              color: Colors.blue.shade600,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
