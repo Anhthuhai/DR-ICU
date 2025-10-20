@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
 class PaduaPredictionScorePage extends StatefulWidget {
@@ -76,11 +77,11 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
     return Colors.red;
   }
 
-  String get riskLevel {
+  String getRiskLevel(BuildContext context) {
     if (_totalScore < 4) {
-      return 'Nguy cơ thấp';
+      return AppLocalizations.of(context)!.padua_low_risk;
     }
-    return 'Nguy cơ cao';
+    return AppLocalizations.of(context)!.padua_high_risk;
   }
 
   String get vteProbability {
@@ -90,91 +91,91 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
     return '11%';
   }
 
-  String get recommendations {
+  String getRecommendations(BuildContext context) {
     if (_totalScore < 4) {
-      return 'Không cần prophylaxis thuốc chống đông. Có thể sử dụng biện pháp cơ học';
+      return AppLocalizations.of(context)!.padua_no_prophylaxis;
     }
-    return 'Cần prophylaxis thuốc chống đông nếu không có chống chỉ định';
+    return AppLocalizations.of(context)!.padua_pharmacological_prophylaxis;
   }
 
-  String get prophylaxisStrategy {
+  String getProphylaxisStrategy(BuildContext context) {
     if (_totalScore < 4) {
-      return 'Prophylaxis cơ học';
+      return AppLocalizations.of(context)!.padua_mechanical_prophylaxis;
     }
-    return 'Prophylaxis dược lý + cơ học';
+    return AppLocalizations.of(context)!.padua_pharmacological_mechanical;
   }
 
-  List<Map<String, dynamic>> get riskFactors {
+  List<Map<String, dynamic>> getRiskFactors(BuildContext context) {
     return [
       {
-        'factor': 'Ung thư',
-        'description': 'Ung thư đang hoạt động (không bao gồm ung thư da)',
+        'factor': AppLocalizations.of(context)!.padua_cancer,
+        'description': AppLocalizations.of(context)!.padua_cancer_desc,
         'points': 3,
         'active': _cancer,
       },
       {
-        'factor': 'Tiền sử VTE',
-        'description': 'Tiền sử thuyên tắc tĩnh mạch (DVT/PE)',
+        'factor': AppLocalizations.of(context)!.padua_previous_vte,
+        'description': AppLocalizations.of(context)!.padua_previous_vte_desc,
         'points': 3,
         'active': _previousVte,
       },
       {
-        'factor': 'Giảm vận động',
-        'description': 'Giảm vận động (nằm giường >3 ngày)',
+        'factor': AppLocalizations.of(context)!.padua_reduced_mobility,
+        'description': AppLocalizations.of(context)!.padua_reduced_mobility_desc,
         'points': 3,
         'active': _reducedMobility,
       },
       {
-        'factor': 'Rối loạn đông máu',
-        'description': 'Rối loạn đông máu di truyền hoặc mắc phải',
+        'factor': AppLocalizations.of(context)!.padua_thrombophilia,
+        'description': AppLocalizations.of(context)!.padua_thrombophilia_desc,
         'points': 3,
         'active': _thrombophilia,
       },
       {
-        'factor': 'Chấn thương gần đây',
-        'description': 'Chấn thương và/hoặc phẫu thuật trong 1 tháng',
+        'factor': AppLocalizations.of(context)!.padua_recent_trauma,
+        'description': AppLocalizations.of(context)!.padua_recent_trauma_desc,
         'points': 2,
         'active': _recentTrauma,
       },
       {
-        'factor': 'Tuổi ≥70',
-        'description': 'Tuổi ≥70 và/hoặc suy tim và/hoặc suy hô hấp',
+        'factor': AppLocalizations.of(context)!.padua_elderly,
+        'description': AppLocalizations.of(context)!.padua_elderly_desc,
         'points': 1,
         'active': _elderlyCareHome,
       },
       {
-        'factor': 'Suy tim',
-        'description': 'Suy tim cấp và/hoặc mạn tính',
+        'factor': AppLocalizations.of(context)!.padua_heart_failure,
+        'description': AppLocalizations.of(context)!.padua_heart_failure_desc,
         'points': 1,
         'active': _heartFailure,
       },
       {
-        'factor': 'Suy hô hấp cấp',
-        'description': 'Suy hô hấp cấp',
+        'factor': AppLocalizations.of(context)!.padua_respiratory_failure,
+        'description': AppLocalizations.of(context)!.padua_respiratory_failure_desc,
         'points': 1,
         'active': _respiratoryFailure,
       },
       {
-        'factor': 'Nhiễm trùng cấp',
-        'description': 'Nhiễm trùng cấp và/hoặc bệnh thấp khớp',
+        'factor': AppLocalizations.of(context)!.padua_acute_infection,
+        'description': AppLocalizations.of(context)!.padua_acute_infection_desc,
         'points': 1,
         'active': _acuteInfection,
       },
       {
-        'factor': 'Bệnh thấp khớp',
-        'description': 'Bệnh thấp khớp đang hoạt động',
+        'factor': AppLocalizations.of(context)!.padua_rheumatic_disease,
+        'description': AppLocalizations.of(context)!.padua_rheumatic_disease_desc,
         'points': 1,
         'active': _acuteRheumatic,
       },
       {
-        'factor': 'IBD/Đột quỵ',
-        'description': 'Bệnh ruột viêm hoặc đột quỵ cấp',
+        'factor': AppLocalizations.of(context)!.padua_ibd_stroke,
+        'description': AppLocalizations.of(context)!.padua_ibd_stroke_desc,
         'points': 1,
         'active': _ibdStroke,
       },
       {
-        'factor': 'Nhồi máu cơ tim',
-        'description': 'Nhồi máu cơ tim cấp',
+        'factor': AppLocalizations.of(context)!.padua_acute_mi,
+        'description': AppLocalizations.of(context)!.padua_acute_mi_desc,
         'points': 1,
         'active': _acuteMi,
       },
@@ -189,7 +190,7 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           // Main AppBar (sticky)
           SliverAppBar(
             pinned: true,
-            title: const Text('Padua Prediction Score'),
+            title: Text(AppLocalizations.of(context)!.padua_prediction_score_title),
             backgroundColor: Colors.purple.shade700,
             foregroundColor: Colors.white,
           ),
@@ -198,49 +199,48 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           SliverAppBar(
             pinned: true,
             automaticallyImplyLeading: false,
-            toolbarHeight: 70,
-            backgroundColor: riskColor.withValues(alpha: 0.1),
+            toolbarHeight: 56,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
+                color: Theme.of(context).scaffoldBackgroundColor,
                 border: Border(
                   bottom: BorderSide(color: riskColor.withValues(alpha: 0.3)),
                 ),
               ),
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Padua Prediction Score',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: riskColor,
-                            ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.padua_prediction_score,
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: riskColor,
                           ),
-                          Text(
-                            riskLevel,
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppTheme.darkGrey,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        '$_totalScore',
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: riskColor,
                         ),
+                        Text(
+                          getRiskLevel(context),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppTheme.darkGrey,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      '$_totalScore',
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -250,6 +250,36 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA HUYẾT KHỐI: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa tim mạch hoặc huyết học trước khi đưa ra quyết định điều trị.'
+                              : 'THROMBOSIS MEDICAL DISCLAIMER: Results are for reference only. Always consult with cardiologist or hematologist before making treatment decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
                 // Risk Info
                 Container(
                   width: double.infinity,
@@ -305,48 +335,59 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                children: [
-                  Text(
-                    'Nguy cơ VTE',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.padua_vte_risk,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    vteProbability,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: riskColor,
+                    Text(
+                      vteProbability,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: riskColor,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Text(
-                    'Prophylaxis',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.padua_prophylaxis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    prophylaxisStrategy,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: riskColor,
+                    Text(
+                      getProphylaxisStrategy(context),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: riskColor,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
@@ -366,7 +407,7 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
                     Icon(Icons.medical_services, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      AppLocalizations.of(context)!.padua_recommendations,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -376,7 +417,7 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  recommendations,
+                  getRecommendations(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -402,7 +443,7 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố nguy cơ VTE',
+            AppLocalizations.of(context)!.padua_risk_factors_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.purple.shade700,
@@ -411,8 +452,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           const SizedBox(height: 16),
           
           CheckboxListTile(
-            title: const Text('Ung thư (+3)'),
-            subtitle: const Text('Ung thư đang hoạt động (không bao gồm ung thư da)'),
+            title: Text(AppLocalizations.of(context)!.padua_cancer),
+            subtitle: Text(AppLocalizations.of(context)!.padua_cancer_desc),
             value: _cancer,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -425,8 +466,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Tiền sử VTE (+3)'),
-            subtitle: const Text('Tiền sử thuyên tắc tĩnh mạch (DVT/PE)'),
+            title: Text(AppLocalizations.of(context)!.padua_previous_vte),
+            subtitle: Text(AppLocalizations.of(context)!.padua_previous_vte_desc),
             value: _previousVte,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -439,8 +480,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Giảm vận động (+3)'),
-            subtitle: const Text('Giảm vận động (nằm giường >3 ngày)'),
+            title: Text(AppLocalizations.of(context)!.padua_reduced_mobility),
+            subtitle: Text(AppLocalizations.of(context)!.padua_reduced_mobility_desc),
             value: _reducedMobility,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -453,8 +494,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Rối loạn đông máu (+3)'),
-            subtitle: const Text('Rối loạn đông máu di truyền hoặc mắc phải'),
+            title: Text(AppLocalizations.of(context)!.padua_thrombophilia),
+            subtitle: Text(AppLocalizations.of(context)!.padua_thrombophilia_desc),
             value: _thrombophilia,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -467,8 +508,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Chấn thương gần đây (+2)'),
-            subtitle: const Text('Chấn thương và/hoặc phẫu thuật trong 1 tháng'),
+            title: Text(AppLocalizations.of(context)!.padua_recent_trauma),
+            subtitle: Text(AppLocalizations.of(context)!.padua_recent_trauma_desc),
             value: _recentTrauma,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -481,8 +522,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Tuổi ≥70 (+1)'),
-            subtitle: const Text('Tuổi ≥70 và/hoặc suy tim và/hoặc suy hô hấp'),
+            title: Text(AppLocalizations.of(context)!.padua_elderly),
+            subtitle: Text(AppLocalizations.of(context)!.padua_elderly_desc),
             value: _elderlyCareHome,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -495,8 +536,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Suy tim (+1)'),
-            subtitle: const Text('Suy tim cấp và/hoặc mạn tính'),
+            title: Text(AppLocalizations.of(context)!.padua_heart_failure),
+            subtitle: Text(AppLocalizations.of(context)!.padua_heart_failure_desc),
             value: _heartFailure,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -509,8 +550,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Suy hô hấp cấp (+1)'),
-            subtitle: const Text('Suy hô hấp cấp'),
+            title: Text(AppLocalizations.of(context)!.padua_respiratory_failure),
+            subtitle: Text(AppLocalizations.of(context)!.padua_respiratory_failure_desc),
             value: _respiratoryFailure,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -523,8 +564,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Nhiễm trùng cấp (+1)'),
-            subtitle: const Text('Nhiễm trùng cấp và/hoặc bệnh thấp khớp'),
+            title: Text(AppLocalizations.of(context)!.padua_acute_infection),
+            subtitle: Text(AppLocalizations.of(context)!.padua_acute_infection_desc),
             value: _acuteInfection,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -537,8 +578,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Bệnh thấp khớp (+1)'),
-            subtitle: const Text('Bệnh thấp khớp đang hoạt động'),
+            title: Text(AppLocalizations.of(context)!.padua_rheumatic_disease),
+            subtitle: Text(AppLocalizations.of(context)!.padua_rheumatic_disease_desc),
             value: _acuteRheumatic,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -551,8 +592,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('IBD/Đột quỵ (+1)'),
-            subtitle: const Text('Bệnh ruột viêm hoặc đột quỵ cấp'),
+            title: Text(AppLocalizations.of(context)!.padua_ibd_stroke),
+            subtitle: Text(AppLocalizations.of(context)!.padua_ibd_stroke_desc),
             value: _ibdStroke,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -565,8 +606,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Nhồi máu cơ tim (+1)'),
-            subtitle: const Text('Nhồi máu cơ tim cấp'),
+            title: Text(AppLocalizations.of(context)!.padua_acute_mi),
+            subtitle: Text(AppLocalizations.of(context)!.padua_acute_mi_desc),
             value: _acuteMi,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -583,7 +624,7 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
   }
 
   Widget _buildActiveFactors() {
-    List<Map<String, dynamic>> activeFactors = riskFactors.where((factor) => factor['active']).toList();
+    List<Map<String, dynamic>> activeFactors = getRiskFactors(context).where((factor) => factor['active']).toList();
     
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -597,7 +638,7 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố nguy cơ hiện tại (${activeFactors.length})',
+            AppLocalizations.of(context)!.padua_current_risk_factors(activeFactors.length),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
@@ -672,15 +713,15 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ VTE',
+            AppLocalizations.of(context)!.padua_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('<4', 'Nguy cơ thấp', '0.3%', 'Prophylaxis cơ học', Colors.green),
-          _buildRiskItem('≥4', 'Nguy cơ cao', '11%', 'Prophylaxis dược lý', Colors.red),
+          _buildRiskItem('<4', AppLocalizations.of(context)!.padua_low_risk, '0.3%', AppLocalizations.of(context)!.padua_mechanical_prophylaxis, Colors.green),
+          _buildRiskItem('≥4', AppLocalizations.of(context)!.padua_high_risk, '11%', AppLocalizations.of(context)!.padua_pharmacological_mechanical, Colors.red),
         ],
       ),
     );
@@ -756,7 +797,7 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Khuyến nghị prophylaxis VTE',
+            AppLocalizations.of(context)!.padua_prophylaxis_recommendations,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
@@ -764,23 +805,23 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           const SizedBox(height: 16),
           _buildProphylaxisCard(
-            'Prophylaxis cơ học',
+            AppLocalizations.of(context)!.padua_mechanical_prophylaxis_title,
             [
-              'Tất áp lực dần',
-              'Nén khí gián đoạn',
-              'Vận động sớm',
-              'Nâng chân khi nghỉ',
+              AppLocalizations.of(context)!.padua_graduated_compression,
+              AppLocalizations.of(context)!.padua_intermittent_compression,
+              AppLocalizations.of(context)!.padua_early_mobilization,
+              AppLocalizations.of(context)!.padua_leg_elevation,
             ],
             Colors.blue,
           ),
           const SizedBox(height: 12),
           _buildProphylaxisCard(
-            'Prophylaxis dược lý',
+            AppLocalizations.of(context)!.padua_pharmacological_prophylaxis_title,
             [
-              'LMWH (Enoxaparin 40mg/ngày)',
-              'UFH (5000IU x2/ngày)',
-              'Fondaparinux 2.5mg/ngày',
-              'DOAC (theo chỉ định)',
+              AppLocalizations.of(context)!.padua_lmwh,
+              AppLocalizations.of(context)!.padua_ufh,
+              AppLocalizations.of(context)!.padua_fondaparinux,
+              AppLocalizations.of(context)!.padua_doac,
             ],
             Colors.red,
           ),
@@ -861,7 +902,7 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
               Icon(Icons.info, color: Colors.teal.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.padua_clinical_information,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.teal.shade600,
@@ -870,26 +911,8 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'Padua Prediction Score đánh giá nguy cơ VTE ở bệnh nhân nội khoa\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Quyết định prophylaxis VTE ở bệnh nhân nội khoa\n'
-            '• Cân bằng lợi ích/nguy cơ chống đông\n'
-            '• Lựa chọn phương pháp prophylaxis\n'
-            '• Tối ưu hóa chi phí điều trị\n\n'
-            'Chống chỉ định prophylaxis dược lý:\n'
-            '• Chảy máu nặng hoặc nguy cơ cao\n'
-            '• Phẫu thuật não/mắt/tủy sống gần đây\n'
-            '• Thiếu máu cơ tim nặng\n'
-            '• Tăng huyết áp nặng không kiểm soát\n'
-            '• Suy gan nặng\n'
-            '• Suy thận nặng (CrCl <15ml/phút)\n\n'
-            'Theo dõi trong prophylaxis:\n'
-            '• Dấu hiệu chảy máu\n'
-            '• Số lượng tiểu cầu\n'
-            '• Chức năng thận (nếu dùng LMWH)\n'
-            '• Triệu chứng VTE mới\n'
-            '• Tái đánh giá khi tình trạng thay đổi',
+          Text(
+            AppLocalizations.of(context)!.padua_clinical_info_text,
             style: TextStyle(height: 1.4),
           ),
         ],
@@ -913,7 +936,7 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                AppLocalizations.of(context)!.padua_reference_title,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -924,7 +947,7 @@ class _PaduaPredictionScorePageState extends State<PaduaPredictionScorePage> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Barbar S, et al. A risk assessment model for the identification of hospitalized medical patients at risk for venous thromboembolism: the Padua Prediction Score. J Thromb Haemost. 2010;8(11):2450-7.\n\nKahn SR, et al. Prevention of VTE in nonsurgical patients: Antithrombotic Therapy and Prevention of Thrombosis, 9th ed: American College of Chest Physicians Evidence-Based Clinical Practice Guidelines. Chest. 2012;141(2 Suppl):e195S-e226S.',
+            AppLocalizations.of(context)!.padua_reference_text,
             style: TextStyle(
               fontSize: 11,
               color: Colors.blue.shade600,

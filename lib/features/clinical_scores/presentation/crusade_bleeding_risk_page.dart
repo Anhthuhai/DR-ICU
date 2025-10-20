@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class CrusadeBleedingRiskPage extends StatefulWidget {
   const CrusadeBleedingRiskPage({super.key});
@@ -129,18 +130,18 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
 
   String get riskLevel {
     if (_totalScore <= 20) {
-      return 'Rất thấp';
+      return AppLocalizations.of(context)!.crusade_risk_very_low;
     }
     if (_totalScore <= 30) {
-      return 'Thấp';
+      return AppLocalizations.of(context)!.crusade_risk_low;
     }
     if (_totalScore <= 40) {
-      return 'Trung bình';
+      return AppLocalizations.of(context)!.crusade_risk_moderate;
     }
     if (_totalScore <= 50) {
-      return 'Cao';
+      return AppLocalizations.of(context)!.crusade_risk_high;
     }
-    return 'Rất cao';
+    return AppLocalizations.of(context)!.crusade_risk_very_high;
   }
 
   String get bleedingRisk {
@@ -160,104 +161,179 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
   }
 
   String get majorBleedingRisk {
+    final isVietnamese = Localizations.localeOf(context).languageCode == 'vi';
+    
     if (_totalScore <= 20) {
-      return 'Rất thấp (<5%)';
+      return isVietnamese ? 'Rất thấp (<5%)' : 'Very Low (<5%)';
     }
     if (_totalScore <= 30) {
-      return 'Thấp (5-10%)';
+      return isVietnamese ? 'Thấp (5-10%)' : 'Low (5-10%)';
     }
     if (_totalScore <= 40) {
-      return 'Trung bình (10-15%)';
+      return isVietnamese ? 'Trung bình (10-15%)' : 'Moderate (10-15%)';
     }
     if (_totalScore <= 50) {
-      return 'Cao (15-20%)';
+      return isVietnamese ? 'Cao (15-20%)' : 'High (15-20%)';
     }
-    return 'Rất cao (>20%)';
+    return isVietnamese ? 'Rất cao (>20%)' : 'Very High (>20%)';
   }
 
   String get recommendations {
     if (_totalScore <= 20) {
-      return 'Có thể sử dụng chiến lược xâm lấn sớm và thuốc chống đông mạnh';
+      return AppLocalizations.of(context)!.crusade_recommendation_very_low;
     }
     if (_totalScore <= 30) {
-      return 'Cân nhắc lợi ích/nguy cơ của chiến lược xâm lấn và thuốc chống đông';
+      return AppLocalizations.of(context)!.crusade_recommendation_low;
     }
     if (_totalScore <= 40) {
-      return 'Thận trọng với chiến lược xâm lấn, theo dõi chặt chẽ';
+      return AppLocalizations.of(context)!.crusade_recommendation_moderate;
     }
     if (_totalScore <= 50) {
-      return 'Ưu tiên chiến lược bảo tồn, hạn chế thuốc chống đông mạnh';
+      return AppLocalizations.of(context)!.crusade_recommendation_high;
     }
-    return 'Chiến lược bảo tồn, tránh thuốc chống đông mạnh trừ khi cần thiết';
+    return AppLocalizations.of(context)!.crusade_recommendation_very_high;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('CRUSADE Bleeding Risk'),
-        backgroundColor: Colors.red.shade800,
-        foregroundColor: Colors.white,
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'CRUSADE Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
+      body: CustomScrollView(
+        slivers: [
+          // Sticky AppBar
+          SliverAppBar(
+            title: Text(AppLocalizations.of(context)!.crusade_title),
+            backgroundColor: Colors.red.shade800,
+            foregroundColor: Colors.white,
+            pinned: true,
+            floating: false,
+            snap: false,
+            elevation: 4,
+          ),
+          
+          // Sticky Score Header
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _StickyScoreHeaderDelegate(
+              minHeight: 60,
+              maxHeight: 60,
+              child: Container(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: riskColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: riskColor.withValues(alpha: 0.3)),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$_totalScore',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '$_totalScore - $riskLevel',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: riskColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Nguy cơ $riskLevel',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+                ),
               ),
             ),
+          ),
 
-            // Input Parameters
-            _buildInputSection(),
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa tim mạch trước khi đưa ra quyết định điều trị.'
+                              : 'MEDICAL DISCLAIMER: Results are for reference only. Always consult with a cardiologist before making treatment decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
+                // Score Display
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: riskColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.crusade_score,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: riskColor,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        '$_totalScore',
+                        style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: riskColor,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        Localizations.localeOf(context).languageCode == 'vi'
+                            ? 'Nguy cơ: $riskLevel'
+                            : 'Risk: $riskLevel',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: AppTheme.darkGrey,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      _buildRiskInfo(),
+                    ],
+                  ),
+                ),
 
-            // Risk Stratification
-            _buildRiskStratification(),
+                // Input Parameters
+                _buildInputSection(),
 
-            // Clinical Approach
-            _buildClinicalApproach(),
+                // Risk Stratification
+                _buildRiskStratification(),
 
-            // Clinical Information
-            _buildClinicalInfo(),
+                // Clinical Approach
+                _buildClinicalApproach(),
 
-            // Medical Citation
-            Container(
+                // Clinical Information
+                _buildClinicalInfo(),
+
+                // Medical Citation
+                Container(
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
@@ -273,7 +349,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
                       Icon(Icons.article, color: Colors.blue.shade700, size: 16),
                       const SizedBox(width: 6),
                       Text(
-                        'Tài liệu tham khảo',
+                        AppLocalizations.of(context)!.crusade_references,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -294,9 +370,11 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
               ),
             ),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -317,7 +395,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
               Column(
                 children: [
                   Text(
-                    'Nguy cơ chảy máu',
+                    AppLocalizations.of(context)!.crusade_bleeding_risk_label,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -337,7 +415,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
               Column(
                 children: [
                   Text(
-                    'Chảy máu nặng',
+                    AppLocalizations.of(context)!.crusade_major_bleeding_label,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -373,7 +451,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
                     Icon(Icons.assignment, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      AppLocalizations.of(context)!.crusade_recommendation_label,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -409,7 +487,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thông số lâm sàng',
+            AppLocalizations.of(context)!.crusade_clinical_parameters,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -422,14 +500,14 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
             controller: _hematocritController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Hematocrit',
+              labelText: AppLocalizations.of(context)!.crusade_hematocrit_label,
               suffixText: '%',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'Tỷ lệ thể tích hồng cầu',
+              helperText: AppLocalizations.of(context)!.crusade_hematocrit_helper,
             ),
           ),
           const SizedBox(height: 12),
@@ -442,22 +520,22 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
                 controller: _creatinineController,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                  labelText: 'Creatinine',
+                  labelText: AppLocalizations.of(context)!.crusade_creatinine_label,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
                   filled: true,
                   fillColor: Colors.white,
-                  helperText: 'Nồng độ creatinine huyết thanh',
+                  helperText: AppLocalizations.of(context)!.crusade_creatinine_helper,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 ),
               ),
               const SizedBox(height: 4),
               Row(
                 children: [
-                  const Text(
-                    'Đơn vị: ',
-                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  Text(
+                    AppLocalizations.of(context)!.crusade_unit_label,
+                    style: const TextStyle(fontSize: 12, color: Colors.grey),
                   ),
                   DropdownButton<String>(
                     value: _creatinineUnit,
@@ -489,14 +567,14 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
             controller: _heartRateController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Tần số tim',
-              suffixText: 'lần/phút',
+              labelText: AppLocalizations.of(context)!.crusade_heart_rate,
+              suffixText: AppLocalizations.of(context)!.crusade_heart_rate_unit,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'Tần số tim lúc nhập viện',
+              helperText: AppLocalizations.of(context)!.crusade_heart_rate_helper,
             ),
           ),
           const SizedBox(height: 12),
@@ -506,21 +584,21 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
             controller: _systolicBpController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Huyết áp tâm thu',
-              suffixText: 'mmHg',
+              labelText: AppLocalizations.of(context)!.crusade_systolic_bp,
+              suffixText: AppLocalizations.of(context)!.crusade_systolic_bp_unit,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'Để đánh giá dấu hiệu suy tim',
+              helperText: AppLocalizations.of(context)!.crusade_systolic_bp_helper,
             ),
           ),
           const SizedBox(height: 16),
           
           // Gender
           Text(
-            'Giới tính',
+            AppLocalizations.of(context)!.crusade_gender_label,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -529,7 +607,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
             children: [
               Expanded(
                 child: RadioListTile<String>(
-                  title: const Text('Nam'),
+                  title: Text(AppLocalizations.of(context)!.crusade_male_label),
                   value: 'male',
                   // ignore: deprecated_member_use
                   groupValue: _gender,
@@ -545,7 +623,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
               ),
               Expanded(
                 child: RadioListTile<String>(
-                  title: const Text('Nữ (+8)'),
+                  title: Text(AppLocalizations.of(context)!.crusade_female_label),
                   value: 'female',
                   // ignore: deprecated_member_use
                   groupValue: _gender,
@@ -564,7 +642,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
           
           // Diabetes
           Text(
-            'Đái tháo đường',
+            AppLocalizations.of(context)!.crusade_diabetes_label,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -573,7 +651,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
             children: [
               Expanded(
                 child: RadioListTile<String>(
-                  title: const Text('Không'),
+                  title: Text(AppLocalizations.of(context)!.crusade_no_label),
                   value: 'no',
                   // ignore: deprecated_member_use
                   groupValue: _diabetesStatus,
@@ -589,7 +667,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
               ),
               Expanded(
                 child: RadioListTile<String>(
-                  title: const Text('Có (+6)'),
+                  title: Text(AppLocalizations.of(context)!.crusade_yes_diabetes),
                   value: 'yes',
                   // ignore: deprecated_member_use
                   groupValue: _diabetesStatus,
@@ -608,7 +686,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
           
           // Prior vascular disease
           Text(
-            'Tiền sử bệnh mạch máu',
+            AppLocalizations.of(context)!.crusade_vascular_disease_label,
             style: Theme.of(context).textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -617,7 +695,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
             children: [
               Expanded(
                 child: RadioListTile<String>(
-                  title: const Text('Không'),
+                  title: Text(AppLocalizations.of(context)!.crusade_no_label),
                   value: 'no',
                   // ignore: deprecated_member_use
                   groupValue: _priorVascularDisease,
@@ -633,7 +711,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
               ),
               Expanded(
                 child: RadioListTile<String>(
-                  title: const Text('Có (+6)'),
+                  title: Text(AppLocalizations.of(context)!.crusade_yes_vascular),
                   value: 'yes',
                   // ignore: deprecated_member_use
                   groupValue: _priorVascularDisease,
@@ -667,18 +745,18 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ CRUSADE',
+            AppLocalizations.of(context)!.crusade_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('≤20', 'Rất thấp', '3.1%', 'Xâm lấn tích cực', Colors.green),
-          _buildRiskItem('21-30', 'Thấp', '5.5%', 'Cân nhắc xâm lấn', Colors.yellow.shade700),
-          _buildRiskItem('31-40', 'Trung bình', '8.6%', 'Thận trọng', Colors.orange),
-          _buildRiskItem('41-50', 'Cao', '11.9%', 'Ưu tiên bảo tồn', Colors.red.shade700),
-          _buildRiskItem('>50', 'Rất cao', '19.5%', 'Bảo tồn', Colors.red.shade900),
+          _buildRiskItem('≤20', AppLocalizations.of(context)!.crusade_risk_very_low, '3.1%', AppLocalizations.of(context)!.crusade_strategy_very_low, Colors.green),
+          _buildRiskItem('21-30', AppLocalizations.of(context)!.crusade_risk_low, '5.5%', AppLocalizations.of(context)!.crusade_strategy_low, Colors.yellow.shade700),
+          _buildRiskItem('31-40', AppLocalizations.of(context)!.crusade_risk_moderate, '8.6%', AppLocalizations.of(context)!.crusade_strategy_moderate, Colors.orange),
+          _buildRiskItem('41-50', AppLocalizations.of(context)!.crusade_risk_high, '11.9%', AppLocalizations.of(context)!.crusade_strategy_high, Colors.red.shade700),
+          _buildRiskItem('>50', AppLocalizations.of(context)!.crusade_risk_very_high, '19.5%', AppLocalizations.of(context)!.crusade_strategy_very_high, Colors.red.shade900),
         ],
       ),
     );
@@ -754,7 +832,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Chiến lược điều trị',
+            AppLocalizations.of(context)!.crusade_clinical_approach,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.purple.shade700,
@@ -762,23 +840,23 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
           ),
           const SizedBox(height: 16),
           _buildStrategyCard(
-            'Chiến lược xâm lấn (Nguy cơ thấp)',
+            AppLocalizations.of(context)!.crusade_invasive_strategy,
             [
-              'Can thiệp mạch vành sớm',
-              'GPIIb/IIIa inhibitor',
-              'Dual antiplatelet therapy',
-              'Anticoagulation đầy đủ',
+              AppLocalizations.of(context)!.crusade_invasive_item1,
+              AppLocalizations.of(context)!.crusade_invasive_item2,
+              AppLocalizations.of(context)!.crusade_invasive_item3,
+              AppLocalizations.of(context)!.crusade_invasive_item4,
             ],
             Colors.blue,
           ),
           const SizedBox(height: 12),
           _buildStrategyCard(
-            'Chiến lược bảo tồn (Nguy cơ cao)',
+            AppLocalizations.of(context)!.crusade_conservative_strategy,
             [
-              'Điều trị nội khoa tối ưu',
-              'Tránh GPIIb/IIIa inhibitor',
-              'Cân nhắc aspirin đơn độc',
-              'Heparin liều thấp',
+              AppLocalizations.of(context)!.crusade_conservative_item1,
+              AppLocalizations.of(context)!.crusade_conservative_item2,
+              AppLocalizations.of(context)!.crusade_conservative_item3,
+              AppLocalizations.of(context)!.crusade_conservative_item4,
             ],
             Colors.red,
           ),
@@ -861,7 +939,7 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
               Icon(Icons.info, color: Colors.teal.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.crusade_clinical_info,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.teal.shade600,
@@ -870,27 +948,9 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'CRUSADE Score đánh giá nguy cơ chảy máu trong hội chứng mạch vành cấp\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Lựa chọn chiến lược xâm lấn vs bảo tồn\n'
-            '• Quyết định sử dụng GPIIb/IIIa inhibitor\n'
-            '• Cân nhắc dual antiplatelet therapy\n'
-            '• Tối ưu hóa liều thuốc chống đông\n\n'
-            'Các yếu tố chính:\n'
-            '• Hematocrit: phản ánh thiếu máu\n'
-            '• Creatinine: chức năng thận\n'
-            '• Tần số tim: mức độ bệnh nặng\n'
-            '• Giới tính nữ: nguy cơ cao hơn\n'
-            '• Đái tháo đường: biến chứng mạch máu\n'
-            '• Tiền sử mạch máu: nguy cơ cao\n\n'
-            'Lưu ý quan trọng:\n'
-            '• Không loại trừ điều trị khi điểm cao\n'
-            '• Cân bằng nguy cơ ischemia vs chảy máu\n'
-            '• Có thể điều chỉnh liều thuốc\n'
-            '• Theo dõi chặt chẽ bệnh nhân nguy cơ cao\n'
-            '• Tái đánh giá khi tình trạng thay đổi',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.crusade_clinical_info_content,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
@@ -904,5 +964,36 @@ class _CrusadeBleedingRiskPageState extends State<CrusadeBleedingRiskPage> {
     _heartRateController.dispose();
     _systolicBpController.dispose();
     super.dispose();
+  }
+}
+
+// Sticky Header Delegate for Score Display
+class _StickyScoreHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _StickyScoreHeaderDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  bool shouldRebuild(_StickyScoreHeaderDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+           minHeight != oldDelegate.minHeight ||
+           child != oldDelegate.child;
   }
 }

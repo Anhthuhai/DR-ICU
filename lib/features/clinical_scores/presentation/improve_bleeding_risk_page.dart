@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
 class ImproveBleedingRiskPage extends StatefulWidget {
@@ -88,12 +89,12 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
 
   String get riskLevel {
     if (_totalScore <= 2) {
-      return 'Nguy cơ thấp';
+      return AppLocalizations.of(context)!.improve_low_risk;
     }
     if (_totalScore <= 6) {
-      return 'Nguy cơ trung bình';
+      return AppLocalizations.of(context)!.improve_moderate_risk;
     }
-    return 'Nguy cơ cao';
+    return AppLocalizations.of(context)!.improve_high_risk;
   }
 
   String get bleedingRisk {
@@ -118,71 +119,71 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
 
   String get recommendations {
     if (_totalScore <= 2) {
-      return 'Có thể sử dụng thuốc chống đông phòng ngừa tiêu chuẩn';
+      return AppLocalizations.of(context)!.improve_standard_anticoagulation;
     }
     if (_totalScore <= 6) {
-      return 'Cần cân nhắc lợi ích/nguy cơ, theo dõi chặt chẽ khi dùng thuốc chống đông';
+      return AppLocalizations.of(context)!.improve_careful_consideration;
     }
-    return 'Thận trọng với thuốc chống đông, cân nhắc các biện pháp cơ học phòng tắc mạch';
+    return AppLocalizations.of(context)!.improve_caution_anticoagulants;
   }
 
   String get prophylaxisStrategy {
     if (_totalScore <= 2) {
-      return 'Prophylaxis tiêu chuẩn';
+      return AppLocalizations.of(context)!.improve_standard_prophylaxis;
     }
     if (_totalScore <= 6) {
-      return 'Prophylaxis cẩn thận, giảm liều';
+      return AppLocalizations.of(context)!.improve_careful_prophylaxis;
     }
-    return 'Cân nhắc prophylaxis cơ học';
+    return AppLocalizations.of(context)!.improve_mechanical_prophylaxis;
   }
 
   List<Map<String, dynamic>> get riskFactors {
     return [
       {
-        'factor': 'Tuổi ≥40',
-        'description': 'Tuổi từ 40 trở lên',
+        'factor': AppLocalizations.of(context)!.improve_age_factor,
+        'description': AppLocalizations.of(context)!.improve_age_factor_desc,
         'points': 1,
         'active': (int.tryParse(_ageController.text) ?? 0) >= 40,
       },
       {
-        'factor': 'Nữ giới',
-        'description': 'Giới tính nữ',
+        'factor': AppLocalizations.of(context)!.improve_female_factor,
+        'description': AppLocalizations.of(context)!.improve_female_desc,
         'points': 1,
         'active': _female,
       },
       {
-        'factor': 'Ung thư',
-        'description': 'Ung thư hiện tại hoặc tiền sử',
+        'factor': AppLocalizations.of(context)!.improve_cancer_factor,
+        'description': AppLocalizations.of(context)!.improve_cancer_desc,
         'points': 2,
         'active': _cancer,
       },
       {
-        'factor': 'Chạy thận',
-        'description': 'Chạy thận nhân tạo',
+        'factor': AppLocalizations.of(context)!.improve_dialysis_factor,
+        'description': AppLocalizations.of(context)!.improve_dialysis_desc,
         'points': 2,
         'active': _dialysis,
       },
       {
-        'factor': 'Bệnh gan',
-        'description': 'Bệnh gan mạn tính',
+        'factor': AppLocalizations.of(context)!.improve_liver_disease_factor,
+        'description': AppLocalizations.of(context)!.improve_liver_disease_desc,
         'points': 2,
         'active': _liverDisease,
       },
       {
-        'factor': 'Nằm ICU',
-        'description': 'Đang điều trị tại ICU',
+        'factor': AppLocalizations.of(context)!.improve_icu_stay_factor,
+        'description': AppLocalizations.of(context)!.improve_icu_stay_desc,
         'points': 2,
         'active': _icuStay,
       },
       {
-        'factor': 'ICU >48h',
-        'description': 'Nằm ICU quá 48 giờ',
+        'factor': AppLocalizations.of(context)!.improve_icu_48h_factor,
+        'description': AppLocalizations.of(context)!.improve_icu_48h_desc,
         'points': 1,
         'active': _icu48h,
       },
       {
-        'factor': 'Thuốc chống đông',
-        'description': 'Đang dùng thuốc chống đông',
+        'factor': AppLocalizations.of(context)!.improve_anticoagulants_factor,
+        'description': AppLocalizations.of(context)!.improve_anticoagulants_desc,
         'points': 1,
         'active': _anticoagulants,
       },
@@ -192,111 +193,154 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('IMPROVE Bleeding Risk'),
-        backgroundColor: Colors.red.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'IMPROVE Bleeding Risk',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+      body: CustomScrollView(
+        slivers: [
+          // Sticky AppBar
+          SliverAppBar(
+            title: Text(AppLocalizations.of(context)!.improve_bleeding_risk_title),
+            backgroundColor: Colors.red.shade700,
+            foregroundColor: Colors.white,
+            pinned: true,
+            floating: false,
+            snap: false,
+            elevation: 4,
+          ),
+          
+          // Sticky Score Header
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _StickyScoreHeaderDelegate(
+              child: Container(
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: riskColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      '$_totalScore/12',
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$_totalScore/12',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+                    Flexible(
+                      child: Text(
+                        riskLevel,
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: AppTheme.darkGrey,
+                        ),
+                        textAlign: TextAlign.end,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    riskLevel,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+                  ],
+                ),
               ),
             ),
-
-            // Input Parameters
-            _buildInputSection(),
-
-            // Risk Factors
-            _buildRiskFactorsSection(),
-
-            // Active Risk Factors
-            if (_totalScore > 0) _buildActiveFactors(),
-
-            // Risk Stratification
-            _buildRiskStratification(),
-
-            // Clinical Information
-            _buildClinicalInfo(),
-
-            // Medical Citation
-            Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.blue.shade200),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Tài liệu tham khảo',
+          ),
+          
+          // Scrollable Content
+          SliverList(
+            delegate: SliverChildListDelegate([
+              // Medical Disclaimer Banner
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.red.shade50,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.red.shade200),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        Localizations.localeOf(context).languageCode == 'vi'
+                            ? 'LƯU Ý Y KHOA CHẢY MÁU: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa huyết học trước khi đưa ra quyết định điều trị.'
+                            : 'BLEEDING RISK MEDICAL DISCLAIMER: Results are for reference only. Always consult with hematologist before making treatment decisions.',
                         style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade700,
+                          fontSize: 11,
+                          color: Colors.red.shade700,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'Hostler DC, Marx ES, Moores LK, et al. Validation of the International Medical Prevention Registry on Venous Thromboembolism bleeding risk score. Chest. 2016;149(2):372-9.',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.blue.shade600,
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+              // Risk Info Section (moved from sticky header)
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: _buildRiskInfo(),
+              ),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+              // Input Parameters
+              _buildInputSection(),
+
+              // Risk Factors
+              _buildRiskFactorsSection(),
+
+              // Active Risk Factors
+              if (_totalScore > 0) _buildActiveFactors(),
+
+              // Risk Stratification
+              _buildRiskStratification(),
+
+              // Clinical Information
+              _buildClinicalInfo(),
+
+              // Medical Citation
+              Container(
+                margin: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.blue.shade200),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                        const SizedBox(width: 6),
+                        Text(
+                          AppLocalizations.of(context)!.improve_reference_title,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blue.shade700,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      AppLocalizations.of(context)!.improve_reference_text,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.blue.shade600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              const SizedBox(height: 20),
+            ]),
+          ),
+        ],
       ),
     );
   }
@@ -317,7 +361,7 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
               Column(
                 children: [
                   Text(
-                    'Nguy cơ chảy máu',
+                    AppLocalizations.of(context)!.improve_bleeding_risk,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -337,7 +381,7 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
               Column(
                 children: [
                   Text(
-                    'Chảy máu nặng',
+                    AppLocalizations.of(context)!.improve_major_bleeding,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -372,7 +416,7 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
                     Icon(Icons.medical_services, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Chiến lược prophylaxis:',
+                      AppLocalizations.of(context)!.improve_prophylaxis_strategy,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -394,7 +438,7 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
                     Icon(Icons.assignment, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      AppLocalizations.of(context)!.improve_recommendations,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -430,7 +474,7 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thông tin bệnh nhân',
+            AppLocalizations.of(context)!.improve_patient_information,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.red.shade700,
@@ -442,14 +486,14 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
             controller: _ageController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Tuổi',
-              suffixText: 'năm',
+              labelText: AppLocalizations.of(context)!.improve_age,
+              suffixText: AppLocalizations.of(context)!.improve_years,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: '+1 điểm nếu ≥40 tuổi',
+              helperText: AppLocalizations.of(context)!.improve_age_helper,
             ),
           ),
         ],
@@ -470,7 +514,7 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố nguy cơ chảy máu',
+            AppLocalizations.of(context)!.improve_bleeding_risk_factors,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -479,8 +523,8 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
           const SizedBox(height: 16),
           
           CheckboxListTile(
-            title: const Text('Nữ giới (+1)'),
-            subtitle: const Text('Giới tính nữ'),
+            title: Text(AppLocalizations.of(context)!.improve_female),
+            subtitle: Text(AppLocalizations.of(context)!.improve_female_desc),
             value: _female,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -493,8 +537,8 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Ung thư (+2)'),
-            subtitle: const Text('Ung thư hiện tại hoặc tiền sử'),
+            title: Text(AppLocalizations.of(context)!.improve_cancer),
+            subtitle: Text(AppLocalizations.of(context)!.improve_cancer_desc),
             value: _cancer,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -507,8 +551,8 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Chạy thận (+2)'),
-            subtitle: const Text('Chạy thận nhân tạo'),
+            title: Text(AppLocalizations.of(context)!.improve_dialysis),
+            subtitle: Text(AppLocalizations.of(context)!.improve_dialysis_desc),
             value: _dialysis,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -521,8 +565,8 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Bệnh gan (+2)'),
-            subtitle: const Text('Bệnh gan mạn tính'),
+            title: Text(AppLocalizations.of(context)!.improve_liver_disease),
+            subtitle: Text(AppLocalizations.of(context)!.improve_liver_disease_desc),
             value: _liverDisease,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -535,8 +579,8 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Nằm ICU (+2)'),
-            subtitle: const Text('Đang điều trị tại ICU'),
+            title: Text(AppLocalizations.of(context)!.improve_icu_stay),
+            subtitle: Text(AppLocalizations.of(context)!.improve_icu_stay_desc),
             value: _icuStay,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -549,8 +593,8 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
           ),
           
           CheckboxListTile(
-            title: const Text('ICU >48h (+1)'),
-            subtitle: const Text('Nằm ICU quá 48 giờ'),
+            title: Text(AppLocalizations.of(context)!.improve_icu_48h),
+            subtitle: Text(AppLocalizations.of(context)!.improve_icu_48h_desc),
             value: _icu48h,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -563,8 +607,8 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Thuốc chống đông (+1)'),
-            subtitle: const Text('Đang dùng thuốc chống đông'),
+            title: Text(AppLocalizations.of(context)!.improve_anticoagulants),
+            subtitle: Text(AppLocalizations.of(context)!.improve_anticoagulants_desc),
             value: _anticoagulants,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -595,7 +639,7 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố nguy cơ hiện tại (${activeFactors.length})',
+            AppLocalizations.of(context)!.improve_current_risk_factors(activeFactors.length),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
@@ -670,16 +714,16 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ chảy máu',
+            AppLocalizations.of(context)!.improve_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('0-2', 'Nguy cơ thấp', '0.4%', 'Prophylaxis tiêu chuẩn', Colors.green),
-          _buildRiskItem('3-6', 'Nguy cơ trung bình', '1.1%', 'Prophylaxis cẩn thận', Colors.orange),
-          _buildRiskItem('7-12', 'Nguy cơ cao', '4.1%', 'Cân nhắc prophylaxis cơ học', Colors.red),
+          _buildRiskItem('0-2', AppLocalizations.of(context)!.improve_low_risk, '0.4%', AppLocalizations.of(context)!.improve_standard_prophylaxis, Colors.green),
+          _buildRiskItem('3-6', AppLocalizations.of(context)!.improve_moderate_risk, '1.1%', AppLocalizations.of(context)!.improve_careful_prophylaxis, Colors.orange),
+          _buildRiskItem('7-12', AppLocalizations.of(context)!.improve_high_risk, '4.1%', AppLocalizations.of(context)!.improve_mechanical_prophylaxis, Colors.red),
         ],
       ),
     );
@@ -759,7 +803,7 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
               Icon(Icons.info, color: Colors.purple.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.improve_clinical_information,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.purple.shade600,
@@ -768,23 +812,8 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'IMPROVE Bleeding Risk Score đánh giá nguy cơ chảy máu khi prophylaxis tắc mạch\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Quyết định loại prophylaxis tắc mạch\n'
-            '• Cân nhắc lợi ích/nguy cơ thuốc chống đông\n'
-            '• Lựa chọn giữa prophylaxis dược lý vs cơ học\n'
-            '• Theo dõi chặt chẽ bệnh nhân nguy cơ cao\n\n'
-            'Prophylaxis cơ học bao gồm:\n'
-            '• Tất áp lực\n'
-            '• Nén khí gián đoạn\n'
-            '• Vận động sớm\n'
-            '• Nâng chân\n\n'
-            'Lưu ý quan trọng:\n'
-            '• Cân bằng nguy cơ chảy máu vs tắc mạch\n'
-            '• Đánh giá lại khi tình trạng thay đổi\n'
-            '• Kết hợp với các yếu tố lâm sàng khác\n'
-            '• Theo dõi các dấu hiệu chảy máu',
+          Text(
+            AppLocalizations.of(context)!.improve_clinical_info_text,
             style: TextStyle(height: 1.4),
           ),
         ],
@@ -796,5 +825,32 @@ class _ImproveBleedingRiskPageState extends State<ImproveBleedingRiskPage> {
   void dispose() {
     _ageController.dispose();
     super.dispose();
+  }
+}
+
+// Sticky Header Delegate for Score Section
+class _StickyScoreHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  _StickyScoreHeaderDelegate({required this.child});
+
+  @override
+  double get minExtent => 84; // Minimum height when collapsed
+
+  @override
+  double get maxExtent => 84; // Maximum height when expanded
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      height: 84,
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: child,
+    );
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    return false;
   }
 }

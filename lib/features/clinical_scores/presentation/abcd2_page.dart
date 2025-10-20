@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
 class Abcd2Page extends StatefulWidget {
@@ -66,14 +67,14 @@ class _Abcd2PageState extends State<Abcd2Page> {
     return Colors.red;
   }
 
-  String get riskLevel {
+  String getRiskLevel(BuildContext context) {
     if (_totalScore <= 3) {
-      return 'Nguy cơ thấp';
+      return AppLocalizations.of(context)!.abcd2_low_risk;
     }
     if (_totalScore <= 5) {
-      return 'Nguy cơ trung bình';
+      return AppLocalizations.of(context)!.abcd2_moderate_risk;
     }
-    return 'Nguy cơ cao';
+    return AppLocalizations.of(context)!.abcd2_high_risk;
   }
 
   String get strokeRisk2Days {
@@ -151,67 +152,67 @@ class _Abcd2PageState extends State<Abcd2Page> {
     return '35.5%';
   }
 
-  String get recommendations {
+  String getRecommendations(BuildContext context) {
     if (_totalScore <= 3) {
-      return 'Có thể xuất viện với theo dõi ngoại trú chặt chẽ, cân nhắc điều tra nguyên nhân';
+      return AppLocalizations.of(context)!.abcd2_recommendation_low;
     }
     if (_totalScore <= 5) {
-      return 'Cần nhập viện theo dõi ngắn hạn, điều tra nguyên nhân và điều trị dự phòng';
+      return AppLocalizations.of(context)!.abcd2_recommendation_moderate;
     }
-    return 'Nhập viện khẩn cấp, điều tra toàn diện và điều trị dự phòng tích cực';
+    return AppLocalizations.of(context)!.abcd2_recommendation_high;
   }
 
-  String get urgency {
+  String getUrgency(BuildContext context) {
     if (_totalScore <= 3) {
-      return 'Không khẩn cấp - 48-72h';
+      return AppLocalizations.of(context)!.abcd2_urgency_non_urgent;
     }
     if (_totalScore <= 5) {
-      return 'Ưu tiên - trong 24h';
+      return AppLocalizations.of(context)!.abcd2_urgency_priority;
     }
-    return 'Khẩn cấp - ngay lập tức';
+    return AppLocalizations.of(context)!.abcd2_urgency_emergency;
   }
 
-  List<Map<String, dynamic>> get clinicalFeaturesOptions {
+  List<Map<String, dynamic>> getClinicalFeaturesOptions(BuildContext context) {
     return [
       {
         'value': 0,
-        'text': 'Triệu chứng khác',
-        'description': 'Không có rối loạn ngôn ngữ hoặc liệt nửa người',
+        'text': AppLocalizations.of(context)!.abcd2_other_symptoms,
+        'description': AppLocalizations.of(context)!.abcd2_other_symptoms_desc,
         'points': 0,
       },
       {
         'value': 1,
-        'text': 'Rối loạn ngôn ngữ không kèm liệt',
-        'description': 'Khó nói, thất ngữ nhưng không liệt vận động',
+        'text': AppLocalizations.of(context)!.abcd2_speech_without_weakness,
+        'description': AppLocalizations.of(context)!.abcd2_speech_without_weakness_desc,
         'points': 1,
       },
       {
         'value': 2,
-        'text': 'Liệt nửa người',
-        'description': 'Yếu liệt một bên cơ thể',
+        'text': AppLocalizations.of(context)!.abcd2_unilateral_weakness,
+        'description': AppLocalizations.of(context)!.abcd2_unilateral_weakness_desc,
         'points': 2,
       },
     ];
   }
 
-  List<Map<String, dynamic>> get durationOptions {
+  List<Map<String, dynamic>> getDurationOptions(BuildContext context) {
     return [
       {
         'value': 0,
-        'text': '< 10 phút',
-        'description': 'Triệu chứng kéo dài dưới 10 phút',
+        'text': AppLocalizations.of(context)!.abcd2_duration_less_10,
+        'description': AppLocalizations.of(context)!.abcd2_duration_less_10_desc,
         'points': 0,
       },
       {
         'value': 1,
-        'text': '10-59 phút',
-        'description': 'Triệu chứng kéo dài từ 10 đến 59 phút',
+        'text': AppLocalizations.of(context)!.abcd2_duration_10_59,
+        'description': AppLocalizations.of(context)!.abcd2_duration_10_59_desc,
         'points': 1,
       },
       {
         'value': 2,
-        'text': '≥ 60 phút',
-        'description': 'Triệu chứng kéo dài 60 phút trở lên',
+        'text': AppLocalizations.of(context)!.abcd2_duration_60_plus,
+        'description': AppLocalizations.of(context)!.abcd2_duration_60_plus_desc,
         'points': 2,
       },
     ];
@@ -220,82 +221,143 @@ class _Abcd2PageState extends State<Abcd2Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ABCD2 Score'),
-        backgroundColor: Colors.indigo.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
+      body: CustomScrollView(
+        slivers: [
+          // Main AppBar (sticky)
+          SliverAppBar(
+            pinned: true,
+            title: Text(AppLocalizations.of(context)!.abcd2_score_title),
+            backgroundColor: Colors.indigo.shade700,
+            foregroundColor: Colors.white,
+          ),
+          
+          // Score Display Header (sticky)
+          SliverAppBar(
+            pinned: true,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 56,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                color: Theme.of(context).scaffoldBackgroundColor,
+                border: Border(
+                  bottom: BorderSide(color: riskColor.withValues(alpha: 0.3)),
+                ),
               ),
-              child: Column(
-                children: [
-                  Text(
-                    'ABCD2 Score',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.abcd2_score,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: riskColor,
+                          ),
+                        ),
+                        Text(
+                          getRiskLevel(context),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: AppTheme.darkGrey,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$_totalScore/7',
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+                    Text(
+                      '$_totalScore/7',
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    riskLevel,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+                  ],
+                ),
               ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA THẦN KINH: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa thần kinh trước khi đưa ra quyết định điều trị.'
+                              : 'NEUROLOGICAL MEDICAL DISCLAIMER: Results are for reference only. Always consult with neurologist before making treatment decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
+                // Risk Info
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: riskColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                  ),
+                  child: _buildRiskInfo(),
+                ),
 
-            // Input Parameters
-            _buildInputSection(),
+                // Input Parameters
+                _buildInputSection(),
 
-            // Clinical Features
-            _buildClinicalFeaturesSection(),
+                // Clinical Features
+                _buildClinicalFeaturesSection(),
 
-            // Duration
-            _buildDurationSection(),
+                // Duration
+                _buildDurationSection(),
 
-            // Diabetes
-            _buildDiabetesSection(),
+                // Diabetes
+                _buildDiabetesSection(),
 
-            // Risk Stratification
-            _buildRiskStratification(),
+                // Risk Stratification
+                _buildRiskStratification(),
 
-            // Clinical Information
-            _buildClinicalInfo(),
+                // Clinical Information
+                _buildClinicalInfo(),
 
-            // Medical Citation
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              child: _buildCitationWidget(),
+                // Medical Citation
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildCitationWidget(),
+                ),
+
+                const SizedBox(height: 20),
+              ],
             ),
-
-            const SizedBox(height: 20),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -316,7 +378,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
                 child: Column(
                   children: [
                     Text(
-                      'Đột quỵ 2 ngày',
+                      AppLocalizations.of(context)!.abcd2_stroke_2_days,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade700,
@@ -342,7 +404,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
                 child: Column(
                   children: [
                     Text(
-                      'Đột quỵ 7 ngày',
+                      AppLocalizations.of(context)!.abcd2_stroke_7_days,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade700,
@@ -368,7 +430,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
                 child: Column(
                   children: [
                     Text(
-                      'Đột quỵ 90 ngày',
+                      AppLocalizations.of(context)!.abcd2_stroke_90_days,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade700,
@@ -408,7 +470,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
                     Icon(Icons.schedule, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Mức độ khẩn cấp:',
+                      AppLocalizations.of(context)!.abcd2_urgency_level,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -418,7 +480,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  urgency,
+                  getUrgency(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w500,
                     color: AppTheme.darkGrey,
@@ -430,7 +492,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
                     Icon(Icons.medical_services, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      AppLocalizations.of(context)!.abcd2_recommendations,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -440,7 +502,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  recommendations,
+                  getRecommendations(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -466,7 +528,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thông tin cơ bản (A)',
+            AppLocalizations.of(context)!.abcd2_basic_info,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.indigo.shade700,
@@ -481,14 +543,14 @@ class _Abcd2PageState extends State<Abcd2Page> {
                   controller: _ageController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Tuổi',
-                    suffixText: 'năm',
+                    labelText: AppLocalizations.of(context)!.abcd2_age,
+                    suffixText: AppLocalizations.of(context)!.abcd2_age_unit,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    helperText: '+1 điểm nếu ≥60 tuổi',
+                    helperText: AppLocalizations.of(context)!.abcd2_age_help,
                   ),
                 ),
               ),
@@ -498,14 +560,14 @@ class _Abcd2PageState extends State<Abcd2Page> {
                   controller: _bpController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Huyết áp tâm thu',
-                    suffixText: 'mmHg',
+                    labelText: AppLocalizations.of(context)!.abcd2_blood_pressure,
+                    suffixText: AppLocalizations.of(context)!.abcd2_bp_unit,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    helperText: '+1 điểm nếu ≥140mmHg',
+                    helperText: AppLocalizations.of(context)!.abcd2_bp_help,
                   ),
                 ),
               ),
@@ -529,14 +591,14 @@ class _Abcd2PageState extends State<Abcd2Page> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Đặc điểm lâm sàng (C)',
+            AppLocalizations.of(context)!.abcd2_clinical_features,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          ...clinicalFeaturesOptions.map((option) => Container(
+          ...getClinicalFeaturesOptions(context).map((option) => Container(
             margin: const EdgeInsets.only(bottom: 8),
             child: RadioListTile<int>(
               title: Text(option['text']),
@@ -579,14 +641,14 @@ class _Abcd2PageState extends State<Abcd2Page> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thời gian kéo dài (D)',
+            AppLocalizations.of(context)!.abcd2_duration,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          ...durationOptions.map((option) => Container(
+          ...getDurationOptions(context).map((option) => Container(
             margin: const EdgeInsets.only(bottom: 8),
             child: RadioListTile<int>(
               title: Text(option['text']),
@@ -629,7 +691,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tiểu đường (D)',
+            AppLocalizations.of(context)!.abcd2_diabetes,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
@@ -637,8 +699,8 @@ class _Abcd2PageState extends State<Abcd2Page> {
           ),
           const SizedBox(height: 8),
           CheckboxListTile(
-            title: const Text('Có tiền sử tiểu đường'),
-            subtitle: const Text('Đang điều trị hoặc đã được chẩn đoán'),
+            title: Text(AppLocalizations.of(context)!.abcd2_has_diabetes),
+            subtitle: Text(AppLocalizations.of(context)!.abcd2_diabetes_desc),
             value: _diabetes,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -668,22 +730,22 @@ class _Abcd2PageState extends State<Abcd2Page> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ đột quỵ',
+            AppLocalizations.of(context)!.abcd2_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.purple.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('0-3', 'Nguy cơ thấp', '0-3.1%', '1.2-9.8%', Colors.green),
-          _buildRiskItem('4-5', 'Nguy cơ trung bình', '4.1-5.9%', '11.7-19.6%', Colors.orange),
-          _buildRiskItem('6-7', 'Nguy cơ cao', '9.8-11.7%', '31.4-35.5%', Colors.red),
+          _buildRiskItem(context, AppLocalizations.of(context)!.abcd2_risk_range_low, AppLocalizations.of(context)!.abcd2_low_risk, AppLocalizations.of(context)!.abcd2_risk_2d_low, AppLocalizations.of(context)!.abcd2_risk_90d_low, Colors.green),
+          _buildRiskItem(context, AppLocalizations.of(context)!.abcd2_risk_range_moderate, AppLocalizations.of(context)!.abcd2_moderate_risk, AppLocalizations.of(context)!.abcd2_risk_2d_moderate, AppLocalizations.of(context)!.abcd2_risk_90d_moderate, Colors.orange),
+          _buildRiskItem(context, AppLocalizations.of(context)!.abcd2_risk_range_high, AppLocalizations.of(context)!.abcd2_high_risk, AppLocalizations.of(context)!.abcd2_risk_2d_high, AppLocalizations.of(context)!.abcd2_risk_90d_high, Colors.red),
         ],
       ),
     );
   }
 
-  Widget _buildRiskItem(String score, String risk, String risk2d, String risk90d, Color color) {
+  Widget _buildRiskItem(BuildContext context, String score, String risk, String risk2d, String risk90d, Color color) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.all(12),
@@ -718,7 +780,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
           ),
           const SizedBox(height: 4),
           Text(
-            '2 ngày: $risk2d, 90 ngày: $risk90d',
+            '2 days: $risk2d, 90 days: $risk90d',
             style: TextStyle(
               fontSize: 13,
               color: Colors.grey.shade600,
@@ -746,7 +808,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
               Icon(Icons.info, color: Colors.red.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.abcd2_clinical_information,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.red.shade600,
@@ -755,21 +817,9 @@ class _Abcd2PageState extends State<Abcd2Page> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'ABCD2 Score dự đoán nguy cơ đột quỵ sau cơn thiếu máu não thoáng qua (TIA)\n\n'
-            'Các thành phần của ABCD2:\n'
-            '• A (Age): Tuổi ≥60 (+1 điểm)\n'
-            '• B (Blood pressure): HA ≥140/90 (+1 điểm)\n'
-            '• C (Clinical features): Triệu chứng lâm sàng (0-2 điểm)\n'
-            '• D (Duration): Thời gian kéo dài (0-2 điểm)\n'
-            '• D (Diabetes): Tiểu đường (+1 điểm)\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Quyết định nhập viện sau TIA\n'
-            '• Mức độ ưu tiên điều tra\n'
-            '• Tư vấn nguy cơ cho bệnh nhân\n'
-            '• Theo dõi và điều trị dự phòng\n\n'
-            'Lưu ý: Kết hợp với đánh giá hình ảnh và nguyên nhân để quyết định điều trị tối ưu',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.abcd2_clinical_info_text,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
@@ -799,7 +849,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                AppLocalizations.of(context)!.abcd2_reference_title,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -810,7 +860,7 @@ class _Abcd2PageState extends State<Abcd2Page> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Johnston SC, et al. Validation and refinement of scores to predict very early stroke risk after transient ischaemic attack. Lancet. 2007;369(9558):283-92.',
+            AppLocalizations.of(context)!.abcd2_reference_text,
             style: TextStyle(
               fontSize: 11,
               color: Colors.blue.shade600,

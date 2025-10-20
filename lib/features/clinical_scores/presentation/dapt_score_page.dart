@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class DaptScorePage extends StatefulWidget {
   const DaptScorePage({super.key});
@@ -72,33 +73,33 @@ class _DaptScorePageState extends State<DaptScorePage> {
     return Colors.red;
   }
 
-  String get recommendation {
+  String recommendation(BuildContext context) {
     if (_daptScore >= 2) {
-      return 'Tiếp tục DAPT';
+      return AppLocalizations.of(context)!.dapt_continue;
     }
-    return 'Ngừng DAPT';
+    return AppLocalizations.of(context)!.dapt_discontinue;
   }
 
-  String get reasoning {
+  String reasoning(BuildContext context) {
     if (_daptScore >= 2) {
-      return 'Lợi ích giảm nguy cơ thiếu máu cục bộ > Nguy cơ chảy máu';
+      return AppLocalizations.of(context)!.dapt_reasoning_continue;
     } else {
-      return 'Nguy cơ chảy máu > Lợi ích giảm thiếu máu cục bộ';
+      return AppLocalizations.of(context)!.dapt_reasoning_discontinue;
     }
   }
 
-  String get ischemicBenefit {
+  String ischemicBenefit(BuildContext context) {
     if (_daptScore >= 2) {
-      return 'Giảm 41% nguy cơ MACE';
+      return AppLocalizations.of(context)!.dapt_ischemic_benefit_high;
     }
-    return 'Giảm 7% nguy cơ MACE';
+    return AppLocalizations.of(context)!.dapt_ischemic_benefit_low;
   }
 
-  String get bleedingRisk {
+  String bleedingRisk(BuildContext context) {
     if (_daptScore >= 2) {
-      return 'Tăng 31% nguy cơ chảy máu nặng';
+      return AppLocalizations.of(context)!.dapt_bleeding_risk_high;
     }
-    return 'Tăng 61% nguy cơ chảy máu nặng';
+    return AppLocalizations.of(context)!.dapt_bleeding_risk_low;
   }
 
   @override
@@ -109,7 +110,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
           // Main AppBar (sticky)
           SliverAppBar(
             pinned: true,
-            title: const Text('DAPT Score'),
+            title: Text(AppLocalizations.of(context)!.dapt_title),
             backgroundColor: Colors.cyan.shade700,
             foregroundColor: Colors.white,
           ),
@@ -119,13 +120,20 @@ class _DaptScorePageState extends State<DaptScorePage> {
             pinned: true,
             automaticallyImplyLeading: false,
             toolbarHeight: 70,
-            backgroundColor: recommendationColor.withValues(alpha: 0.1),
+            backgroundColor: Colors.white,
             flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: recommendationColor.withValues(alpha: 0.1),
+                color: Colors.white,
                 border: Border(
-                  bottom: BorderSide(color: recommendationColor.withValues(alpha: 0.3)),
+                  bottom: BorderSide(color: recommendationColor, width: 2),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    offset: const Offset(0, 2),
+                    blurRadius: 4,
+                  ),
+                ],
               ),
               child: SafeArea(
                 child: Padding(
@@ -139,14 +147,14 @@ class _DaptScorePageState extends State<DaptScorePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'DAPT Score',
+                              AppLocalizations.of(context)!.dapt_title,
                               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
                                 color: recommendationColor,
                               ),
                             ),
                             Text(
-                              recommendation,
+                              recommendation(context),
                               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                 color: AppTheme.darkGrey,
                               ),
@@ -174,6 +182,35 @@ class _DaptScorePageState extends State<DaptScorePage> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA TIM MẠCH: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa tim mạch trước khi đưa ra quyết định điều trị kháng tiểu cầu.'
+                              : 'CARDIOLOGY MEDICAL DISCLAIMER: Results are for reference only. Always consult with cardiologist before making antiplatelet treatment decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 // Recommendation Info
                 Container(
                   width: double.infinity,
@@ -217,7 +254,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
                           Icon(Icons.article, color: Colors.blue.shade700, size: 16),
                           const SizedBox(width: 6),
                           Text(
-                            'Tài liệu tham khảo',
+                            AppLocalizations.of(context)!.dapt_reference_title,
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
@@ -228,7 +265,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        'Yeh RW, Secemsky EA, Kereiakes DJ, et al. Development and validation of a prediction rule for benefit and harm of dual antiplatelet therapy beyond 1 year after percutaneous coronary intervention. JAMA. 2016;315(16):1735-49.',
+                        AppLocalizations.of(context)!.dapt_reference_text,
                         style: TextStyle(
                           fontSize: 11,
                           color: Colors.blue.shade600,
@@ -264,7 +301,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
                 child: Column(
                   children: [
                     Text(
-                      'Lợi ích thiếu máu',
+                      AppLocalizations.of(context)!.dapt_ischemic_benefit_label,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade700,
@@ -274,7 +311,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      ischemicBenefit,
+                      ischemicBenefit(context),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 10,
@@ -292,7 +329,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
                 child: Column(
                   children: [
                     Text(
-                      'Nguy cơ chảy máu',
+                      AppLocalizations.of(context)!.dapt_bleeding_risk_label,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade700,
@@ -302,7 +339,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      bleedingRisk,
+                      bleedingRisk(context),
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 10,
@@ -333,7 +370,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
                     Icon(Icons.psychology, color: recommendationColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Cơ sở:',
+                      AppLocalizations.of(context)!.dapt_rationale_label,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: recommendationColor,
@@ -343,7 +380,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  reasoning,
+                  reasoning(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -371,7 +408,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố bệnh nhân',
+            AppLocalizations.of(context)!.dapt_patient_factors,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.cyan.shade700,
@@ -383,21 +420,21 @@ class _DaptScorePageState extends State<DaptScorePage> {
             controller: _ageController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Tuổi',
-              suffixText: 'năm',
+              labelText: AppLocalizations.of(context)!.dapt_age_label,
+              suffixText: AppLocalizations.of(context)!.dapt_age_unit,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: '≥75 tuổi: -2 điểm, 65-74 tuổi: -1 điểm',
+              helperText: AppLocalizations.of(context)!.dapt_age_help,
             ),
           ),
           const SizedBox(height: 16),
           
           _buildRiskFactorCheckbox(
-            'Hút thuốc lá',
-            'Hiện tại hoặc trong vòng 1 năm',
+            AppLocalizations.of(context)!.dapt_smoking,
+            AppLocalizations.of(context)!.dapt_smoking_desc,
             _cigaretteSmoking,
             (value) {
               setState(() {
@@ -405,12 +442,12 @@ class _DaptScorePageState extends State<DaptScorePage> {
               });
               _calculateScore();
             },
-            '+1 điểm',
+            '+1 ${AppLocalizations.of(context)!.dapt_points_suffix}',
           ),
           
           _buildRiskFactorCheckbox(
-            'Đái tháo đường',
-            'Dùng thuốc điều trị',
+            AppLocalizations.of(context)!.dapt_diabetes,
+            AppLocalizations.of(context)!.dapt_diabetes_desc,
             _diabetesMellitus,
             (value) {
               setState(() {
@@ -418,7 +455,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
               });
               _calculateScore();
             },
-            '+1 điểm',
+            '+1 ${AppLocalizations.of(context)!.dapt_points_suffix}',
           ),
         ],
       ),
@@ -438,7 +475,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố lâm sàng & can thiệp',
+            AppLocalizations.of(context)!.dapt_clinical_factors,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -447,8 +484,8 @@ class _DaptScorePageState extends State<DaptScorePage> {
           const SizedBox(height: 16),
           
           _buildRiskFactorCheckbox(
-            'Nhồi máu cơ tim trước PCI',
-            'MI tại nhập viện hoặc trước đó',
+            AppLocalizations.of(context)!.dapt_mi,
+            AppLocalizations.of(context)!.dapt_mi_desc,
             _myocardialInfarction,
             (value) {
               setState(() {
@@ -456,12 +493,12 @@ class _DaptScorePageState extends State<DaptScorePage> {
               });
               _calculateScore();
             },
-            '+1 điểm',
+            '+1 ${AppLocalizations.of(context)!.dapt_points_suffix}',
           ),
           
           _buildRiskFactorCheckbox(
-            'Suy tim hoặc LVEF <30%',
-            'Suy tim lâm sàng hoặc phân suất tống máu <30%',
+            AppLocalizations.of(context)!.dapt_heart_failure,
+            AppLocalizations.of(context)!.dapt_heart_failure_desc,
             _congestiveHeartFailure,
             (value) {
               setState(() {
@@ -469,12 +506,12 @@ class _DaptScorePageState extends State<DaptScorePage> {
               });
               _calculateScore();
             },
-            '+2 điểm',
+            '+2 ${AppLocalizations.of(context)!.dapt_points_suffix}',
           ),
           
           _buildRiskFactorCheckbox(
-            'Can thiệp tĩnh mạch ghép',
-            'PCI trên saphenous vein graft',
+            AppLocalizations.of(context)!.dapt_vein_graft,
+            AppLocalizations.of(context)!.dapt_vein_graft_desc,
             _saphenousVeinGraft,
             (value) {
               setState(() {
@@ -482,13 +519,13 @@ class _DaptScorePageState extends State<DaptScorePage> {
               });
               _calculateScore();
             },
-            '+1 điểm',
+            '+1 ${AppLocalizations.of(context)!.dapt_points_suffix}',
           ),
           
           const SizedBox(height: 16),
           
           Text(
-            'Đặc điểm stent',
+            AppLocalizations.of(context)!.dapt_stent_characteristics,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               color: Colors.blue.shade700,
@@ -497,8 +534,8 @@ class _DaptScorePageState extends State<DaptScorePage> {
           const SizedBox(height: 8),
           
           _buildRiskFactorCheckbox(
-            'Stent kim loại trần (BMS)',
-            'So với drug-eluting stent',
+            AppLocalizations.of(context)!.dapt_bms,
+            AppLocalizations.of(context)!.dapt_bms_desc,
             _stentType,
             (value) {
               setState(() {
@@ -506,12 +543,12 @@ class _DaptScorePageState extends State<DaptScorePage> {
               });
               _calculateScore();
             },
-            '+1 điểm',
+            '+1 ${AppLocalizations.of(context)!.dapt_points_suffix}',
           ),
           
           _buildRiskFactorCheckbox(
-            'Đường kính stent <3mm',
-            'Stent nhỏ có nguy cơ cao hơn',
+            AppLocalizations.of(context)!.dapt_small_stent,
+            AppLocalizations.of(context)!.dapt_small_stent_desc,
             _stentDiameter,
             (value) {
               setState(() {
@@ -519,7 +556,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
               });
               _calculateScore();
             },
-            '+1 điểm',
+            '+1 ${AppLocalizations.of(context)!.dapt_points_suffix}',
           ),
         ],
       ),
@@ -594,7 +631,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tích lợi ích - nguy cơ',
+            AppLocalizations.of(context)!.dapt_risk_benefit_analysis,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
@@ -602,27 +639,27 @@ class _DaptScorePageState extends State<DaptScorePage> {
           ),
           const SizedBox(height: 16),
           _buildAnalysisCard(
-            'DAPT Score ≥2: Tiếp tục DAPT',
+            AppLocalizations.of(context)!.dapt_continue_title,
             [
-              'Giảm 41% nguy cơ MACE',
-              'Giảm 43% nguy cơ nhồi máu cơ tim',
-              'Giảm 67% nguy cơ huyết khối stent',
-              'Tăng 31% nguy cơ chảy máu nặng',
+              AppLocalizations.of(context)!.dapt_continue_mace,
+              AppLocalizations.of(context)!.dapt_continue_mi,
+              AppLocalizations.of(context)!.dapt_continue_stent,
+              AppLocalizations.of(context)!.dapt_continue_bleeding,
             ],
             Colors.green,
-            'Lợi ích > Nguy cơ',
+            AppLocalizations.of(context)!.dapt_continue_conclusion,
           ),
           const SizedBox(height: 12),
           _buildAnalysisCard(
-            'DAPT Score <2: Ngừng DAPT',
+            AppLocalizations.of(context)!.dapt_discontinue_title,
             [
-              'Giảm 7% nguy cơ MACE (không có ý nghĩa)',
-              'Tăng 61% nguy cơ chảy máu nặng',
-              'Giảm nguy cơ chảy máu đường tiêu hóa',
-              'Giảm nguy cơ chảy máu nội sọ',
+              AppLocalizations.of(context)!.dapt_discontinue_mace,
+              AppLocalizations.of(context)!.dapt_discontinue_bleeding,
+              AppLocalizations.of(context)!.dapt_discontinue_gi,
+              AppLocalizations.of(context)!.dapt_discontinue_ich,
             ],
             Colors.red,
-            'Nguy cơ > Lợi ích',
+            AppLocalizations.of(context)!.dapt_discontinue_conclusion,
           ),
         ],
       ),
@@ -715,7 +752,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Hướng dẫn lâm sàng',
+            AppLocalizations.of(context)!.dapt_clinical_guidelines,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
@@ -723,34 +760,34 @@ class _DaptScorePageState extends State<DaptScorePage> {
           ),
           const SizedBox(height: 16),
           _buildGuidelineCard(
-            'DAPT Score ≥2: Khuyến nghị DAPT kéo dài',
+            AppLocalizations.of(context)!.dapt_guideline_continue_title,
             [
-              'Tiếp tục aspirin + P2Y12 inhibitor',
-              'Thời gian: thêm 18-30 tháng',
-              'Theo dõi chức năng thận, gan',
-              'Tư vấn dấu hiệu chảy máu',
+              AppLocalizations.of(context)!.dapt_guideline_continue_1,
+              AppLocalizations.of(context)!.dapt_guideline_continue_2,
+              AppLocalizations.of(context)!.dapt_guideline_continue_3,
+              AppLocalizations.of(context)!.dapt_guideline_continue_4,
             ],
             Colors.green,
           ),
           const SizedBox(height: 12),
           _buildGuidelineCard(
-            'DAPT Score <2: Ngừng DAPT',
+            AppLocalizations.of(context)!.dapt_guideline_discontinue_title,
             [
-              'Chuyển sang aspirin đơn trị',
-              'Liều aspirin 75-100mg/ngày',
-              'Theo dõi biến cố tim mạch',
-              'Tái khám định kỳ',
+              AppLocalizations.of(context)!.dapt_guideline_discontinue_1,
+              AppLocalizations.of(context)!.dapt_guideline_discontinue_2,
+              AppLocalizations.of(context)!.dapt_guideline_discontinue_3,
+              AppLocalizations.of(context)!.dapt_guideline_discontinue_4,
             ],
             Colors.red,
           ),
           const SizedBox(height: 12),
           _buildGuidelineCard(
-            'Trường hợp đặc biệt',
+            AppLocalizations.of(context)!.dapt_guideline_special_title,
             [
-              'Nguy cơ chảy máu cao: cân nhắc ngừng',
-              'Bệnh nhân già: đánh giá cẩn thận',
-              'Tương tác thuốc: điều chỉnh liều',
-              'Phẫu thuật: tạm ngừng tối thiểu',
+              AppLocalizations.of(context)!.dapt_guideline_special_1,
+              AppLocalizations.of(context)!.dapt_guideline_special_2,
+              AppLocalizations.of(context)!.dapt_guideline_special_3,
+              AppLocalizations.of(context)!.dapt_guideline_special_4,
             ],
             Colors.orange,
           ),
@@ -833,7 +870,7 @@ class _DaptScorePageState extends State<DaptScorePage> {
               Icon(Icons.info, color: Colors.grey.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.dapt_clinical_info,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.grey.shade600,
@@ -842,38 +879,9 @@ class _DaptScorePageState extends State<DaptScorePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'DAPT Score hỗ trợ quyết định tiếp tục hay ngừng thuốc chống kết tập tiểu cầu kép\n\n'
-            'Nguồn gốc:\n'
-            '• Nghiên cứu DAPT Trial (n=25,682)\n'
-            '• So sánh DAPT vs placebo sau 12 tháng\n'
-            '• Phát triển năm 2016\n'
-            '• Validation ở nhiều nghiên cứu\n\n'
-            'Thành phần DAPT:\n'
-            '• Aspirin 75-100mg\n'
-            '• P2Y12 inhibitor (clopidogrel/ticagrelor/prasugrel)\n'
-            '• Thời gian tối thiểu 12 tháng sau ACS/PCI\n\n'
-            'Cơ chế tác dụng:\n'
-            '• Ức chế COX-1 (aspirin)\n'
-            '• Ức chế P2Y12 receptor\n'
-            '• Giảm kết tập tiểu cầu\n'
-            '• Ngăn ngừa huyết khối\n\n'
-            'Biến chứng DAPT:\n'
-            '• Chảy máu đường tiêu hóa\n'
-            '• Chảy máu nội sọ\n'
-            '• Chảy máu niêm mạc\n'
-            '• Tương tác thuốc\n\n'
-            'Ứng dụng:\n'
-            '• Sau nhồi máu cơ tim\n'
-            '• Sau can thiệp mạch vành\n'
-            '• Bệnh động mạch vành ổn định\n'
-            '• Phòng ngừa thứ phát\n\n'
-            'Hạn chế:\n'
-            '• Không áp dụng cho tất cả bệnh nhân\n'
-            '• Cần đánh giá nguy cơ chảy máu\n'
-            '• Thay đổi theo thời gian\n'
-            '• Kết hợp với đánh giá lâm sàng',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.dapt_clinical_text,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),

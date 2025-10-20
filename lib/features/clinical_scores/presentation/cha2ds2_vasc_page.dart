@@ -97,7 +97,9 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: const Text('CHA₂DS₂-VASc Score'),
+            title: Text(Localizations.localeOf(context).languageCode == 'vi' 
+                ? 'Thang điểm CHA₂DS₂-VASc' 
+                : 'CHA₂DS₂-VASc Score'),
             backgroundColor: Colors.teal.shade100,
             pinned: true,
             floating: false,
@@ -160,6 +162,36 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa tim mạch trước khi đưa ra quyết định điều trị.'
+                              : 'MEDICAL DISCLAIMER: Results are for reference only. Always consult with a cardiologist before making treatment decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
                 // Score Display
                 Container(
                   width: double.infinity,
@@ -173,7 +205,9 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
               child: Column(
                 children: [
                   Text(
-                    'CHA₂DS₂-VASc Score',
+                    Localizations.localeOf(context).languageCode == 'vi' 
+                        ? 'Thang điểm CHA₂DS₂-VASc' 
+                        : 'CHA₂DS₂-VASc Score',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: scoreColor,
@@ -221,7 +255,9 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
               Colors.red.shade600,
               [
                 _buildRiskFactorCard(
-                  'Congestive Heart Failure',
+                  Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Suy tim sung huyết' 
+                      : 'Congestive Heart Failure',
                   localizations.cha2ds2_chf_description,
                   Icons.favorite_border,
                   1,
@@ -229,7 +265,9 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                   (value) => setState(() => chfScore = value),
                 ),
                 _buildRiskFactorCard(
-                  'Hypertension',
+                  Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Tăng huyết áp' 
+                      : 'Hypertension',
                   localizations.cha2ds2_hypertension_description,
                   Icons.trending_up,
                   1,
@@ -237,7 +275,9 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                   (value) => setState(() => hypertensionScore = value),
                 ),
                 _buildRiskFactorCard(
-                  'Diabetes mellitus',
+                  Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Đái tháo đường' 
+                      : 'Diabetes mellitus',
                   localizations.cha2ds2_diabetes_description,
                   Icons.bloodtype,
                   1,
@@ -245,7 +285,9 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                   (value) => setState(() => diabetesScore = value),
                 ),
                 _buildRiskFactorCard(
-                  'Stroke/TIA History',
+                  Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Tiền sử đột quỵ/TIA' 
+                      : 'Stroke/TIA History',
                   localizations.cha2ds2_stroke_description,
                   Icons.psychology,
                   2,
@@ -253,7 +295,9 @@ class _Cha2ds2VascPageState extends State<Cha2ds2VascPage> {
                   (value) => setState(() => strokeScore = value * 2),
                 ),
                 _buildRiskFactorCard(
-                  'Vascular Disease',
+                  Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Bệnh mạch máu' 
+                      : 'Vascular Disease',
                   localizations.cha2ds2_vascular_description,
                   Icons.device_hub,
                   1,

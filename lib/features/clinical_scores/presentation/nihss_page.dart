@@ -314,6 +314,52 @@ class _NihssPageState extends State<NihssPage> {
             ),
           ),
           
+          // Medical Disclaimer Banner
+          SliverToBoxAdapter(
+            child: Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red.shade300),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.warning, color: Colors.red.shade600, size: 24),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          Localizations.localeOf(context).languageCode == 'vi' 
+                            ? 'DÀNH CHO CÁN BỘ Y TẾ'
+                            : 'FOR HEALTHCARE PROFESSIONALS ONLY',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red.shade700,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                            ? 'Công cụ đánh giá đột quỵ. Cần khám thần kinh và kết hợp lâm sàng.'
+                            : 'Stroke assessment tool. Requires neurological examination and clinical correlation.',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.red.shade700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
           // Content
           SliverToBoxAdapter(
             child: Column(

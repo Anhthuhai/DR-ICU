@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class ModifiedSgarbossaCriteriaPage extends StatefulWidget {
   const ModifiedSgarbossaCriteriaPage({super.key});
@@ -43,88 +44,150 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
     return Colors.red;
   }
 
-  String get interpretation {
+  String getInterpretation(BuildContext context) {
     if (_totalScore == 0) {
-      return 'Không có tiêu chí dương tính';
+      return AppLocalizations.of(context)!.sgarbossa_no_criteria;
     }
     if (_totalScore < 3) {
-      return 'Nghi ngờ STEMI';
+      return AppLocalizations.of(context)!.sgarbossa_suspected_stemi;
     }
-    return 'Rất khả năng STEMI';
+    return AppLocalizations.of(context)!.sgarbossa_likely_stemi;
   }
 
-  String get recommendation {
+  String getRecommendation(BuildContext context) {
     if (_totalScore == 0) {
-      return 'Tiếp tục theo dõi, xem xét các nguyên nhân khác của đau ngực';
+      return AppLocalizations.of(context)!.sgarbossa_recommendation_exclude;
     }
     if (_totalScore < 3) {
-      return 'Cần đánh giá thêm: Troponin, Echo, theo dõi EKG liên tục';
+      return AppLocalizations.of(context)!.sgarbossa_recommendation_evaluate;
     }
-    return 'STEMI rất khả năng - Cần tái thông mạch vành khẩn cấp (PCI hoặc thrombolysis)';
+    return AppLocalizations.of(context)!.sgarbossa_recommendation_urgent;
   }
 
-  String get clinicalAction {
+  String getClinicalAction(BuildContext context) {
     if (_totalScore == 0) {
-      return 'Loại trừ STEMI';
+      return AppLocalizations.of(context)!.sgarbossa_action_exclude;
     }
     if (_totalScore < 3) {
-      return 'Đánh giá thêm';
+      return AppLocalizations.of(context)!.sgarbossa_action_evaluate;
     }
-    return 'Tái thông mạch khẩn cấp';
+    return AppLocalizations.of(context)!.sgarbossa_action_urgent;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Modified Sgarbossa\'s Criteria'),
-        backgroundColor: Colors.red.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
+      body: CustomScrollView(
+        slivers: [
+          // Main AppBar (sticky)
+          SliverAppBar(
+            pinned: true,
+            title: Text(AppLocalizations.of(context)!.modified_sgarbossa_title),
+            backgroundColor: Colors.red.shade700,
+            foregroundColor: Colors.white,
+          ),
+          
+          // Score Display Header (sticky)
+          SliverAppBar(
+            pinned: true,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 56,
+            backgroundColor: Colors.white,
+            flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                color: Colors.white,
+                border: Border(
+                  bottom: BorderSide(color: riskColor.withValues(alpha: 0.3)),
+                ),
               ),
-              child: Column(
-                children: [
-                  Text(
-                    'Modified Sgarbossa\'s',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 6, 16, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.modified_sgarbossa_short,
+                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: riskColor,
+                              ),
+                            ),
+                            Text(
+                              getInterpretation(context),
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: AppTheme.darkGrey,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        '$_totalScore ${AppLocalizations.of(context)!.sgarbossa_points}',
+                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: riskColor,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$_totalScore điểm',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    interpretation,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 16),
-                  _buildResultInfo(),
-                ],
+                ),
               ),
             ),
+          ),
+
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA TIM MẠCH: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa tim mạch trước khi đưa ra quyết định điều trị.'
+                              : 'CARDIOLOGY MEDICAL DISCLAIMER: Results are for reference only. Always consult with cardiologist before making treatment decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // Score Display Info
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: riskColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                  ),
+                  child: _buildResultInfo(),
+                ),
 
             // Criteria Section
             _buildCriteriaSection(),
@@ -155,7 +218,7 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
                       Icon(Icons.article, color: Colors.blue.shade700, size: 16),
                       const SizedBox(width: 6),
                       Text(
-                        'Tài liệu tham khảo',
+                        AppLocalizations.of(context)!.sgarbossa_reference_title,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -166,7 +229,7 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'Smith SW, Dodd KW, Henry TD, et al. Diagnosis of ST-elevation myocardial infarction in the presence of left bundle branch block with the ST-elevation to S-wave ratio in a modified Sgarbossa rule. Ann Emerg Med. 2012;60(6):766-76.',
+                    AppLocalizations.of(context)!.sgarbossa_reference_text,
                     style: TextStyle(
                       fontSize: 11,
                       color: Colors.blue.shade600,
@@ -176,9 +239,11 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
               ),
             ),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -199,7 +264,7 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
               Column(
                 children: [
                   Text(
-                    'Hành động',
+                    AppLocalizations.of(context)!.sgarbossa_action_label,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -207,7 +272,7 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    clinicalAction,
+                    getClinicalAction(context),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -235,7 +300,7 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
                     Icon(Icons.assignment, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      AppLocalizations.of(context)!.sgarbossa_recommendation_label,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -245,7 +310,7 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  recommendation,
+                  getRecommendation(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -271,7 +336,7 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tiêu chí Sgarbossa cải tiến',
+            AppLocalizations.of(context)!.sgarbossa_criteria_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -279,7 +344,7 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
           ),
           const SizedBox(height: 8),
           Text(
-            'Đánh giá STEMI trên nền LBBB hoặc nhịp tim máy',
+            AppLocalizations.of(context)!.sgarbossa_criteria_description,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Colors.blue.shade600,
               fontStyle: FontStyle.italic,
@@ -288,8 +353,8 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
           const SizedBox(height: 16),
           
           CheckboxListTile(
-            title: const Text('ST elevation đồng hướng (+5)'),
-            subtitle: const Text('ST elevation ≥1mm ở lead có QRS dương'),
+            title: Text(AppLocalizations.of(context)!.sgarbossa_concordant_elevation_title),
+            subtitle: Text(AppLocalizations.of(context)!.sgarbossa_concordant_elevation_desc),
             value: _concordantStElevation,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -302,8 +367,8 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
           ),
           
           CheckboxListTile(
-            title: const Text('ST depression đồng hướng (+3)'),
-            subtitle: const Text('ST depression ≥1mm ở V1, V2, hoặc V3'),
+            title: Text(AppLocalizations.of(context)!.sgarbossa_concordant_depression_title),
+            subtitle: Text(AppLocalizations.of(context)!.sgarbossa_concordant_depression_desc),
             value: _concordantStDepression,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -316,8 +381,8 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
           ),
           
           CheckboxListTile(
-            title: const Text('ST elevation ngược hướng quá mức (+2)'),
-            subtitle: const Text('ST elevation ≥1mm và tỷ lệ ST/S ≥0.25'),
+            title: Text(AppLocalizations.of(context)!.sgarbossa_excessive_discordant_title),
+            subtitle: Text(AppLocalizations.of(context)!.sgarbossa_excessive_discordant_desc),
             value: _excessiveDiscordantStElevation,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -338,24 +403,24 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
     
     if (_concordantStElevation) {
       activeCriteria.add({
-        'criterion': 'ST elevation đồng hướng',
-        'description': 'ST elevation ≥1mm ở lead có QRS dương',
+        'criterion': AppLocalizations.of(context)!.sgarbossa_concordant_elevation_title,
+        'description': AppLocalizations.of(context)!.sgarbossa_concordant_elevation_desc,
         'points': 5,
       });
     }
     
     if (_concordantStDepression) {
       activeCriteria.add({
-        'criterion': 'ST depression đồng hướng',
-        'description': 'ST depression ≥1mm ở V1, V2, hoặc V3',
+        'criterion': AppLocalizations.of(context)!.sgarbossa_concordant_depression_title,
+        'description': AppLocalizations.of(context)!.sgarbossa_concordant_depression_desc,
         'points': 3,
       });
     }
     
     if (_excessiveDiscordantStElevation) {
       activeCriteria.add({
-        'criterion': 'ST elevation ngược hướng quá mức',
-        'description': 'ST elevation ≥1mm và tỷ lệ ST/S ≥0.25',
+        'criterion': AppLocalizations.of(context)!.sgarbossa_excessive_discordant_title,
+        'description': AppLocalizations.of(context)!.sgarbossa_excessive_discordant_desc,
         'points': 2,
       });
     }
@@ -372,7 +437,7 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tiêu chí dương tính (${activeCriteria.length})',
+            'Positive criteria (${activeCriteria.length})',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
@@ -447,16 +512,31 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Hướng dẫn giải thích',
+            AppLocalizations.of(context)!.sgarbossa_interpretation_guide,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildInterpretationItem('0 điểm', 'Không có tiêu chí', 'Loại trừ STEMI', Colors.green),
-          _buildInterpretationItem('1-2 điểm', 'Nghi ngờ STEMI', 'Đánh giá thêm', Colors.orange),
-          _buildInterpretationItem('≥3 điểm', 'Rất khả năng STEMI', 'Tái thông mạch khẩn cấp', Colors.red),
+          _buildInterpretationItem(
+            AppLocalizations.of(context)!.sgarbossa_interpretation_0, 
+            AppLocalizations.of(context)!.sgarbossa_no_criteria, 
+            AppLocalizations.of(context)!.sgarbossa_action_exclude, 
+            Colors.green
+          ),
+          _buildInterpretationItem(
+            AppLocalizations.of(context)!.sgarbossa_interpretation_1_2, 
+            AppLocalizations.of(context)!.sgarbossa_suspected_stemi, 
+            AppLocalizations.of(context)!.sgarbossa_action_evaluate, 
+            Colors.orange
+          ),
+          _buildInterpretationItem(
+            AppLocalizations.of(context)!.sgarbossa_interpretation_3_plus, 
+            AppLocalizations.of(context)!.sgarbossa_likely_stemi, 
+            AppLocalizations.of(context)!.sgarbossa_action_urgent, 
+            Colors.red
+          ),
         ],
       ),
     );
@@ -528,7 +608,7 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
               Icon(Icons.info, color: Colors.teal.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.sgarbossa_clinical_info_title,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.teal.shade600,
@@ -537,33 +617,9 @@ class _ModifiedSgarbossaCriteriaPageState extends State<ModifiedSgarbossaCriteri
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'Modified Sgarbossa\'s Criteria giúp chẩn đoán STEMI khi có LBBB hoặc nhịp tim máy\n\n'
-            'Vấn đề lâm sàng:\n'
-            '• LBBB che giấu dấu hiệu STEMI trên EKG\n'
-            '• Nhịp tim máy gây khó khăn đánh giá ST\n'
-            '• Cần tiêu chí đặc biệt để chẩn đoán\n'
-            '• Delay chẩn đoán → delay tái thông mạch\n\n'
-            'Tiêu chí gốc (Sgarbossa 1996):\n'
-            '• ST elevation đồng hướng ≥1mm (+5)\n'
-            '• ST depression đồng hướng ≥1mm ở V1-V3 (+3)\n'
-            '• ST elevation ngược hướng ≥5mm (+2)\n\n'
-            'Cải tiến (Smith 2012):\n'
-            '• Thay đổi tiêu chí thứ 3\n'
-            '• ST elevation ngược hướng với tỷ lệ ST/S ≥0.25\n'
-            '• Tăng độ nhạy từ 52% lên 91%\n'
-            '• Độ đặc hiệu vẫn cao 90%\n\n'
-            'Cách đo tỷ lệ ST/S:\n'
-            '• Đo độ cao ST elevation (mm)\n'
-            '• Đo độ sâu sóng S (mm)\n'
-            '• Tính tỷ lệ ST/S\n'
-            '• Dương tính nếu ≥0.25\n\n'
-            'Lưu ý quan trọng:\n'
-            '• Chỉ áp dụng khi có LBBB hoặc nhịp tim máy\n'
-            '• Kết hợp với triệu chứng lâm sàng\n'
-            '• Troponin vẫn cần thiết\n'
-            '• Thời gian là vàng trong STEMI',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.sgarbossa_clinical_info_text,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),

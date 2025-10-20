@@ -273,6 +273,36 @@ class _SAPSIIState extends State<SAPSII> {
             ),
           ),
 
+          // Medical Disclaimer Banner
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.red.shade50,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.red.shade200),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    Localizations.localeOf(context).languageCode == 'vi'
+                        ? 'LƯU Ý Y KHOA: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa hồi sức cấp cứu trước khi đưa ra quyết định điều trị.'
+                        : 'MEDICAL DISCLAIMER: Results are for reference only. Always consult with an intensive care specialist before making treatment decisions.',
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Colors.red.shade700,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           // Input Sections
           Expanded(
             child: ListView(
@@ -413,7 +443,11 @@ class _SAPSIIState extends State<SAPSII> {
       l10n.laboratory_tests,
       Colors.purple.shade600,
       [
-        _buildVitalSignRow('PaO2/FiO2', pao2Controller, (value) {
+        _buildVitalSignRow(
+            Localizations.localeOf(context).languageCode == 'vi' 
+                ? 'PaO2/FiO2' 
+                : 'PaO2/FiO2', 
+            pao2Controller, (value) {
           double ratio = double.tryParse(value) ?? 0;
           setState(() {
             if (ratio < 100) {
@@ -445,7 +479,9 @@ class _SAPSIIState extends State<SAPSII> {
         
         // Bilirubin with unit conversion
         _buildLabValueWithUnit(
-          'Bilirubin',
+          Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Bilirubin' 
+              : 'Bilirubin',
           bilirubinController,
           bilirubinUnit,
           ['mg/dL', 'umol/L'],
@@ -459,7 +495,9 @@ class _SAPSIIState extends State<SAPSII> {
         
         // BUN with unit conversion  
         _buildLabValueWithUnit(
-          'BUN',
+          Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'BUN (Ure máu)' 
+              : 'BUN',
           bunController,
           bunUnit,
           ['mg/dL', 'mmol/L'],
@@ -861,7 +899,9 @@ class _SAPSIIState extends State<SAPSII> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                Localizations.localeOf(context).languageCode == 'vi' 
+                    ? 'Tài liệu tham khảo' 
+                    : 'References',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,

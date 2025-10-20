@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class Curb65Page extends StatefulWidget {
   const Curb65Page({super.key});
@@ -38,46 +39,46 @@ class _Curb65PageState extends State<Curb65Page> {
     return Colors.red;
   }
 
-  String get riskLevel {
+  String getRiskLevel(BuildContext context) {
     if (totalScore == 0) {
-      return 'Nguy cơ rất thấp';
+      return AppLocalizations.of(context)!.curb65_very_low_risk;
     }
     if (totalScore == 1) {
-      return 'Nguy cơ thấp';
+      return AppLocalizations.of(context)!.curb65_low_risk;
     }
     if (totalScore == 2) {
-      return 'Nguy cơ trung bình';
+      return AppLocalizations.of(context)!.curb65_moderate_risk;
     }
     if (totalScore == 3) {
-      return 'Nguy cơ cao';
+      return AppLocalizations.of(context)!.curb65_high_risk;
     }
-    return 'Nguy cơ rất cao';
+    return AppLocalizations.of(context)!.curb65_very_high_risk;
   }
 
-  String get mortalityRisk {
+  String getMortalityRisk(BuildContext context) {
     if (totalScore == 0) {
-      return '< 1%';
+      return AppLocalizations.of(context)!.curb65_mortality_very_low;
     }
     if (totalScore == 1) {
-      return '1-3%';
+      return AppLocalizations.of(context)!.curb65_mortality_low;
     }
     if (totalScore == 2) {
-      return '9-15%';
+      return AppLocalizations.of(context)!.curb65_mortality_moderate;
     }
     if (totalScore == 3) {
-      return '15-40%';
+      return AppLocalizations.of(context)!.curb65_mortality_high;
     }
-    return '> 40%';
+    return AppLocalizations.of(context)!.curb65_mortality_very_high;
   }
 
-  String get recommendation {
+  String getRecommendation(BuildContext context) {
     if (totalScore <= 1) {
-      return 'Có thể điều trị ngoại trú';
+      return AppLocalizations.of(context)!.curb65_outpatient_treatment;
     }
     if (totalScore == 2) {
-      return 'Cân nhắc điều trị nội trú hoặc quan sát';
+      return AppLocalizations.of(context)!.curb65_consider_hospital;
     }
-    return 'Cần điều trị nội trú, cân nhắc ICU nếu điểm ≥ 4';
+    return AppLocalizations.of(context)!.curb65_hospital_icu;
   }
 
   // BUN unit conversion function
@@ -106,16 +107,65 @@ class _Curb65PageState extends State<Curb65Page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('CURB-65 Score'),
-        backgroundColor: Colors.blue.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
+      body: CustomScrollView(
+        slivers: [
+          // Main AppBar
+          SliverAppBar(
+            title: Text(AppLocalizations.of(context)!.curb65_title),
+            backgroundColor: Colors.blue.shade700,
+            foregroundColor: Colors.white,
+            pinned: true,
+            floating: false,
+            snap: false,
+            expandedHeight: 60,
+          ),
+          
+          // Sticky Score Header
+          SliverAppBar(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            pinned: true,
+            floating: false,
+            snap: false,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 56,
+            title: Container(
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: Text(
+                      'CURB-65: $totalScore',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: scoreColor,
+                      ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      getRiskLevel(context),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: scoreColor,
+                      ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
+          // Score Display (Full)
+          SliverToBoxAdapter(
+            child: Container(
               width: double.infinity,
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(20),
@@ -127,7 +177,7 @@ class _Curb65PageState extends State<Curb65Page> {
               child: Column(
                 children: [
                   Text(
-                    'CURB-65 Score',
+                    AppLocalizations.of(context)!.curb65_title,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: scoreColor,
@@ -143,7 +193,7 @@ class _Curb65PageState extends State<Curb65Page> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    riskLevel,
+                    getRiskLevel(context),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppTheme.darkGrey,
@@ -151,14 +201,14 @@ class _Curb65PageState extends State<Curb65Page> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Tỷ lệ tử vong: $mortalityRisk',
+                    AppLocalizations.of(context)!.curb65_mortality_rate(getMortalityRisk(context)),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: AppTheme.darkGrey,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    recommendation,
+                    getRecommendation(context),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: AppTheme.darkGrey,
@@ -168,12 +218,46 @@ class _Curb65PageState extends State<Curb65Page> {
                 ],
               ),
             ),
+          ),
 
-            // Assessment sections
-            _buildConfusionSection(),
-            _buildBUNSectionWithUnit(),
-            _buildVitalSignSection(
-              'Nhịp thở (lần/phút)', 
+          // Medical Disclaimer Banner
+          SliverToBoxAdapter(
+            child: Container(
+              width: double.infinity,
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red.shade200),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      Localizations.localeOf(context).languageCode == 'vi'
+                          ? 'LƯU Ý Y KHOA HÔ HẤP: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa hô hấp trước khi đưa ra quyết định điều trị.'
+                          : 'RESPIRATORY MEDICAL DISCLAIMER: Results are for reference only. Always consult with respiratory specialist before making treatment decisions.',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.red.shade700,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Assessment sections
+          SliverToBoxAdapter(child: _buildConfusionSection()),
+          SliverToBoxAdapter(child: _buildBUNSectionWithUnit()),
+          SliverToBoxAdapter(
+            child: _buildVitalSignSection(
+              AppLocalizations.of(context)!.curb65_respiratory_rate, 
               rrController, 
               Icons.air, 
               Colors.teal.shade600,
@@ -185,8 +269,10 @@ class _Curb65PageState extends State<Curb65Page> {
               },
               respiratoryRateScore,
             ),
-            _buildVitalSignSection(
-              'Huyết áp tâm thu (mmHg)', 
+          ),
+          SliverToBoxAdapter(
+            child: _buildVitalSignSection(
+              AppLocalizations.of(context)!.curb65_systolic_bp, 
               sbpController, 
               Icons.favorite, 
               Colors.red.shade600,
@@ -198,8 +284,10 @@ class _Curb65PageState extends State<Curb65Page> {
               },
               sbpScore,
             ),
-            _buildVitalSignSection(
-              'Tuổi', 
+          ),
+          SliverToBoxAdapter(
+            child: _buildVitalSignSection(
+              AppLocalizations.of(context)!.curb65_age, 
               ageController, 
               Icons.person, 
               Colors.orange.shade600,
@@ -211,16 +299,22 @@ class _Curb65PageState extends State<Curb65Page> {
               },
               ageScore,
             ),
+          ),
 
-            const SizedBox(height: 16),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              child: _buildCitationWidget(),
+          // Citation
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildCitationWidget(),
+                ),
+                const SizedBox(height: 20),
+              ],
             ),
-
-            const SizedBox(height: 20),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -241,10 +335,14 @@ class _Curb65PageState extends State<Curb65Page> {
             children: [
               Icon(Icons.psychology, color: Colors.purple.shade600, size: 24),
               const SizedBox(width: 8),
-              Text(
-                'Confusion (Rối loạn ý thức)',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
+              Expanded(
+                child: Text(
+                  '${AppLocalizations.of(context)!.curb65_confusion} ${AppLocalizations.of(context)!.curb65_confusion_subtitle}',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),
               ),
               const Spacer(),
@@ -255,7 +353,7 @@ class _Curb65PageState extends State<Curb65Page> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
-                  'Điểm: $confusionScore',
+                  AppLocalizations.of(context)!.curb65_score_label(confusionScore),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: confusionScore > 0 ? Colors.red : Colors.grey,
@@ -268,8 +366,8 @@ class _Curb65PageState extends State<Curb65Page> {
           Column(
             children: [
               RadioListTile<int>(
-                title: const Text('Không có rối loạn ý thức'),
-                subtitle: const Text('Định hướng tốt về thời gian, địa điểm, người'),
+                title: Text(AppLocalizations.of(context)!.curb65_no_confusion),
+                subtitle: Text(AppLocalizations.of(context)!.curb65_no_confusion_desc),
                 value: 0,
                 // ignore: deprecated_member_use
                 groupValue: confusionScore,
@@ -278,8 +376,8 @@ class _Curb65PageState extends State<Curb65Page> {
                 dense: true,
               ),
               RadioListTile<int>(
-                title: const Text('Có rối loạn ý thức'),
-                subtitle: const Text('Mất định hướng về thời gian, địa điểm hoặc người'),
+                title: Text(AppLocalizations.of(context)!.curb65_has_confusion),
+                subtitle: Text(AppLocalizations.of(context)!.curb65_has_confusion_desc),
                 value: 1,
                 // ignore: deprecated_member_use
                 groupValue: confusionScore,
@@ -310,14 +408,17 @@ class _Curb65PageState extends State<Curb65Page> {
             children: [
               Icon(Icons.water_drop, color: Colors.blue.shade600, size: 24),
               const SizedBox(width: 8),
-              Text(
-                'BUN',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  color: Colors.blue.shade600,
+              Expanded(
+                child: Text(
+                  AppLocalizations.of(context)!.curb65_bun,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.blue.shade600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
               ),
-              const Spacer(),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
@@ -325,7 +426,7 @@ class _Curb65PageState extends State<Curb65Page> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
-                  'Điểm: $bunScore',
+                  AppLocalizations.of(context)!.curb65_score_label(bunScore),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: bunScore > 0 ? Colors.red : Colors.grey,
@@ -343,7 +444,7 @@ class _Curb65PageState extends State<Curb65Page> {
                   controller: bunController,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
-                    labelText: 'BUN ($bunUnit)',
+                    labelText: AppLocalizations.of(context)!.curb65_bun_label(bunUnit),
                     border: const OutlineInputBorder(),
                     suffixText: bunUnit,
                     isDense: true,
@@ -356,11 +457,11 @@ class _Curb65PageState extends State<Curb65Page> {
                 flex: 2,
                 child: DropdownButtonFormField<String>(
                   initialValue: bunUnit,
-                  decoration: const InputDecoration(
-                    labelText: 'Đơn vị',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.curb65_bun_unit,
+                    border: const OutlineInputBorder(),
                     isDense: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                   ),
                   items: const [
                     DropdownMenuItem(value: 'mg/dL', child: Text('mg/dL', style: TextStyle(fontSize: 12))),
@@ -380,7 +481,7 @@ class _Curb65PageState extends State<Curb65Page> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Điểm số: 1 nếu BUN > 19 mg/dL (6.8 mmol/L)',
+            AppLocalizations.of(context)!.curb65_bun_scoring,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Colors.grey.shade600,
               fontStyle: FontStyle.italic,
@@ -414,13 +515,16 @@ class _Curb65PageState extends State<Curb65Page> {
             children: [
               Icon(icon, color: color, size: 24),
               const SizedBox(width: 8),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
+              Expanded(
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
               ),
-              const Spacer(),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
@@ -428,7 +532,7 @@ class _Curb65PageState extends State<Curb65Page> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
-                  'Điểm: $score',
+                  AppLocalizations.of(context)!.curb65_score_label(score),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: score > 0 ? Colors.red : Colors.grey,
@@ -442,7 +546,7 @@ class _Curb65PageState extends State<Curb65Page> {
             controller: controller,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Nhập giá trị',
+              labelText: AppLocalizations.of(context)!.curb65_enter_value,
               border: const OutlineInputBorder(),
               suffixIcon: Icon(icon, color: color),
             ),
@@ -478,7 +582,7 @@ class _Curb65PageState extends State<Curb65Page> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                AppLocalizations.of(context)!.curb65_reference_title,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -489,7 +593,7 @@ class _Curb65PageState extends State<Curb65Page> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Lim WS, et al. Defining community acquired pneumonia severity on presentation to hospital: an international derivation and validation study. Thorax. 2003;58(5):377-82.',
+            AppLocalizations.of(context)!.curb65_reference_text,
             style: TextStyle(
               fontSize: 11,
               color: Colors.blue.shade600,

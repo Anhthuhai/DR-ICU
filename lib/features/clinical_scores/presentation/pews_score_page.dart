@@ -289,7 +289,9 @@ class _PewsScorePageState extends State<PewsScorePage> {
                 child: Row(
                   children: [
                     Text(
-                      'PEWS Score',
+                      Localizations.localeOf(context).languageCode == 'vi' 
+                          ? 'Thang điểm PEWS' 
+                          : 'PEWS Score',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: riskColor,
@@ -329,6 +331,36 @@ class _PewsScorePageState extends State<PewsScorePage> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA NHI: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ nhi khoa trước khi đưa ra quyết định điều trị.'
+                              : 'PEDIATRIC MEDICAL DISCLAIMER: Results are for reference only. Always consult with a pediatric specialist before making treatment decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
                 // Risk Info
                 _buildRiskInfo(localizations),
 

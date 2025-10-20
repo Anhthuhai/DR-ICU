@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
 class RaceScalePage extends StatefulWidget {
@@ -40,11 +41,11 @@ class _RaceScalePageState extends State<RaceScalePage> {
     return Colors.red;
   }
 
-  String get lvoLikelihood {
+  String getLvoLikelihood(BuildContext context) {
     if (_totalScore < 5) {
-      return 'Thấp';
+      return AppLocalizations.of(context)!.race_low_lvo;
     }
-    return 'Cao';
+    return AppLocalizations.of(context)!.race_high_lvo;
   }
 
   String get lvoProbability {
@@ -54,93 +55,154 @@ class _RaceScalePageState extends State<RaceScalePage> {
     return '≥ 85%';
   }
 
-  String get recommendations {
+  String getRecommendations(BuildContext context) {
     if (_totalScore < 5) {
-      return 'Tiếp tục đánh giá đột quỵ thường quy, xem xét các nguyên nhân khác';
+      return AppLocalizations.of(context)!.race_recommendation_low;
     }
-    return 'Khả năng cao LVO - Cần chuyển tức thì đến trung tâm có EVT (endovascular therapy)';
+    return AppLocalizations.of(context)!.race_recommendation_high;
   }
 
-  String get timeTarget {
+  String getTimeTarget(BuildContext context) {
     if (_totalScore < 5) {
-      return 'Thời gian tiêu chuẩn';
+      return AppLocalizations.of(context)!.race_standard_time;
     }
-    return 'Door-to-groin < 90 phút';
+    return AppLocalizations.of(context)!.race_door_to_groin;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('RACE Scale'),
-        backgroundColor: Colors.purple.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
+      body: CustomScrollView(
+        slivers: [
+          // Main AppBar (sticky)
+          SliverAppBar(
+            pinned: true,
+            title: Text(AppLocalizations.of(context)!.race_scale_title),
+            backgroundColor: Colors.purple.shade700,
+            foregroundColor: Colors.white,
+          ),
+          
+          // Score Display Header (sticky)
+          SliverAppBar(
+            pinned: true,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 56,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                color: Theme.of(context).scaffoldBackgroundColor,
+                border: Border(
+                  bottom: BorderSide(color: riskColor.withValues(alpha: 0.3)),
+                ),
               ),
-              child: Column(
-                children: [
-                  Text(
-                    'RACE Scale',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.race_scale,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: riskColor,
+                          ),
+                        ),
+                        Text(
+                          'LVO: ${getLvoLikelihood(context)}',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: AppTheme.darkGrey,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$_totalScore/9',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+                    Text(
+                      '$_totalScore/9',
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'LVO likelihood: $lvoLikelihood',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+                  ],
+                ),
               ),
             ),
+          ),
+          
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA THẦN KINH: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa thần kinh trước khi đưa ra quyết định điều trị.'
+                              : 'NEUROLOGICAL MEDICAL DISCLAIMER: Results are for reference only. Always consult with neurologist before making treatment decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
+                // Risk Info
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: riskColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                  ),
+                  child: _buildRiskInfo(),
+                ),
 
-            // Assessment Items
-            _buildAssessmentSection(),
+                // Assessment Items
+                _buildAssessmentSection(),
 
-            // Risk Stratification
-            _buildRiskStratification(),
+                // Risk Stratification
+                _buildRiskStratification(),
 
-            // Emergency Protocol
-            if (_totalScore >= 5) _buildEmergencyProtocol(),
+                // Emergency Protocol
+                if (_totalScore >= 5) _buildEmergencyProtocol(),
 
-            // Clinical Information
-            _buildClinicalInfo(),
+                // Clinical Information
+                _buildClinicalInfo(),
 
-            // Medical Citation
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              child: _buildCitationWidget(),
+                // Medical Citation
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildCitationWidget(),
+                ),
+
+                const SizedBox(height: 20),
+              ],
             ),
-
-            const SizedBox(height: 20),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -161,7 +223,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
               Column(
                 children: [
                   Text(
-                    'Xác suất LVO',
+                    AppLocalizations.of(context)!.race_lvo_probability,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -181,7 +243,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
               Column(
                 children: [
                   Text(
-                    'Mục tiêu thời gian',
+                    AppLocalizations.of(context)!.race_time_target,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -189,7 +251,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    timeTarget,
+                    getTimeTarget(context),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 12,
@@ -217,7 +279,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
                     Icon(Icons.assignment, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      AppLocalizations.of(context)!.race_recommendations,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -227,7 +289,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  recommendations,
+                  getRecommendations(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -253,7 +315,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Đánh giá RACE Scale',
+            AppLocalizations.of(context)!.race_assessment_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.purple.shade700,
@@ -261,7 +323,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Rapid Arterial oCclusion Evaluation',
+            AppLocalizations.of(context)!.race_assessment_subtitle,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Colors.purple.shade600,
               fontStyle: FontStyle.italic,
@@ -271,13 +333,13 @@ class _RaceScalePageState extends State<RaceScalePage> {
           
           // Facial Palsy
           _buildAssessmentItem(
-            'Liệt mặt',
-            'Yêu cầu bệnh nhân cười hoặc nhe răng',
+            AppLocalizations.of(context)!.race_facial_palsy,
+            AppLocalizations.of(context)!.race_facial_palsy_instruction,
             _facialPalsy,
             [
-              {'value': '0', 'text': 'Không có'},
-              {'value': '1', 'text': 'Liệt mặt nhẹ'},
-              {'value': '2', 'text': 'Liệt mặt nặng'},
+              {'value': '0', 'text': AppLocalizations.of(context)!.race_facial_palsy_none},
+              {'value': '1', 'text': AppLocalizations.of(context)!.race_facial_palsy_mild},
+              {'value': '2', 'text': AppLocalizations.of(context)!.race_facial_palsy_severe},
             ],
             (value) {
               setState(() {
@@ -289,13 +351,13 @@ class _RaceScalePageState extends State<RaceScalePage> {
           
           // Arm Motor
           _buildAssessmentItem(
-            'Vận động tay',
-            'Giơ tay lên 90° trong 10 giây',
+            AppLocalizations.of(context)!.race_arm_motor,
+            AppLocalizations.of(context)!.race_arm_motor_instruction,
             _armMotor,
             [
-              {'value': '0', 'text': 'Bình thường'},
-              {'value': '1', 'text': 'Rơi nhẹ'},
-              {'value': '2', 'text': 'Rơi nhanh hoặc không giơ được'},
+              {'value': '0', 'text': AppLocalizations.of(context)!.race_motor_normal},
+              {'value': '1', 'text': AppLocalizations.of(context)!.race_motor_mild_drift},
+              {'value': '2', 'text': AppLocalizations.of(context)!.race_motor_severe},
             ],
             (value) {
               setState(() {
@@ -307,13 +369,13 @@ class _RaceScalePageState extends State<RaceScalePage> {
           
           // Leg Motor
           _buildAssessmentItem(
-            'Vận động chân',
-            'Giơ chân lên 30° trong 5 giây',
+            AppLocalizations.of(context)!.race_leg_motor,
+            AppLocalizations.of(context)!.race_leg_motor_instruction,
             _legMotor,
             [
-              {'value': '0', 'text': 'Bình thường'},
-              {'value': '1', 'text': 'Rơi nhẹ'},
-              {'value': '2', 'text': 'Rơi nhanh hoặc không giơ được'},
+              {'value': '0', 'text': AppLocalizations.of(context)!.race_motor_normal},
+              {'value': '1', 'text': AppLocalizations.of(context)!.race_motor_mild_drift},
+              {'value': '2', 'text': AppLocalizations.of(context)!.race_motor_severe},
             ],
             (value) {
               setState(() {
@@ -325,12 +387,12 @@ class _RaceScalePageState extends State<RaceScalePage> {
           
           // Head and Eye Deviation
           _buildAssessmentItem(
-            'Lệch đầu và mắt',
-            'Quan sát hướng nhìn và xoay đầu',
+            AppLocalizations.of(context)!.race_head_eye_deviation,
+            AppLocalizations.of(context)!.race_head_eye_instruction,
             _headEyeDeviation,
             [
-              {'value': '0', 'text': 'Không có'},
-              {'value': '1', 'text': 'Có lệch'},
+              {'value': '0', 'text': AppLocalizations.of(context)!.race_deviation_none},
+              {'value': '1', 'text': AppLocalizations.of(context)!.race_deviation_present},
             ],
             (value) {
               setState(() {
@@ -342,12 +404,12 @@ class _RaceScalePageState extends State<RaceScalePage> {
           
           // Hemianeglect
           _buildAssessmentItem(
-            'Hội chứng bỏ qua',
-            'Đánh giá sự chú ý đến không gian bên trái',
+            AppLocalizations.of(context)!.race_hemianeglect,
+            AppLocalizations.of(context)!.race_hemianeglect_instruction,
             _hemianeglect,
             [
-              {'value': '0', 'text': 'Bình thường'},
-              {'value': '1', 'text': 'Có bỏ qua một bên'},
+              {'value': '0', 'text': AppLocalizations.of(context)!.race_hemianeglect_normal},
+              {'value': '1', 'text': AppLocalizations.of(context)!.race_hemianeglect_present},
             ],
             (value) {
               setState(() {
@@ -359,13 +421,13 @@ class _RaceScalePageState extends State<RaceScalePage> {
           
           // Aphasia
           _buildAssessmentItem(
-            'Mất ngôn ngữ',
-            'Đánh giá khả năng nói và hiểu',
+            AppLocalizations.of(context)!.race_aphasia,
+            AppLocalizations.of(context)!.race_aphasia_instruction,
             _aphasia,
             [
-              {'value': '0', 'text': 'Bình thường'},
-              {'value': '1', 'text': 'Mất ngôn ngữ nhẹ'},
-              {'value': '2', 'text': 'Mất ngôn ngữ nặng'},
+              {'value': '0', 'text': AppLocalizations.of(context)!.race_aphasia_normal},
+              {'value': '1', 'text': AppLocalizations.of(context)!.race_aphasia_mild},
+              {'value': '2', 'text': AppLocalizations.of(context)!.race_aphasia_severe},
             ],
             (value) {
               setState(() {
@@ -442,15 +504,15 @@ class _RaceScalePageState extends State<RaceScalePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ LVO',
+            AppLocalizations.of(context)!.race_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('0-4', 'Thấp', '< 10%', 'Đột quỵ thường quy', Colors.green),
-          _buildRiskItem('≥5', 'Cao', '≥ 85%', 'Chuyển EVT center', Colors.red),
+          _buildRiskItem(AppLocalizations.of(context)!.race_risk_low_range, AppLocalizations.of(context)!.race_low_lvo, AppLocalizations.of(context)!.race_risk_low_probability, AppLocalizations.of(context)!.race_action_routine, Colors.green),
+          _buildRiskItem(AppLocalizations.of(context)!.race_risk_high_range, AppLocalizations.of(context)!.race_high_lvo, AppLocalizations.of(context)!.race_risk_high_probability, AppLocalizations.of(context)!.race_action_evt, Colors.red),
         ],
       ),
     );
@@ -530,7 +592,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
               Icon(Icons.warning, color: Colors.red.shade700),
               const SizedBox(width: 8),
               Text(
-                'Protocol LVO khẩn cấp',
+                AppLocalizations.of(context)!.race_emergency_protocol,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.red.shade700,
@@ -539,11 +601,11 @@ class _RaceScalePageState extends State<RaceScalePage> {
             ],
           ),
           const SizedBox(height: 16),
-          _buildProtocolItem('1. Kích hoạt stroke code', 'Thông báo team đột quỵ ngay lập tức', Icons.phone),
-          _buildProtocolItem('2. CT/CTA khẩn cấp', 'Chụp CT và CTA trong 20 phút', Icons.scanner),
-          _buildProtocolItem('3. Chuyển EVT center', 'Liên hệ trung tâm can thiệp mạch máu não', Icons.local_hospital),
-          _buildProtocolItem('4. IV tPA (nếu đủ điều kiện)', 'Thrombolysis tĩnh mạch trước khi chuyển', Icons.medication),
-          _buildProtocolItem('5. Door-to-groin <90 phút', 'Mục tiêu từ vào viện đến EVT', Icons.timer),
+          _buildProtocolItem(AppLocalizations.of(context)!.race_protocol_stroke_code, AppLocalizations.of(context)!.race_protocol_stroke_code_desc, Icons.phone),
+          _buildProtocolItem(AppLocalizations.of(context)!.race_protocol_ct_cta, AppLocalizations.of(context)!.race_protocol_ct_cta_desc, Icons.scanner),
+          _buildProtocolItem(AppLocalizations.of(context)!.race_protocol_transfer, AppLocalizations.of(context)!.race_protocol_transfer_desc, Icons.local_hospital),
+          _buildProtocolItem(AppLocalizations.of(context)!.race_protocol_tpa, AppLocalizations.of(context)!.race_protocol_tpa_desc, Icons.medication),
+          _buildProtocolItem(AppLocalizations.of(context)!.race_protocol_time, AppLocalizations.of(context)!.race_protocol_time_desc, Icons.timer),
         ],
       ),
     );
@@ -602,7 +664,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
               Icon(Icons.info, color: Colors.teal.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.race_clinical_information,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.teal.shade600,
@@ -611,34 +673,9 @@ class _RaceScalePageState extends State<RaceScalePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'RACE Scale nhận diện nhanh Large Vessel Occlusion (LVO) stroke\n\n'
-            'Mục đích:\n'
-            '• Sàng lọc bệnh nhân cần EVT (endovascular therapy)\n'
-            '• Tối ưu hóa thời gian "time is brain"\n'
-            '• Quyết định chuyển viện\n'
-            '• Cải thiện kết quả điều trị\n\n'
-            'LVO là gì:\n'
-            '• Tắc mạch máu não lớn (ICA, M1, M2, basilar)\n'
-            '• Chiếm 24-46% đột quỵ thiếu máu não cấp\n'
-            '• Tiên lượng xấu nếu không can thiệp\n'
-            '• Đáp ứng tốt với EVT trong 24 giờ\n\n'
-            'Ưu điểm RACE:\n'
-            '• Đơn giản, nhanh chóng\n'
-            '• Độ nhạy 85%, độ đặc hiệu 68%\n'
-            '• Có thể thực hiện ngoài viện\n'
-            '• Giúp triage hiệu quả\n\n'
-            'Cách thực hiện:\n'
-            '• Đánh giá 6 thành phần\n'
-            '• Tổng điểm 0-9\n'
-            '• ≥5 điểm: khả năng cao LVO\n'
-            '• Cần kết hợp với NIHSS\n\n'
-            'Lưu ý quan trọng:\n'
-            '• Không thay thế đánh giá neurologic đầy đủ\n'
-            '• Cần imaging xác nhận LVO\n'
-            '• Time window quan trọng cho EVT\n'
-            '• Kết hợp với IV tPA nếu phù hợp',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.race_clinical_info_text,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
@@ -661,7 +698,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                AppLocalizations.of(context)!.race_reference_title,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -672,7 +709,7 @@ class _RaceScalePageState extends State<RaceScalePage> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Pérez de la Ossa N, et al. Design and validation of a prehospital stroke scale to predict large arterial occlusion: the rapid arterial occlusion evaluation (RACE) scale. Stroke. 2014;45(1):87-91.\n\nCarrera D, et al. Validation of computer-assisted RACE scale for prehospital use. Stroke. 2018;49(5):1255-7.',
+            AppLocalizations.of(context)!.race_reference_text,
             style: TextStyle(
               fontSize: 11,
               color: Colors.blue.shade600,

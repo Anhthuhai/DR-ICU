@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class CreatinineClearancePage extends StatefulWidget {
   const CreatinineClearancePage({super.key});
@@ -79,84 +80,84 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
     return Colors.grey;
   }
 
-  String get kidneyFunction {
+  String kidneyFunction(BuildContext context) {
     if (_clearance >= 90) {
-      return 'Bình thường/Cao';
+      return AppLocalizations.of(context)!.creatinine_clearance_function_normal;
     }
     if (_clearance >= 60) {
-      return 'Giảm nhẹ';
+      return AppLocalizations.of(context)!.creatinine_clearance_function_mild;
     }
     if (_clearance >= 45) {
-      return 'Giảm nhẹ-vừa';
+      return AppLocalizations.of(context)!.creatinine_clearance_function_mild_moderate;
     }
     if (_clearance >= 30) {
-      return 'Giảm vừa-nặng';
+      return AppLocalizations.of(context)!.creatinine_clearance_function_moderate_severe;
     }
     if (_clearance >= 15) {
-      return 'Giảm nặng';
+      return AppLocalizations.of(context)!.creatinine_clearance_function_severe;
     }
     if (_clearance > 0) {
-      return 'Suy thận giai đoạn cuối';
+      return AppLocalizations.of(context)!.creatinine_clearance_function_esrd;
     }
     return '';
   }
 
-  String get stage {
+  String stage(BuildContext context) {
     if (_clearance >= 90) {
-      return 'CKD Stage 1 (hoặc bình thường)';
+      return AppLocalizations.of(context)!.creatinine_clearance_stage_1;
     }
     if (_clearance >= 60) {
-      return 'CKD Stage 2';
+      return AppLocalizations.of(context)!.creatinine_clearance_stage_2;
     }
     if (_clearance >= 45) {
-      return 'CKD Stage 3a';
+      return AppLocalizations.of(context)!.creatinine_clearance_stage_3a;
     }
     if (_clearance >= 30) {
-      return 'CKD Stage 3b';
+      return AppLocalizations.of(context)!.creatinine_clearance_stage_3b;
     }
     if (_clearance >= 15) {
-      return 'CKD Stage 4';
+      return AppLocalizations.of(context)!.creatinine_clearance_stage_4;
     }
     if (_clearance > 0) {
-      return 'CKD Stage 5';
+      return AppLocalizations.of(context)!.creatinine_clearance_stage_5;
     }
     return '';
   }
 
-  String get drugDosing {
+  String drugDosing(BuildContext context) {
     if (_clearance >= 60) {
-      return 'Liều bình thường';
+      return AppLocalizations.of(context)!.creatinine_clearance_dosing_normal;
     }
     if (_clearance >= 30) {
-      return 'Giảm liều 25-50%';
+      return AppLocalizations.of(context)!.creatinine_clearance_dosing_reduce_25_50;
     }
     if (_clearance >= 15) {
-      return 'Giảm liều 50-75%';
+      return AppLocalizations.of(context)!.creatinine_clearance_dosing_reduce_50_75;
     }
     if (_clearance > 0) {
-      return 'Chống chỉ định hoặc cần chạy thận';
+      return AppLocalizations.of(context)!.creatinine_clearance_dosing_contraindicated;
     }
     return '';
   }
 
-  String get recommendations {
+  String recommendations(BuildContext context) {
     if (_clearance >= 90) {
-      return 'Theo dõi bình thường, kiểm soát yếu tố nguy cơ';
+      return AppLocalizations.of(context)!.creatinine_clearance_recommendation_normal;
     }
     if (_clearance >= 60) {
-      return 'Tầm soát biến chứng CKD, kiểm soát yếu tố nguy cơ';
+      return AppLocalizations.of(context)!.creatinine_clearance_recommendation_mild;
     }
     if (_clearance >= 45) {
-      return 'Đánh giá và điều trị biến chứng CKD';
+      return AppLocalizations.of(context)!.creatinine_clearance_recommendation_mild_moderate;
     }
     if (_clearance >= 30) {
-      return 'Chuẩn bị cho liệu pháp thay thế thận';
+      return AppLocalizations.of(context)!.creatinine_clearance_recommendation_moderate_severe;
     }
     if (_clearance >= 15) {
-      return 'Liệu pháp thay thế thận nếu có triệu chứng';
+      return AppLocalizations.of(context)!.creatinine_clearance_recommendation_severe;
     }
     if (_clearance > 0) {
-      return 'Chạy thận hoặc ghép thận';
+      return AppLocalizations.of(context)!.creatinine_clearance_recommendation_esrd;
     }
     return '';
   }
@@ -164,128 +165,226 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Creatinine Clearance'),
-        backgroundColor: Colors.indigo.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Result Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: clearanceColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: clearanceColor.withValues(alpha: 0.3)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'Creatinine Clearance',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: clearanceColor,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  if (_clearance > 0) ...[
-                    Text(
-                      '${_clearance.toStringAsFixed(1)} ml/phút',
-                      style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: clearanceColor,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      kidneyFunction,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: AppTheme.darkGrey,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      stage,
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: clearanceColor,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    _buildResultDetails(),
-                  ] else ...[
-                    Icon(
-                      Icons.calculate,
-                      size: 48,
-                      color: Colors.grey.shade400,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Nhập thông số để tính toán',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Colors.grey.shade600,
-                      ),
+      body: CustomScrollView(
+        slivers: [
+          // Sticky AppBar
+          SliverAppBar(
+            title: Text(AppLocalizations.of(context)!.creatinine_clearance_title),
+            backgroundColor: Colors.indigo.shade700,
+            foregroundColor: Colors.white,
+            floating: true,
+            pinned: true,
+            snap: false,
+            elevation: 4,
+          ),
+          
+          // Sticky Score Header
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _StickyHeaderDelegate(
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.1),
+                      offset: const Offset(0, 2),
+                      blurRadius: 4,
                     ),
                   ],
-                ],
-              ),
-            ),
-
-            // Input Parameters
-            _buildInputSection(),
-
-            // Reference Values
-            _buildReferenceSection(),
-
-            // Clinical Information
-            _buildClinicalInfo(),
-
-            // Medical Citation
-            Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.blue.shade200),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+                ),
+                child: Container(
+                  height: 60,
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: clearanceColor),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
-                      const SizedBox(width: 6),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              AppLocalizations.of(context)!.creatinine_clearance_result,
+                              style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: clearanceColor,
+                              ),
+                            ),
+                            if (_clearance > 0)
+                              Text(
+                                kidneyFunction(context),
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: AppTheme.darkGrey,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                          ],
+                        ),
+                      ),
                       Text(
-                        'Tài liệu tham khảo',
-                        style: TextStyle(
-                          fontSize: 12,
+                        _clearance > 0 
+                          ? '${_clearance.toStringAsFixed(1)} ${AppLocalizations.of(context)!.creatinine_clearance_unit}'
+                          : '0 ${AppLocalizations.of(context)!.creatinine_clearance_unit}',
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade700,
+                          color: clearanceColor,
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. Nephron. 1976;16(1):31-41.',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.blue.shade600,
+                ),
+              ),
+            ),
+          ),
+
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA THẬN: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa thận trước khi đưa ra quyết định điều trị dựa trên độ thanh thải creatinine.'
+                              : 'NEPHROLOGY MEDICAL DISCLAIMER: Results are for reference only. Always consult with nephrologist before making treatment decisions based on creatinine clearance.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // Result Display (when not in sticky header)
+                if (_clearance > 0) ...[
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: clearanceColor.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: clearanceColor.withValues(alpha: 0.3)),
+                    ),
+                    child: Column(
+                      children: [
+                        Text(
+                          stage(context),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: clearanceColor,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        _buildResultDetails(),
+                      ],
+                    ),
+                  ),
+                ] else ...[
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade50,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.grey.shade200),
+                    ),
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.calculate,
+                          size: 48,
+                          color: Colors.grey.shade400,
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          AppLocalizations.of(context)!.creatinine_clearance_input_prompt,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
-              ),
-            ),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+                // Input Parameters
+                _buildInputSection(),
+
+                // Reference Values
+                _buildReferenceSection(),
+
+                // Clinical Information
+                _buildClinicalInfo(),
+
+                // Medical Citation
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.blue.shade200),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                          const SizedBox(width: 6),
+                          Text(
+                            AppLocalizations.of(context)!.creatinine_clearance_reference_title,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        AppLocalizations.of(context)!.creatinine_clearance_reference_text,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.blue.shade600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -306,7 +405,7 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
               Column(
                 children: [
                   Text(
-                    'Điều chỉnh liều thuốc',
+                    AppLocalizations.of(context)!.creatinine_clearance_drug_dosing,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -315,7 +414,7 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    drugDosing,
+                    drugDosing(context),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -339,7 +438,7 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Khuyến nghị lâm sàng:',
+                  AppLocalizations.of(context)!.creatinine_clearance_clinical_recommendation,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: clearanceColor,
@@ -347,7 +446,7 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  recommendations,
+                  recommendations(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -373,7 +472,7 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thông số đầu vào (Cockcroft-Gault)',
+            AppLocalizations.of(context)!.creatinine_clearance_input_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.indigo.shade700,
@@ -386,8 +485,8 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
             controller: _ageController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Tuổi',
-              suffixText: 'năm',
+              labelText: AppLocalizations.of(context)!.creatinine_clearance_age,
+              suffixText: AppLocalizations.of(context)!.creatinine_clearance_age_unit,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -402,8 +501,8 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
             controller: _weightController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Cân nặng',
-              suffixText: 'kg',
+              labelText: AppLocalizations.of(context)!.creatinine_clearance_weight,
+              suffixText: AppLocalizations.of(context)!.creatinine_clearance_weight_unit,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -415,8 +514,8 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
           
           // Creatinine with unit conversion
           _buildLabInputWithUnit(
-            'Creatinine huyết thanh',
-            'Giá trị bình thường: Nam 0.7-1.3 mg/dL (62-115 umol/L), Nữ 0.6-1.1 mg/dL (53-97 umol/L)',
+            AppLocalizations.of(context)!.creatinine_clearance_creatinine,
+            AppLocalizations.of(context)!.creatinine_clearance_creatinine_normal,
             _creatinineController,
             _creatinineUnit,
             ['mg/dL', 'umol/L'],
@@ -442,7 +541,7 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Giới tính',
+                  AppLocalizations.of(context)!.creatinine_clearance_gender,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
@@ -452,7 +551,7 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
                   children: [
                     Expanded(
                       child: RadioListTile<bool>(
-                        title: const Text('Nam'),
+                        title: Text(AppLocalizations.of(context)!.creatinine_clearance_male),
                         value: false,
                         // ignore: deprecated_member_use
                         groupValue: _isFemale,
@@ -468,7 +567,7 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
                     ),
                     Expanded(
                       child: RadioListTile<bool>(
-                        title: const Text('Nữ'),
+                        title: Text(AppLocalizations.of(context)!.creatinine_clearance_female),
                         value: true,
                         // ignore: deprecated_member_use
                         groupValue: _isFemale,
@@ -576,19 +675,25 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Giá trị tham chiếu',
+            AppLocalizations.of(context)!.creatinine_clearance_reference_values,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildReferenceItem('≥ 90 ml/phút', 'Bình thường/Cao', Colors.green),
-          _buildReferenceItem('60-89 ml/phút', 'Giảm nhẹ (CKD Stage 2)', Colors.blue),
-          _buildReferenceItem('45-59 ml/phút', 'Giảm nhẹ-vừa (CKD 3a)', Colors.yellow.shade700),
-          _buildReferenceItem('30-44 ml/phút', 'Giảm vừa-nặng (CKD 3b)', Colors.orange),
-          _buildReferenceItem('15-29 ml/phút', 'Giảm nặng (CKD Stage 4)', Colors.red),
-          _buildReferenceItem('< 15 ml/phút', 'Suy thận cuối (CKD Stage 5)', Colors.red.shade800),
+          _buildReferenceItem(AppLocalizations.of(context)!.creatinine_clearance_range_90, 
+            AppLocalizations.of(context)!.creatinine_clearance_function_normal, Colors.green),
+          _buildReferenceItem(AppLocalizations.of(context)!.creatinine_clearance_range_60_89, 
+            '${AppLocalizations.of(context)!.creatinine_clearance_function_mild} (${AppLocalizations.of(context)!.creatinine_clearance_stage_2})', Colors.blue),
+          _buildReferenceItem(AppLocalizations.of(context)!.creatinine_clearance_range_45_59, 
+            '${AppLocalizations.of(context)!.creatinine_clearance_function_mild_moderate} (${AppLocalizations.of(context)!.creatinine_clearance_stage_3a})', Colors.yellow.shade700),
+          _buildReferenceItem(AppLocalizations.of(context)!.creatinine_clearance_range_30_44, 
+            '${AppLocalizations.of(context)!.creatinine_clearance_function_moderate_severe} (${AppLocalizations.of(context)!.creatinine_clearance_stage_3b})', Colors.orange),
+          _buildReferenceItem(AppLocalizations.of(context)!.creatinine_clearance_range_15_29, 
+            '${AppLocalizations.of(context)!.creatinine_clearance_function_severe} (${AppLocalizations.of(context)!.creatinine_clearance_stage_4})', Colors.red),
+          _buildReferenceItem(AppLocalizations.of(context)!.creatinine_clearance_range_under_15, 
+            '${AppLocalizations.of(context)!.creatinine_clearance_function_esrd} (${AppLocalizations.of(context)!.creatinine_clearance_stage_5})', Colors.red.shade800),
         ],
       ),
     );
@@ -646,7 +751,7 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
               Icon(Icons.info, color: Colors.blue.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.creatinine_clearance_clinical_info,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.blue.shade600,
@@ -655,17 +760,9 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'Công thức Cockcroft-Gault:\n'
-            'CrCl = [(140 - tuổi) × cân nặng] / (72 × creatinine)\n'
-            'Nữ giới: nhân thêm 0.85\n\n'
-            'Lưu ý quan trọng:\n'
-            '• Độ chính xác giảm khi GFR > 60 ml/phút\n'
-            '• Không chính xác ở người béo phì, người già, bệnh cấp tính\n'
-            '• Cần điều chỉnh liều thuốc dựa vào độ thanh thải creatinine\n'
-            '• Theo dõi chức năng thận định kỳ ở bệnh nhân CKD\n'
-            '• Xem xét sử dụng CKD-EPI equation cho độ chính xác cao hơn',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.creatinine_clearance_clinical_text,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
@@ -678,5 +775,27 @@ class _CreatinineClearancePageState extends State<CreatinineClearancePage> {
     _weightController.dispose();
     _creatinineController.dispose();
     super.dispose();
+  }
+}
+
+class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  _StickyHeaderDelegate({required this.child});
+
+  @override
+  double get minExtent => 72.0; // Minimum height when collapsed
+
+  @override
+  double get maxExtent => 72.0; // Maximum height when expanded
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return child;
+  }
+
+  @override
+  bool shouldRebuild(_StickyHeaderDelegate oldDelegate) {
+    return child != oldDelegate.child;
   }
 }

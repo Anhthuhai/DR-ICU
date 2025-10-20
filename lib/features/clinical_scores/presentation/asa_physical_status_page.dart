@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
 class AsaPhysicalStatusPage extends StatefulWidget {
@@ -23,7 +25,7 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
     }
   }
 
-  String get classification {
+  String classification(BuildContext context) {
     switch (asaClass) {
       case 1: return 'ASA I';
       case 2: return 'ASA II';
@@ -31,18 +33,18 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
       case 4: return 'ASA IV';
       case 5: return 'ASA V';
       case 6: return 'ASA VI';
-      default: return 'Chưa phân loại';
+      default: return AppLocalizations.of(context)!.asa_not_classified;
     }
   }
 
-  String get description {
+  String description(BuildContext context) {
     switch (asaClass) {
-      case 1: return 'Bệnh nhân khỏe mạnh bình thường';
-      case 2: return 'Bệnh nhân có bệnh lý toàn thân nhẹ';
-      case 3: return 'Bệnh nhân có bệnh lý toàn thân nghiêm trọng';
-      case 4: return 'Bệnh nhân có bệnh lý toàn thân nghiêm trọng đe dọa tính mạng';
-      case 5: return 'Bệnh nhân hấp hối, không mổ sẽ chết trong 24h';
-      case 6: return 'Bệnh nhân chết não để lấy tạng';
+      case 1: return AppLocalizations.of(context)!.asa_class_1_description;
+      case 2: return AppLocalizations.of(context)!.asa_class_2_description;
+      case 3: return AppLocalizations.of(context)!.asa_class_3_description;
+      case 4: return AppLocalizations.of(context)!.asa_class_4_description;
+      case 5: return AppLocalizations.of(context)!.asa_class_5_description;
+      case 6: return AppLocalizations.of(context)!.asa_class_6_description;
       default: return '';
     }
   }
@@ -54,77 +56,77 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
       case 3: return '4.3%';
       case 4: return '23.5%';
       case 5: return '50.7%';
-      case 6: return 'Không áp dụng';
+      case 6: return 'N/A';
       default: return '';
     }
   }
 
-  String get anesthesiaRisk {
+  String anesthesiaRisk(BuildContext context) {
     switch (asaClass) {
-      case 1: return 'Nguy cơ gây mê thấp';
-      case 2: return 'Nguy cơ gây mê thấp-trung bình';
-      case 3: return 'Nguy cơ gây mê trung bình-cao';
-      case 4: return 'Nguy cơ gây mê cao';
-      case 5: return 'Nguy cơ gây mê rất cao';
-      case 6: return 'Không áp dụng';
+      case 1: return AppLocalizations.of(context)!.asa_risk_low;
+      case 2: return AppLocalizations.of(context)!.asa_risk_low_moderate;
+      case 3: return AppLocalizations.of(context)!.asa_risk_moderate_high;
+      case 4: return AppLocalizations.of(context)!.asa_risk_high;
+      case 5: return AppLocalizations.of(context)!.asa_risk_very_high;
+      case 6: return AppLocalizations.of(context)!.asa_risk_not_applicable;
       default: return '';
     }
   }
 
-  String get recommendations {
+  String recommendations(BuildContext context) {
     switch (asaClass) {
-      case 1: return 'Có thể phẫu thuật bình thường';
-      case 2: return 'Cần kiểm soát bệnh lý trước mổ';
-      case 3: return 'Cần tối ưu hóa tình trạng trước mổ, theo dõi chặt chẽ';
-      case 4: return 'Cân nhắc lợi ích/nguy cơ, cần ICU hậu phẫu';
-      case 5: return 'Chỉ mổ cấp cứu cứu sống, tiên lượng xấu';
-      case 6: return 'Phẫu thuật lấy tạng';
+      case 1: return AppLocalizations.of(context)!.asa_recommendation_class_1;
+      case 2: return AppLocalizations.of(context)!.asa_recommendation_class_2;
+      case 3: return AppLocalizations.of(context)!.asa_recommendation_class_3;
+      case 4: return AppLocalizations.of(context)!.asa_recommendation_class_4;
+      case 5: return AppLocalizations.of(context)!.asa_recommendation_class_5;
+      case 6: return AppLocalizations.of(context)!.asa_recommendation_class_6;
       default: return '';
     }
   }
 
-  List<Map<String, dynamic>> get asaOptions {
+  List<Map<String, dynamic>> asaOptions(BuildContext context) {
     return [
       {
         'class': 1,
-        'title': 'ASA I - Bình thường',
-        'description': 'Bệnh nhân khỏe mạnh bình thường',
-        'examples': 'Không có bệnh lý hệ thống, không hút thuốc, không/ít uống rượu',
+        'title': AppLocalizations.of(context)!.asa_class_1_title,
+        'description': AppLocalizations.of(context)!.asa_class_1_description,
+        'examples': AppLocalizations.of(context)!.asa_class_1_examples,
         'mortality': '0.05%',
       },
       {
         'class': 2,
-        'title': 'ASA II - Bệnh lý nhẹ',
-        'description': 'Bệnh nhân có bệnh lý toàn thân nhẹ',
-        'examples': 'Hút thuốc, uống rượu, béo phì, đang mang thai, ĐTĐ kiểm soát tốt, THA kiểm soát tốt',
+        'title': AppLocalizations.of(context)!.asa_class_2_title,
+        'description': AppLocalizations.of(context)!.asa_class_2_description,
+        'examples': AppLocalizations.of(context)!.asa_class_2_examples,
         'mortality': '0.4%',
       },
       {
         'class': 3,
-        'title': 'ASA III - Bệnh lý nghiêm trọng',
-        'description': 'Bệnh nhân có bệnh lý toàn thân nghiêm trọng',
-        'examples': 'ĐTĐ không kiểm soát, THA không kiểm soát, COPD, béo phì bệnh lý, rối loạn chức năng cơ quan',
+        'title': AppLocalizations.of(context)!.asa_class_3_title,
+        'description': AppLocalizations.of(context)!.asa_class_3_description,
+        'examples': AppLocalizations.of(context)!.asa_class_3_examples,
         'mortality': '4.3%',
       },
       {
         'class': 4,
-        'title': 'ASA IV - Đe dọa tính mạng',
-        'description': 'Bệnh nhân có bệnh lý toàn thân nghiêm trọng đe dọa tính mạng',
-        'examples': 'Nhồi máu cơ tim gần đây, CVA, TIA, CAD, suy thận nặng cần chạy thận',
+        'title': AppLocalizations.of(context)!.asa_class_4_title,
+        'description': AppLocalizations.of(context)!.asa_class_4_description,
+        'examples': AppLocalizations.of(context)!.asa_class_4_examples,
         'mortality': '23.5%',
       },
       {
         'class': 5,
-        'title': 'ASA V - Hấp hối',
-        'description': 'Bệnh nhân hấp hối, không mổ sẽ chết trong 24h',
-        'examples': 'Vỡ phình động mạch chủ, chấn thương đa cơ quan nặng, sepsis nặng với rối loạn cơ quan',
+        'title': AppLocalizations.of(context)!.asa_class_5_title,
+        'description': AppLocalizations.of(context)!.asa_class_5_description,
+        'examples': AppLocalizations.of(context)!.asa_class_5_examples,
         'mortality': '50.7%',
       },
       {
         'class': 6,
-        'title': 'ASA VI - Chết não',
-        'description': 'Bệnh nhân chết não để lấy tạng',
-        'examples': 'Bệnh nhân được tuyên bố chết não để hiến tạng',
+        'title': AppLocalizations.of(context)!.asa_class_6_title,
+        'description': AppLocalizations.of(context)!.asa_class_6_description,
+        'examples': AppLocalizations.of(context)!.asa_class_6_examples,
         'mortality': 'N/A',
       },
     ];
@@ -133,77 +135,78 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('ASA Physical Status'),
-        backgroundColor: Colors.indigo.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
+      body: CustomScrollView(
+        slivers: [
+          // Sticky AppBar
+          SliverAppBar(
+            title: Text(AppLocalizations.of(context)!.asa_title),
+            backgroundColor: Colors.indigo.shade700,
+            foregroundColor: Colors.white,
+            pinned: true,
+            floating: false,
+            elevation: 2,
+          ),
+          // Sticky Score Header
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _StickyAsaScoreHeaderDelegate(
+              minHeight: 90,
+              maxHeight: 100,
+              child: _buildScoreCard(),
+            ),
+          ),
+          // Main Content
+          SliverList(
+            delegate: SliverChildListDelegate([
+            // Medical Disclaimer Banner
             Container(
               width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
+              margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: scoreColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: scoreColor.withValues(alpha: 0.3)),
+                color: Colors.red.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red.shade200),
               ),
-              child: Column(
+              child: Row(
                 children: [
-                  Text(
-                    'ASA Physical Status',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: scoreColor,
+                  Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      Localizations.localeOf(context).languageCode == 'vi'
+                          ? 'LƯU Ý Y KHOA GÂY MÊ: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ gây mê hồi sức trước khi đưa ra quyết định.'
+                          : 'ANESTHESIA MEDICAL DISCLAIMER: Results are for reference only. Always consult with anesthesiologist before making decisions.',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.red.shade700,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 8),
-                  if (asaClass > 0) ...[
-                    Text(
-                      classification,
-                      style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: scoreColor,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      description,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: AppTheme.darkGrey,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 12),
-                    _buildRiskInfo(),
-                  ] else ...[
-                    Icon(
-                      Icons.assignment,
-                      size: 48,
-                      color: Colors.grey.shade400,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Vui lòng chọn phân loại ASA',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Colors.grey.shade600,
-                      ),
-                    ),
-                  ],
                 ],
               ),
             ),
-
+            // Risk Information (when ASA class is selected)
+            if (asaClass > 0)
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: scoreColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: scoreColor.withValues(alpha: 0.3)),
+                ),
+                child: _buildRiskInfo(),
+              ),
+            
             // ASA Classifications
             _buildSection(
-              'Phân loại ASA Physical Status',
+              AppLocalizations.of(context)!.asa_classifications,
               Colors.indigo.shade600,
               [
-                ...asaOptions.map((option) => _buildAsaOption(option)),
+                ...asaOptions(context).map((option) => _buildAsaOption(option)),
               ],
             ),
 
@@ -227,7 +230,7 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
                       Icon(Icons.article, color: Colors.blue.shade700, size: 16),
                       const SizedBox(width: 6),
                       Text(
-                        'Tài liệu tham khảo',
+                        AppLocalizations.of(context)!.asa_reference_title,
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
@@ -238,7 +241,7 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'American Society of Anesthesiologists. ASA Physical Status Classification System. Last approved by the ASA House of Delegates on October 15, 2014, and last amended on December 13, 2020.',
+                    AppLocalizations.of(context)!.asa_reference_text,
                     style: TextStyle(
                       fontSize: 11,
                       color: Colors.blue.shade600,
@@ -249,8 +252,9 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
             ),
 
             const SizedBox(height: 20),
-          ],
-        ),
+            ]),
+          ),
+        ],
       ),
     );
   }
@@ -266,52 +270,68 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Column(
-                children: [
-                  Text(
-                    'Tỷ lệ tử vong',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.asa_perioperative_mortality,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  Text(
-                    perioperativeMortality,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: scoreColor,
+                    const SizedBox(height: 4),
+                    Text(
+                      perioperativeMortality,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: scoreColor,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              Column(
-                children: [
-                  Text(
-                    'Nguy cơ gây mê',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.asa_anesthesia_risk,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade700,
+                        fontSize: 12,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  Text(
-                    anesthesiaRisk,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: scoreColor,
+                    const SizedBox(height: 4),
+                    Text(
+                      anesthesiaRisk(context),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                        color: scoreColor,
+                      ),
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           ),
           const SizedBox(height: 12),
           Text(
-            recommendations,
+            recommendations(context),
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
               color: AppTheme.darkGrey,
@@ -412,7 +432,7 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                     decoration: BoxDecoration(
                       color: isSelected ? optionColor.withValues(alpha: 0.2) : Colors.grey.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(4),
@@ -421,8 +441,10 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
                       option['mortality'],
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
+                        fontSize: 12,
                         color: isSelected ? optionColor : Colors.grey.shade600,
                       ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
@@ -434,6 +456,8 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
                   fontWeight: FontWeight.w500,
                   color: isSelected ? optionColor : Colors.black87,
                 ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 4),
               Text(
@@ -443,6 +467,8 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
                   color: isSelected ? optionColor : Colors.grey.shade600,
                   height: 1.3,
                 ),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -468,7 +494,7 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
               Icon(Icons.info, color: Colors.indigo.shade600),
               const SizedBox(width: 8),
               Text(
-                'Lưu ý quan trọng',
+                AppLocalizations.of(context)!.asa_important_notes,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.indigo.shade600,
@@ -477,16 +503,123 @@ class _AsaPhysicalStatusPageState extends State<AsaPhysicalStatusPage> {
             ],
           ),
           const SizedBox(height: 8),
-          const Text(
-            '• ASA được đánh giá bởi bác sĩ gây mê trước phẫu thuật\n'
-            '• Suffix "E" được thêm vào cho phẫu thuật cấp cứu (VD: ASA III-E)\n'
-            '• ASA không dự đoán trực tiếp nguy cơ gây mê mà chỉ phản ánh tình trạng sức khỏe\n'
-            '• Cần kết hợp với các yếu tố khác: tuổi, loại phẫu thuật, kỹ thuật gây mê\n'
-            '• ASA IV-V cần chuẩn bị đặc biệt và có thể cần ICU hậu phẫu',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.asa_notes_text,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
     );
+  }
+
+  Widget _buildScoreCard() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: scoreColor.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: scoreColor.withValues(alpha: 0.3)),
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            if (asaClass > 0) ...[
+              // Classification
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: scoreColor.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  classification(context),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: scoreColor,
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 12),
+              // Description
+              Expanded(
+                child: Text(
+                  description(context),
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: scoreColor,
+                    fontSize: 12,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ] else ...[
+              Icon(
+                Icons.assignment,
+                size: 20,
+                color: Colors.grey.shade400,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  AppLocalizations.of(context)!.asa_select_classification,
+                  style: TextStyle(
+                    color: Colors.grey.shade600,
+                    fontSize: 11,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StickyAsaScoreHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _StickyAsaScoreHeaderDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => math.max(minHeight, maxHeight);
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final currentHeight = math.max(minHeight, maxHeight - shrinkOffset);
+    return SizedBox(
+      height: currentHeight,
+      width: double.infinity,
+      child: Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: child,
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(_StickyAsaScoreHeaderDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+           minHeight != oldDelegate.minHeight ||
+           child != oldDelegate.child;
   }
 }

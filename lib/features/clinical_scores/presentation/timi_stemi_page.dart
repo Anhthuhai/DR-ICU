@@ -1,5 +1,37 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
+
+// Sticky Header Delegate for Score Display
+class _StickyScoreHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _StickyScoreHeaderDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => maxHeight;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return SizedBox.expand(child: child);
+  }
+
+  @override
+  bool shouldRebuild(_StickyScoreHeaderDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
+  }
+}
 
 class TimiStemiPage extends StatefulWidget {
   const TimiStemiPage({super.key});
@@ -95,16 +127,17 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
   }
 
   String get riskLevel {
+    final isVietnamese = Localizations.localeOf(context).languageCode == 'vi';
     if (_totalScore <= 2) {
-      return 'Nguy cơ thấp';
+      return isVietnamese ? 'Nguy cơ thấp' : 'Low Risk';
     }
     if (_totalScore <= 4) {
-      return 'Nguy cơ trung bình';
+      return isVietnamese ? 'Nguy cơ trung bình' : 'Moderate Risk';
     }
     if (_totalScore <= 8) {
-      return 'Nguy cơ cao';
+      return isVietnamese ? 'Nguy cơ cao' : 'High Risk';
     }
-    return 'Nguy cơ rất cao';
+    return isVietnamese ? 'Nguy cơ rất cao' : 'Very High Risk';
   }
 
   String get mortalityRisk {
@@ -139,57 +172,59 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
   }
 
   String get recommendations {
+    final isVietnamese = Localizations.localeOf(context).languageCode == 'vi';
     if (_totalScore <= 2) {
-      return 'PCI sớm trong 12h, điều trị theo hướng dẫn chuẩn';
+      return isVietnamese ? 'PCI sớm trong 12h, điều trị theo hướng dẫn chuẩn' : 'Early PCI within 12h, standard guideline treatment';
     }
     if (_totalScore <= 4) {
-      return 'PCI cấp cứu, theo dõi chặt chẽ biến chứng';
+      return isVietnamese ? 'PCI cấp cứu, theo dõi chặt chẽ các biến chứng' : 'Emergency PCI, close monitoring for complications';
     }
     if (_totalScore <= 8) {
-      return 'PCI ngay lập tức, hỗ trợ tuần hoàn, ICU monitoring';
+      return isVietnamese ? 'PCI ngay lập tức, hỗ trợ tuần hoàn, theo dõi ICU' : 'Immediate PCI, circulatory support, ICU monitoring';
     }
-    return 'Can thiệp cấp cứu tối đa, cân nhắc hỗ trợ cơ học tuần hoàn';
+    return isVietnamese ? 'Can thiệp cấp cứu tối đa, cân nhắc hỗ trợ tuần hoàn cơ học' : 'Maximum emergency intervention, consider mechanical circulatory support';
   }
 
   List<Map<String, dynamic>> get riskFactors {
+    final isVietnamese = Localizations.localeOf(context).languageCode == 'vi';
     return [
       {
-        'factor': 'Tuổi 65-74',
+        'factor': isVietnamese ? 'Tuổi 65-74' : 'Age 65-74',
         'points': 2,
         'active': (int.tryParse(_ageController.text) ?? 0) >= 65 && (int.tryParse(_ageController.text) ?? 0) < 75,
       },
       {
-        'factor': 'Tuổi ≥75',
+        'factor': isVietnamese ? 'Tuổi ≥75' : 'Age ≥75',
         'points': 3,
         'active': (int.tryParse(_ageController.text) ?? 0) >= 75,
       },
       {
-        'factor': 'Cân nặng <67kg',
+        'factor': isVietnamese ? 'Cân nặng <67kg' : 'Weight <67kg',
         'points': 1,
         'active': (double.tryParse(_weightController.text) ?? 0) > 0 && (double.tryParse(_weightController.text) ?? 0) < 67,
       },
       {
-        'factor': 'ĐTĐ/THA/Đau thắt ngực',
+        'factor': isVietnamese ? 'ĐTĐ/THA/Đau thắt ngực' : 'DM/HTN/Angina',
         'points': 1,
         'active': _diabetes || _hypertension || _angina,
       },
       {
-        'factor': 'Nhồi máu thành trước/LBBB',
+        'factor': isVietnamese ? 'Nhồi máu thành trước/LBBB' : 'Anterior MI/LBBB',
         'points': 1,
         'active': _anteriorMI,
       },
       {
-        'factor': 'Thời gian điều trị >4h',
+        'factor': isVietnamese ? 'Thời gian điều trị >4h' : 'Time to treatment >4h',
         'points': 1,
         'active': _timeToTreatment,
       },
       {
-        'factor': 'Nhịp tim ≥100',
+        'factor': isVietnamese ? 'Nhịp tim ≥100' : 'Heart rate ≥100',
         'points': 2,
         'active': (int.tryParse(_heartRateController.text) ?? 0) >= 100,
       },
       {
-        'factor': 'Huyết áp tâm thu <100',
+        'factor': isVietnamese ? 'Huyết áp tâm thu <100' : 'Systolic BP <100',
         'points': 3,
         'active': (int.tryParse(_systolicBPController.text) ?? 0) > 0 && (int.tryParse(_systolicBPController.text) ?? 0) < 100,
       },
@@ -199,14 +234,123 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('TIMI Score - STEMI'),
-        backgroundColor: Colors.red.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
+      body: CustomScrollView(
+        slivers: [
+          // Sticky AppBar
+          SliverAppBar(
+            title: Text(AppLocalizations.of(context)!.timi_stemi_title),
+            backgroundColor: Colors.red.shade700,
+            foregroundColor: Colors.white,
+            pinned: true,
+            floating: false,
+            snap: false,
+            elevation: 4,
+          ),
+          
+          // Sticky Score Header
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _StickyScoreHeaderDelegate(
+              minHeight: 50,
+              maxHeight: 55,
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.1),
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: riskColor.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: riskColor.withValues(alpha: 0.3), width: 1.5),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // TIMI Score in one line
+                      Text(
+                        'TIMI Score: ',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey.shade700,
+                        ),
+                      ),
+                      Text(
+                        '$_totalScore',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: riskColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          
+          // Medical Disclaimer Banner
+          SliverToBoxAdapter(
+            child: Container(
+              margin: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red.shade300),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.warning, color: Colors.red.shade600, size: 24),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          Localizations.localeOf(context).languageCode == 'vi' 
+                            ? 'DÀNH CHO CÁN BỘ Y TẾ'
+                            : 'FOR HEALTHCARE PROFESSIONALS ONLY',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red.shade700,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                            ? 'Công cụ đánh giá nguy cơ nhồi máu cơ tim. Cần kết hợp đánh giá lâm sàng và can thiệp kịp thời.'
+                            : 'Myocardial infarction risk assessment tool. Requires clinical evaluation and timely intervention.',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.red.shade700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
+          // Main Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
             // Score Display
             Container(
               width: double.infinity,
@@ -220,7 +364,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
               child: Column(
                 children: [
                   Text(
-                    'TIMI Score - STEMI',
+                    Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Thang điểm TIMI - STEMI'
+                      : 'TIMI Score - STEMI',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: riskColor,
@@ -270,8 +416,10 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
             ),
 
             const SizedBox(height: 20),
-          ],
-        ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -292,7 +440,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
               Column(
                 children: [
                   Text(
-                    'Tỷ lệ tử vong 30 ngày',
+                    Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Tỷ lệ tử vong 30 ngày'
+                      : '30-day Mortality Rate',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -323,7 +473,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Khuyến nghị điều trị:',
+                  Localizations.localeOf(context).languageCode == 'vi' 
+                    ? 'Khuyến nghị điều trị:'
+                    : 'Treatment Recommendations:',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: riskColor,
@@ -357,7 +509,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thông số bệnh nhân',
+            Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Thông số bệnh nhân'
+              : 'Patient Parameters',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.red.shade700,
@@ -372,8 +526,10 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
                   controller: _ageController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Tuổi',
-                    suffixText: 'năm',
+                    labelText: Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Tuổi' 
+                      : AppLocalizations.of(context)!.timi_stemi_age_label,
+                    suffixText: Localizations.localeOf(context).languageCode == 'vi' ? 'tuổi' : 'years',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -388,7 +544,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
                   controller: _weightController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Cân nặng',
+                    labelText: Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Cân nặng' 
+                      : AppLocalizations.of(context)!.timi_stemi_weight_label,
                     suffixText: 'kg',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -409,8 +567,10 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
                   controller: _heartRateController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Nhịp tim',
-                    suffixText: 'lần/phút',
+                    labelText: Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Nhịp tim'
+                      : 'Heart Rate',
+                    suffixText: 'bpm',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -425,7 +585,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
                   controller: _systolicBPController,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    labelText: 'Huyết áp tâm thu',
+                    labelText: Localizations.localeOf(context).languageCode == 'vi' 
+                      ? 'Huyết áp tâm thu'
+                      : 'Systolic BP',
                     suffixText: 'mmHg',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -455,7 +617,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố nguy cơ',
+            Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Yếu tố nguy cơ'
+              : 'Risk Factors',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -464,7 +628,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
           const SizedBox(height: 16),
           
           CheckboxListTile(
-            title: const Text('Tiểu đường'),
+            title: Text(Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Đái tháo đường' 
+              : AppLocalizations.of(context)!.timi_stemi_diabetes_label),
             value: _diabetes,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -477,7 +643,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Tăng huyết áp'),
+            title: Text(Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Tăng huyết áp' 
+              : AppLocalizations.of(context)!.timi_stemi_hypertension_label),
             value: _hypertension,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -490,7 +658,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Tiền sử đau thắt ngực'),
+            title: Text(Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Đau thắt ngực' 
+              : AppLocalizations.of(context)!.timi_stemi_angina_label),
             value: _angina,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -503,7 +673,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Nhồi máu thành trước hoặc LBBB'),
+            title: Text(Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Nhồi máu thành trước/LBBB' 
+              : AppLocalizations.of(context)!.timi_stemi_anterior_mi_label),
             value: _anteriorMI,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -516,7 +688,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Thời gian từ khởi phát đến điều trị >4 giờ'),
+            title: Text(Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Thời gian điều trị >4 giờ' 
+              : AppLocalizations.of(context)!.timi_stemi_time_4h_label),
             value: _timeToTreatment,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -551,7 +725,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố nguy cơ hiện tại (${activeFactors.length})',
+            Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Yếu tố nguy cơ hiện tại (${activeFactors.length})'
+              : 'Current Risk Factors (${activeFactors.length})',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
@@ -606,17 +782,27 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ tử vong 30 ngày',
+            Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Phân tầng nguy cơ tử vong 30 ngày'
+              : '30-day Mortality Risk Stratification',
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('0-2', 'Nguy cơ thấp', '0.8-2.2%', Colors.green),
-          _buildRiskItem('3-4', 'Nguy cơ trung bình', '4.4-7.3%', Colors.yellow.shade700),
-          _buildRiskItem('5-8', 'Nguy cơ cao', '12.4-26.8%', Colors.orange),
-          _buildRiskItem('>8', 'Nguy cơ rất cao', '>30%', Colors.red),
+          _buildRiskItem('0-2', 
+            Localizations.localeOf(context).languageCode == 'vi' ? 'Nguy cơ thấp' : 'Low Risk', 
+            '0.8-2.2%', Colors.green),
+          _buildRiskItem('3-4', 
+            Localizations.localeOf(context).languageCode == 'vi' ? 'Nguy cơ trung bình' : 'Moderate Risk', 
+            '4.4-7.3%', Colors.yellow.shade700),
+          _buildRiskItem('5-8', 
+            Localizations.localeOf(context).languageCode == 'vi' ? 'Nguy cơ cao' : 'High Risk', 
+            '12.4-26.8%', Colors.orange),
+          _buildRiskItem('>8', 
+            Localizations.localeOf(context).languageCode == 'vi' ? 'Nguy cơ rất cao' : 'Very High Risk', 
+            '>30%', Colors.red),
         ],
       ),
     );
@@ -679,7 +865,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
               Icon(Icons.info, color: Colors.purple.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                Localizations.localeOf(context).languageCode == 'vi' 
+                  ? 'Thông tin lâm sàng'
+                  : 'Clinical Information',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.purple.shade600,
@@ -688,19 +876,31 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'TIMI Score for STEMI đánh giá nguy cơ tử vong 30 ngày sau nhồi máu cơ tim cấp có chênh ST\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Phân tầng nguy cơ và tiên lượng\n'
-            '• Hỗ trợ quyết định điều trị\n'
-            '• Tư vấn bệnh nhân và gia đình\n'
-            '• Đánh giá hiệu quả can thiệp\n\n'
-            'Lưu ý quan trọng:\n'
-            '• Áp dụng cho STEMI, không phải NSTEMI/UA\n'
-            '• Cần kết hợp với đánh giá lâm sàng\n'
-            '• PCI sớm là mục tiêu vàng cho STEMI\n'
-            '• Thời gian "door-to-balloon" <90 phút',
-            style: TextStyle(height: 1.4),
+          Text(
+            Localizations.localeOf(context).languageCode == 'vi' 
+              ? 'Thang điểm TIMI cho STEMI đánh giá nguy cơ tử vong 30 ngày sau nhồi máu cơ tim có ST chênh lên\n\n'
+                'Ứng dụng lâm sàng:\n'
+                '• Phân tầng nguy cơ và tiên lượng\n'
+                '• Hỗ trợ quyết định điều trị\n'
+                '• Tư vấn bệnh nhân và gia đình\n'
+                '• Đánh giá hiệu quả can thiệp\n\n'
+                'Lưu ý quan trọng:\n'
+                '• Áp dụng cho STEMI, không áp dụng cho NSTEMI/UA\n'
+                '• Phải kết hợp với đánh giá lâm sàng\n'
+                '• PCI sớm là tiêu chuẩn vàng cho STEMI\n'
+                '• Thời gian door-to-balloon <90 phút'
+              : 'TIMI Score for STEMI assesses 30-day mortality risk after ST-elevation myocardial infarction\n\n'
+                'Clinical applications:\n'
+                '• Risk stratification and prognosis\n'
+                '• Support treatment decisions\n'
+                '• Patient and family counseling\n'
+                '• Assess intervention effectiveness\n\n'
+                'Important notes:\n'
+                '• Applies to STEMI, not NSTEMI/UA\n'
+                '• Must combine with clinical assessment\n'
+                '• Early PCI is the gold standard for STEMI\n'
+                '• Door-to-balloon time <90 minutes',
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
@@ -732,7 +932,9 @@ class _TimiStemiPageState extends State<TimiStemiPage> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                Localizations.localeOf(context).languageCode == 'vi' 
+                  ? 'Tài liệu tham khảo'
+                  : 'References',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,

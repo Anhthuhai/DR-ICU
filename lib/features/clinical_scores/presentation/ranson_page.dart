@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class RansonPage extends StatefulWidget {
   const RansonPage({super.key});
@@ -53,14 +54,14 @@ class _RansonPageState extends State<RansonPage> {
     return Colors.red;
   }
 
-  String get severity {
+  String getSeverity(BuildContext context) {
     if (totalScore <= 2) {
-      return 'Viêm tụy nhẹ';
+      return AppLocalizations.of(context)!.ranson_severity_mild;
     }
     if (totalScore <= 5) {
-      return 'Viêm tụy vừa';
+      return AppLocalizations.of(context)!.ranson_severity_moderate;
     }
-    return 'Viêm tụy nặng';
+    return AppLocalizations.of(context)!.ranson_severity_severe;
   }
 
   String get mortalityRate {
@@ -82,14 +83,14 @@ class _RansonPageState extends State<RansonPage> {
     return '> 50%';
   }
 
-  String get management {
+  String getManagement(BuildContext context) {
     if (totalScore <= 2) {
-      return 'Theo dõi nội khoa, điều trị hỗ trợ';
+      return AppLocalizations.of(context)!.ranson_management_mild;
     }
     if (totalScore <= 5) {
-      return 'Cần theo dõi chặt chẽ, cân nhắc ICU';
+      return AppLocalizations.of(context)!.ranson_management_moderate;
     }
-    return 'Chỉ định ICU, cân nhắc can thiệp tích cực';
+    return AppLocalizations.of(context)!.ranson_management_severe;
   }
 
   // Unit conversion functions
@@ -109,17 +110,100 @@ class _RansonPageState extends State<RansonPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Ranson Criteria'),
-        backgroundColor: Colors.brown.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
+      body: CustomScrollView(
+        slivers: [
+          // Main AppBar
+          SliverAppBar(
+            title: Text(l10n.ranson_title),
+            backgroundColor: Colors.brown.shade700,
+            foregroundColor: Colors.white,
+            pinned: true,
+            floating: false,
+            snap: false,
+            expandedHeight: 60,
+          ),
+          
+          // Sticky Score Header
+          SliverAppBar(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            pinned: true,
+            floating: false,
+            snap: false,
+            automaticallyImplyLeading: false,
+            toolbarHeight: 56,
+            title: Container(
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(
+                    child: Text(
+                      '$totalScore ${totalScore <= 1 ? "Point" : "Points"}',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: scoreColor,
+                      ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      getSeverity(context),
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: scoreColor,
+                      ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
+          // Medical Disclaimer Banner
+          SliverToBoxAdapter(
+            child: Container(
+              width: double.infinity,
+              margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red.shade200),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      Localizations.localeOf(context).languageCode == 'vi'
+                          ? 'LƯU Ý Y KHOA TIÊU HÓA: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa tiêu hóa trước khi đưa ra quyết định điều trị.'
+                          : 'GASTROENTEROLOGY MEDICAL DISCLAIMER: Results are for reference only. Always consult with gastroenterologist before making treatment decisions.',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.red.shade700,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          
+          // Score Display (Full)
+          SliverToBoxAdapter(
+            child: Container(
               width: double.infinity,
               margin: const EdgeInsets.all(16),
               padding: const EdgeInsets.all(20),
@@ -131,7 +215,7 @@ class _RansonPageState extends State<RansonPage> {
               child: Column(
                 children: [
                   Text(
-                    'Ranson Criteria Score',
+                    l10n.ranson_score_title,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                       color: scoreColor,
@@ -147,7 +231,7 @@ class _RansonPageState extends State<RansonPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    severity,
+                    getSeverity(context),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppTheme.darkGrey,
@@ -155,14 +239,14 @@ class _RansonPageState extends State<RansonPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Tỷ lệ tử vong: $mortalityRate',
+                    l10n.ranson_mortality_rate(mortalityRate),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: AppTheme.darkGrey,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    management,
+                    getManagement(context),
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w500,
                       color: AppTheme.darkGrey,
@@ -172,14 +256,16 @@ class _RansonPageState extends State<RansonPage> {
                 ],
               ),
             ),
+          ),
 
-            // At admission criteria
-            _buildSection(
-              'Tiêu chí khi nhập viện',
+          // At admission criteria
+          SliverToBoxAdapter(
+            child: _buildSection(
+              l10n.ranson_admission_criteria,
               Colors.blue.shade600,
               [
                 _buildNumericInput(
-                  'Tuổi (> 55 tuổi)', 
+                  l10n.ranson_age, 
                   ageController,
                   Icons.person,
                   (value) {
@@ -189,9 +275,10 @@ class _RansonPageState extends State<RansonPage> {
                     });
                   },
                   age,
+                  context,
                 ),
                 _buildNumericInput(
-                  'Bạch cầu (> 16,000/μL)', 
+                  l10n.ranson_wbc, 
                   wbcController,
                   Icons.water_drop,
                   (value) {
@@ -201,9 +288,10 @@ class _RansonPageState extends State<RansonPage> {
                     });
                   },
                   wbc,
+                  context,
                 ),
                 _buildLabInputWithUnit(
-                  'Glucose', 
+                  l10n.ranson_glucose, 
                   glucoseController,
                   Icons.bloodtype,
                   (value) {
@@ -229,9 +317,10 @@ class _RansonPageState extends State<RansonPage> {
                       });
                     }
                   },
+                  context,
                 ),
                 _buildNumericInput(
-                  'LDH (> 350 IU/L)', 
+                  l10n.ranson_ldh, 
                   ldhController,
                   Icons.science,
                   (value) {
@@ -241,9 +330,10 @@ class _RansonPageState extends State<RansonPage> {
                     });
                   },
                   ldh,
+                  context,
                 ),
                 _buildNumericInput(
-                  'AST (> 250 IU/L)', 
+                  l10n.ranson_ast, 
                   astController,
                   Icons.local_hospital,
                   (value) {
@@ -253,17 +343,20 @@ class _RansonPageState extends State<RansonPage> {
                     });
                   },
                   ast,
+                  context,
                 ),
               ],
             ),
+          ),
 
-            // At 48 hours criteria  
-            _buildSection(
-              'Tiêu chí tại 48 giờ',
+          // At 48 hours criteria  
+          SliverToBoxAdapter(
+            child: _buildSection(
+              l10n.ranson_48hour_criteria,
               Colors.red.shade600,
               [
                 _buildNumericInput(
-                  'Giảm Hematocrit (> 10%)', 
+                  l10n.ranson_hematocrit_drop, 
                   hctController,
                   Icons.opacity,
                   (value) {
@@ -273,9 +366,10 @@ class _RansonPageState extends State<RansonPage> {
                     });
                   },
                   hematocritDrop,
+                  context,
                 ),
                 _buildLabInputWithUnit(
-                  'Tăng BUN', 
+                  l10n.ranson_bun_rise, 
                   bunController,
                   Icons.medical_services,
                   (value) {
@@ -301,9 +395,10 @@ class _RansonPageState extends State<RansonPage> {
                       });
                     }
                   },
+                  context,
                 ),
                 _buildNumericInput(
-                  'Ca²⁺ huyết thanh (< 8 mg/dL)', 
+                  l10n.ranson_calcium_drop, 
                   calciumController,
                   Icons.calculate,
                   (value) {
@@ -313,9 +408,10 @@ class _RansonPageState extends State<RansonPage> {
                     });
                   },
                   calciumDrop,
+                  context,
                 ),
                 _buildNumericInput(
-                  'PaO₂ (< 60 mmHg)', 
+                  l10n.ranson_po2_drop, 
                   po2Controller,
                   Icons.air,
                   (value) {
@@ -325,9 +421,10 @@ class _RansonPageState extends State<RansonPage> {
                     });
                   },
                   po2Drop,
+                  context,
                 ),
                 _buildNumericInput(
-                  'Base deficit (> 4 mEq/L)', 
+                  l10n.ranson_base_deficit, 
                   baseDeficitController,
                   Icons.add_chart,
                   (value) {
@@ -337,9 +434,10 @@ class _RansonPageState extends State<RansonPage> {
                     });
                   },
                   baseDeficit,
+                  context,
                 ),
                 _buildNumericInput(
-                  'Dịch tích tụ (> 6L)', 
+                  l10n.ranson_fluid_sequestration, 
                   fluidController,
                   Icons.water,
                   (value) {
@@ -349,20 +447,26 @@ class _RansonPageState extends State<RansonPage> {
                     });
                   },
                   fluidSequestration,
+                  context,
                 ),
               ],
             ),
+          ),
 
-            // Medical Citation
-            const SizedBox(height: 16),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: _buildCitationWidget(),
+          // Medical Citation
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: _buildCitationWidget(context),
+                ),
+                const SizedBox(height: 20),
+              ],
             ),
-
-            const SizedBox(height: 20),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -402,7 +506,10 @@ class _RansonPageState extends State<RansonPage> {
     String currentUnit,
     List<String> units,
     ValueChanged<String> onUnitChanged,
+    BuildContext context,
   ) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       child: Column(
@@ -416,6 +523,8 @@ class _RansonPageState extends State<RansonPage> {
                 child: Text(
                   title,
                   style: const TextStyle(fontWeight: FontWeight.w500),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),
               ),
               Container(
@@ -425,7 +534,7 @@ class _RansonPageState extends State<RansonPage> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
-                  'Điểm: $score',
+                  l10n.ranson_points(score),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: score > 0 ? Colors.red : Colors.grey,
@@ -438,20 +547,21 @@ class _RansonPageState extends State<RansonPage> {
           TextField(
             controller: controller,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'Nhập giá trị',
-              border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+            decoration: InputDecoration(
+              labelText: l10n.ranson_enter_value,
+              border: const OutlineInputBorder(),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
             ),
             onChanged: onChanged,
           ),
           const SizedBox(height: 4),
           Row(
             children: [
-              const Text(
-                'Đơn vị: ',
-                style: TextStyle(fontSize: 12, color: Colors.grey),
+              Text(
+                l10n.ranson_unit,
+                style: const TextStyle(fontSize: 12, color: Colors.grey),
               ),
+              const SizedBox(width: 4),
               DropdownButton<String>(
                 value: currentUnit,
                 onChanged: (value) => onUnitChanged(value!),
@@ -478,7 +588,10 @@ class _RansonPageState extends State<RansonPage> {
     IconData icon,
     Function(String) onChanged,
     int score,
+    BuildContext context,
   ) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       child: Column(
@@ -492,6 +605,8 @@ class _RansonPageState extends State<RansonPage> {
                 child: Text(
                   title,
                   style: const TextStyle(fontWeight: FontWeight.w500),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),
               ),
               Container(
@@ -501,7 +616,7 @@ class _RansonPageState extends State<RansonPage> {
                   borderRadius: BorderRadius.circular(4),
                 ),
                 child: Text(
-                  'Điểm: $score',
+                  l10n.ranson_points(score),
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: score > 0 ? Colors.red : Colors.grey,
@@ -514,20 +629,21 @@ class _RansonPageState extends State<RansonPage> {
           TextField(
             controller: controller,
             keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              labelText: 'Nhập giá trị',
-              border: OutlineInputBorder(),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: InputDecoration(
+              labelText: l10n.ranson_enter_value,
+              border: const OutlineInputBorder(),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             ),
-            // ignore: deprecated_member_use
-            onChanged: null,
+            onChanged: onChanged,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildCitationWidget() {
+  Widget _buildCitationWidget(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -543,7 +659,7 @@ class _RansonPageState extends State<RansonPage> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                l10n.ranson_reference_title,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -554,11 +670,13 @@ class _RansonPageState extends State<RansonPage> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Ranson JH, et al. Prognostic signs and the role of operative management in acute pancreatitis. Surg Gynecol Obstet. 1974;139(1):69-81.\n\nBollen TL, et al. A comparative evaluation of radiologic and clinical scoring systems in the early prediction of severity in acute pancreatitis. Am J Gastroenterol. 2012;107(4):612-9.',
+            l10n.ranson_reference_text,
             style: TextStyle(
               fontSize: 11,
               color: Colors.blue.shade600,
             ),
+            overflow: TextOverflow.visible,
+            softWrap: true,
           ),
         ],
       ),

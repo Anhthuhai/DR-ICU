@@ -1,5 +1,6 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class PsiPage extends StatefulWidget {
   const PsiPage({super.key});
@@ -77,13 +78,8 @@ class _PsiPageState extends State<PsiPage> {
       score += 10;
     }
     
-    // Physical exam
-    if (alteredMentalStatus == 1) {
-      score += 20;
-    }
-    
-    // Add vital signs and lab scores
-    score += respiratoryRate + systolicBP + temperature + pulse;
+    // Physical exam - all scores are already calculated correctly
+    score += alteredMentalStatus + respiratoryRate + systolicBP + temperature + pulse;
     score += arterialPH + bun + sodium + glucose + hematocrit + partialPressureO2;
     score += pleuralEffusion;
     
@@ -117,13 +113,13 @@ class _PsiPageState extends State<PsiPage> {
     }
   }
 
-  String get riskDescription {
+  String getRiskDescription(BuildContext context) {
     switch (riskClass) {
-      case 1: return 'Nguy cơ rất thấp';
-      case 2: return 'Nguy cơ thấp';
-      case 3: return 'Nguy cơ trung bình';
-      case 4: return 'Nguy cơ cao';
-      case 5: return 'Nguy cơ rất cao';
+      case 1: return AppLocalizations.of(context)!.psi_risk_very_low;
+      case 2: return AppLocalizations.of(context)!.psi_risk_low;
+      case 3: return AppLocalizations.of(context)!.psi_risk_moderate;
+      case 4: return AppLocalizations.of(context)!.psi_risk_high;
+      case 5: return AppLocalizations.of(context)!.psi_risk_very_high;
       default: return '';
     }
   }
@@ -139,13 +135,13 @@ class _PsiPageState extends State<PsiPage> {
     }
   }
 
-  String get recommendation {
+  String getRecommendation(BuildContext context) {
     switch (riskClass) {
       case 1:
-      case 2: return 'Có thể điều trị ngoại trú';
-      case 3: return 'Cân nhắc điều trị ngoại trú hoặc nội trú ngắn ngày';
-      case 4: return 'Cần điều trị nội trú';
-      case 5: return 'Cần điều trị nội trú, cân nhắc ICU';
+      case 2: return AppLocalizations.of(context)!.psi_outpatient_treatment;
+      case 3: return AppLocalizations.of(context)!.psi_outpatient_or_short;
+      case 4: return AppLocalizations.of(context)!.psi_inpatient_required;
+      case 5: return AppLocalizations.of(context)!.psi_inpatient_consider_icu;
       default: return '';
     }
   }
@@ -189,13 +185,13 @@ class _PsiPageState extends State<PsiPage> {
     }
   }
 
-  String get icuRecommendation {
+  String getIcuRecommendation(BuildContext context) {
     switch (riskClass) {
       case 1:
-      case 2: return 'Không cần ICU';
-      case 3: return 'Không cần ICU, theo dõi tại khoa nội';
-      case 4: return 'Cân nhắc ICU nếu có yếu tố nguy cơ cao';
-      case 5: return 'Khuyến cáo nhập ICU';
+      case 2: return AppLocalizations.of(context)!.psi_icu_no_need;
+      case 3: return AppLocalizations.of(context)!.psi_icu_not_needed;
+      case 4: return AppLocalizations.of(context)!.psi_icu_consider;
+      case 5: return AppLocalizations.of(context)!.psi_icu_recommended;
       default: return '';
     }
   }
@@ -214,179 +210,154 @@ class _PsiPageState extends State<PsiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('PSI Score'),
-        backgroundColor: Colors.blue.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
+      body: CustomScrollView(
+        slivers: [
+          // Sticky AppBar
+          SliverAppBar(
+            title: Text(AppLocalizations.of(context)!.psi_title),
+            backgroundColor: Colors.blue.shade700,
+            foregroundColor: Colors.white,
+            pinned: true,
+            floating: false,
+            elevation: 2,
+          ),
+          // Sticky Score Header
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _StickyScoreHeaderDelegate(
+              minHeight: 80,
+              maxHeight: 90,
+              child: _buildScoreCard(),
+            ),
+          ),
+          // Main Content
+          SliverList(
+            delegate: SliverChildListDelegate([
+            // Medical Disclaimer Banner
             Container(
               width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
+              margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+              padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: scoreColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: scoreColor.withValues(alpha: 0.3)),
+                color: Colors.red.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.red.shade200),
               ),
-              child: Column(
+              child: Row(
                 children: [
-                  Text(
-                    'Pneumonia Severity Index',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: scoreColor,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        totalScore.toString(),
-                        style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: scoreColor,
-                        ),
+                  Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      Localizations.localeOf(context).languageCode == 'vi'
+                          ? 'LƯU Ý Y KHOA HÔ HẤP: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa hô hấp trước khi đưa ra quyết định điều trị.'
+                          : 'RESPIRATORY MEDICAL DISCLAIMER: Results are for reference only. Always consult with respiratory specialist before making treatment decisions.',
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.red.shade700,
+                        fontWeight: FontWeight.w500,
                       ),
-                      const SizedBox(width: 16),
-                      Text(
-                        'Class $riskClass',
-                        style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: scoreColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    riskDescription,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Tỷ lệ tử vong: $mortalityRate',
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppTheme.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    recommendation,
-                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: AppTheme.darkGrey,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 12),
-                  // ICU Recommendation Box
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: icuRecommendationColor.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: icuRecommendationColor.withValues(alpha: 0.3)),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.local_hospital,
-                          color: icuRecommendationColor,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            'ICU: $icuRecommendation',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: icuRecommendationColor,
-                            ),
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ],
               ),
             ),
-
             // Demographics
-            _buildSection('Thông tin cơ bản', Colors.blue.shade600, [
+            _buildSection(AppLocalizations.of(context)!.psi_basic_info, Colors.blue.shade600, [
               _buildGenderSection(),
               _buildAgeSection(),
               _buildNursingHomeSection(),
             ]),
 
             // Comorbidities
-            _buildSection('Bệnh đi kèm', Colors.orange.shade600, [
-              _buildComorbiditySection('Bệnh ác tính', neoplasticDisease, 30, (value) {
+            _buildSection(AppLocalizations.of(context)!.psi_comorbidities, Colors.orange.shade600, [
+              _buildComorbiditySection(AppLocalizations.of(context)!.psi_neoplastic_disease, neoplasticDisease, 30, (value) {
                 setState(() => neoplasticDisease = value);
               }),
-              _buildComorbiditySection('Bệnh gan', liverDisease, 20, (value) {
+              _buildComorbiditySection(AppLocalizations.of(context)!.psi_liver_disease, liverDisease, 20, (value) {
                 setState(() => liverDisease = value);
               }),
-              _buildComorbiditySection('Suy tim sung huyết', chf, 10, (value) {
+              _buildComorbiditySection(AppLocalizations.of(context)!.psi_congestive_heart_failure, chf, 10, (value) {
                 setState(() => chf = value);
               }),
-              _buildComorbiditySection('Bệnh mạch máu não', cerebrovascularDisease, 10, (value) {
+              _buildComorbiditySection(AppLocalizations.of(context)!.psi_cerebrovascular_disease, cerebrovascularDisease, 10, (value) {
                 setState(() => cerebrovascularDisease = value);
               }),
-              _buildComorbiditySection('Bệnh thận', renalDisease, 10, (value) {
+              _buildComorbiditySection(AppLocalizations.of(context)!.psi_renal_disease, renalDisease, 10, (value) {
                 setState(() => renalDisease = value);
               }),
             ]),
 
-            // Physical Examination
-            _buildSection('Khám lâm sàng', Colors.purple.shade600, [
-              _buildComorbiditySection('Rối loạn ý thức', alteredMentalStatus, 20, (value) {
-                setState(() => alteredMentalStatus = value);
+            // Physical Examination  
+            _buildSection(AppLocalizations.of(context)!.psi_physical_exam, Colors.purple.shade600, [
+              _buildComorbiditySection(AppLocalizations.of(context)!.psi_altered_mental_status, alteredMentalStatus, 20, (value) {
+                setState(() => alteredMentalStatus = value > 0 ? 20 : 0);
               }),
-              _buildVitalSignInput('Nhịp thở (≥30/phút)', rrController, (value) {
-                int rr = int.tryParse(value) ?? 0;
-                setState(() {
-                  respiratoryRate = rr >= 30 ? 20 : 0;
-                });
-              }),
-              _buildVitalSignInput('Huyết áp tâm thu (<90 mmHg)', sbpController, (value) {
-                int sbp = int.tryParse(value) ?? 0;
-                setState(() {
-                  systolicBP = sbp < 90 ? 20 : 0;
-                });
-              }),
-              _buildVitalSignInput('Nhiệt độ (<35°C hoặc ≥40°C)', tempController, (value) {
-                double temp = double.tryParse(value) ?? 0;
-                setState(() {
-                  temperature = (temp < 35 || temp >= 40) ? 15 : 0;
-                });
-              }),
-              _buildVitalSignInput('Mạch (≥125/phút)', pulseController, (value) {
-                int hr = int.tryParse(value) ?? 0;
-                setState(() {
-                  pulse = hr >= 125 ? 10 : 0;
-                });
-              }),
+              _buildVitalSignInput(
+                AppLocalizations.of(context)!.psi_respiratory_rate, 
+                AppLocalizations.of(context)!.psi_respiratory_rate_threshold,
+                rrController, 
+                'breaths/min',
+                (value) {
+                  double rr = double.tryParse(value) ?? 0;
+                  setState(() {
+                    respiratoryRate = rr >= 30 ? 20 : 0;
+                  });
+                },
+                respiratoryRate,
+              ),
+              _buildVitalSignInput(
+                AppLocalizations.of(context)!.psi_systolic_bp, 
+                AppLocalizations.of(context)!.psi_systolic_bp_threshold,
+                sbpController, 
+                'mmHg',
+                (value) {
+                  double sbp = double.tryParse(value) ?? 0;
+                  setState(() {
+                    systolicBP = sbp < 90 ? 20 : 0;
+                  });
+                },
+                systolicBP,
+              ),
+              _buildVitalSignInput(
+                AppLocalizations.of(context)!.psi_temperature, 
+                AppLocalizations.of(context)!.psi_temperature_threshold,
+                tempController, 
+                '°C',
+                (value) {
+                  double temp = double.tryParse(value) ?? 0;
+                  setState(() {
+                    temperature = (temp < 35 || temp >= 40) ? 15 : 0;
+                  });
+                },
+                temperature,
+              ),
+              _buildVitalSignInput(
+                AppLocalizations.of(context)!.psi_pulse, 
+                AppLocalizations.of(context)!.psi_pulse_threshold,
+                pulseController, 
+                'bpm',
+                (value) {
+                  double hr = double.tryParse(value) ?? 0;
+                  setState(() {
+                    pulse = hr >= 125 ? 10 : 0;
+                  });
+                },
+                pulse,
+              ),
             ]),
 
             // Laboratory Values
-            _buildSection('Xét nghiệm', Colors.teal.shade600, [
-              _buildLabInput('pH động mạch (<7.35)', phController, (value) {
+            _buildSection(AppLocalizations.of(context)!.psi_laboratory, Colors.green.shade600, [
+              _buildLabInput(AppLocalizations.of(context)!.psi_arterial_ph, phController, (value) {
                 double ph = double.tryParse(value) ?? 0;
                 setState(() {
                   arterialPH = ph < 7.35 ? 30 : 0;
                 });
               }),
               _buildLabInputWithUnit(
-                'BUN',
-                '≥30 mg/dL (10.7 mmol/L)',
+                AppLocalizations.of(context)!.psi_bun,
+                AppLocalizations.of(context)!.psi_bun_threshold,
                 bunController,
                 bunUnit,
                 ['mg/dL', 'mmol/L'],
@@ -399,15 +370,15 @@ class _PsiPageState extends State<PsiPage> {
                 calculateBUNScore,
                 bun,
               ),
-              _buildLabInput('Natri (<130 mmol/L)', naController, (value) {
+              _buildLabInput(AppLocalizations.of(context)!.psi_sodium, naController, (value) {
                 double na = double.tryParse(value) ?? 0;
                 setState(() {
                   sodium = na < 130 ? 20 : 0;
                 });
               }),
               _buildLabInputWithUnit(
-                'Glucose',
-                '≥250 mg/dL (13.9 mmol/L)',
+                AppLocalizations.of(context)!.psi_glucose,
+                AppLocalizations.of(context)!.psi_glucose_threshold,
                 glucoseController,
                 glucoseUnit,
                 ['mg/dL', 'mmol/L'],
@@ -420,20 +391,20 @@ class _PsiPageState extends State<PsiPage> {
                 calculateGlucoseScore,
                 glucose,
               ),
-              _buildLabInput('Hematocrit (<30%)', hctController, (value) {
+              _buildLabInput(AppLocalizations.of(context)!.psi_hematocrit, hctController, (value) {
                 double hct = double.tryParse(value) ?? 0;
                 setState(() {
                   hematocrit = hct < 30 ? 10 : 0;
                 });
               }),
-              _buildLabInput('PaO₂ (<60 mmHg)', po2Controller, (value) {
+              _buildLabInput(AppLocalizations.of(context)!.psi_pao2, po2Controller, (value) {
                 double po2 = double.tryParse(value) ?? 0;
                 setState(() {
                   partialPressureO2 = po2 < 60 ? 10 : 0;
                 });
               }),
-              _buildComorbiditySection('Tràn dịch màng phổi', pleuralEffusion, 10, (value) {
-                setState(() => pleuralEffusion = value * 10);
+              _buildComorbiditySection(AppLocalizations.of(context)!.psi_pleural_effusion, pleuralEffusion, 10, (value) {
+                setState(() => pleuralEffusion = value);
               }),
             ]),
 
@@ -454,7 +425,7 @@ class _PsiPageState extends State<PsiPage> {
                       Icon(Icons.local_hospital, color: Colors.red.shade600),
                       const SizedBox(width: 8),
                       Text(
-                        'Tiêu chí cân nhắc ICU',
+                        AppLocalizations.of(context)!.psi_icu_criteria_title,
                         style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: Colors.red.shade600,
@@ -463,16 +434,9 @@ class _PsiPageState extends State<PsiPage> {
                     ],
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    '• PSI Class IV-V: Cần theo dõi chặt chẽ, cân nhắc ICU\n'
-                    '• Các yếu tố nguy cơ cao thêm:\n'
-                    '  - Suy hô hấp (PaO₂ < 60 mmHg)\n'
-                    '  - Rối loạn ý thức\n'
-                    '  - Tụt huyết áp (SBP < 90 mmHg)\n'
-                    '  - Nhiều bệnh đi kèm nặng\n'
-                    '  - Tuổi cao + triệu chứng nặng\n'
-                    '• Class V (>130 điểm): Khuyến cáo ICU do tỷ lệ tử vong cao (>27%)',
-                    style: TextStyle(height: 1.4),
+                  Text(
+                    AppLocalizations.of(context)!.psi_icu_criteria_content,
+                    style: const TextStyle(height: 1.4),
                   ),
                 ],
               ),
@@ -486,6 +450,100 @@ class _PsiPageState extends State<PsiPage> {
             ),
 
             const SizedBox(height: 20),
+            ]),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildScoreCard() {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: scoreColor.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: scoreColor.withValues(alpha: 0.3)),
+      ),
+      child: IntrinsicHeight(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Score và Class
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  totalScore.toString(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: scoreColor,
+                    fontSize: 24,
+                  ),
+                ),
+                Text(
+                  AppLocalizations.of(context)!.psi_class(riskClass),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: scoreColor,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+            // Vertical divider
+            Container(
+              width: 1,
+              color: scoreColor.withValues(alpha: 0.3),
+            ),
+            // Risk và ICU
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    getRiskDescription(context),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: scoreColor,
+                      fontSize: 11,
+                    ),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.local_hospital,
+                        color: icuRecommendationColor,
+                        size: 12,
+                      ),
+                      const SizedBox(width: 4),
+                      Flexible(
+                        child: Text(
+                          getIcuRecommendation(context),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: icuRecommendationColor,
+                            fontSize: 10,
+                          ),
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -522,12 +580,12 @@ class _PsiPageState extends State<PsiPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Giới tính:', style: TextStyle(fontWeight: FontWeight.w500)),
+        Text(AppLocalizations.of(context)!.psi_gender, style: const TextStyle(fontWeight: FontWeight.w500)),
         Row(
           children: [
             Expanded(
               child: RadioListTile<int>(
-                title: const Text('Nữ'),
+                title: Text(AppLocalizations.of(context)!.psi_female),
                 value: 0,
                 // ignore: deprecated_member_use
                 groupValue: gender,
@@ -538,7 +596,7 @@ class _PsiPageState extends State<PsiPage> {
             ),
             Expanded(
               child: RadioListTile<int>(
-                title: const Text('Nam'),
+                title: Text(AppLocalizations.of(context)!.psi_male),
                 value: 1,
                 // ignore: deprecated_member_use
                 groupValue: gender,
@@ -561,9 +619,9 @@ class _PsiPageState extends State<PsiPage> {
         TextField(
           controller: ageController,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
-            labelText: 'Tuổi',
-            border: OutlineInputBorder(),
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context)!.psi_age_label,
+            border: const OutlineInputBorder(),
           ),
           // ignore: deprecated_member_use
           onChanged: (value) {
@@ -590,7 +648,7 @@ class _PsiPageState extends State<PsiPage> {
                 setState(() => nursingHome = value! ? 1 : 0);
               },
             ),
-            const Expanded(child: Text('Sống tại viện dưỡng lão (+10 điểm)')),
+            Expanded(child: Text(AppLocalizations.of(context)!.psi_nursing_home)),
           ],
         ),
       ],
@@ -609,24 +667,8 @@ class _PsiPageState extends State<PsiPage> {
               onChanged(checked! ? 1 : 0);
             },
           ),
-          Expanded(child: Text('$title (+$points điểm)')),
+          Expanded(child: Text(title)),
         ],
-      ),
-    );
-  }
-
-  Widget _buildVitalSignInput(String label, TextEditingController controller, Function(String) onChanged) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: TextField(
-        controller: controller,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          labelText: label,
-          border: const OutlineInputBorder(),
-        ),
-        // ignore: deprecated_member_use
-        onChanged: null,
       ),
     );
   }
@@ -672,12 +714,12 @@ class _PsiPageState extends State<PsiPage> {
           Row(
             children: [
               Expanded(
-                flex: 3,
+                flex: 5,
                 child: TextField(
                   controller: controller,
                   keyboardType: const TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
-                    labelText: '$label ($currentUnit)',
+                    labelText: currentUnit,
                     border: const OutlineInputBorder(),
                     isDense: true,
                   ),
@@ -686,19 +728,23 @@ class _PsiPageState extends State<PsiPage> {
               ),
               const SizedBox(width: 8),
               Expanded(
-                flex: 2,
+                flex: 4,
                 child: DropdownButtonFormField<String>(
                   initialValue: currentUnit,
-                  decoration: const InputDecoration(
-                    labelText: 'Đơn vị',
-                    border: OutlineInputBorder(),
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context)!.unit,
+                    border: const OutlineInputBorder(),
                     isDense: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
                   ),
                   items: units.map((String unit) {
                     return DropdownMenuItem<String>(
                       value: unit,
-                      child: Text(unit, style: const TextStyle(fontSize: 12)),
+                      child: Text(
+                        unit, 
+                        style: const TextStyle(fontSize: 11),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
@@ -709,22 +755,94 @@ class _PsiPageState extends State<PsiPage> {
                 ),
               ),
               const SizedBox(width: 8),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: score > 0 ? Colors.red.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  'Điểm: $score',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: score > 0 ? Colors.red : Colors.grey,
-                    fontSize: 12,
+              Expanded(
+                flex: 3,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: score > 0 ? Colors.red.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    AppLocalizations.of(context)!.psi_score_label(score),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: score > 0 ? Colors.red : Colors.grey,
+                      fontSize: 11,
+                    ),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVitalSignInput(String label, String threshold, TextEditingController controller, String unit, Function(String) onChanged, int score) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 6,
+            child: TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                labelText: label,
+                hintText: threshold,
+                border: const OutlineInputBorder(),
+                isDense: true,
+                contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+              ),
+              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              onChanged: onChanged,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            flex: 2,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.grey.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: Colors.grey.withValues(alpha: 0.3)),
+              ),
+              child: Text(
+                unit,
+                style: const TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            flex: 3,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+              decoration: BoxDecoration(
+                color: score > 0 ? Colors.red.withValues(alpha: 0.1) : Colors.grey.withValues(alpha: 0.1),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                AppLocalizations.of(context)!.psi_score_label(score),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: score > 0 ? Colors.red : Colors.grey,
+                  fontSize: 11,
+                ),
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ),
         ],
       ),
@@ -763,7 +881,7 @@ class _PsiPageState extends State<PsiPage> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                AppLocalizations.of(context)!.psi_reference_title,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -774,7 +892,7 @@ class _PsiPageState extends State<PsiPage> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Fine MJ, et al. A prediction rule to identify low-risk patients with community-acquired pneumonia. N Engl J Med. 1997;336(4):243-50.\n\nAujesky D, et al. Prospective comparison of three validated prediction rules for prognosis in community-acquired pneumonia. Am J Med. 2005;118(4):384-92.',
+            AppLocalizations.of(context)!.psi_reference_text,
             style: TextStyle(
               fontSize: 11,
               color: Colors.blue.shade600,
@@ -783,5 +901,43 @@ class _PsiPageState extends State<PsiPage> {
         ],
       ),
     );
+  }
+}
+
+class _StickyScoreHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final double minHeight;
+  final double maxHeight;
+  final Widget child;
+
+  _StickyScoreHeaderDelegate({
+    required this.minHeight,
+    required this.maxHeight,
+    required this.child,
+  });
+
+  @override
+  double get minExtent => minHeight;
+
+  @override
+  double get maxExtent => math.max(minHeight, maxHeight);
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final currentHeight = math.max(minHeight, maxHeight - shrinkOffset);
+    return SizedBox(
+      height: currentHeight,
+      width: double.infinity,
+      child: Container(
+        color: Theme.of(context).scaffoldBackgroundColor,
+        child: child,
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(_StickyScoreHeaderDelegate oldDelegate) {
+    return maxHeight != oldDelegate.maxHeight ||
+           minHeight != oldDelegate.minHeight ||
+           child != oldDelegate.child;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class RevisedCardiacRiskIndexPage extends StatefulWidget {
   const RevisedCardiacRiskIndexPage({super.key});
@@ -52,17 +52,17 @@ class _RevisedCardiacRiskIndexPageState extends State<RevisedCardiacRiskIndexPag
     return Colors.red;
   }
 
-  String get riskLevel {
+  String riskLevel(BuildContext context) {
     if (totalScore == 0) {
-      return 'Nguy cơ rất thấp';
+      return AppLocalizations.of(context)!.rcri_risk_very_low;
     }
     if (totalScore == 1) {
-      return 'Nguy cơ thấp';
+      return AppLocalizations.of(context)!.rcri_risk_low;
     }
     if (totalScore == 2) {
-      return 'Nguy cơ trung bình';
+      return AppLocalizations.of(context)!.rcri_risk_moderate;
     }
-    return 'Nguy cơ cao';
+    return AppLocalizations.of(context)!.rcri_risk_high;
   }
 
   String get cardiacEventRisk {
@@ -81,293 +81,245 @@ class _RevisedCardiacRiskIndexPageState extends State<RevisedCardiacRiskIndexPag
     return '0%';
   }
 
-  String get recommendations {
+  String recommendations(BuildContext context) {
     if (totalScore == 0) {
-      return 'Tiến hành phẫu thuật theo kế hoạch, không cần đánh giá tim mạch thêm';
+      return AppLocalizations.of(context)!.rcri_recommendation_0;
     }
     if (totalScore == 1) {
-      return 'Cân nhắc đánh giá tim mạch nếu có triệu chứng hoặc phẫu thuật nguy cơ cao';
+      return AppLocalizations.of(context)!.rcri_recommendation_1;
     }
     if (totalScore == 2) {
-      return 'Khuyến nghị đánh giá tim mạch trước phẫu thuật, tối ưu hóa điều trị';
+      return AppLocalizations.of(context)!.rcri_recommendation_2;
     }
-    return 'Bắt buộc đánh giá tim mạch toàn diện, cân nhắc can thiệp trước phẫu thuật';
+    return AppLocalizations.of(context)!.rcri_recommendation_3;
   }
 
-  String get perioperativeManagement {
+  String perioperativeManagement(BuildContext context) {
     if (totalScore == 0) {
-      return 'Quản lý chu phẫu chuẩn';
+      return AppLocalizations.of(context)!.rcri_management_standard;
     }
     if (totalScore == 1) {
-      return 'Theo dõi tim mạch trong phẫu thuật';
+      return AppLocalizations.of(context)!.rcri_management_monitoring;
     }
     if (totalScore == 2) {
-      return 'Monitoring tim mạch chặt chẽ, ICU hậu phẫu';
+      return AppLocalizations.of(context)!.rcri_management_intensive;
     }
-    return 'Monitoring xâm lấn, ICU monitoring, cân nhắc hỗ trợ tuần hoàn';
+    return AppLocalizations.of(context)!.rcri_management_invasive;
   }
 
-  List<Map<String, dynamic>> get riskFactors {
+  List<Map<String, dynamic>> riskFactors(BuildContext context) {
     return [
       {
-        'factor': 'Bệnh tim thiếu máu cục bộ',
-        'description': 'Tiền sử nhồi máu cơ tim, dương tính test gắng sức, đau thắt ngực, dùng nitrate, sóng Q bệnh lý',
+        'factor': AppLocalizations.of(context)!.rcri_ihd_title,
+        'description': AppLocalizations.of(context)!.rcri_ihd_description,
         'active': _ihd,
         'variable': 'ihd',
       },
       {
-        'factor': 'Suy tim sung huyết',
-        'description': 'Tiền sử suy tim, phù phổi, khó thở khi nằm, ran ẩm phổi, bóng tim to, phù ngoại biên',
+        'factor': AppLocalizations.of(context)!.rcri_chf_title,
+        'description': AppLocalizations.of(context)!.rcri_chf_description,
         'active': _chf,
         'variable': 'chf',
       },
       {
-        'factor': 'Bệnh mạch máu não',
-        'description': 'Tiền sử đột quỵ hoặc thiếu máu não thoáng qua',
+        'factor': AppLocalizations.of(context)!.rcri_cvd_title,
+        'description': AppLocalizations.of(context)!.rcri_cvd_description,
         'active': _cvd,
         'variable': 'cvd',
       },
       {
-        'factor': 'Tiểu đường dùng insulin',
-        'description': 'Tiểu đường type 1 hoặc type 2 cần điều trị insulin',
+        'factor': AppLocalizations.of(context)!.rcri_dm_title,
+        'description': AppLocalizations.of(context)!.rcri_dm_description,
         'active': _dminsulin,
         'variable': 'dminsulin',
       },
       {
-        'factor': 'Suy thận (Creatinine >2.0)',
-        'description': 'Creatinine huyết thanh >2.0 mg/dL (177 μmol/L)',
+        'factor': AppLocalizations.of(context)!.rcri_renal_title,
+        'description': AppLocalizations.of(context)!.rcri_renal_description,
         'active': _creatinine,
         'variable': 'creatinine',
       },
       {
-        'factor': 'Phẫu thuật nguy cơ cao',
-        'description': 'Phẫu thuật trong ổ bụng, ngực, mạch máu lớn',
+        'factor': AppLocalizations.of(context)!.rcri_surgery_title,
+        'description': AppLocalizations.of(context)!.rcri_surgery_description,
         'active': _highrisk,
         'variable': 'highrisk',
       },
     ];
   }
 
-  List<String> get highRiskSurgeries {
+  List<String> highRiskSurgeries(BuildContext context) {
     return [
-      'Phẫu thuật động mạch chủ và mạch máu lớn',
-      'Phẫu thuật mạch máu ngoại biên',
-      'Phẫu thuật trong ổ bụng lớn',
-      'Phẫu thuật ngực (không phải tim)',
-      'Phẫu thuật thận',
-      'Phẫu thuật gan lớn',
-      'Phẫu thuật đầu-cổ với tổn thất máu lớn',
-      'Phẫu thuật xương khớp lớn với tổn thất máu',
+      AppLocalizations.of(context)!.rcri_surgery_aortic,
+      AppLocalizations.of(context)!.rcri_surgery_peripheral,
+      AppLocalizations.of(context)!.rcri_surgery_abdominal,
+      AppLocalizations.of(context)!.rcri_surgery_thoracic,
+      AppLocalizations.of(context)!.rcri_surgery_renal,
+      AppLocalizations.of(context)!.rcri_surgery_hepatic,
+      AppLocalizations.of(context)!.rcri_surgery_head_neck,
+      AppLocalizations.of(context)!.rcri_surgery_orthopedic,
     ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Revised Cardiac Risk Index'),
-        backgroundColor: Colors.red.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Score Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'RCRI (Lee Index)',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    '$totalScore/6',
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    riskLevel,
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
+      body: CustomScrollView(
+        slivers: [
+          // Sticky AppBar
+          SliverAppBar(
+            title: Text(
+              AppLocalizations.of(context)!.rcri_title,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
               ),
             ),
-
-            // Risk Factors
-            _buildRiskFactorsSection(),
-
-            // Active Risk Factors
-            if (totalScore > 0) _buildActiveFactors(),
-
-            // High-Risk Surgery Examples
-            _buildHighRiskSurgerySection(),
-
-            // Risk Stratification
-            _buildRiskStratification(),
-
-            // Clinical Information
-            _buildClinicalInfo(),
-
-            // Medical Citation
-            Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.blue.shade200),
+            backgroundColor: Colors.blue.shade700,
+            elevation: 4,
+            pinned: true,
+            floating: false,
+            snap: false,
+            expandedHeight: 120,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.blue.shade700,
+                      Colors.blue.shade600,
+                    ],
+                  ),
+                ),
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 60, 16, 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Cardiac Risk Assessment for Non-Cardiac Surgery',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.white70,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+            ),
+          ),
+          
+          // Sticky Score Header
+          SliverPersistentHeader(
+            delegate: _StickyRcriScoreHeaderDelegate(
+              totalScore: totalScore,
+            ),
+            pinned: true,
+          ),
+          
+          // Main Content
+          SliverPadding(
+            padding: const EdgeInsets.only(top: 16),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
                     children: [
-                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Tài liệu tham khảo',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade700,
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA PHẪU THUẬT: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ gây mê hồi sức và phẫu thuật viên trước khi đưa ra quyết định.'
+                              : 'SURGICAL MEDICAL DISCLAIMER: Results are for reference only. Always consult with anesthesiologist and surgeon before making decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'Lee TH, Marcantonio ER, Mangione CM, et al. Derivation and prospective validation of a simple index for prediction of cardiac risk of major noncardiac surgery. Circulation. 1999;100(10):1043-9.',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.blue.shade600,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                ),
+                
+                // Risk Factors
+                _buildRiskFactorsSection(),
 
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
+                // Active Risk Factors
+                if (totalScore > 0) _buildActiveFactors(),
 
-  Widget _buildRiskInfo() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey.shade50,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.grey.shade200),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: [
-                  Text(
-                    'Nguy cơ biến cố tim mạch',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
-                    ),
-                    textAlign: TextAlign.center,
+                // High-Risk Surgery Examples
+                _buildHighRiskSurgerySection(),
+
+                // Risk Stratification
+                _buildRiskStratification(),
+
+                // Clinical Information
+                _buildClinicalInfo(),
+
+                // Medical Citation
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.blue.shade200),
                   ),
-                  Text(
-                    cardiacEventRisk,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                      color: riskColor,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: riskColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: riskColor.withValues(alpha: 0.2)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Icon(Icons.medical_services, color: riskColor, size: 20),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Quản lý chu phẫu:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: riskColor,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                          const SizedBox(width: 6),
+                          Text(
+                            AppLocalizations.of(context)!.rcri_references,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade700,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  perioperativeManagement,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: AppTheme.darkGrey,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Icon(Icons.assignment, color: riskColor, size: 20),
-                    const SizedBox(width: 8),
-                    Text(
-                      'Khuyến nghị:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: riskColor,
+                      const SizedBox(height: 6),
+                      Text(
+                        'Lee TH, Marcantonio ER, Mangione CM, et al. Derivation and prospective validation of a simple index for prediction of cardiac risk of major noncardiac surgery. Circulation. 1999;100(10):1043-9.',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.blue.shade600,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  recommendations,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: AppTheme.darkGrey,
+                    ],
                   ),
                 ),
-              ],
+
+                const SizedBox(height: 20),
+              ]),
             ),
           ),
         ],
       ),
     );
   }
+
+
 
   Widget _buildRiskFactorsSection() {
     return Container(
@@ -382,7 +334,7 @@ class _RevisedCardiacRiskIndexPageState extends State<RevisedCardiacRiskIndexPag
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố nguy cơ tim mạch',
+            AppLocalizations.of(context)!.rcri_risk_factors_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -390,7 +342,7 @@ class _RevisedCardiacRiskIndexPageState extends State<RevisedCardiacRiskIndexPag
           ),
           const SizedBox(height: 16),
           
-          ...riskFactors.map((factor) => Container(
+          ...riskFactors(context).map((factor) => Container(
             margin: const EdgeInsets.only(bottom: 12),
             child: CheckboxListTile(
               title: Text(
@@ -429,7 +381,7 @@ class _RevisedCardiacRiskIndexPageState extends State<RevisedCardiacRiskIndexPag
   }
 
   Widget _buildActiveFactors() {
-    List<Map<String, dynamic>> activeFactors = riskFactors.where((factor) => factor['active']).toList();
+    List<Map<String, dynamic>> activeFactors = riskFactors(context).where((factor) => factor['active']).toList();
     
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -443,7 +395,7 @@ class _RevisedCardiacRiskIndexPageState extends State<RevisedCardiacRiskIndexPag
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố nguy cơ hiện tại (${activeFactors.length})',
+            AppLocalizations.of(context)!.rcri_current_risk_factors(activeFactors.length),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
@@ -506,14 +458,14 @@ class _RevisedCardiacRiskIndexPageState extends State<RevisedCardiacRiskIndexPag
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phẫu thuật nguy cơ cao',
+            AppLocalizations.of(context)!.rcri_high_risk_surgery_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.purple.shade700,
             ),
           ),
           const SizedBox(height: 12),
-          ...highRiskSurgeries.map((surgery) => Padding(
+          ...highRiskSurgeries(context).map((surgery) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 2),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -554,17 +506,17 @@ class _RevisedCardiacRiskIndexPageState extends State<RevisedCardiacRiskIndexPag
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ biến cố tim mạch',
+            AppLocalizations.of(context)!.rcri_risk_stratification_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem(0, 'Nguy cơ rất thấp', '0.4%', 'Không cần đánh giá thêm', Colors.green),
-          _buildRiskItem(1, 'Nguy cơ thấp', '0.9%', 'Cân nhắc đánh giá nếu có triệu chứng', Colors.blue),
-          _buildRiskItem(2, 'Nguy cơ trung bình', '7%', 'Khuyến nghị đánh giá tim mạch', Colors.orange),
-          _buildRiskItem(3, 'Nguy cơ cao', '≥11%', 'Bắt buộc đánh giá toàn diện', Colors.red),
+          _buildRiskItem(0, AppLocalizations.of(context)!.rcri_risk_0_title, '0.4%', AppLocalizations.of(context)!.rcri_risk_0_desc, Colors.green),
+          _buildRiskItem(1, AppLocalizations.of(context)!.rcri_risk_1_title, '0.9%', AppLocalizations.of(context)!.rcri_risk_1_desc, Colors.blue),
+          _buildRiskItem(2, AppLocalizations.of(context)!.rcri_risk_2_title, '7%', AppLocalizations.of(context)!.rcri_risk_2_desc, Colors.orange),
+          _buildRiskItem(3, AppLocalizations.of(context)!.rcri_risk_3_title, '≥11%', AppLocalizations.of(context)!.rcri_risk_3_desc, Colors.red),
         ],
       ),
     );
@@ -646,7 +598,7 @@ class _RevisedCardiacRiskIndexPageState extends State<RevisedCardiacRiskIndexPag
               Icon(Icons.info, color: Colors.indigo.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.rcri_clinical_info_title,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.indigo.shade600,
@@ -655,28 +607,155 @@ class _RevisedCardiacRiskIndexPageState extends State<RevisedCardiacRiskIndexPag
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'Revised Cardiac Risk Index (RCRI/Lee Index) đánh giá nguy cơ biến cố tim mạch chu phẫu\n\n'
-            'Biến cố tim mạch bao gồm:\n'
-            '• Nhồi máu cơ tim\n'
-            '• Phù phổi cấp\n'
-            '• Block nhĩ thất hoàn toàn\n'
-            '• Ngừng tim\n'
-            '• Rung thất\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Đánh giá nguy cơ trước phẫu thuật\n'
-            '• Quyết định cần đánh giá tim mạch thêm\n'
-            '• Lựa chọn phương pháp gây mê và theo dõi\n'
-            '• Tư vấn nguy cơ cho bệnh nhân\n\n'
-            'Lưu ý quan trọng:\n'
-            '• Áp dụng cho phẫu thuật không tim\n'
-            '• Không thay thế đánh giá lâm sàng toàn diện\n'
-            '• Cân nhắc yếu tố nguy cơ khác\n'
-            '• Tối ưu hóa điều trị nội khoa trước phẫu thuật',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.rcri_clinical_info_text,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
     );
+  }
+}
+
+class _StickyRcriScoreHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final int totalScore;
+
+  _StickyRcriScoreHeaderDelegate({
+    required this.totalScore,
+  });
+
+  Color get riskColor {
+    if (totalScore == 0) return Colors.green;
+    if (totalScore == 1) return Colors.blue;
+    if (totalScore == 2) return Colors.orange;
+    return Colors.red;
+  }
+
+  String riskLevel(BuildContext context) {
+    if (totalScore == 0) {
+      return AppLocalizations.of(context)!.rcri_risk_very_low;
+    }
+    if (totalScore == 1) {
+      return AppLocalizations.of(context)!.rcri_risk_low;
+    }
+    if (totalScore == 2) {
+      return AppLocalizations.of(context)!.rcri_risk_moderate;
+    }
+    return AppLocalizations.of(context)!.rcri_risk_high;
+  }
+
+  String get cardiacEventRisk {
+    if (totalScore == 0) return '0.4%';
+    if (totalScore == 1) return '0.9%';
+    if (totalScore == 2) return '7%';
+    if (totalScore >= 3) return '11%';
+    return '0%';
+  }
+
+  @override
+  double get minExtent => 70;
+  
+  @override
+  double get maxExtent => 70;
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Material(
+      elevation: overlapsContent ? 4 : 2,
+      child: Container(
+        height: 70,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            bottom: BorderSide(
+              color: Colors.grey.shade300,
+              width: 1,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            children: [
+              // Score circle - fixed size
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: riskColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    '$totalScore/6',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              
+              const SizedBox(width: 12),
+              
+              // Risk level - expanded
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Risk Level',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      riskLevel(context),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+              
+              // Cardiac event risk - compact
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: riskColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Text(
+                  cardiacEventRisk,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: riskColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
+    if (oldDelegate is _StickyRcriScoreHeaderDelegate) {
+      return oldDelegate.totalScore != totalScore;
+    }
+    return true;
   }
 }

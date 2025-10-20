@@ -1896,8 +1896,377 @@ class AppLocalizationsEn extends AppLocalizations {
       'Dual antiplatelet therapy duration decision';
 
   @override
+  String get dapt_title => 'DAPT Score';
+
+  @override
+  String get dapt_continue => 'Continue DAPT';
+
+  @override
+  String get dapt_discontinue => 'Discontinue DAPT';
+
+  @override
+  String get dapt_ischemic_benefit_high => 'Reduces 41% risk of MACE';
+
+  @override
+  String get dapt_ischemic_benefit_low => 'Reduces 7% risk of MACE';
+
+  @override
+  String get dapt_bleeding_risk_high => 'Increases 31% risk of major bleeding';
+
+  @override
+  String get dapt_bleeding_risk_low => 'Increases 61% risk of major bleeding';
+
+  @override
+  String get dapt_reasoning_continue =>
+      'Ischemic benefit reduction > Bleeding risk';
+
+  @override
+  String get dapt_reasoning_discontinue =>
+      'Bleeding risk > Ischemic benefit reduction';
+
+  @override
+  String get dapt_ischemic_benefit_label => 'Ischemic benefit';
+
+  @override
+  String get dapt_bleeding_risk_label => 'Bleeding risk';
+
+  @override
+  String get dapt_rationale_label => 'Rationale:';
+
+  @override
+  String get dapt_patient_factors => 'Patient Factors';
+
+  @override
+  String get dapt_age_label => 'Age';
+
+  @override
+  String get dapt_age_unit => 'years';
+
+  @override
+  String get dapt_age_help => '≥75 years: -2 points, 65-74 years: -1 point';
+
+  @override
+  String get dapt_smoking => 'Cigarette smoking';
+
+  @override
+  String get dapt_smoking_desc => 'Current or within 1 year';
+
+  @override
+  String get dapt_diabetes => 'Diabetes mellitus';
+
+  @override
+  String get dapt_diabetes_desc => 'On medical treatment';
+
+  @override
+  String get dapt_clinical_factors => 'Clinical & Procedural Factors';
+
+  @override
+  String get dapt_mi => 'MI prior to PCI';
+
+  @override
+  String get dapt_mi_desc => 'MI at presentation or previous';
+
+  @override
+  String get dapt_heart_failure => 'Heart failure or LVEF <30%';
+
+  @override
+  String get dapt_heart_failure_desc =>
+      'Clinical heart failure or ejection fraction <30%';
+
+  @override
+  String get dapt_vein_graft => 'Vein graft intervention';
+
+  @override
+  String get dapt_vein_graft_desc => 'PCI on saphenous vein graft';
+
+  @override
+  String get dapt_stent_characteristics => 'Stent characteristics';
+
+  @override
+  String get dapt_bms => 'Bare metal stent (BMS)';
+
+  @override
+  String get dapt_bms_desc => 'Compared to drug-eluting stent';
+
+  @override
+  String get dapt_small_stent => 'Stent diameter <3mm';
+
+  @override
+  String get dapt_small_stent_desc => 'Small stents have higher risk';
+
+  @override
+  String get dapt_points_suffix => 'point';
+
+  @override
+  String get dapt_risk_benefit_analysis => 'Risk-Benefit Analysis';
+
+  @override
+  String get dapt_continue_title => 'DAPT Score ≥2: Continue DAPT';
+
+  @override
+  String get dapt_continue_mace => '41% reduction in MACE risk';
+
+  @override
+  String get dapt_continue_mi => '43% reduction in MI risk';
+
+  @override
+  String get dapt_continue_stent => '67% reduction in stent thrombosis';
+
+  @override
+  String get dapt_continue_bleeding => '31% increase in major bleeding';
+
+  @override
+  String get dapt_continue_conclusion => 'Benefit > Risk';
+
+  @override
+  String get dapt_discontinue_title => 'DAPT Score <2: Discontinue DAPT';
+
+  @override
+  String get dapt_discontinue_mace =>
+      '7% reduction in MACE risk (not significant)';
+
+  @override
+  String get dapt_discontinue_bleeding => '61% increase in major bleeding risk';
+
+  @override
+  String get dapt_discontinue_gi => 'Reduced GI bleeding risk';
+
+  @override
+  String get dapt_discontinue_ich => 'Reduced intracranial bleeding risk';
+
+  @override
+  String get dapt_discontinue_conclusion => 'Risk > Benefit';
+
+  @override
+  String get dapt_clinical_guidelines => 'Clinical Guidelines';
+
+  @override
+  String get dapt_guideline_continue_title =>
+      'DAPT Score ≥2: Recommend extended DAPT';
+
+  @override
+  String get dapt_guideline_continue_1 => 'Continue aspirin + P2Y12 inhibitor';
+
+  @override
+  String get dapt_guideline_continue_2 => 'Duration: additional 18-30 months';
+
+  @override
+  String get dapt_guideline_continue_3 => 'Monitor kidney and liver function';
+
+  @override
+  String get dapt_guideline_continue_4 => 'Counsel on bleeding signs';
+
+  @override
+  String get dapt_guideline_discontinue_title =>
+      'DAPT Score <2: Discontinue DAPT';
+
+  @override
+  String get dapt_guideline_discontinue_1 => 'Switch to aspirin monotherapy';
+
+  @override
+  String get dapt_guideline_discontinue_2 => 'Aspirin dose 75-100mg daily';
+
+  @override
+  String get dapt_guideline_discontinue_3 => 'Monitor cardiovascular events';
+
+  @override
+  String get dapt_guideline_discontinue_4 => 'Regular follow-up visits';
+
+  @override
+  String get dapt_guideline_special_title => 'Special cases';
+
+  @override
+  String get dapt_guideline_special_1 =>
+      'High bleeding risk: consider discontinuation';
+
+  @override
+  String get dapt_guideline_special_2 => 'Elderly patients: careful assessment';
+
+  @override
+  String get dapt_guideline_special_3 => 'Drug interactions: adjust dosing';
+
+  @override
+  String get dapt_guideline_special_4 => 'Surgery: minimal interruption';
+
+  @override
+  String get dapt_clinical_info => 'Clinical Information';
+
+  @override
+  String get dapt_clinical_text =>
+      'The DAPT Score helps decide whether to continue or discontinue dual antiplatelet therapy\n\nBackground:\n• DAPT Trial study (n=25,682)\n• Compared DAPT vs placebo after 12 months\n• Developed in 2016\n• Validated in multiple studies\n\nDAPT Components:\n• Aspirin 75-100mg\n• P2Y12 inhibitor (clopidogrel/ticagrelor/prasugrel)\n• Minimum 12 months after ACS/PCI\n\nMechanism of action:\n• COX-1 inhibition (aspirin)\n• P2Y12 receptor inhibition\n• Reduced platelet aggregation\n• Thrombosis prevention\n\nDAPT Complications:\n• Gastrointestinal bleeding\n• Intracranial hemorrhage\n• Mucosal bleeding\n• Drug interactions\n\nApplications:\n• Post-myocardial infarction\n• Post-percutaneous coronary intervention\n• Stable coronary artery disease\n• Secondary prevention\n\nLimitations:\n• Not applicable to all patients\n• Need bleeding risk assessment\n• Changes over time\n• Requires clinical judgment';
+
+  @override
+  String get dapt_reference_title => 'Reference';
+
+  @override
+  String get dapt_reference_text =>
+      'Yeh RW, Secemsky EA, Kereiakes DJ, et al. Development and validation of a prediction rule for benefit and harm of dual antiplatelet therapy beyond 1 year after percutaneous coronary intervention. JAMA. 2016;315(16):1735-49.';
+
+  @override
   String get creatinine_clearance_list_description =>
       'Kidney function assessment';
+
+  @override
+  String get creatinine_clearance_title => 'Creatinine Clearance';
+
+  @override
+  String get creatinine_clearance_result => 'Creatinine Clearance';
+
+  @override
+  String get creatinine_clearance_unit => 'ml/min';
+
+  @override
+  String get creatinine_clearance_input_prompt =>
+      'Enter parameters to calculate';
+
+  @override
+  String get creatinine_clearance_input_title =>
+      'Input Parameters (Cockcroft-Gault)';
+
+  @override
+  String get creatinine_clearance_age => 'Age';
+
+  @override
+  String get creatinine_clearance_age_unit => 'years';
+
+  @override
+  String get creatinine_clearance_weight => 'Weight';
+
+  @override
+  String get creatinine_clearance_weight_unit => 'kg';
+
+  @override
+  String get creatinine_clearance_creatinine => 'Serum creatinine';
+
+  @override
+  String get creatinine_clearance_creatinine_normal =>
+      'Normal values: Male 0.7-1.3 mg/dL (62-115 umol/L), Female 0.6-1.1 mg/dL (53-97 umol/L)';
+
+  @override
+  String get creatinine_clearance_gender => 'Gender';
+
+  @override
+  String get creatinine_clearance_male => 'Male';
+
+  @override
+  String get creatinine_clearance_female => 'Female';
+
+  @override
+  String get creatinine_clearance_function_normal => 'Normal/High';
+
+  @override
+  String get creatinine_clearance_function_mild => 'Mild decrease';
+
+  @override
+  String get creatinine_clearance_function_mild_moderate =>
+      'Mild-moderate decrease';
+
+  @override
+  String get creatinine_clearance_function_moderate_severe =>
+      'Moderate-severe decrease';
+
+  @override
+  String get creatinine_clearance_function_severe => 'Severe decrease';
+
+  @override
+  String get creatinine_clearance_function_esrd => 'End-stage renal disease';
+
+  @override
+  String get creatinine_clearance_stage_1 => 'CKD Stage 1 (or normal)';
+
+  @override
+  String get creatinine_clearance_stage_2 => 'CKD Stage 2';
+
+  @override
+  String get creatinine_clearance_stage_3a => 'CKD Stage 3a';
+
+  @override
+  String get creatinine_clearance_stage_3b => 'CKD Stage 3b';
+
+  @override
+  String get creatinine_clearance_stage_4 => 'CKD Stage 4';
+
+  @override
+  String get creatinine_clearance_stage_5 => 'CKD Stage 5';
+
+  @override
+  String get creatinine_clearance_dosing_normal => 'Normal dose';
+
+  @override
+  String get creatinine_clearance_dosing_reduce_25_50 => 'Reduce dose 25-50%';
+
+  @override
+  String get creatinine_clearance_dosing_reduce_50_75 => 'Reduce dose 50-75%';
+
+  @override
+  String get creatinine_clearance_dosing_contraindicated =>
+      'Contraindicated or dialysis needed';
+
+  @override
+  String get creatinine_clearance_recommendation_normal =>
+      'Normal monitoring, control risk factors';
+
+  @override
+  String get creatinine_clearance_recommendation_mild =>
+      'Screen for CKD complications, control risk factors';
+
+  @override
+  String get creatinine_clearance_recommendation_mild_moderate =>
+      'Evaluate and treat CKD complications';
+
+  @override
+  String get creatinine_clearance_recommendation_moderate_severe =>
+      'Prepare for renal replacement therapy';
+
+  @override
+  String get creatinine_clearance_recommendation_severe =>
+      'Renal replacement therapy if symptomatic';
+
+  @override
+  String get creatinine_clearance_recommendation_esrd =>
+      'Dialysis or kidney transplant';
+
+  @override
+  String get creatinine_clearance_drug_dosing => 'Drug dose adjustment';
+
+  @override
+  String get creatinine_clearance_clinical_recommendation =>
+      'Clinical recommendation:';
+
+  @override
+  String get creatinine_clearance_reference_values => 'Reference Values';
+
+  @override
+  String get creatinine_clearance_range_90 => '≥ 90 ml/min';
+
+  @override
+  String get creatinine_clearance_range_60_89 => '60-89 ml/min';
+
+  @override
+  String get creatinine_clearance_range_45_59 => '45-59 ml/min';
+
+  @override
+  String get creatinine_clearance_range_30_44 => '30-44 ml/min';
+
+  @override
+  String get creatinine_clearance_range_15_29 => '15-29 ml/min';
+
+  @override
+  String get creatinine_clearance_range_under_15 => '< 15 ml/min';
+
+  @override
+  String get creatinine_clearance_clinical_info => 'Clinical Information';
+
+  @override
+  String get creatinine_clearance_clinical_text =>
+      'Cockcroft-Gault Formula:\nCrCl = [(140 - age) × weight] / (72 × creatinine)\nFemale: multiply by 0.85\n\nImportant Notes:\n• Accuracy decreases when GFR > 60 ml/min\n• Not accurate in obese, elderly, acute illness\n• Drug dosing should be adjusted based on creatinine clearance\n• Monitor kidney function regularly in CKD patients\n• Consider CKD-EPI equation for higher accuracy';
+
+  @override
+  String get creatinine_clearance_reference_title => 'Reference';
+
+  @override
+  String get creatinine_clearance_reference_text =>
+      'Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. Nephron. 1976;16(1):31-41.';
 
   @override
   String get mdrd_list_description => 'Glomerular filtration rate calculation';
@@ -2242,4 +2611,3322 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get sepsis_bundle_vasopressor_desc =>
       'If hypotension persists after fluid resuscitation';
+
+  @override
+  String get timi_stemi_title => 'TIMI Score - STEMI';
+
+  @override
+  String get timi_stemi_risk_low => 'Low Risk';
+
+  @override
+  String get timi_stemi_risk_moderate => 'Moderate Risk';
+
+  @override
+  String get timi_stemi_risk_high => 'High Risk';
+
+  @override
+  String get timi_stemi_risk_very_high => 'Very High Risk';
+
+  @override
+  String get timi_stemi_mortality_30day => '30-day mortality rate';
+
+  @override
+  String get timi_stemi_treatment_recommendations =>
+      'Treatment recommendations:';
+
+  @override
+  String get timi_stemi_recommendation_low =>
+      'Early PCI within 12h, standard guideline treatment';
+
+  @override
+  String get timi_stemi_recommendation_moderate =>
+      'Emergency PCI, close monitoring for complications';
+
+  @override
+  String get timi_stemi_recommendation_high =>
+      'Immediate PCI, circulatory support, ICU monitoring';
+
+  @override
+  String get timi_stemi_recommendation_very_high =>
+      'Maximum emergency intervention, consider mechanical circulatory support';
+
+  @override
+  String get timi_stemi_age_65_74 => 'Age 65-74';
+
+  @override
+  String get timi_stemi_age_75_plus => 'Age ≥75';
+
+  @override
+  String get timi_stemi_weight_low => 'Weight <67kg';
+
+  @override
+  String get timi_stemi_dm_htn_angina => 'DM/HTN/Angina';
+
+  @override
+  String get timi_stemi_anterior_mi_lbbb => 'Anterior MI/LBBB';
+
+  @override
+  String get timi_stemi_time_to_treatment => 'Time to treatment >4h';
+
+  @override
+  String get timi_stemi_hr_100_plus => 'Heart rate ≥100';
+
+  @override
+  String get timi_stemi_sbp_low => 'Systolic BP <100';
+
+  @override
+  String get timi_stemi_age_label => 'Age';
+
+  @override
+  String get timi_stemi_weight_label => 'Weight (kg)';
+
+  @override
+  String get timi_stemi_hr_label => 'Heart Rate';
+
+  @override
+  String get timi_stemi_sbp_label => 'Systolic BP';
+
+  @override
+  String get timi_stemi_diabetes_label => 'Diabetes';
+
+  @override
+  String get timi_stemi_hypertension_label => 'Hypertension';
+
+  @override
+  String get timi_stemi_angina_label => 'Angina';
+
+  @override
+  String get timi_stemi_anterior_mi_label => 'Anterior MI/LBBB';
+
+  @override
+  String get timi_stemi_time_4h_label => 'Time to treatment >4h';
+
+  @override
+  String get timi_stemi_systolic_bp_label => 'Systolic BP';
+
+  @override
+  String get timi_stemi_systolic_bp_unit => 'mmHg';
+
+  @override
+  String get timi_ua_nstemi_title => 'TIMI Score - UA/NSTEMI';
+
+  @override
+  String get timi_ua_nstemi_age_label => 'Age';
+
+  @override
+  String get timi_ua_nstemi_age_unit => 'years';
+
+  @override
+  String get timi_ua_nstemi_cad_risk_factors => '≥3 CAD risk factors';
+
+  @override
+  String get timi_ua_nstemi_cad_risk_factors_subtitle =>
+      'Family history, HTN, DM, smoking, high cholesterol';
+
+  @override
+  String get timi_ua_nstemi_known_cad => 'Known CAD (stenosis ≥50%)';
+
+  @override
+  String get timi_ua_nstemi_known_cad_subtitle =>
+      'Prior intervention or imaging evidence';
+
+  @override
+  String get timi_ua_nstemi_aspirin_use => 'Aspirin use in prior 7 days';
+
+  @override
+  String get timi_ua_nstemi_aspirin_use_subtitle =>
+      'Aspirin use before admission';
+
+  @override
+  String get timi_ua_nstemi_severe_angina => '≥2 severe anginal events in 24h';
+
+  @override
+  String get timi_ua_nstemi_severe_angina_subtitle =>
+      'Progressive or recurrent angina';
+
+  @override
+  String get timi_ua_nstemi_st_changes => 'ST changes ≥0.5mm';
+
+  @override
+  String get timi_ua_nstemi_st_changes_subtitle => 'ST segment changes on ECG';
+
+  @override
+  String get timi_ua_nstemi_elevated_markers => 'Elevated cardiac markers';
+
+  @override
+  String get timi_ua_nstemi_elevated_markers_subtitle =>
+      'Elevated troponin or CK-MB';
+
+  @override
+  String get timi_ua_nstemi_risk_factors_title => 'Risk Factors';
+
+  @override
+  String get timi_ua_nstemi_patient_parameters => 'Patient Parameters';
+
+  @override
+  String get timi_ua_nstemi_clinical_info => 'Clinical Information';
+
+  @override
+  String get timi_ua_nstemi_recommendation_low =>
+      'Medical treatment, outpatient follow-up may be considered';
+
+  @override
+  String get timi_ua_nstemi_recommendation_moderate =>
+      'Hospital admission, consider early intervention within 24-48h';
+
+  @override
+  String get timi_ua_nstemi_recommendation_high =>
+      'Early coronary intervention within 24h, aggressive treatment';
+
+  @override
+  String get timi_ua_nstemi_strategy_conservative => 'Conservative strategy';
+
+  @override
+  String get timi_ua_nstemi_strategy_selective =>
+      'Selective intervention strategy';
+
+  @override
+  String get timi_ua_nstemi_strategy_early => 'Early intervention strategy';
+
+  @override
+  String get timi_ua_nstemi_references => 'References';
+
+  @override
+  String get timi_ua_nstemi_14_day_events => '14-day Events';
+
+  @override
+  String get timi_ua_nstemi_treatment_strategy => 'Treatment Strategy:';
+
+  @override
+  String get timi_ua_nstemi_mortality => 'Mortality';
+
+  @override
+  String get timi_ua_nstemi_recommendation => 'Recommendation:';
+
+  @override
+  String get crusade_title => 'CRUSADE Bleeding Risk';
+
+  @override
+  String get crusade_score => 'CRUSADE Score';
+
+  @override
+  String get crusade_risk_very_low => 'Very Low Risk';
+
+  @override
+  String get crusade_risk_low => 'Low Risk';
+
+  @override
+  String get crusade_risk_moderate => 'Moderate Risk';
+
+  @override
+  String get crusade_risk_high => 'High Risk';
+
+  @override
+  String get crusade_risk_very_high => 'Very High Risk';
+
+  @override
+  String get crusade_bleeding_risk => 'Bleeding Risk';
+
+  @override
+  String get crusade_major_bleeding => 'Major Bleeding';
+
+  @override
+  String get crusade_recommendation => 'Recommendation:';
+
+  @override
+  String get crusade_clinical_parameters => 'Clinical Parameters';
+
+  @override
+  String get crusade_hematocrit => 'Hematocrit';
+
+  @override
+  String get crusade_creatinine => 'Creatinine';
+
+  @override
+  String get crusade_creatinine_helper => 'Serum creatinine concentration';
+
+  @override
+  String get crusade_unit => 'Unit:';
+
+  @override
+  String get crusade_heart_rate => 'Heart Rate';
+
+  @override
+  String get crusade_heart_rate_unit => 'bpm';
+
+  @override
+  String get crusade_heart_rate_helper => 'Heart rate on admission';
+
+  @override
+  String get crusade_systolic_bp => 'Systolic Blood Pressure';
+
+  @override
+  String get crusade_systolic_bp_helper => 'To assess signs of heart failure';
+
+  @override
+  String get crusade_gender => 'Gender';
+
+  @override
+  String get crusade_male => 'Male';
+
+  @override
+  String get crusade_female => 'Female (+8)';
+
+  @override
+  String get crusade_diabetes => 'Diabetes Mellitus';
+
+  @override
+  String get crusade_no => 'No';
+
+  @override
+  String get crusade_yes => 'Yes (+6)';
+
+  @override
+  String get crusade_vascular_disease => 'Prior Vascular Disease';
+
+  @override
+  String get crusade_vascular_yes => 'Yes (+6)';
+
+  @override
+  String get crusade_recommendation_very_low =>
+      'Can use early invasive strategy and strong anticoagulation';
+
+  @override
+  String get crusade_recommendation_low =>
+      'Consider benefit/risk of invasive strategy and anticoagulation';
+
+  @override
+  String get crusade_recommendation_moderate =>
+      'Cautious with invasive strategy, close monitoring';
+
+  @override
+  String get crusade_recommendation_high =>
+      'Prefer conservative strategy, limit strong anticoagulation';
+
+  @override
+  String get crusade_recommendation_very_high =>
+      'Conservative strategy, avoid strong anticoagulation unless necessary';
+
+  @override
+  String get crusade_major_bleeding_very_low => 'Very Low (<5%)';
+
+  @override
+  String get crusade_major_bleeding_low => 'Low (5-10%)';
+
+  @override
+  String get crusade_major_bleeding_moderate => 'Moderate (10-15%)';
+
+  @override
+  String get crusade_major_bleeding_high => 'High (15-20%)';
+
+  @override
+  String get crusade_major_bleeding_very_high => 'Very High (>20%)';
+
+  @override
+  String crusade_risk_category(String riskLevel) {
+    return 'Risk $riskLevel';
+  }
+
+  @override
+  String get crusade_bleeding_risk_label => 'Bleeding Risk';
+
+  @override
+  String get crusade_major_bleeding_label => 'Major Bleeding';
+
+  @override
+  String get crusade_recommendation_label => 'Recommendations:';
+
+  @override
+  String get crusade_hematocrit_label => 'Hematocrit';
+
+  @override
+  String get crusade_hematocrit_helper => 'Red blood cell volume percentage';
+
+  @override
+  String get crusade_creatinine_label => 'Creatinine';
+
+  @override
+  String get crusade_references => 'References';
+
+  @override
+  String get crusade_unit_label => 'Unit:';
+
+  @override
+  String get crusade_systolic_bp_unit => 'mmHg';
+
+  @override
+  String get crusade_gender_label => 'Gender';
+
+  @override
+  String get crusade_male_label => 'Male';
+
+  @override
+  String get crusade_female_label => 'Female (+8)';
+
+  @override
+  String get crusade_diabetes_label => 'Diabetes Mellitus';
+
+  @override
+  String get crusade_no_label => 'No';
+
+  @override
+  String get crusade_yes_diabetes => 'Yes (+6)';
+
+  @override
+  String get crusade_vascular_disease_label => 'Prior Vascular Disease';
+
+  @override
+  String get crusade_yes_vascular => 'Yes (+6)';
+
+  @override
+  String get crusade_risk_stratification => 'CRUSADE Risk Stratification';
+
+  @override
+  String get crusade_strategy_very_low => 'Aggressive invasive';
+
+  @override
+  String get crusade_strategy_low => 'Consider invasive';
+
+  @override
+  String get crusade_strategy_moderate => 'Cautious';
+
+  @override
+  String get crusade_strategy_high => 'Prefer conservative';
+
+  @override
+  String get crusade_strategy_very_high => 'Conservative';
+
+  @override
+  String get crusade_clinical_approach => 'Treatment Strategy';
+
+  @override
+  String get crusade_invasive_strategy => 'Invasive Strategy (Low Risk)';
+
+  @override
+  String get crusade_conservative_strategy =>
+      'Conservative Strategy (High Risk)';
+
+  @override
+  String get crusade_invasive_item1 => 'Early coronary intervention';
+
+  @override
+  String get crusade_invasive_item2 => 'GPIIb/IIIa inhibitor';
+
+  @override
+  String get crusade_invasive_item3 => 'Dual antiplatelet therapy';
+
+  @override
+  String get crusade_invasive_item4 => 'Full anticoagulation';
+
+  @override
+  String get crusade_conservative_item1 => 'Optimal medical therapy';
+
+  @override
+  String get crusade_conservative_item2 => 'Avoid GPIIb/IIIa inhibitor';
+
+  @override
+  String get crusade_conservative_item3 => 'Consider aspirin monotherapy';
+
+  @override
+  String get crusade_conservative_item4 => 'Low-dose heparin';
+
+  @override
+  String get crusade_clinical_info => 'Clinical Information';
+
+  @override
+  String get crusade_clinical_info_content =>
+      'CRUSADE Score assesses bleeding risk in acute coronary syndrome\n\nClinical applications:\n• Selection of invasive vs conservative strategy\n• Decision on GPIIb/IIIa inhibitor use\n• Consideration of dual antiplatelet therapy\n• Optimization of anticoagulation dosing\n\nKey factors:\n• Hematocrit: reflects anemia\n• Creatinine: kidney function\n• Heart rate: severity of illness\n• Female gender: higher risk\n• Diabetes mellitus: vascular complications\n• Prior vascular disease: high risk\n\nImportant notes:\n• Do not exclude treatment when score is high\n• Balance ischemic vs bleeding risk\n• May adjust medication dosing\n• Monitor high-risk patients closely\n• Reassess when condition changes';
+
+  @override
+  String get has_bled_title => 'HAS-BLED Score';
+
+  @override
+  String get has_bled_risk_low => 'Low Risk';
+
+  @override
+  String get has_bled_risk_moderate => 'Moderate Risk';
+
+  @override
+  String get has_bled_risk_high => 'High Risk';
+
+  @override
+  String get has_bled_bleeding_risk => 'Bleeding Risk';
+
+  @override
+  String get has_bled_clinical_approach => 'Clinical Approach';
+
+  @override
+  String get has_bled_recommendations => 'Recommendations:';
+
+  @override
+  String get has_bled_recommendation_low =>
+      'Can use anticoagulation with routine monitoring';
+
+  @override
+  String get has_bled_recommendation_moderate =>
+      'Use caution, consider benefit/risk ratio, monitor closely';
+
+  @override
+  String get has_bled_recommendation_high =>
+      'High bleeding risk, thorough assessment before anticoagulation';
+
+  @override
+  String get has_bled_approach_low =>
+      'Continue/start anticoagulation with regular monitoring';
+
+  @override
+  String get has_bled_approach_moderate =>
+      'Consider dose reduction or more frequent monitoring';
+
+  @override
+  String get has_bled_approach_high =>
+      'Consider stopping anticoagulation or switching medication';
+
+  @override
+  String get has_bled_risk_factors => 'HAS-BLED Risk Factors';
+
+  @override
+  String get has_bled_hypertension => 'Hypertension (H) (+1)';
+
+  @override
+  String get has_bled_hypertension_desc =>
+      'Uncontrolled hypertension (>160 mmHg)';
+
+  @override
+  String get has_bled_abnormal_renal => 'Abnormal renal function (A) (+1)';
+
+  @override
+  String get has_bled_abnormal_renal_desc =>
+      'Abnormal kidney function (Cr >2.26 mg/dL)';
+
+  @override
+  String get has_bled_abnormal_liver => 'Abnormal liver function (S) (+1)';
+
+  @override
+  String get has_bled_abnormal_liver_desc =>
+      'Abnormal liver function (bilirubin >2x, AST/ALT >3x)';
+
+  @override
+  String get has_bled_stroke => 'Stroke (B) (+1)';
+
+  @override
+  String get has_bled_stroke_desc => 'History of stroke';
+
+  @override
+  String get has_bled_bleeding => 'Bleeding (L) (+1)';
+
+  @override
+  String get has_bled_bleeding_desc =>
+      'History of bleeding or bleeding tendency';
+
+  @override
+  String get has_bled_labile_inr => 'Labile INR (E) (+1)';
+
+  @override
+  String get has_bled_labile_inr_desc => 'Unstable INR (TTR <60%)';
+
+  @override
+  String get has_bled_elderly => 'Elderly (D) (+1)';
+
+  @override
+  String get has_bled_elderly_desc => 'Age >65';
+
+  @override
+  String get has_bled_drugs => 'Drugs (+1)';
+
+  @override
+  String get has_bled_drugs_desc => 'Concomitant drugs/alcohol';
+
+  @override
+  String get has_bled_alcohol => 'Alcohol (+1)';
+
+  @override
+  String get has_bled_alcohol_desc => 'Alcohol abuse';
+
+  @override
+  String has_bled_active_factors(int count) {
+    return 'Current Risk Factors ($count)';
+  }
+
+  @override
+  String get has_bled_risk_stratification => 'Bleeding Risk Stratification';
+
+  @override
+  String get has_bled_continue_anticoag => 'Continue anticoagulation';
+
+  @override
+  String get has_bled_caution_monitor => 'Caution, monitor closely';
+
+  @override
+  String get has_bled_consider_stop => 'Consider stopping medication';
+
+  @override
+  String get has_bled_clinical_approach_title => 'Clinical Approach';
+
+  @override
+  String has_bled_approach_for_score(int score) {
+    return 'Approach for score $score:';
+  }
+
+  @override
+  String get has_bled_clinical_info => 'Clinical Information';
+
+  @override
+  String get has_bled_clinical_info_content =>
+      'HAS-BLED Score assesses bleeding risk when using anticoagulation\n\nClinical applications:\n• Assess bleeding risk before starting anticoagulation\n• Balance benefit/risk in treatment\n• Determine dosage and monitoring frequency\n• Patient counseling about risks\n\nFactor explanations:\n• H (Hypertension): Systolic BP >160 mmHg\n• A (Abnormal): Cr >2.26 mg/dL or dialysis\n• S (Stroke): History of stroke regardless of cause\n• B (Bleeding): History of major bleeding\n• L (Labile): Unstable INR, TTR <60%\n• E (Elderly): Age >65\n• D (Drugs): NSAID, aspirin, corticosteroids\n\nImportant notes:\n• High score does not mean contraindication to anticoagulation\n• Must consider with thromboembolism risk\n• Risk factors can be modified\n• Monitor closely if high score';
+
+  @override
+  String get has_bled_references => 'References';
+
+  @override
+  String get has_bled_risk_low_range => 'Low Risk';
+
+  @override
+  String get has_bled_risk_moderate_range => 'Moderate Risk';
+
+  @override
+  String get has_bled_risk_high_range => 'High Risk';
+
+  @override
+  String get has_bled_factor_hypertension => 'Hypertension (H)';
+
+  @override
+  String get has_bled_factor_abnormal_renal => 'Abnormal renal (A)';
+
+  @override
+  String get has_bled_factor_abnormal_liver => 'Abnormal liver (S)';
+
+  @override
+  String get has_bled_factor_stroke => 'Stroke (B)';
+
+  @override
+  String get has_bled_factor_bleeding => 'Bleeding (L)';
+
+  @override
+  String get has_bled_factor_labile_inr => 'Labile INR (E)';
+
+  @override
+  String get has_bled_factor_elderly => 'Elderly (D)';
+
+  @override
+  String get has_bled_factor_drugs => 'Drugs';
+
+  @override
+  String get has_bled_factor_alcohol => 'Alcohol';
+
+  @override
+  String get improve_bleeding_risk_title => 'IMPROVE Bleeding Risk';
+
+  @override
+  String get improve_bleeding_risk_score => 'IMPROVE Bleeding Risk Score';
+
+  @override
+  String get improve_low_risk => 'Low Risk';
+
+  @override
+  String get improve_moderate_risk => 'Moderate Risk';
+
+  @override
+  String get improve_high_risk => 'High Risk';
+
+  @override
+  String get improve_bleeding_risk => 'Bleeding Risk';
+
+  @override
+  String get improve_major_bleeding => 'Major Bleeding';
+
+  @override
+  String get improve_prophylaxis_strategy => 'Prophylaxis strategy:';
+
+  @override
+  String get improve_recommendations => 'Recommendations:';
+
+  @override
+  String get improve_standard_prophylaxis => 'Standard prophylaxis';
+
+  @override
+  String get improve_careful_prophylaxis => 'Careful prophylaxis, reduce dose';
+
+  @override
+  String get improve_mechanical_prophylaxis =>
+      'Consider mechanical prophylaxis';
+
+  @override
+  String get improve_standard_anticoagulation =>
+      'Standard anticoagulation prophylaxis may be used';
+
+  @override
+  String get improve_careful_consideration =>
+      'Careful benefit/risk consideration, close monitoring when using anticoagulants';
+
+  @override
+  String get improve_caution_anticoagulants =>
+      'Caution with anticoagulants, consider mechanical thromboprophylaxis';
+
+  @override
+  String get improve_patient_information => 'Patient Information';
+
+  @override
+  String get improve_age => 'Age';
+
+  @override
+  String get improve_age_helper => '+1 point if ≥40 years';
+
+  @override
+  String get improve_years => 'years';
+
+  @override
+  String get improve_bleeding_risk_factors => 'Bleeding Risk Factors';
+
+  @override
+  String get improve_female => 'Female (+1)';
+
+  @override
+  String get improve_female_desc => 'Female gender';
+
+  @override
+  String get improve_cancer => 'Cancer (+2)';
+
+  @override
+  String get improve_cancer_desc => 'Current or history of cancer';
+
+  @override
+  String get improve_dialysis => 'Dialysis (+2)';
+
+  @override
+  String get improve_dialysis_desc => 'Hemodialysis';
+
+  @override
+  String get improve_liver_disease => 'Liver disease (+2)';
+
+  @override
+  String get improve_liver_disease_desc => 'Chronic liver disease';
+
+  @override
+  String get improve_icu_stay => 'ICU stay (+2)';
+
+  @override
+  String get improve_icu_stay_desc => 'Currently treated in ICU';
+
+  @override
+  String get improve_icu_48h => 'ICU >48h (+1)';
+
+  @override
+  String get improve_icu_48h_desc => 'ICU stay over 48 hours';
+
+  @override
+  String get improve_anticoagulants => 'Anticoagulants (+1)';
+
+  @override
+  String get improve_anticoagulants_desc => 'Currently using anticoagulants';
+
+  @override
+  String improve_current_risk_factors(int count) {
+    return 'Current Risk Factors ($count)';
+  }
+
+  @override
+  String get improve_age_factor => 'Age ≥40';
+
+  @override
+  String get improve_age_factor_desc => 'Age 40 years or older';
+
+  @override
+  String get improve_female_factor => 'Female';
+
+  @override
+  String get improve_cancer_factor => 'Cancer';
+
+  @override
+  String get improve_dialysis_factor => 'Dialysis';
+
+  @override
+  String get improve_liver_disease_factor => 'Liver disease';
+
+  @override
+  String get improve_icu_stay_factor => 'ICU stay';
+
+  @override
+  String get improve_icu_48h_factor => 'ICU >48h';
+
+  @override
+  String get improve_anticoagulants_factor => 'Anticoagulants';
+
+  @override
+  String get improve_risk_stratification => 'Bleeding Risk Stratification';
+
+  @override
+  String get improve_clinical_information => 'Clinical Information';
+
+  @override
+  String get improve_clinical_info_text =>
+      'IMPROVE Bleeding Risk Score assesses bleeding risk during thromboembolism prophylaxis\n\nClinical applications:\n• Decision on type of thromboembolism prophylaxis\n• Benefit/risk consideration of anticoagulants\n• Choice between pharmacological vs mechanical prophylaxis\n• Close monitoring of high-risk patients\n\nMechanical prophylaxis includes:\n• Compression stockings\n• Intermittent pneumatic compression\n• Early mobilization\n• Leg elevation\n\nImportant notes:\n• Balance bleeding risk vs thromboembolism risk\n• Reassess when condition changes\n• Combine with other clinical factors\n• Monitor for bleeding signs';
+
+  @override
+  String get improve_reference_title => 'Reference';
+
+  @override
+  String get improve_reference_text =>
+      'Hostler DC, Marx ES, Moores LK, et al. Validation of the International Medical Prevention Registry on Venous Thromboembolism bleeding risk score. Chest. 2016;149(2):372-9.';
+
+  @override
+  String get wells_dvt_title => 'Wells DVT Score';
+
+  @override
+  String get wells_dvt_score => 'Wells DVT Score';
+
+  @override
+  String get wells_low_risk => 'Low Risk';
+
+  @override
+  String get wells_moderate_risk => 'Moderate Risk';
+
+  @override
+  String get wells_high_risk => 'High Risk';
+
+  @override
+  String get wells_dvt_probability => 'DVT Probability';
+
+  @override
+  String get wells_next_step => 'Next Step';
+
+  @override
+  String get wells_check_ddimer => 'Check D-dimer';
+
+  @override
+  String get wells_ddimer_or_ultrasound => 'D-dimer or doppler ultrasound';
+
+  @override
+  String get wells_immediate_ultrasound => 'Immediate doppler ultrasound';
+
+  @override
+  String get wells_recommendations => 'Recommendations:';
+
+  @override
+  String get wells_low_risk_recommendation =>
+      'Negative D-dimer can exclude DVT. If D-dimer positive, consider doppler ultrasound';
+
+  @override
+  String get wells_moderate_risk_recommendation =>
+      'Additional D-dimer or doppler ultrasound testing needed for confirmation';
+
+  @override
+  String get wells_high_risk_recommendation =>
+      'High probability of DVT, immediate doppler ultrasound required';
+
+  @override
+  String get wells_criteria_title => 'Wells DVT Criteria';
+
+  @override
+  String get wells_active_cancer => 'Active cancer (+1)';
+
+  @override
+  String get wells_active_cancer_desc =>
+      'Current cancer or treatment within 6 months';
+
+  @override
+  String get wells_paralysis => 'Paralysis or lower limb weakness (+1)';
+
+  @override
+  String get wells_paralysis_desc =>
+      'Complete paralysis or recent lower limb weakness';
+
+  @override
+  String get wells_bed_rest => 'Bed rest >3 days (+1)';
+
+  @override
+  String get wells_bed_rest_desc =>
+      'Bed rest >3 days or major surgery within 4 weeks';
+
+  @override
+  String get wells_major_surgery => 'Major surgery (+1)';
+
+  @override
+  String get wells_major_surgery_desc => 'Major surgery within 4 weeks';
+
+  @override
+  String get wells_localized_tenderness => 'Localized tenderness (+1)';
+
+  @override
+  String get wells_localized_tenderness_desc =>
+      'Localized tenderness along deep venous system';
+
+  @override
+  String get wells_entire_leg_swollen => 'Entire leg swollen (+1)';
+
+  @override
+  String get wells_entire_leg_swollen_desc => 'Entire leg swollen';
+
+  @override
+  String get wells_calf_swelling => 'Calf swelling (+1)';
+
+  @override
+  String get wells_calf_swelling_desc =>
+      'Calf circumference >3cm compared to opposite side';
+
+  @override
+  String get wells_pitting_edema => 'Pitting edema (+1)';
+
+  @override
+  String get wells_pitting_edema_desc => 'Pitting edema of affected leg';
+
+  @override
+  String get wells_collateral_veins => 'Collateral veins (+1)';
+
+  @override
+  String get wells_collateral_veins_desc =>
+      'Collateral superficial veins (non-varicose)';
+
+  @override
+  String get wells_previous_dvt => 'Previous DVT (+1)';
+
+  @override
+  String get wells_previous_dvt_desc => 'History of deep vein thrombosis';
+
+  @override
+  String get wells_alternative_diagnosis => 'Alternative diagnosis likely (-2)';
+
+  @override
+  String get wells_alternative_diagnosis_desc =>
+      'Alternative diagnosis more likely than DVT';
+
+  @override
+  String wells_current_criteria(int count) {
+    return 'Current Criteria ($count)';
+  }
+
+  @override
+  String get wells_risk_stratification => 'DVT Risk Stratification';
+
+  @override
+  String get wells_clinical_approach => 'Clinical Approach';
+
+  @override
+  String wells_approach_for_score(int score) {
+    return 'Approach for score $score:';
+  }
+
+  @override
+  String get wells_low_risk_approach =>
+      'If D-dimer (-): Exclude DVT\nIf D-dimer (+): Doppler ultrasound';
+
+  @override
+  String get wells_moderate_risk_approach =>
+      'If D-dimer (-): Exclude DVT\nIf D-dimer (+): Doppler ultrasound\nOr direct doppler ultrasound';
+
+  @override
+  String get wells_high_risk_approach =>
+      'Doppler ultrasound mandatory\nConsider immediate anticoagulation';
+
+  @override
+  String get wells_clinical_information => 'Clinical Information';
+
+  @override
+  String get wells_clinical_info_text =>
+      'Wells DVT Score assesses probability of deep vein thrombosis\n\nUsage:\n• Initial clinical assessment for suspected DVT\n• Combine with D-dimer and doppler ultrasound\n• Guide diagnostic strategy\n• Avoid unnecessary testing\n\nImportant notes:\n• Low score + negative D-dimer → exclude DVT\n• High score → doppler ultrasound mandatory\n• Always consider clinical context\n• Reassess if symptoms progress\n\nAlternative diagnoses to consider:\n• Superficial thrombophlebitis\n• Heart, liver, kidney edema\n• Muscle hematoma\n• Soft tissue injury\n• Compartment syndrome\n• Arthritis';
+
+  @override
+  String get wells_reference_title => 'Reference';
+
+  @override
+  String get wells_reference_text =>
+      'Wells PS, et al. Evaluation of D-dimer in the diagnosis of suspected deep-vein thrombosis. N Engl J Med. 2003;349(13):1227-35.';
+
+  @override
+  String get padua_prediction_score_title => 'Padua Prediction Score';
+
+  @override
+  String get padua_prediction_score => 'Padua Prediction Score';
+
+  @override
+  String get padua_low_risk => 'Low Risk';
+
+  @override
+  String get padua_high_risk => 'High Risk';
+
+  @override
+  String get padua_vte_risk => 'VTE Risk';
+
+  @override
+  String get padua_prophylaxis => 'Prophylaxis';
+
+  @override
+  String get padua_recommendations => 'Recommendations:';
+
+  @override
+  String get padua_no_prophylaxis =>
+      'No pharmacological prophylaxis required. Mechanical measures may be used';
+
+  @override
+  String get padua_pharmacological_prophylaxis =>
+      'Pharmacological prophylaxis required if no contraindications';
+
+  @override
+  String get padua_mechanical_prophylaxis => 'Mechanical prophylaxis';
+
+  @override
+  String get padua_pharmacological_mechanical =>
+      'Pharmacological + mechanical prophylaxis';
+
+  @override
+  String get padua_risk_factors_title => 'VTE Risk Factors';
+
+  @override
+  String padua_current_risk_factors(int count) {
+    return 'Current Risk Factors ($count)';
+  }
+
+  @override
+  String get padua_risk_stratification => 'VTE Risk Stratification';
+
+  @override
+  String get padua_prophylaxis_recommendations =>
+      'VTE Prophylaxis Recommendations';
+
+  @override
+  String get padua_clinical_information => 'Clinical Information';
+
+  @override
+  String get padua_cancer => 'Cancer (+3)';
+
+  @override
+  String get padua_cancer_desc => 'Active cancer (excluding skin cancer)';
+
+  @override
+  String get padua_previous_vte => 'Previous VTE (+3)';
+
+  @override
+  String get padua_previous_vte_desc =>
+      'Previous venous thromboembolism (DVT/PE)';
+
+  @override
+  String get padua_reduced_mobility => 'Reduced Mobility (+3)';
+
+  @override
+  String get padua_reduced_mobility_desc =>
+      'Reduced mobility (bed rest >3 days)';
+
+  @override
+  String get padua_thrombophilia => 'Thrombophilia (+3)';
+
+  @override
+  String get padua_thrombophilia_desc =>
+      'Known thrombophilia (hereditary or acquired)';
+
+  @override
+  String get padua_recent_trauma => 'Recent Trauma (+2)';
+
+  @override
+  String get padua_recent_trauma_desc => 'Trauma and/or surgery within 1 month';
+
+  @override
+  String get padua_elderly => 'Age ≥70 (+1)';
+
+  @override
+  String get padua_elderly_desc =>
+      'Age ≥70 and/or heart failure and/or respiratory failure';
+
+  @override
+  String get padua_heart_failure => 'Heart Failure (+1)';
+
+  @override
+  String get padua_heart_failure_desc => 'Acute and/or chronic heart failure';
+
+  @override
+  String get padua_respiratory_failure => 'Acute Respiratory Failure (+1)';
+
+  @override
+  String get padua_respiratory_failure_desc => 'Acute respiratory failure';
+
+  @override
+  String get padua_acute_infection => 'Acute Infection (+1)';
+
+  @override
+  String get padua_acute_infection_desc =>
+      'Acute infection and/or rheumatic disease';
+
+  @override
+  String get padua_rheumatic_disease => 'Rheumatic Disease (+1)';
+
+  @override
+  String get padua_rheumatic_disease_desc => 'Active rheumatic disease';
+
+  @override
+  String get padua_ibd_stroke => 'IBD/Stroke (+1)';
+
+  @override
+  String get padua_ibd_stroke_desc =>
+      'Inflammatory bowel disease or acute stroke';
+
+  @override
+  String get padua_acute_mi => 'Acute MI (+1)';
+
+  @override
+  String get padua_acute_mi_desc => 'Acute myocardial infarction';
+
+  @override
+  String get padua_mechanical_prophylaxis_title => 'Mechanical Prophylaxis';
+
+  @override
+  String get padua_pharmacological_prophylaxis_title =>
+      'Pharmacological Prophylaxis';
+
+  @override
+  String get padua_graduated_compression => 'Graduated compression stockings';
+
+  @override
+  String get padua_intermittent_compression =>
+      'Intermittent pneumatic compression';
+
+  @override
+  String get padua_early_mobilization => 'Early mobilization';
+
+  @override
+  String get padua_leg_elevation => 'Leg elevation during rest';
+
+  @override
+  String get padua_lmwh => 'LMWH (Enoxaparin 40mg/day)';
+
+  @override
+  String get padua_ufh => 'UFH (5000IU x2/day)';
+
+  @override
+  String get padua_fondaparinux => 'Fondaparinux 2.5mg/day';
+
+  @override
+  String get padua_doac => 'DOAC (as indicated)';
+
+  @override
+  String get padua_clinical_info_text =>
+      'Padua Prediction Score assesses VTE risk in medical patients\n\nClinical applications:\n• VTE prophylaxis decision in medical patients\n• Risk-benefit assessment for anticoagulation\n• Selection of prophylaxis method\n• Cost optimization of treatment\n\nContraindications to pharmacological prophylaxis:\n• Active major bleeding or high bleeding risk\n• Recent brain/eye/spinal surgery\n• Severe ischemic heart disease\n• Severe uncontrolled hypertension\n• Severe liver disease\n• Severe renal impairment (CrCl <15ml/min)\n\nMonitoring during prophylaxis:\n• Signs of bleeding\n• Platelet count\n• Renal function (if using LMWH)\n• New VTE symptoms\n• Reassess when condition changes';
+
+  @override
+  String get padua_reference_title => 'Reference';
+
+  @override
+  String get padua_reference_text =>
+      'Barbar S, et al. A risk assessment model for the identification of hospitalized medical patients at risk for venous thromboembolism: the Padua Prediction Score. J Thromb Haemost. 2010;8(11):2450-7.\n\nKahn SR, et al. Prevention of VTE in nonsurgical patients: Antithrombotic Therapy and Prevention of Thrombosis, 9th ed: American College of Chest Physicians Evidence-Based Clinical Practice Guidelines. Chest. 2012;141(2 Suppl):e195S-e226S.';
+
+  @override
+  String get abcd2_score_title => 'ABCD2 Score';
+
+  @override
+  String get abcd2_score => 'ABCD2 Score';
+
+  @override
+  String get abcd2_low_risk => 'Low Risk';
+
+  @override
+  String get abcd2_moderate_risk => 'Moderate Risk';
+
+  @override
+  String get abcd2_high_risk => 'High Risk';
+
+  @override
+  String get abcd2_stroke_2_days => '2-day stroke risk';
+
+  @override
+  String get abcd2_stroke_7_days => '7-day stroke risk';
+
+  @override
+  String get abcd2_stroke_90_days => '90-day stroke risk';
+
+  @override
+  String get abcd2_urgency_level => 'Urgency Level:';
+
+  @override
+  String get abcd2_recommendations => 'Recommendations:';
+
+  @override
+  String get abcd2_urgency_non_urgent => 'Non-urgent - 48-72h';
+
+  @override
+  String get abcd2_urgency_priority => 'Priority - within 24h';
+
+  @override
+  String get abcd2_urgency_emergency => 'Emergency - immediate';
+
+  @override
+  String get abcd2_recommendation_low =>
+      'May discharge with close outpatient follow-up, consider investigation of cause';
+
+  @override
+  String get abcd2_recommendation_moderate =>
+      'Requires short-term hospital observation, investigation of cause and preventive treatment';
+
+  @override
+  String get abcd2_recommendation_high =>
+      'Emergency admission, comprehensive investigation and aggressive preventive treatment';
+
+  @override
+  String get abcd2_basic_info => 'Basic Information (A)';
+
+  @override
+  String get abcd2_age => 'Age';
+
+  @override
+  String get abcd2_age_unit => 'years';
+
+  @override
+  String get abcd2_age_help => '+1 point if ≥60 years';
+
+  @override
+  String get abcd2_blood_pressure => 'Systolic Blood Pressure';
+
+  @override
+  String get abcd2_bp_unit => 'mmHg';
+
+  @override
+  String get abcd2_bp_help => '+1 point if ≥140mmHg';
+
+  @override
+  String get abcd2_clinical_features => 'Clinical Features (C)';
+
+  @override
+  String get abcd2_other_symptoms => 'Other symptoms';
+
+  @override
+  String get abcd2_other_symptoms_desc => 'No speech disorder or hemiplegia';
+
+  @override
+  String get abcd2_speech_without_weakness =>
+      'Speech disorder without paralysis';
+
+  @override
+  String get abcd2_speech_without_weakness_desc =>
+      'Difficulty speaking, aphasia but no motor paralysis';
+
+  @override
+  String get abcd2_unilateral_weakness => 'Unilateral weakness';
+
+  @override
+  String get abcd2_unilateral_weakness_desc =>
+      'Weakness or paralysis on one side of body';
+
+  @override
+  String get abcd2_duration => 'Duration (D)';
+
+  @override
+  String get abcd2_duration_less_10 => '< 10 minutes';
+
+  @override
+  String get abcd2_duration_less_10_desc =>
+      'Symptoms lasted less than 10 minutes';
+
+  @override
+  String get abcd2_duration_10_59 => '10-59 minutes';
+
+  @override
+  String get abcd2_duration_10_59_desc => 'Symptoms lasted 10 to 59 minutes';
+
+  @override
+  String get abcd2_duration_60_plus => '≥ 60 minutes';
+
+  @override
+  String get abcd2_duration_60_plus_desc =>
+      'Symptoms lasted 60 minutes or longer';
+
+  @override
+  String get abcd2_diabetes => 'Diabetes (D)';
+
+  @override
+  String get abcd2_has_diabetes => 'Has history of diabetes';
+
+  @override
+  String get abcd2_diabetes_desc => 'Currently treated or previously diagnosed';
+
+  @override
+  String get abcd2_risk_stratification => 'Stroke Risk Stratification';
+
+  @override
+  String get abcd2_risk_range_low => '0-3';
+
+  @override
+  String get abcd2_risk_range_moderate => '4-5';
+
+  @override
+  String get abcd2_risk_range_high => '6-7';
+
+  @override
+  String get abcd2_risk_2d_low => '0-3.1%';
+
+  @override
+  String get abcd2_risk_90d_low => '1.2-9.8%';
+
+  @override
+  String get abcd2_risk_2d_moderate => '4.1-5.9%';
+
+  @override
+  String get abcd2_risk_90d_moderate => '11.7-19.6%';
+
+  @override
+  String get abcd2_risk_2d_high => '9.8-11.7%';
+
+  @override
+  String get abcd2_risk_90d_high => '31.4-35.5%';
+
+  @override
+  String abcd2_risk_display_format(String risk2d, String risk90d) {
+    return '2 days: $risk2d, 90 days: $risk90d';
+  }
+
+  @override
+  String get abcd2_clinical_information => 'Clinical Information';
+
+  @override
+  String get abcd2_clinical_info_text =>
+      'ABCD2 Score predicts stroke risk after transient ischemic attack (TIA)\n\nComponents of ABCD2:\n• A (Age): Age ≥60 (+1 point)\n• B (Blood pressure): BP ≥140/90 (+1 point)\n• C (Clinical features): Clinical symptoms (0-2 points)\n• D (Duration): Duration of symptoms (0-2 points)\n• D (Diabetes): Diabetes (+1 point)\n\nClinical applications:\n• Decision for hospital admission after TIA\n• Priority level for investigation\n• Risk counseling for patients\n• Follow-up and preventive treatment\n\nNote: Combine with imaging assessment and etiology to make optimal treatment decisions';
+
+  @override
+  String get abcd2_reference_title => 'Reference';
+
+  @override
+  String get abcd2_reference_text =>
+      'Johnston SC, et al. Validation and refinement of scores to predict very early stroke risk after transient ischaemic attack. Lancet. 2007;369(9558):283-92.';
+
+  @override
+  String get race_scale_title => 'RACE Scale';
+
+  @override
+  String get race_scale => 'RACE Scale';
+
+  @override
+  String race_lvo_likelihood(String likelihood) {
+    return 'LVO likelihood: $likelihood';
+  }
+
+  @override
+  String get race_low_lvo => 'Low';
+
+  @override
+  String get race_high_lvo => 'High';
+
+  @override
+  String get race_lvo_probability => 'LVO Probability';
+
+  @override
+  String get race_time_target => 'Time Target';
+
+  @override
+  String get race_standard_time => 'Standard time';
+
+  @override
+  String get race_door_to_groin => 'Door-to-groin < 90 min';
+
+  @override
+  String get race_recommendations => 'Recommendations:';
+
+  @override
+  String get race_recommendation_low =>
+      'Continue routine stroke evaluation, consider other causes';
+
+  @override
+  String get race_recommendation_high =>
+      'High LVO probability - Immediate transfer to EVT (endovascular therapy) center required';
+
+  @override
+  String get race_assessment_title => 'RACE Scale Assessment';
+
+  @override
+  String get race_assessment_subtitle => 'Rapid Arterial oCclusion Evaluation';
+
+  @override
+  String get race_facial_palsy => 'Facial Palsy';
+
+  @override
+  String get race_facial_palsy_instruction =>
+      'Ask patient to smile or show teeth';
+
+  @override
+  String get race_facial_palsy_none => 'None';
+
+  @override
+  String get race_facial_palsy_mild => 'Mild facial palsy';
+
+  @override
+  String get race_facial_palsy_severe => 'Severe facial palsy';
+
+  @override
+  String get race_arm_motor => 'Arm Motor';
+
+  @override
+  String get race_arm_motor_instruction => 'Raise arm to 90° for 10 seconds';
+
+  @override
+  String get race_motor_normal => 'Normal';
+
+  @override
+  String get race_motor_mild_drift => 'Mild drift';
+
+  @override
+  String get race_motor_severe => 'Rapid fall or cannot raise';
+
+  @override
+  String get race_leg_motor => 'Leg Motor';
+
+  @override
+  String get race_leg_motor_instruction => 'Raise leg to 30° for 5 seconds';
+
+  @override
+  String get race_head_eye_deviation => 'Head and Eye Deviation';
+
+  @override
+  String get race_head_eye_instruction =>
+      'Observe gaze direction and head turn';
+
+  @override
+  String get race_deviation_none => 'None';
+
+  @override
+  String get race_deviation_present => 'Deviation present';
+
+  @override
+  String get race_hemianeglect => 'Hemianeglect';
+
+  @override
+  String get race_hemianeglect_instruction =>
+      'Assess attention to left-sided space';
+
+  @override
+  String get race_hemianeglect_normal => 'Normal';
+
+  @override
+  String get race_hemianeglect_present => 'Unilateral neglect present';
+
+  @override
+  String get race_aphasia => 'Aphasia';
+
+  @override
+  String get race_aphasia_instruction =>
+      'Assess speech and comprehension ability';
+
+  @override
+  String get race_aphasia_normal => 'Normal';
+
+  @override
+  String get race_aphasia_mild => 'Mild aphasia';
+
+  @override
+  String get race_aphasia_severe => 'Severe aphasia';
+
+  @override
+  String get race_risk_stratification => 'LVO Risk Stratification';
+
+  @override
+  String get race_risk_low_range => '0-4';
+
+  @override
+  String get race_risk_high_range => '≥5';
+
+  @override
+  String get race_risk_low_probability => '< 10%';
+
+  @override
+  String get race_risk_high_probability => '≥ 85%';
+
+  @override
+  String get race_action_routine => 'Routine stroke care';
+
+  @override
+  String get race_action_evt => 'Transfer to EVT center';
+
+  @override
+  String get race_emergency_protocol => 'Emergency LVO Protocol';
+
+  @override
+  String get race_protocol_stroke_code => '1. Activate stroke code';
+
+  @override
+  String get race_protocol_stroke_code_desc => 'Notify stroke team immediately';
+
+  @override
+  String get race_protocol_ct_cta => '2. Emergency CT/CTA';
+
+  @override
+  String get race_protocol_ct_cta_desc => 'CT and CTA within 20 minutes';
+
+  @override
+  String get race_protocol_transfer => '3. Transfer to EVT center';
+
+  @override
+  String get race_protocol_transfer_desc =>
+      'Contact cerebrovascular intervention center';
+
+  @override
+  String get race_protocol_tpa => '4. IV tPA (if eligible)';
+
+  @override
+  String get race_protocol_tpa_desc =>
+      'Intravenous thrombolysis before transfer';
+
+  @override
+  String get race_protocol_time => '5. Door-to-groin <90 min';
+
+  @override
+  String get race_protocol_time_desc => 'Target from hospital arrival to EVT';
+
+  @override
+  String get race_clinical_information => 'Clinical Information';
+
+  @override
+  String get race_clinical_info_text =>
+      'RACE Scale rapidly identifies Large Vessel Occlusion (LVO) stroke\n\nPurpose:\n• Screen patients requiring EVT (endovascular therapy)\n• Optimize \'time is brain\' management\n• Guide transfer decisions\n• Improve treatment outcomes\n\nWhat is LVO:\n• Large cerebral vessel occlusion (ICA, M1, M2, basilar)\n• Accounts for 24-46% of acute ischemic strokes\n• Poor prognosis without intervention\n• Good response to EVT within 24 hours\n\nRACE advantages:\n• Simple and rapid\n• 85% sensitivity, 68% specificity\n• Can be performed pre-hospital\n• Effective triage tool\n\nHow to perform:\n• Assess 6 components\n• Total score 0-9\n• ≥5 points: high LVO probability\n• Combine with NIHSS assessment\n\nImportant notes:\n• Does not replace full neurologic evaluation\n• Imaging confirmation of LVO required\n• Time window crucial for EVT\n• Combine with IV tPA if appropriate';
+
+  @override
+  String get race_reference_title => 'Reference';
+
+  @override
+  String get race_reference_text =>
+      'Pérez de la Ossa N, et al. Design and validation of a prehospital stroke scale to predict large arterial occlusion: the rapid arterial occlusion evaluation (RACE) scale. Stroke. 2014;45(1):87-91.\n\nCarrera D, et al. Validation of computer-assisted RACE scale for prehospital use. Stroke. 2018;49(5):1255-7.';
+
+  @override
+  String get aspect_score_title => 'ASPECT Score';
+
+  @override
+  String get aspect_score => 'ASPECT Score';
+
+  @override
+  String get aspect_prognosis_good => 'Good';
+
+  @override
+  String get aspect_prognosis_moderate => 'Moderate';
+
+  @override
+  String get aspect_prognosis_poor => 'Poor';
+
+  @override
+  String aspect_prognosis_prefix(String prognosis) {
+    return 'Prognosis: $prognosis';
+  }
+
+  @override
+  String get aspect_prognosis_label => 'Prognosis:';
+
+  @override
+  String get aspect_recommendations => 'Recommendations:';
+
+  @override
+  String get aspect_prognosis_good_text => 'Good prognosis for EVT';
+
+  @override
+  String get aspect_prognosis_moderate_text => 'Consider EVT carefully';
+
+  @override
+  String get aspect_prognosis_poor_text => 'High risk of complications';
+
+  @override
+  String get aspect_recommendation_good =>
+      'Proceed with EVT within appropriate time window';
+
+  @override
+  String get aspect_recommendation_moderate =>
+      'Consider EVT, assess benefit/risk ratio';
+
+  @override
+  String get aspect_recommendation_poor =>
+      'Caution with EVT, prioritize medical management';
+
+  @override
+  String get aspect_brain_regions => 'MCA (Middle Cerebral Artery) Regions';
+
+  @override
+  String get aspect_cortical_regions => 'Cortical Regions';
+
+  @override
+  String get aspect_subcortical_regions => 'Subcortical Regions';
+
+  @override
+  String get aspect_m1_region => 'M1: Frontal operculum, motor cortex';
+
+  @override
+  String get aspect_m2_region => 'M2: Temporal pole, anterior temporal cortex';
+
+  @override
+  String get aspect_m3_region => 'M3: Posterior temporal cortex';
+
+  @override
+  String get aspect_m4_region => 'M4: Anterior parietal cortex';
+
+  @override
+  String get aspect_m5_region => 'M5: Posterior parietal cortex';
+
+  @override
+  String get aspect_m6_region =>
+      'M6: Angular gyrus, posterior superior temporal';
+
+  @override
+  String get aspect_ic_region => 'IC: Internal capsule';
+
+  @override
+  String get aspect_l_region => 'L: Lentiform nucleus';
+
+  @override
+  String get aspect_c_region => 'C: Caudate nucleus';
+
+  @override
+  String get aspect_i_region => 'I: Insular cortex';
+
+  @override
+  String get aspect_abnormal_lesion => 'Abnormal lesion (subtract 1 point)';
+
+  @override
+  String get aspect_score_interpretation => 'ASPECT Score Interpretation';
+
+  @override
+  String get aspect_score_8_10 => '8-10';
+
+  @override
+  String get aspect_score_6_7 => '6-7';
+
+  @override
+  String get aspect_score_0_5 => '0-5';
+
+  @override
+  String get aspect_good_prognosis_evt => 'Good prognosis for EVT';
+
+  @override
+  String get aspect_consider_evt => 'Consider EVT';
+
+  @override
+  String get aspect_high_risk => 'High risk';
+
+  @override
+  String get aspect_perform_evt => 'Perform EVT as indicated';
+
+  @override
+  String get aspect_assess_benefit_risk => 'Assess benefit/risk ratio';
+
+  @override
+  String get aspect_caution_evt => 'Caution with EVT';
+
+  @override
+  String get aspect_clinical_guidelines => 'Clinical Guidelines';
+
+  @override
+  String get aspect_evt_recommended => 'ASPECT ≥8: EVT recommended';
+
+  @override
+  String get aspect_evt_consider => 'ASPECT 6-7: Consider EVT';
+
+  @override
+  String get aspect_evt_caution => 'ASPECT <6: Caution';
+
+  @override
+  String get aspect_good_prognosis_evt_desc => 'Good prognosis for EVT';
+
+  @override
+  String get aspect_perform_time_window => 'Perform within time window';
+
+  @override
+  String get aspect_low_hemorrhage_risk =>
+      'Low risk of hemorrhagic complications';
+
+  @override
+  String get aspect_good_functional_outcome => 'Good functional outcome';
+
+  @override
+  String get aspect_assess_case_by_case => 'Assess case by case';
+
+  @override
+  String get aspect_consider_age_time => 'Consider age and time';
+
+  @override
+  String get aspect_discuss_family => 'Discuss with family';
+
+  @override
+  String get aspect_close_monitoring => 'Close monitoring';
+
+  @override
+  String get aspect_high_complication_risk => 'High risk of complications';
+
+  @override
+  String get aspect_prioritize_medical => 'Prioritize medical management';
+
+  @override
+  String get aspect_special_consideration => 'Special consideration for EVT';
+
+  @override
+  String get aspect_supportive_care => 'Intensive supportive care';
+
+  @override
+  String get aspect_clinical_information => 'Clinical Information';
+
+  @override
+  String get curb65_title => 'CURB-65 Score';
+
+  @override
+  String get curb65_score => 'CURB-65 Score';
+
+  @override
+  String get curb65_very_low_risk => 'Very low risk';
+
+  @override
+  String get curb65_low_risk => 'Low risk';
+
+  @override
+  String get curb65_moderate_risk => 'Moderate risk';
+
+  @override
+  String get curb65_high_risk => 'High risk';
+
+  @override
+  String get curb65_very_high_risk => 'Very high risk';
+
+  @override
+  String curb65_mortality_rate(String rate) {
+    return 'Mortality rate: $rate';
+  }
+
+  @override
+  String get curb65_outpatient_treatment => 'Can be treated as outpatient';
+
+  @override
+  String get curb65_consider_hospital =>
+      'Consider inpatient treatment or observation';
+
+  @override
+  String get curb65_hospital_icu =>
+      'Inpatient treatment required, consider ICU if score ≥4';
+
+  @override
+  String get curb65_confusion => 'Confusion';
+
+  @override
+  String get curb65_confusion_subtitle => '(Mental confusion)';
+
+  @override
+  String get curb65_no_confusion => 'No mental confusion';
+
+  @override
+  String get curb65_no_confusion_desc =>
+      'Good orientation to time, place, person';
+
+  @override
+  String get curb65_has_confusion => 'Has mental confusion';
+
+  @override
+  String get curb65_has_confusion_desc =>
+      'Disoriented to time, place or person';
+
+  @override
+  String get curb65_bun => 'BUN';
+
+  @override
+  String curb65_bun_label(String unit) {
+    return 'BUN ($unit)';
+  }
+
+  @override
+  String get curb65_bun_unit => 'Unit';
+
+  @override
+  String get curb65_bun_scoring => 'Score: 1 if BUN > 19 mg/dL (6.8 mmol/L)';
+
+  @override
+  String get curb65_respiratory_rate => 'Respiratory Rate (breaths/min)';
+
+  @override
+  String get curb65_systolic_bp => 'Systolic Blood Pressure (mmHg)';
+
+  @override
+  String get curb65_age => 'Age';
+
+  @override
+  String get curb65_enter_value => 'Enter value';
+
+  @override
+  String curb65_score_label(int score) {
+    return 'Score: $score';
+  }
+
+  @override
+  String get curb65_reference_title => 'Reference';
+
+  @override
+  String get curb65_reference_text =>
+      'Lim WS, et al. Defining community acquired pneumonia severity on presentation to hospital: an international derivation and validation study. Thorax. 2003;58(5):377-82.';
+
+  @override
+  String get curb65_mortality_very_low => '< 1%';
+
+  @override
+  String get curb65_mortality_low => '1-3%';
+
+  @override
+  String get curb65_mortality_moderate => '9-15%';
+
+  @override
+  String get curb65_mortality_high => '15-40%';
+
+  @override
+  String get curb65_mortality_very_high => '> 40%';
+
+  @override
+  String get curb65_clinical_information => 'Clinical Information';
+
+  @override
+  String get curb65_clinical_info_content =>
+      'CURB-65 Score assesses severity of community-acquired pneumonia\n\nCURB-65 criteria:\n• C (Confusion): Mental confusion or disorientation\n• U (Urea): Blood urea nitrogen >19 mg/dL (6.8 mmol/L)\n• R (Respiratory rate): ≥30 breaths per minute\n• B (Blood pressure): Systolic BP <90 mmHg\n• 65 (Age): Age ≥65 years\n\nClinical applications:\n• Treatment location decision (outpatient vs inpatient)\n• ICU admission consideration\n• Risk stratification for pneumonia patients\n• Prognosis assessment\n\nScore interpretation:\n• 0-1: Low risk, outpatient treatment possible\n• 2: Moderate risk, consider hospitalization\n• 3-5: High risk, hospitalization required\n• ≥4: Consider ICU admission\n\nImportant notes:\n• Must combine with clinical assessment\n• Consider comorbidities and social factors\n• Reevaluate if patient condition changes\n• Validated for community-acquired pneumonia';
+
+  @override
+  String get curb65_risk_stratification => 'CURB-65 Risk Stratification';
+
+  @override
+  String get curb65_recommendations => 'Recommendations:';
+
+  @override
+  String get curb65_treatment_setting => 'Treatment Setting';
+
+  @override
+  String get curb65_outpatient => 'Outpatient';
+
+  @override
+  String get curb65_hospital_observation => 'Hospital/Observation';
+
+  @override
+  String get curb65_hospital_icu_admission => 'Hospital/ICU';
+
+  @override
+  String get curb65_assessment_parameters => 'Assessment Parameters';
+
+  @override
+  String get curb65_scoring_criteria => 'Scoring Criteria';
+
+  @override
+  String get aspect_clinical_info_text =>
+      'ASPECT Score assesses acute ischemic stroke severity\n\nPurpose:\n• Predict EVT outcomes\n• Select appropriate patients\n• Assess complication risk\n• Support clinical decisions\n\nAssessment method:\n• Non-contrast CT scan\n• Evaluated at 2 slice levels\n• Basal ganglia level slice\n• Suprathalamic level slice\n\nIschemic signs:\n• Loss of gray-white matter differentiation\n• Decreased cortical density\n• Focal brain edema\n• Mass effect\n\n10 assessed regions:\n• M1-M6: MCA cortical regions\n• IC: Internal capsule\n• L: Lentiform nucleus\n• C: Caudate nucleus\n• I: Insular cortex\n\nAdvantages:\n• Simple and easy to perform\n• Good reproducibility\n• Accurate prediction\n• Widely applicable\n\nLimitations:\n• Experience dependent\n• Inter-reader variability\n• Difficult to detect mild lesions\n• Does not assess perfusion\n\nRecommendations:\n• Combine with clinical information\n• Consider perfusion imaging\n• Comprehensive assessment\n• Post-treatment monitoring';
+
+  @override
+  String get aspect_reference_title => 'Reference';
+
+  @override
+  String get aspect_reference_text =>
+      'Barber PA, et al. Validity and reliability of a quantitative computed tomography score in predicting outcome of hyperacute stroke before thrombolytic therapy. Lancet. 2000;355(9216):1670-4.\n\nPexman JH, et al. Use of the Alberta Stroke Program Early CT Score (ASPECTS) for assessing CT scans in patients with acute stroke. AJNR Am J Neuroradiol. 2001;22(8):1534-42.';
+
+  @override
+  String get aspect_guideline_high_title => 'ASPECT ≥8: EVT Recommended';
+
+  @override
+  String get aspect_guideline_high_good_prognosis => 'Good prognosis for EVT';
+
+  @override
+  String get aspect_guideline_high_perform_time => 'Perform within time window';
+
+  @override
+  String get aspect_guideline_high_low_risk =>
+      'Low risk of hemorrhagic complications';
+
+  @override
+  String get aspect_guideline_high_good_outcome => 'Good functional outcomes';
+
+  @override
+  String get aspect_guideline_medium_title => 'ASPECT 6-7: Consider EVT';
+
+  @override
+  String get aspect_guideline_medium_case_by_case => 'Evaluate case by case';
+
+  @override
+  String get aspect_guideline_medium_consider_age =>
+      'Consider age and time factors';
+
+  @override
+  String get aspect_guideline_medium_discuss_family => 'Discuss with family';
+
+  @override
+  String get aspect_guideline_medium_close_monitoring =>
+      'Close monitoring required';
+
+  @override
+  String get aspect_guideline_low_title => 'ASPECT ≤5: Caution with EVT';
+
+  @override
+  String get aspect_guideline_low_high_risk => 'High risk of complications';
+
+  @override
+  String get aspect_guideline_low_consider_carefully =>
+      'Consider very carefully';
+
+  @override
+  String get aspect_guideline_low_discuss_risks => 'Discuss risks thoroughly';
+
+  @override
+  String get aspect_guideline_low_individual_decision =>
+      'Individual decision required';
+
+  @override
+  String get aspect_lesion_detected => 'Lesion detected (subtract 1 point)';
+
+  @override
+  String get aspect_score_explanation => 'ASPECT Score Explanation';
+
+  @override
+  String get aspect_score_range_8_10 => '8-10';
+
+  @override
+  String get aspect_score_level_good => 'Good';
+
+  @override
+  String get aspect_score_prognosis_good_evt => 'Good prognosis for EVT';
+
+  @override
+  String get aspect_score_action_perform_evt => 'Perform EVT as indicated';
+
+  @override
+  String get aspect_score_range_6_7 => '6-7';
+
+  @override
+  String get aspect_score_level_moderate => 'Moderate';
+
+  @override
+  String get aspect_score_prognosis_consider_evt => 'Consider EVT';
+
+  @override
+  String get aspect_score_action_assess_benefit => 'Assess benefit/risk ratio';
+
+  @override
+  String get aspect_score_range_0_5 => '0-5';
+
+  @override
+  String get aspect_score_level_poor => 'Poor';
+
+  @override
+  String get aspect_score_prognosis_high_risk => 'High risk';
+
+  @override
+  String get aspect_score_action_caution_evt => 'Caution with EVT';
+
+  @override
+  String get modified_sgarbossa_title => 'Modified Sgarbossa\'s Criteria';
+
+  @override
+  String get modified_sgarbossa_short => 'Modified Sgarbossa\'s';
+
+  @override
+  String get sgarbossa_points => 'points';
+
+  @override
+  String get sgarbossa_no_criteria => 'No positive criteria';
+
+  @override
+  String get sgarbossa_suspected_stemi => 'Suspected STEMI';
+
+  @override
+  String get sgarbossa_likely_stemi => 'Highly likely STEMI';
+
+  @override
+  String get sgarbossa_action_exclude => 'Exclude STEMI';
+
+  @override
+  String get sgarbossa_action_evaluate => 'Further evaluation';
+
+  @override
+  String get sgarbossa_action_urgent => 'Emergency reperfusion';
+
+  @override
+  String get sgarbossa_recommendation_exclude =>
+      'Continue monitoring, consider other causes of chest pain';
+
+  @override
+  String get sgarbossa_recommendation_evaluate =>
+      'Additional assessment needed: Troponin, Echo, continuous EKG monitoring';
+
+  @override
+  String get sgarbossa_recommendation_urgent =>
+      'STEMI highly likely - Emergency coronary reperfusion needed (PCI or thrombolysis)';
+
+  @override
+  String get sgarbossa_criteria_title => 'Modified Sgarbossa Criteria';
+
+  @override
+  String get sgarbossa_criteria_description =>
+      'STEMI assessment in presence of LBBB or paced rhythm';
+
+  @override
+  String get sgarbossa_concordant_elevation_title =>
+      'Concordant ST elevation (+5)';
+
+  @override
+  String get sgarbossa_concordant_elevation_desc =>
+      'ST elevation ≥1mm in leads with positive QRS';
+
+  @override
+  String get sgarbossa_concordant_depression_title =>
+      'Concordant ST depression (+3)';
+
+  @override
+  String get sgarbossa_concordant_depression_desc =>
+      'ST depression ≥1mm in V1, V2, or V3';
+
+  @override
+  String get sgarbossa_excessive_discordant_title =>
+      'Excessive discordant ST elevation (+2)';
+
+  @override
+  String get sgarbossa_excessive_discordant_desc =>
+      'ST elevation ≥1mm and ST/S ratio ≥0.25';
+
+  @override
+  String sgarbossa_active_criteria(int count) {
+    return 'Positive criteria ($count)';
+  }
+
+  @override
+  String get sgarbossa_interpretation_guide => 'Interpretation Guide';
+
+  @override
+  String get sgarbossa_interpretation_0 => '0 points';
+
+  @override
+  String get sgarbossa_interpretation_1_2 => '1-2 points';
+
+  @override
+  String get sgarbossa_interpretation_3_plus => '≥3 points';
+
+  @override
+  String get sgarbossa_clinical_info_title => 'Clinical Information';
+
+  @override
+  String get sgarbossa_clinical_info_text =>
+      'Modified Sgarbossa\'s Criteria helps diagnose STEMI in the presence of LBBB or paced rhythm\n\nClinical problem:\n• LBBB masks STEMI signs on EKG\n• Paced rhythm makes ST assessment difficult\n• Special criteria needed for diagnosis\n• Diagnostic delay → reperfusion delay\n\nOriginal criteria (Sgarbossa 1996):\n• Concordant ST elevation ≥1mm (+5)\n• Concordant ST depression ≥1mm in V1-V3 (+3)\n• Discordant ST elevation ≥5mm (+2)\n\nModification (Smith 2012):\n• Changed third criterion\n• Discordant ST elevation with ST/S ratio ≥0.25\n• Increased sensitivity from 52% to 91%\n• High specificity maintained at 90%\n\nHow to measure ST/S ratio:\n• Measure ST elevation height (mm)\n• Measure S wave depth (mm)\n• Calculate ST/S ratio\n• Positive if ≥0.25\n\nImportant notes:\n• Only apply when LBBB or paced rhythm present\n• Combine with clinical symptoms\n• Troponin still needed\n• Time is critical in STEMI';
+
+  @override
+  String get sgarbossa_reference_title => 'Reference';
+
+  @override
+  String get sgarbossa_reference_text =>
+      'Smith SW, Dodd KW, Henry TD, et al. Diagnosis of ST-elevation myocardial infarction in the presence of left bundle branch block with the ST-elevation to S-wave ratio in a modified Sgarbossa rule. Ann Emerg Med. 2012;60(6):766-76.';
+
+  @override
+  String get sgarbossa_action_label => 'Action';
+
+  @override
+  String get sgarbossa_recommendation_label => 'Recommendation:';
+
+  @override
+  String get ranson_title => 'Ranson Criteria';
+
+  @override
+  String get ranson_score_title => 'Ranson Criteria Score';
+
+  @override
+  String ranson_mortality_rate(String rate) {
+    return 'Mortality rate: $rate';
+  }
+
+  @override
+  String get ranson_severity_mild => 'Mild pancreatitis';
+
+  @override
+  String get ranson_severity_moderate => 'Moderate pancreatitis';
+
+  @override
+  String get ranson_severity_severe => 'Severe pancreatitis';
+
+  @override
+  String get ranson_management_mild =>
+      'Medical monitoring, supportive treatment';
+
+  @override
+  String get ranson_management_moderate =>
+      'Close monitoring required, consider ICU';
+
+  @override
+  String get ranson_management_severe =>
+      'ICU indicated, consider aggressive intervention';
+
+  @override
+  String get ranson_admission_criteria => 'Admission criteria';
+
+  @override
+  String get ranson_48hour_criteria => '48-hour criteria';
+
+  @override
+  String get ranson_age => 'Age (> 55 years)';
+
+  @override
+  String get ranson_wbc => 'White blood cell count (> 16,000/μL)';
+
+  @override
+  String get ranson_glucose => 'Glucose';
+
+  @override
+  String get ranson_ldh => 'LDH (> 350 IU/L)';
+
+  @override
+  String get ranson_ast => 'AST (> 250 IU/L)';
+
+  @override
+  String get ranson_hematocrit_drop => 'Hematocrit drop (> 10%)';
+
+  @override
+  String get ranson_bun_rise => 'BUN rise';
+
+  @override
+  String get ranson_calcium_drop => 'Serum Ca²⁺ (< 8 mg/dL)';
+
+  @override
+  String get ranson_po2_drop => 'PaO₂ (< 60 mmHg)';
+
+  @override
+  String get ranson_base_deficit => 'Base deficit (> 4 mEq/L)';
+
+  @override
+  String get ranson_fluid_sequestration => 'Fluid sequestration (> 6L)';
+
+  @override
+  String get ranson_enter_value => 'Enter value';
+
+  @override
+  String ranson_points(int points) {
+    return 'Points: $points';
+  }
+
+  @override
+  String get ranson_unit => 'Unit:';
+
+  @override
+  String get ranson_reference_title => 'References';
+
+  @override
+  String get ranson_reference_text =>
+      'Ranson JH, et al. Prognostic signs and the role of operative management in acute pancreatitis. Surg Gynecol Obstet. 1974;139(1):69-81.\n\nBollen TL, et al. A comparative evaluation of radiologic and clinical scoring systems in the early prediction of severity in acute pancreatitis. Am J Gastroenterol. 2012;107(4):612-9.';
+
+  @override
+  String get psi_title => 'PSI Score';
+
+  @override
+  String get psi_full_name => 'Pneumonia Severity Index';
+
+  @override
+  String get psi_risk_very_low => 'Very low risk';
+
+  @override
+  String get psi_risk_low => 'Low risk';
+
+  @override
+  String get psi_risk_moderate => 'Moderate risk';
+
+  @override
+  String get psi_risk_high => 'High risk';
+
+  @override
+  String get psi_risk_very_high => 'Very high risk';
+
+  @override
+  String psi_class(int classNumber) {
+    return 'Class $classNumber';
+  }
+
+  @override
+  String psi_mortality_rate(String rate) {
+    return 'Mortality rate: $rate';
+  }
+
+  @override
+  String get psi_outpatient_treatment => 'Outpatient treatment possible';
+
+  @override
+  String get psi_outpatient_or_short =>
+      'Consider outpatient or short inpatient care';
+
+  @override
+  String get psi_inpatient_required => 'Inpatient treatment required';
+
+  @override
+  String get psi_inpatient_consider_icu =>
+      'Inpatient treatment required, consider ICU';
+
+  @override
+  String get psi_icu_no_need => 'No ICU needed';
+
+  @override
+  String get psi_icu_not_needed => 'No ICU needed, monitor in general ward';
+
+  @override
+  String get psi_icu_consider => 'Consider ICU if high risk factors present';
+
+  @override
+  String get psi_icu_recommended => 'ICU admission recommended';
+
+  @override
+  String get psi_basic_info => 'Basic Information';
+
+  @override
+  String get psi_comorbidities => 'Comorbidities';
+
+  @override
+  String get psi_physical_exam => 'Physical Examination';
+
+  @override
+  String get psi_laboratory => 'Laboratory Values';
+
+  @override
+  String get psi_gender => 'Gender:';
+
+  @override
+  String get psi_male => 'Male';
+
+  @override
+  String get psi_female => 'Female';
+
+  @override
+  String get psi_age_label => 'Age';
+
+  @override
+  String get psi_nursing_home => 'Lives in nursing home (+10 points)';
+
+  @override
+  String get psi_neoplastic_disease => 'Neoplastic disease (+30 points)';
+
+  @override
+  String get psi_liver_disease => 'Liver disease (+20 points)';
+
+  @override
+  String get psi_congestive_heart_failure =>
+      'Congestive heart failure (+10 points)';
+
+  @override
+  String get psi_cerebrovascular_disease =>
+      'Cerebrovascular disease (+10 points)';
+
+  @override
+  String get psi_renal_disease => 'Renal disease (+10 points)';
+
+  @override
+  String get psi_altered_mental_status => 'Altered mental status (+20 points)';
+
+  @override
+  String get psi_respiratory_rate => 'Respiratory rate';
+
+  @override
+  String get psi_systolic_bp => 'Systolic blood pressure';
+
+  @override
+  String get psi_temperature => 'Temperature';
+
+  @override
+  String get psi_pulse => 'Pulse';
+
+  @override
+  String get psi_respiratory_rate_threshold => '≥30';
+
+  @override
+  String get psi_systolic_bp_threshold => '<90';
+
+  @override
+  String get psi_temperature_threshold => '<35 or ≥40';
+
+  @override
+  String get psi_pulse_threshold => '≥125';
+
+  @override
+  String get psi_arterial_ph => 'Arterial pH (<7.35)';
+
+  @override
+  String get psi_bun => 'BUN';
+
+  @override
+  String get psi_bun_threshold => '≥30 mg/dL (10.7 mmol/L)';
+
+  @override
+  String get psi_sodium => 'Sodium (<130 mmol/L)';
+
+  @override
+  String get psi_glucose => 'Glucose';
+
+  @override
+  String get psi_glucose_threshold => '≥250 mg/dL (13.9 mmol/L)';
+
+  @override
+  String get psi_hematocrit => 'Hematocrit (<30%)';
+
+  @override
+  String get psi_pao2 => 'PaO₂ (<60 mmHg)';
+
+  @override
+  String get psi_pleural_effusion => 'Pleural effusion (+10 points)';
+
+  @override
+  String get psi_unit_label => 'Unit';
+
+  @override
+  String psi_score_label(int score) {
+    return 'Score: $score';
+  }
+
+  @override
+  String get psi_icu_criteria_title => 'ICU Consideration Criteria';
+
+  @override
+  String get psi_icu_criteria_content =>
+      '• PSI Class IV-V: Requires close monitoring, consider ICU\n• Additional high-risk factors:\n  - Respiratory failure (PaO₂ < 60 mmHg)\n  - Altered mental status\n  - Hypotension (SBP < 90 mmHg)\n  - Multiple severe comorbidities\n  - Advanced age + severe symptoms\n• Class V (>130 points): ICU recommended due to high mortality (>27%)';
+
+  @override
+  String psi_icu_recommendation(String recommendation) {
+    return 'ICU: $recommendation';
+  }
+
+  @override
+  String get psi_reference_title => 'References';
+
+  @override
+  String get psi_reference_text =>
+      'Fine MJ, et al. A prediction rule to identify low-risk patients with community-acquired pneumonia. N Engl J Med. 1997;336(4):243-50.\n\nAujesky D, et al. Prospective comparison of three validated prediction rules for prognosis in community-acquired pneumonia. Am J Med. 2005;118(4):384-92.';
+
+  @override
+  String get unit => 'Unit';
+
+  @override
+  String get value => 'Value';
+
+  @override
+  String get asa_title => 'ASA Physical Status';
+
+  @override
+  String get asa_not_classified => 'Not classified';
+
+  @override
+  String get asa_select_classification => 'Please select ASA classification';
+
+  @override
+  String get asa_class_1_title => 'ASA I - Normal';
+
+  @override
+  String get asa_class_1_description => 'Normal healthy patient';
+
+  @override
+  String get asa_class_1_examples =>
+      'No systemic disease, non-smoker, no or minimal alcohol consumption';
+
+  @override
+  String get asa_class_2_title => 'ASA II - Mild disease';
+
+  @override
+  String get asa_class_2_description => 'Patient with mild systemic disease';
+
+  @override
+  String get asa_class_2_examples =>
+      'Smoker, social drinker, obesity, pregnancy, well-controlled diabetes, well-controlled hypertension';
+
+  @override
+  String get asa_class_3_title => 'ASA III - Severe disease';
+
+  @override
+  String get asa_class_3_description => 'Patient with severe systemic disease';
+
+  @override
+  String get asa_class_3_examples =>
+      'Poorly controlled diabetes, poorly controlled hypertension, COPD, morbid obesity, organ dysfunction';
+
+  @override
+  String get asa_class_4_title => 'ASA IV - Life-threatening';
+
+  @override
+  String get asa_class_4_description =>
+      'Patient with severe systemic disease that is a constant threat to life';
+
+  @override
+  String get asa_class_4_examples =>
+      'Recent MI, CVA, TIA, CAD, severe renal failure requiring dialysis';
+
+  @override
+  String get asa_class_5_title => 'ASA V - Moribund';
+
+  @override
+  String get asa_class_5_description =>
+      'Moribund patient who is not expected to survive without operation';
+
+  @override
+  String get asa_class_5_examples =>
+      'Ruptured abdominal aortic aneurysm, severe multiple trauma with organ dysfunction, sepsis with organ dysfunction';
+
+  @override
+  String get asa_class_6_title => 'ASA VI - Brain dead';
+
+  @override
+  String get asa_class_6_description =>
+      'Brain dead patient whose organs are being removed for donor purposes';
+
+  @override
+  String get asa_class_6_examples =>
+      'Patient declared brain dead for organ donation';
+
+  @override
+  String get asa_perioperative_mortality => 'Perioperative Mortality';
+
+  @override
+  String get asa_anesthesia_risk => 'Anesthesia Risk';
+
+  @override
+  String get asa_risk_low => 'Low anesthesia risk';
+
+  @override
+  String get asa_risk_low_moderate => 'Low-moderate anesthesia risk';
+
+  @override
+  String get asa_risk_moderate_high => 'Moderate-high anesthesia risk';
+
+  @override
+  String get asa_risk_high => 'High anesthesia risk';
+
+  @override
+  String get asa_risk_very_high => 'Very high anesthesia risk';
+
+  @override
+  String get asa_risk_not_applicable => 'Not applicable';
+
+  @override
+  String get asa_recommendation_class_1 => 'Can undergo normal surgery';
+
+  @override
+  String get asa_recommendation_class_2 =>
+      'Need to control disease before surgery';
+
+  @override
+  String get asa_recommendation_class_3 =>
+      'Need to optimize condition before surgery, close monitoring required';
+
+  @override
+  String get asa_recommendation_class_4 =>
+      'Consider benefit/risk ratio, may need ICU postoperatively';
+
+  @override
+  String get asa_recommendation_class_5 =>
+      'Emergency surgery only for life-saving, poor prognosis';
+
+  @override
+  String get asa_recommendation_class_6 => 'Organ procurement surgery';
+
+  @override
+  String get asa_classifications => 'ASA Physical Status Classifications';
+
+  @override
+  String get asa_important_notes => 'Important Notes';
+
+  @override
+  String get asa_notes_text =>
+      '• ASA is assessed by anesthesiologist before surgery\n• Suffix \"E\" is added for emergency surgery (e.g., ASA III-E)\n• ASA does not directly predict anesthesia risk but reflects health status\n• Should be combined with other factors: age, type of surgery, anesthesia technique\n• ASA IV-V require special preparation and may need postoperative ICU';
+
+  @override
+  String get asa_reference_title => 'References';
+
+  @override
+  String get asa_reference_text =>
+      'American Society of Anesthesiologists. ASA Physical Status Classification System. Last approved by the ASA House of Delegates on October 15, 2014, and last amended on December 13, 2020.';
+
+  @override
+  String get rcri_title => 'Revised Cardiac Risk Index';
+
+  @override
+  String get rcri_subtitle => 'RCRI (Lee Index)';
+
+  @override
+  String get rcri_risk_very_low => 'Very Low Risk';
+
+  @override
+  String get rcri_risk_low => 'Low Risk';
+
+  @override
+  String get rcri_risk_moderate => 'Moderate Risk';
+
+  @override
+  String get rcri_risk_high => 'High Risk';
+
+  @override
+  String get rcri_cardiac_event_risk => 'Cardiac Event Risk';
+
+  @override
+  String get rcri_perioperative_management => 'Perioperative Management:';
+
+  @override
+  String get rcri_recommendations => 'Recommendations:';
+
+  @override
+  String get rcri_management_standard => 'Standard perioperative management';
+
+  @override
+  String get rcri_management_monitoring => 'Cardiac monitoring during surgery';
+
+  @override
+  String get rcri_management_intensive =>
+      'Close cardiac monitoring, postop ICU';
+
+  @override
+  String get rcri_management_invasive =>
+      'Invasive monitoring, ICU monitoring, consider circulatory support';
+
+  @override
+  String get rcri_recommendation_0 =>
+      'Proceed with planned surgery, no additional cardiac evaluation needed';
+
+  @override
+  String get rcri_recommendation_1 =>
+      'Consider cardiac evaluation if symptomatic or high-risk surgery';
+
+  @override
+  String get rcri_recommendation_2 =>
+      'Recommend preoperative cardiac evaluation, optimize treatment';
+
+  @override
+  String get rcri_recommendation_3 =>
+      'Mandatory comprehensive cardiac evaluation, consider preoperative intervention';
+
+  @override
+  String get rcri_risk_factors_title => 'Cardiac Risk Factors';
+
+  @override
+  String rcri_current_risk_factors(int count) {
+    return 'Current Risk Factors ($count)';
+  }
+
+  @override
+  String get rcri_high_risk_surgery_title => 'Examples of High-Risk Surgery';
+
+  @override
+  String get rcri_risk_stratification_title => 'Risk Stratification';
+
+  @override
+  String get rcri_clinical_info_title => 'Clinical Information';
+
+  @override
+  String get rcri_surgery_examples => 'Examples of High-Risk Surgery';
+
+  @override
+  String get rcri_surgery_aortic => 'Aortic and major vascular surgery';
+
+  @override
+  String get rcri_surgery_peripheral => 'Peripheral vascular surgery';
+
+  @override
+  String get rcri_surgery_abdominal => 'Major abdominal surgery';
+
+  @override
+  String get rcri_surgery_thoracic => 'Thoracic surgery (non-cardiac)';
+
+  @override
+  String get rcri_surgery_renal => 'Renal surgery';
+
+  @override
+  String get rcri_surgery_hepatic => 'Major hepatic surgery';
+
+  @override
+  String get rcri_surgery_head_neck =>
+      'Head-neck surgery with major blood loss';
+
+  @override
+  String get rcri_surgery_orthopedic =>
+      'Major orthopedic surgery with blood loss';
+
+  @override
+  String get rcri_cardiac_event_risk_label => 'Cardiac Event Risk';
+
+  @override
+  String get rcri_perioperative_mgmt_label => 'Perioperative Management:';
+
+  @override
+  String get rcri_clinical_info_text =>
+      'Revised Cardiac Risk Index (RCRI/Lee Index) assesses perioperative cardiac event risk\n\nCardiac events include:\n• Myocardial infarction\n• Acute pulmonary edema\n• Complete atrioventricular block\n• Cardiac arrest\n• Ventricular fibrillation\n\nClinical applications:\n• Preoperative risk assessment\n• Decision for additional cardiac evaluation\n• Anesthesia method and monitoring selection\n• Patient risk counseling\n\nImportant notes:\n• Applies to non-cardiac surgery\n• Does not replace comprehensive clinical assessment\n• Consider other risk factors\n• Optimize medical treatment before surgery';
+
+  @override
+  String get rcri_references => 'References';
+
+  @override
+  String get rcri_risk_0_title => 'Very Low Risk';
+
+  @override
+  String get rcri_risk_0_desc => 'No additional evaluation needed';
+
+  @override
+  String get rcri_risk_1_title => 'Low Risk';
+
+  @override
+  String get rcri_risk_1_desc => 'Consider evaluation if symptomatic';
+
+  @override
+  String get rcri_risk_2_title => 'Moderate Risk';
+
+  @override
+  String get rcri_risk_2_desc => 'Recommend preoperative evaluation';
+
+  @override
+  String get rcri_risk_3_title => 'High Risk';
+
+  @override
+  String get rcri_risk_3_desc => 'Mandatory comprehensive evaluation';
+
+  @override
+  String get rcri_ihd_title => 'Ischemic Heart Disease';
+
+  @override
+  String get rcri_ihd_description =>
+      'History of MI, positive stress test, angina, nitrate use, pathologic Q waves';
+
+  @override
+  String get rcri_chf_title => 'Congestive Heart Failure';
+
+  @override
+  String get rcri_chf_description =>
+      'History of CHF, pulmonary edema, orthopnea, lung crackles, cardiomegaly, peripheral edema';
+
+  @override
+  String get rcri_cvd_title => 'Cerebrovascular Disease';
+
+  @override
+  String get rcri_cvd_description =>
+      'History of stroke or transient ischemic attack';
+
+  @override
+  String get rcri_dm_title => 'Diabetes Requiring Insulin';
+
+  @override
+  String get rcri_dm_description =>
+      'Type 1 or Type 2 diabetes requiring insulin therapy';
+
+  @override
+  String get rcri_renal_title => 'Renal Failure (Creatinine >2.0)';
+
+  @override
+  String get rcri_renal_description =>
+      'Serum creatinine >2.0 mg/dL (177 μmol/L)';
+
+  @override
+  String get rcri_surgery_title => 'High-Risk Surgery';
+
+  @override
+  String get rcri_surgery_description =>
+      'Intraperitoneal, intrathoracic, or suprainguinal vascular surgery';
+
+  @override
+  String rcri_active_factors(int count) {
+    return 'Current Risk Factors ($count)';
+  }
+
+  @override
+  String get rcri_high_risk_surgeries => 'High-Risk Surgeries';
+
+  @override
+  String get rcri_surgery_1 => 'Aortic and major vascular surgery';
+
+  @override
+  String get rcri_surgery_2 => 'Peripheral vascular surgery';
+
+  @override
+  String get rcri_surgery_3 => 'Major intraabdominal surgery';
+
+  @override
+  String get rcri_surgery_4 => 'Intrathoracic surgery (non-cardiac)';
+
+  @override
+  String get rcri_surgery_5 => 'Renal surgery';
+
+  @override
+  String get rcri_surgery_6 => 'Major hepatic surgery';
+
+  @override
+  String get rcri_surgery_7 =>
+      'Head and neck surgery with significant blood loss';
+
+  @override
+  String get rcri_surgery_8 =>
+      'Major orthopedic surgery with significant blood loss';
+
+  @override
+  String get rcri_risk_stratification => 'Cardiac Event Risk Stratification';
+
+  @override
+  String get rcri_score_0_action => 'No additional evaluation needed';
+
+  @override
+  String get rcri_score_1_action => 'Consider evaluation if symptomatic';
+
+  @override
+  String get rcri_score_2_action => 'Recommend cardiac evaluation';
+
+  @override
+  String get rcri_score_3_action => 'Mandatory comprehensive evaluation';
+
+  @override
+  String get rcri_clinical_info => 'Clinical Information';
+
+  @override
+  String get rcri_clinical_text =>
+      'Revised Cardiac Risk Index (RCRI/Lee Index) evaluates perioperative cardiac event risk\n\nCardiac events include:\n• Myocardial infarction\n• Acute pulmonary edema\n• Complete heart block\n• Cardiac arrest\n• Ventricular fibrillation\n\nClinical applications:\n• Preoperative risk assessment\n• Decision for additional cardiac evaluation\n• Choice of anesthesia method and monitoring\n• Risk counseling for patients\n\nImportant notes:\n• Applies to non-cardiac surgery\n• Does not replace comprehensive clinical assessment\n• Consider other risk factors\n• Optimize medical treatment before surgery';
+
+  @override
+  String get rcri_reference_title => 'References';
+
+  @override
+  String get rcri_reference_text =>
+      'Lee TH, Marcantonio ER, Mangione CM, et al. Derivation and prospective validation of a simple index for prediction of cardiac risk of major noncardiac surgery. Circulation. 1999;100(10):1043-9.';
+
+  @override
+  String get surgical_apgar_title => 'Surgical Apgar Score';
+
+  @override
+  String get surgical_apgar_subtitle =>
+      'Postoperative complication risk assessment';
+
+  @override
+  String get surgical_apgar_risk_low => 'Low';
+
+  @override
+  String get surgical_apgar_risk_moderate_low => 'Moderate Low';
+
+  @override
+  String get surgical_apgar_risk_moderate_high => 'Moderate High';
+
+  @override
+  String get surgical_apgar_risk_high => 'High';
+
+  @override
+  String get surgical_apgar_risk_very_high => 'Very High';
+
+  @override
+  String get surgical_apgar_heart_rate_label => 'Lowest Heart Rate';
+
+  @override
+  String get surgical_apgar_heart_rate_unit => 'bpm';
+
+  @override
+  String get surgical_apgar_heart_rate_helper =>
+      'Lowest heart rate during surgery';
+
+  @override
+  String get surgical_apgar_blood_pressure_label =>
+      'Lowest Mean Arterial Pressure';
+
+  @override
+  String get surgical_apgar_blood_pressure_unit => 'mmHg';
+
+  @override
+  String get surgical_apgar_blood_pressure_helper =>
+      'Lowest MAP during surgery';
+
+  @override
+  String get surgical_apgar_blood_loss_label => 'Estimated Blood Loss';
+
+  @override
+  String get surgical_apgar_blood_loss_unit => 'mL/kg';
+
+  @override
+  String get surgical_apgar_blood_loss_helper =>
+      'Total blood loss / body weight';
+
+  @override
+  String get surgical_apgar_parameters_title => 'Surgical Parameters';
+
+  @override
+  String get surgical_apgar_score_breakdown_title => 'Score Breakdown';
+
+  @override
+  String get surgical_apgar_risk_stratification_title => 'Risk Stratification';
+
+  @override
+  String get surgical_apgar_clinical_guidelines_title => 'Clinical Guidelines';
+
+  @override
+  String get surgical_apgar_clinical_info_title => 'Clinical Information';
+
+  @override
+  String get surgical_apgar_complication_risk => 'Complications';
+
+  @override
+  String get surgical_apgar_mortality_risk => 'Mortality';
+
+  @override
+  String get surgical_apgar_recommendations => 'Recommendations:';
+
+  @override
+  String get surgical_apgar_recommendation_low =>
+      'Standard postoperative monitoring, good prognosis';
+
+  @override
+  String get surgical_apgar_recommendation_moderate_low =>
+      'Close monitoring, early complication screening';
+
+  @override
+  String get surgical_apgar_recommendation_moderate_high =>
+      'Active monitoring, prepare for intervention';
+
+  @override
+  String get surgical_apgar_recommendation_high =>
+      'Special monitoring, high complication risk';
+
+  @override
+  String get surgical_apgar_recommendation_very_high =>
+      'Intensive monitoring, extremely high risk, consider ICU';
+
+  @override
+  String get surgical_apgar_heart_rate_scoring => 'Lowest Heart Rate';
+
+  @override
+  String get surgical_apgar_map_scoring => 'Lowest MAP';
+
+  @override
+  String get surgical_apgar_blood_loss_scoring => 'Estimated Blood Loss';
+
+  @override
+  String get surgical_apgar_score_points => 'points';
+
+  @override
+  String get surgical_apgar_hr_criteria_1 => '≥56 bpm: 2 points';
+
+  @override
+  String get surgical_apgar_hr_criteria_2 => '40-55 bpm: 1 point';
+
+  @override
+  String get surgical_apgar_hr_criteria_3 => '<40 bpm: 0 points';
+
+  @override
+  String get surgical_apgar_map_criteria_1 => '≥70 mmHg: 2 points';
+
+  @override
+  String get surgical_apgar_map_criteria_2 => '40-69 mmHg: 1 point';
+
+  @override
+  String get surgical_apgar_map_criteria_3 => '<40 mmHg: 0 points';
+
+  @override
+  String get surgical_apgar_bl_criteria_1 => '≤10 mL/kg: 2 points';
+
+  @override
+  String get surgical_apgar_bl_criteria_2 => '11-40 mL/kg: 1 point';
+
+  @override
+  String get surgical_apgar_bl_criteria_3 => '>40 mL/kg: 0 points';
+
+  @override
+  String get surgical_apgar_score_6_7 => '6-7';
+
+  @override
+  String get surgical_apgar_score_4_5 => '4-5';
+
+  @override
+  String get surgical_apgar_score_2_3 => '2-3';
+
+  @override
+  String get surgical_apgar_score_0_1 => '0-1';
+
+  @override
+  String get surgical_apgar_guideline_low_title => 'Score 6-7: Low Risk';
+
+  @override
+  String get surgical_apgar_guideline_moderate_title =>
+      'Score 4-5: Moderate Risk';
+
+  @override
+  String get surgical_apgar_guideline_high_title => 'Score ≤3: High Risk';
+
+  @override
+  String get surgical_apgar_guideline_low_1 =>
+      'Standard postoperative monitoring';
+
+  @override
+  String get surgical_apgar_guideline_low_2 => 'Early discharge if appropriate';
+
+  @override
+  String get surgical_apgar_guideline_low_3 => 'Routine outpatient follow-up';
+
+  @override
+  String get surgical_apgar_guideline_low_4 => 'Good prognosis';
+
+  @override
+  String get surgical_apgar_guideline_moderate_1 => 'Close monitoring 24-48h';
+
+  @override
+  String get surgical_apgar_guideline_moderate_2 =>
+      'Early complication screening';
+
+  @override
+  String get surgical_apgar_guideline_moderate_3 =>
+      'Consider special monitoring';
+
+  @override
+  String get surgical_apgar_guideline_moderate_4 =>
+      'Counsel family about risks';
+
+  @override
+  String get surgical_apgar_guideline_high_1 => 'ICU/HDU monitoring';
+
+  @override
+  String get surgical_apgar_guideline_high_2 => 'Active complication screening';
+
+  @override
+  String get surgical_apgar_guideline_high_3 => 'Multi-organ support if needed';
+
+  @override
+  String get surgical_apgar_guideline_high_4 =>
+      'Detailed prognostic counseling';
+
+  @override
+  String get surgical_apgar_management_standard => 'Standard monitoring';
+
+  @override
+  String get surgical_apgar_management_close => 'Close monitoring';
+
+  @override
+  String get surgical_apgar_management_active => 'Active monitoring';
+
+  @override
+  String get surgical_apgar_management_special => 'Special monitoring';
+
+  @override
+  String get surgical_apgar_management_intensive => 'Intensive monitoring';
+
+  @override
+  String get surgical_apgar_clinical_text =>
+      'Surgical Apgar Score assesses postoperative complication risk\n\nThree main parameters:\n• Lowest heart rate during surgery\n• Lowest mean arterial pressure\n• Estimated blood loss\n\nAssessment timing:\n• End of surgery\n• Before transfer to recovery\n• Recorded in surgical records\n\nClinical applications:\n• Predict early complications\n• Determine monitoring level\n• Family counseling\n• Quality improvement\n\nCommon complications:\n• Surgical site infection\n• Anastomotic leak\n• Respiratory failure\n• Heart failure\n• Embolism\n\nAdvantages:\n• Simple, easy to calculate\n• Available immediately post-op\n• High reliability\n• Wide applicability\n\nLimitations:\n• Does not predict late complications\n• Depends on accurate recording\n• Needs combined assessment\n• Varies by surgery type';
+
+  @override
+  String get surgical_apgar_reference_title => 'References';
+
+  @override
+  String get surgical_apgar_reference_text =>
+      'Gawande AA, et al. An Apgar score for surgery. J Am Coll Surg. 2007;204(2):201-8.\n\nRegenbogen SE, et al. The intraoperative Surgical Apgar Score predicts postoperative complications in patients undergoing pancreaticoduodenectomy. J Gastrointest Surg. 2008;12(11):2031-9.';
+
+  @override
+  String get preop_mortality_title => 'Preoperative Mortality Prediction';
+
+  @override
+  String get preop_mortality_subtitle => '30-day surgical mortality risk';
+
+  @override
+  String get preop_mortality_risk_title => 'Surgical Mortality Risk';
+
+  @override
+  String get preop_mortality_risk_very_low => 'Very Low';
+
+  @override
+  String get preop_mortality_risk_low => 'Low';
+
+  @override
+  String get preop_mortality_risk_moderate => 'Moderate';
+
+  @override
+  String get preop_mortality_risk_high => 'High';
+
+  @override
+  String get preop_mortality_risk_very_high => 'Very High';
+
+  @override
+  String get preop_mortality_recommendations => 'Recommendations:';
+
+  @override
+  String get preop_mortality_recommendation_very_low =>
+      'Safe surgery, standard monitoring';
+
+  @override
+  String get preop_mortality_recommendation_low =>
+      'Low risk, standard surgical preparation';
+
+  @override
+  String get preop_mortality_recommendation_moderate =>
+      'Optimize preoperative condition, close monitoring';
+
+  @override
+  String get preop_mortality_recommendation_high =>
+      'Consider benefit/risk ratio, counsel family';
+
+  @override
+  String get preop_mortality_recommendation_very_high =>
+      'Very high risk, consider less invasive alternatives';
+
+  @override
+  String get preop_mortality_patient_factors => 'Patient Factors';
+
+  @override
+  String get preop_mortality_age_label => 'Age';
+
+  @override
+  String get preop_mortality_age_unit => 'years';
+
+  @override
+  String get preop_mortality_asa_label => 'ASA Physical Status';
+
+  @override
+  String get preop_mortality_asa_1 => 'ASA I: Healthy patient';
+
+  @override
+  String get preop_mortality_asa_2 =>
+      'ASA II: Patient with mild systemic disease';
+
+  @override
+  String get preop_mortality_asa_3 =>
+      'ASA III: Patient with severe systemic disease';
+
+  @override
+  String get preop_mortality_asa_4 =>
+      'ASA IV: Patient with life-threatening disease';
+
+  @override
+  String get preop_mortality_asa_5 => 'ASA V: Moribund patient';
+
+  @override
+  String get preop_mortality_surgery_factors => 'Surgical Factors';
+
+  @override
+  String get preop_mortality_surgery_risk_label => 'Surgical Risk Level';
+
+  @override
+  String get preop_mortality_surgery_low => 'Low risk (<1%)';
+
+  @override
+  String get preop_mortality_surgery_low_desc =>
+      'Endoscopic surgery, skin excision';
+
+  @override
+  String get preop_mortality_surgery_intermediate => 'Intermediate risk (1-5%)';
+
+  @override
+  String get preop_mortality_surgery_intermediate_desc =>
+      'Abdominal, thoracic, orthopedic surgery';
+
+  @override
+  String get preop_mortality_surgery_high => 'High risk (>5%)';
+
+  @override
+  String get preop_mortality_surgery_high_desc =>
+      'Major vascular surgery, major emergency';
+
+  @override
+  String get preop_mortality_emergency => 'Emergency surgery';
+
+  @override
+  String get preop_mortality_emergency_desc => 'Surgery within 24 hours';
+
+  @override
+  String get preop_mortality_comorbidities => 'Comorbidities';
+
+  @override
+  String get preop_mortality_cardiac => 'Cardiac risk factors';
+
+  @override
+  String get preop_mortality_cardiac_desc =>
+      'Coronary disease, heart failure, valve disease';
+
+  @override
+  String get preop_mortality_pulmonary => 'Pulmonary disease';
+
+  @override
+  String get preop_mortality_pulmonary_desc =>
+      'COPD, asthma, interstitial lung disease';
+
+  @override
+  String get preop_mortality_renal => 'Renal disease';
+
+  @override
+  String get preop_mortality_renal_desc => 'Chronic kidney disease, dialysis';
+
+  @override
+  String get preop_mortality_hepatic => 'Hepatic disease';
+
+  @override
+  String get preop_mortality_hepatic_desc =>
+      'Cirrhosis, hepatitis, liver failure';
+
+  @override
+  String get preop_mortality_neurologic => 'Neurologic disease';
+
+  @override
+  String get preop_mortality_neurologic_desc => 'Stroke, dementia, seizures';
+
+  @override
+  String get preop_mortality_diabetes => 'Diabetes mellitus';
+
+  @override
+  String get preop_mortality_diabetes_desc => 'Controlled or uncontrolled';
+
+  @override
+  String get preop_mortality_immunosuppression => 'Immunosuppression';
+
+  @override
+  String get preop_mortality_immunosuppression_desc =>
+      'Corticosteroids, chemotherapy, HIV';
+
+  @override
+  String get preop_mortality_risk_stratification => 'Risk Stratification';
+
+  @override
+  String get preop_mortality_action_safe => 'Safe surgery';
+
+  @override
+  String get preop_mortality_action_standard => 'Standard preparation';
+
+  @override
+  String get preop_mortality_action_optimize => 'Optimize preoperatively';
+
+  @override
+  String get preop_mortality_action_consider => 'Consider benefit/risk';
+
+  @override
+  String get preop_mortality_action_alternative => 'Consider alternatives';
+
+  @override
+  String get preop_mortality_guidelines => 'Clinical Guidelines';
+
+  @override
+  String get preop_mortality_guideline_low_title => 'Low risk (<5%)';
+
+  @override
+  String get preop_mortality_guideline_low_1 => 'Standard surgical preparation';
+
+  @override
+  String get preop_mortality_guideline_low_2 =>
+      'No special optimization needed';
+
+  @override
+  String get preop_mortality_guideline_low_3 =>
+      'Standard postoperative monitoring';
+
+  @override
+  String get preop_mortality_guideline_low_4 => 'Explain risks to patient';
+
+  @override
+  String get preop_mortality_guideline_moderate_title =>
+      'Moderate risk (5-15%)';
+
+  @override
+  String get preop_mortality_guideline_moderate_1 =>
+      'Optimize preoperative condition';
+
+  @override
+  String get preop_mortality_guideline_moderate_2 =>
+      'Specialist consultation if needed';
+
+  @override
+  String get preop_mortality_guideline_moderate_3 =>
+      'Consider ICU postoperatively';
+
+  @override
+  String get preop_mortality_guideline_moderate_4 =>
+      'Detailed family counseling';
+
+  @override
+  String get preop_mortality_guideline_high_title => 'High risk (>15%)';
+
+  @override
+  String get preop_mortality_guideline_high_1 =>
+      'Multidisciplinary consultation';
+
+  @override
+  String get preop_mortality_guideline_high_2 =>
+      'Consider less invasive options';
+
+  @override
+  String get preop_mortality_guideline_high_3 =>
+      'Prepare ICU and intensive support';
+
+  @override
+  String get preop_mortality_guideline_high_4 => 'Thorough risk counseling';
+
+  @override
+  String get preop_mortality_clinical_info => 'Clinical Information';
+
+  @override
+  String get preop_mortality_clinical_text =>
+      '30-day surgical mortality risk prediction\n\nRisk factors:\n• Age: >80 years increases risk significantly\n• ASA: Health status classification\n• Surgery type: Invasiveness level\n• Emergency nature\n• Comorbidities\n\nSurgical classification:\n• Low risk: Endoscopic, dermatologic\n• Intermediate risk: Abdominal, thoracic\n• High risk: Vascular, major emergency\n\nClinical applications:\n• Patient and family counseling\n• Treatment decision making\n• Postoperative preparation\n• Resource allocation\n\nLimitations:\n• Predictive only\n• Requires clinical assessment\n• Changes over time\n• Does not replace physician experience';
+
+  @override
+  String get preop_mortality_reference_title => 'References';
+
+  @override
+  String get preop_mortality_reference_text =>
+      'Bilimoria KY, Liu Y, Paruch JL, et al. Development and evaluation of the universal ACS NSQIP surgical risk calculator: a decision aid and informed consent tool for patients and surgeons. J Am Coll Surg. 2013;217(5):833-42.';
+
+  @override
+  String get mdrd_gfr_title => 'MDRD GFR Calculator';
+
+  @override
+  String get mdrd_gfr_result => 'MDRD GFR';
+
+  @override
+  String get mdrd_gfr_unit => 'ml/min/1.73m²';
+
+  @override
+  String get mdrd_gfr_input_prompt => 'Enter parameters to calculate GFR';
+
+  @override
+  String get mdrd_gfr_input_title => 'Input Parameters (MDRD)';
+
+  @override
+  String get mdrd_gfr_age => 'Age';
+
+  @override
+  String get mdrd_gfr_age_unit => 'years';
+
+  @override
+  String get mdrd_gfr_creatinine => 'Serum Creatinine';
+
+  @override
+  String get mdrd_gfr_creatinine_example => 'e.g., 1.2 mg/dL (106 umol/L)';
+
+  @override
+  String get mdrd_gfr_demographics => 'Demographics';
+
+  @override
+  String get mdrd_gfr_female => 'Female';
+
+  @override
+  String get mdrd_gfr_female_factor => 'Adjustment factor: ×0.742';
+
+  @override
+  String get mdrd_gfr_african_american => 'African American';
+
+  @override
+  String get mdrd_gfr_african_american_factor => 'Adjustment factor: ×1.212';
+
+  @override
+  String get mdrd_gfr_function_normal => 'Normal/High';
+
+  @override
+  String get mdrd_gfr_function_mild => 'Mildly decreased';
+
+  @override
+  String get mdrd_gfr_function_mild_moderate => 'Mild-moderate decrease';
+
+  @override
+  String get mdrd_gfr_function_moderate_severe => 'Moderate-severe decrease';
+
+  @override
+  String get mdrd_gfr_function_severe => 'Severely decreased';
+
+  @override
+  String get mdrd_gfr_function_esrd => 'End-stage renal disease';
+
+  @override
+  String get mdrd_gfr_stage_1 => 'CKD Stage 1 (if kidney damage present)';
+
+  @override
+  String get mdrd_gfr_stage_2 => 'CKD Stage 2';
+
+  @override
+  String get mdrd_gfr_stage_3a => 'CKD Stage 3a';
+
+  @override
+  String get mdrd_gfr_stage_3b => 'CKD Stage 3b';
+
+  @override
+  String get mdrd_gfr_stage_4 => 'CKD Stage 4';
+
+  @override
+  String get mdrd_gfr_stage_5 => 'CKD Stage 5';
+
+  @override
+  String get mdrd_gfr_clinical_action => 'Clinical Action';
+
+  @override
+  String get mdrd_gfr_action_normal => 'Normal monitoring if no kidney damage';
+
+  @override
+  String get mdrd_gfr_action_mild =>
+      'Screen for CKD complications, control risk factors';
+
+  @override
+  String get mdrd_gfr_action_mild_moderate =>
+      'Evaluate and treat CKD complications';
+
+  @override
+  String get mdrd_gfr_action_moderate_severe =>
+      'Prepare for renal replacement therapy';
+
+  @override
+  String get mdrd_gfr_action_severe => 'Initiate renal replacement therapy';
+
+  @override
+  String get mdrd_gfr_action_esrd => 'Urgent dialysis or kidney transplant';
+
+  @override
+  String get mdrd_gfr_drug_dosing => 'Drug Dosing Adjustment';
+
+  @override
+  String get mdrd_gfr_dosing_normal => 'Normal dose for most medications';
+
+  @override
+  String get mdrd_gfr_dosing_reduce_25_50 =>
+      'Reduce renally-excreted drugs by 25-50%';
+
+  @override
+  String get mdrd_gfr_dosing_reduce_50_75 =>
+      'Reduce renally-excreted drugs by 50-75%';
+
+  @override
+  String get mdrd_gfr_dosing_avoid =>
+      'Avoid nephrotoxic drugs, strict dose adjustment';
+
+  @override
+  String get mdrd_gfr_comparison_title => 'Comparison with Other Methods';
+
+  @override
+  String get mdrd_gfr_cockcroft_gault => 'Cockcroft-Gault';
+
+  @override
+  String get mdrd_gfr_estimated_unit => 'ml/min (estimated)';
+
+  @override
+  String get mdrd_gfr_weight_note =>
+      'Note: Cockcroft-Gault estimated with 70kg weight';
+
+  @override
+  String get mdrd_gfr_reference_values =>
+      'Kidney Function Classification (GFR)';
+
+  @override
+  String get mdrd_gfr_range_90_plus => '≥ 90';
+
+  @override
+  String get mdrd_gfr_range_60_89 => '60-89';
+
+  @override
+  String get mdrd_gfr_range_45_59 => '45-59';
+
+  @override
+  String get mdrd_gfr_range_30_44 => '30-44';
+
+  @override
+  String get mdrd_gfr_range_15_29 => '15-29';
+
+  @override
+  String get mdrd_gfr_range_under_15 => '< 15';
+
+  @override
+  String get mdrd_gfr_clinical_info => 'Clinical Information';
+
+  @override
+  String get mdrd_gfr_clinical_text =>
+      'MDRD (Modification of Diet in Renal Disease) Equation:\nGFR = 175 × (SCr)^-1.154 × (Age)^-0.203 × (0.742 if female) × (1.212 if African American)\n\nAdvantages of MDRD:\n• Standardized to body surface area (1.73 m²)\n• More accurate than Cockcroft-Gault at low GFR\n• Recommended by international guidelines\n• Suitable for CKD staging\n\nLimitations:\n• Less accurate at GFR >60 ml/min/1.73m²\n• Not suitable for children <18 years\n• Poor estimation in very thin or obese patients\n• Use with caution in acute illness\n\nNote: CKD-EPI equation (2009, 2021) is now preferred over MDRD';
+
+  @override
+  String get mdrd_gfr_reference_title => 'References';
+
+  @override
+  String get mdrd_gfr_reference_text =>
+      'Levey AS, Bosch JP, Lewis JB, et al. A more accurate method to estimate glomerular filtration rate from serum creatinine: a new prediction equation. Modification of Diet in Renal Disease Study Group. Ann Intern Med. 1999;130(6):461-70.';
+
+  @override
+  String get medical_disclaimer_professional_only =>
+      'FOR HEALTHCARE PROFESSIONALS ONLY';
+
+  @override
+  String get medical_disclaimer_home_text =>
+      'This application is intended exclusively for licensed healthcare professionals. All medical information is provided for reference purposes only and should not replace clinical judgment, institutional protocols, or direct patient care.';
+
+  @override
+  String get medical_disclaimer_grace_text =>
+      'Clinical decision support tool. Always use clinical judgment and follow institutional protocols.';
+
+  @override
+  String get medical_disclaimer_sofa_text =>
+      'ICU assessment tool. Requires clinical correlation with patient status.';
+
+  @override
+  String get medical_disclaimer_qsofa_text =>
+      'Sepsis screening tool. Does not replace clinical assessment and laboratory evaluation.';
+
+  @override
+  String get medical_disclaimer_nihss_text =>
+      'Stroke assessment tool. Requires neurological examination and clinical correlation.';
+
+  @override
+  String get medical_disclaimer_mdrd_text =>
+      'Kidney function estimation. Consider clinical context and confirm with additional tests.';
 }

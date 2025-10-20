@@ -10,7 +10,6 @@ import '../../../emergency_protocols/presentation/emergency_protocols_page.dart'
 import '../../../bookmarks/presentation/bookmarks_page.dart';
 import '../../../notifications/presentation/notifications_page.dart';
 import '../../../settings/presentation/language_selection_page.dart';
-import '../../../settings/presentation/language_test_page.dart';
 import '../../../references/presentation/medical_references_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -50,17 +49,6 @@ class _HomePageState extends State<HomePage> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => const MedicalReferencesPage(),
-                ),
-              );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.bug_report),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LanguageTestPage(),
                 ),
               );
             },
@@ -110,6 +98,41 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Medical Disclaimer Banner - CRITICAL for App Store compliance
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.red.shade50,
+              border: Border.all(color: Colors.red.shade300, width: 2),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Column(
+              children: [
+                Icon(Icons.medical_services, color: Colors.red.shade600, size: 32),
+                const SizedBox(height: 8),
+                Text(
+                  l10n.medical_disclaimer_professional_only,
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red.shade700,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  l10n.medical_disclaimer_home_text,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.red.shade600,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          
           Text(
             l10n.welcomeMessage,
             style: Theme.of(context).textTheme.headlineMedium?.copyWith(

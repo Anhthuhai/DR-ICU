@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class PreoperativeMortalityPredictionPage extends StatefulWidget {
   const PreoperativeMortalityPredictionPage({super.key});
@@ -135,145 +136,230 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
     return Colors.red.shade900;
   }
 
-  String get riskLevel {
+  String riskLevel(BuildContext context) {
     if (_mortalityRisk < 1) {
-      return 'Rất thấp';
+      return AppLocalizations.of(context)!.preop_mortality_risk_very_low;
     }
     if (_mortalityRisk < 5) {
-      return 'Thấp';
+      return AppLocalizations.of(context)!.preop_mortality_risk_low;
     }
     if (_mortalityRisk < 15) {
-      return 'Trung bình';
+      return AppLocalizations.of(context)!.preop_mortality_risk_moderate;
     }
     if (_mortalityRisk < 30) {
-      return 'Cao';
+      return AppLocalizations.of(context)!.preop_mortality_risk_high;
     }
-    return 'Rất cao';
+    return AppLocalizations.of(context)!.preop_mortality_risk_very_high;
   }
 
-  String get recommendations {
+  String recommendations(BuildContext context) {
     if (_mortalityRisk < 1) {
-      return 'Phẫu thuật an toàn, theo dõi tiêu chuẩn';
+      return AppLocalizations.of(context)!.preop_mortality_recommendation_very_low;
     }
     if (_mortalityRisk < 5) {
-      return 'Nguy cơ thấp, chuẩn bị phẫu thuật thông thường';
+      return AppLocalizations.of(context)!.preop_mortality_recommendation_low;
     }
     if (_mortalityRisk < 15) {
-      return 'Tối ưu hóa tình trạng trước mổ, theo dõi chặt chẽ';
+      return AppLocalizations.of(context)!.preop_mortality_recommendation_moderate;
     }
     if (_mortalityRisk < 30) {
-      return 'Cân nhắc lợi ích/nguy cơ, tư vấn gia đình';
+      return AppLocalizations.of(context)!.preop_mortality_recommendation_high;
     }
-    return 'Nguy cơ rất cao, xem xét thay thế ít xâm lấn';
+    return AppLocalizations.of(context)!.preop_mortality_recommendation_very_high;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Dự đoán tử vong phẫu thuật'),
-        backgroundColor: Colors.deepPurple.shade700,
-        foregroundColor: Colors.white,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Risk Display
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: riskColor.withValues(alpha: 0.3)),
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    'Nguy cơ tử vong phẫu thuật',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
+      body: CustomScrollView(
+        slivers: [
+          // Sticky AppBar
+          SliverAppBar(
+            title: Text(AppLocalizations.of(context)!.preop_mortality_title),
+            backgroundColor: Colors.deepPurple.shade700,
+            foregroundColor: Colors.white,
+            floating: true,
+            pinned: true,
+            snap: false,
+            elevation: 4,
+          ),
+          
+          // Sticky Score Header
+          SliverPersistentHeader(
+            pinned: true,
+            delegate: _StickyHeaderDelegate(
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.1),
+                      offset: const Offset(0, 2),
+                      blurRadius: 4,
                     ),
+                  ],
+                ),
+                child: Container(
+                  height: 48,
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: riskColor),
                   ),
-                  const SizedBox(height: 8),
-                  Text(
-                    _mortalityRisk > 0 ? '${_mortalityRisk.toStringAsFixed(1)}%' : '0%',
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: riskColor,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Nguy cơ $riskLevel',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme.darkGrey,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  _buildRiskInfo(),
-                ],
-              ),
-            ),
-
-            // Input Parameters
-            _buildPatientFactors(),
-            _buildSurgeryFactors(),
-            _buildComorbidities(),
-
-            // Risk Stratification
-            _buildRiskStratification(),
-
-            // Clinical Guidelines
-            _buildClinicalGuidelines(),
-
-            // Clinical Information
-            _buildClinicalInfo(),
-
-            // Medical Citation
-            Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.blue.shade200),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+                  child: Row(
                     children: [
-                      Icon(Icons.article, color: Colors.blue.shade700, size: 16),
-                      const SizedBox(width: 6),
-                      Text(
-                        'Tài liệu tham khảo',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blue.shade700,
+                      Expanded(
+                        flex: 2,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            AppLocalizations.of(context)!.preop_mortality_risk_title,
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold,
+                              color: riskColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            _mortalityRisk > 0 ? '${_mortalityRisk.toStringAsFixed(1)}%' : '0%',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: riskColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            '${riskLevel(context)} Risk',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w600,
+                              color: AppTheme.darkGrey,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 6),
-                  Text(
-                    'Bilimoria KY, Liu Y, Paruch JL, et al. Development and evaluation of the universal ACS NSQIP surgical risk calculator: a decision aid and informed consent tool for patients and surgeons. J Am Coll Surg. 2013;217(5):833-42.',
-                    style: TextStyle(
-                      fontSize: 11,
-                      color: Colors.blue.shade600,
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
+          ),
 
-            const SizedBox(height: 20),
-          ],
-        ),
+          // Content
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA PHẪU THUẬT: Kết quả chỉ mang tính tham khảo dự báo nguy cơ tử vong. Luôn tham khảo ý kiến bác sĩ gây mê hồi sức và phẫu thuật viên trước khi đưa ra quyết định.'
+                              : 'SURGICAL MORTALITY DISCLAIMER: Results are for mortality risk reference only. Always consult with anesthesiologist and surgeon before making decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
+                // Risk Information (moved from sticky header)
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  child: _buildRiskInfo(),
+                ),
+                
+                // Input Parameters
+                _buildPatientFactors(),
+                _buildSurgeryFactors(),
+                _buildComorbidities(),
+
+                // Risk Stratification
+                _buildRiskStratification(),
+
+                // Clinical Guidelines
+                _buildClinicalGuidelines(),
+
+                // Clinical Information
+                _buildClinicalInfo(),
+
+                // Medical Citation
+                Container(
+                  margin: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.blue.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.blue.shade200),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.article, color: Colors.blue.shade700, size: 16),
+                          const SizedBox(width: 6),
+                          Text(
+                            AppLocalizations.of(context)!.preop_mortality_reference_title,
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue.shade700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        AppLocalizations.of(context)!.preop_mortality_reference_text,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.blue.shade600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -303,7 +389,7 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
                     Icon(Icons.assignment, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      AppLocalizations.of(context)!.preop_mortality_recommendations,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -313,7 +399,7 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  recommendations,
+                  recommendations(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -339,7 +425,7 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố bệnh nhân',
+            AppLocalizations.of(context)!.preop_mortality_patient_factors,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.deepPurple.shade700,
@@ -351,8 +437,8 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
             controller: _ageController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Tuổi',
-              suffixText: 'năm',
+              labelText: AppLocalizations.of(context)!.preop_mortality_age_label,
+              suffixText: AppLocalizations.of(context)!.preop_mortality_age_unit,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -363,7 +449,7 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           const SizedBox(height: 16),
           
           Text(
-            'ASA Physical Status',
+            AppLocalizations.of(context)!.preop_mortality_asa_label,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               color: Colors.deepPurple.shade700,
@@ -374,11 +460,11 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           ...List.generate(5, (index) {
             final asaClass = index + 1;
             final descriptions = [
-              'ASA I: Bệnh nhân khỏe mạnh',
-              'ASA II: Bệnh nhân có bệnh toàn thân nhẹ',
-              'ASA III: Bệnh nhân có bệnh toàn thân nặng',
-              'ASA IV: Bệnh nhân có bệnh đe dọa tính mạng',
-              'ASA V: Bệnh nhân hấp hối',
+              AppLocalizations.of(context)!.preop_mortality_asa_1,
+              AppLocalizations.of(context)!.preop_mortality_asa_2,
+              AppLocalizations.of(context)!.preop_mortality_asa_3,
+              AppLocalizations.of(context)!.preop_mortality_asa_4,
+              AppLocalizations.of(context)!.preop_mortality_asa_5,
             ];
             
             return RadioListTile<int>(
@@ -414,7 +500,7 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố phẫu thuật',
+            AppLocalizations.of(context)!.preop_mortality_surgery_factors,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -423,7 +509,7 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           const SizedBox(height: 16),
           
           Text(
-            'Mức độ nguy cơ phẫu thuật',
+            AppLocalizations.of(context)!.preop_mortality_surgery_risk_label,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               color: Colors.blue.shade700,
@@ -432,8 +518,8 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           const SizedBox(height: 8),
           
           RadioListTile<String>(
-            title: const Text('Nguy cơ thấp (<1%)'),
-            subtitle: const Text('Phẫu thuật nội soi, cắt bỏ da'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_surgery_low),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_surgery_low_desc),
             value: 'low',
             // ignore: deprecated_member_use
             groupValue: _selectedSurgeryRisk,
@@ -448,8 +534,8 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           ),
           
           RadioListTile<String>(
-            title: const Text('Nguy cơ trung bình (1-5%)'),
-            subtitle: const Text('Phẫu thuật ổ bụng, ngực, chỉnh hình'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_surgery_intermediate),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_surgery_intermediate_desc),
             value: 'intermediate',
             // ignore: deprecated_member_use
             groupValue: _selectedSurgeryRisk,
@@ -464,8 +550,8 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           ),
           
           RadioListTile<String>(
-            title: const Text('Nguy cơ cao (>5%)'),
-            subtitle: const Text('Phẫu thuật mạch máu lớn, cấp cứu lớn'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_surgery_high),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_surgery_high_desc),
             value: 'high',
             // ignore: deprecated_member_use
             groupValue: _selectedSurgeryRisk,
@@ -482,10 +568,9 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           const SizedBox(height: 16),
           
           CheckboxListTile(
-            title: const Text('Phẫu thuật cấp cứu'),
-            subtitle: const Text('Phẫu thuật trong vòng 24h'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_emergency),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_emergency_desc),
             value: _emergencySurgery,
-            // ignore: deprecated_member_use
             onChanged: (value) {
               setState(() {
                 _emergencySurgery = value!;
@@ -512,7 +597,7 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Bệnh đi kèm',
+            AppLocalizations.of(context)!.preop_mortality_comorbidities,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
@@ -521,10 +606,9 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           const SizedBox(height: 16),
           
           CheckboxListTile(
-            title: const Text('Yếu tố nguy cơ tim mạch'),
-            subtitle: const Text('Bệnh mạch vành, suy tim, bệnh van'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_cardiac),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_cardiac_desc),
             value: _cardiacRiskFactors,
-            // ignore: deprecated_member_use
             onChanged: (value) {
               setState(() {
                 _cardiacRiskFactors = value!;
@@ -535,10 +619,9 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           ),
           
           CheckboxListTile(
-            title: const Text('Bệnh phổi'),
-            subtitle: const Text('COPD, hen, bệnh phổi kẽ'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_pulmonary),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_pulmonary_desc),
             value: _pulmonaryDisease,
-            // ignore: deprecated_member_use
             onChanged: (value) {
               setState(() {
                 _pulmonaryDisease = value!;
@@ -549,10 +632,9 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           ),
           
           CheckboxListTile(
-            title: const Text('Bệnh thận'),
-            subtitle: const Text('Suy thận mạn, chạy thận'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_renal),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_renal_desc),
             value: _renalDisease,
-            // ignore: deprecated_member_use
             onChanged: (value) {
               setState(() {
                 _renalDisease = value!;
@@ -563,10 +645,9 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           ),
           
           CheckboxListTile(
-            title: const Text('Bệnh gan'),
-            subtitle: const Text('Xơ gan, viêm gan, suy gan'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_hepatic),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_hepatic_desc),
             value: _hepaticDisease,
-            // ignore: deprecated_member_use
             onChanged: (value) {
               setState(() {
                 _hepaticDisease = value!;
@@ -577,10 +658,9 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           ),
           
           CheckboxListTile(
-            title: const Text('Bệnh thần kinh'),
-            subtitle: const Text('Đột quỵ, sa sút trí tuệ, động kinh'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_neurologic),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_neurologic_desc),
             value: _neurologicDisease,
-            // ignore: deprecated_member_use
             onChanged: (value) {
               setState(() {
                 _neurologicDisease = value!;
@@ -591,10 +671,9 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           ),
           
           CheckboxListTile(
-            title: const Text('Đái tháo đường'),
-            subtitle: const Text('Có hoặc không kiểm soát'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_diabetes),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_diabetes_desc),
             value: _diabetes,
-            // ignore: deprecated_member_use
             onChanged: (value) {
               setState(() {
                 _diabetes = value!;
@@ -605,10 +684,9 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           ),
           
           CheckboxListTile(
-            title: const Text('Ức chế miễn dịch'),
-            subtitle: const Text('Corticoid, hóa trị, HIV'),
+            title: Text(AppLocalizations.of(context)!.preop_mortality_immunosuppression),
+            subtitle: Text(AppLocalizations.of(context)!.preop_mortality_immunosuppression_desc),
             value: _immunosuppression,
-            // ignore: deprecated_member_use
             onChanged: (value) {
               setState(() {
                 _immunosuppression = value!;
@@ -635,18 +713,23 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ',
+            AppLocalizations.of(context)!.preop_mortality_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('<1%', 'Rất thấp', 'Phẫu thuật an toàn', Colors.green),
-          _buildRiskItem('1-5%', 'Thấp', 'Chuẩn bị thông thường', Colors.yellow.shade700),
-          _buildRiskItem('5-15%', 'Trung bình', 'Tối ưu hóa trước mổ', Colors.orange),
-          _buildRiskItem('15-30%', 'Cao', 'Cân nhắc lợi ích/nguy cơ', Colors.red.shade600),
-          _buildRiskItem('>30%', 'Rất cao', 'Xem xét phương án khác', Colors.red.shade900),
+          _buildRiskItem('<1%', AppLocalizations.of(context)!.preop_mortality_risk_very_low, 
+            AppLocalizations.of(context)!.preop_mortality_action_safe, Colors.green),
+          _buildRiskItem('1-5%', AppLocalizations.of(context)!.preop_mortality_risk_low, 
+            AppLocalizations.of(context)!.preop_mortality_action_standard, Colors.yellow.shade700),
+          _buildRiskItem('5-15%', AppLocalizations.of(context)!.preop_mortality_risk_moderate, 
+            AppLocalizations.of(context)!.preop_mortality_action_optimize, Colors.orange),
+          _buildRiskItem('15-30%', AppLocalizations.of(context)!.preop_mortality_risk_high, 
+            AppLocalizations.of(context)!.preop_mortality_action_consider, Colors.red.shade600),
+          _buildRiskItem('>30%', AppLocalizations.of(context)!.preop_mortality_risk_very_high, 
+            AppLocalizations.of(context)!.preop_mortality_action_alternative, Colors.red.shade900),
         ],
       ),
     );
@@ -708,7 +791,7 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Hướng dẫn lâm sàng',
+            AppLocalizations.of(context)!.preop_mortality_guidelines,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.teal.shade700,
@@ -716,34 +799,34 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
           ),
           const SizedBox(height: 16),
           _buildGuidelineCard(
-            'Nguy cơ thấp (<5%)',
+            AppLocalizations.of(context)!.preop_mortality_guideline_low_title,
             [
-              'Chuẩn bị phẫu thuật thông thường',
-              'Không cần tối ưu hóa đặc biệt',
-              'Theo dõi hậu phẫu tiêu chuẩn',
-              'Giải thích nguy cơ cho bệnh nhân',
+              AppLocalizations.of(context)!.preop_mortality_guideline_low_1,
+              AppLocalizations.of(context)!.preop_mortality_guideline_low_2,
+              AppLocalizations.of(context)!.preop_mortality_guideline_low_3,
+              AppLocalizations.of(context)!.preop_mortality_guideline_low_4,
             ],
             Colors.green,
           ),
           const SizedBox(height: 12),
           _buildGuidelineCard(
-            'Nguy cơ trung bình (5-15%)',
+            AppLocalizations.of(context)!.preop_mortality_guideline_moderate_title,
             [
-              'Tối ưu hóa tình trạng trước mổ',
-              'Đánh giá chuyên khoa nếu cần',
-              'Cân nhắc ICU hậu phẫu',
-              'Tư vấn chi tiết cho gia đình',
+              AppLocalizations.of(context)!.preop_mortality_guideline_moderate_1,
+              AppLocalizations.of(context)!.preop_mortality_guideline_moderate_2,
+              AppLocalizations.of(context)!.preop_mortality_guideline_moderate_3,
+              AppLocalizations.of(context)!.preop_mortality_guideline_moderate_4,
             ],
             Colors.orange,
           ),
           const SizedBox(height: 12),
           _buildGuidelineCard(
-            'Nguy cơ cao (>15%)',
+            AppLocalizations.of(context)!.preop_mortality_guideline_high_title,
             [
-              'Hội chẩn đa chuyên khoa',
-              'Xem xét phương án ít xâm lấn',
-              'Chuẩn bị ICU và hỗ trợ tích cực',
-              'Tư vấn kỹ lưỡng về nguy cơ',
+              AppLocalizations.of(context)!.preop_mortality_guideline_high_1,
+              AppLocalizations.of(context)!.preop_mortality_guideline_high_2,
+              AppLocalizations.of(context)!.preop_mortality_guideline_high_3,
+              AppLocalizations.of(context)!.preop_mortality_guideline_high_4,
             ],
             Colors.red,
           ),
@@ -826,7 +909,7 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
               Icon(Icons.info, color: Colors.grey.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.preop_mortality_clinical_info,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.grey.shade600,
@@ -835,29 +918,9 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'Dự đoán nguy cơ tử vong phẫu thuật trong 30 ngày\n\n'
-            'Các yếu tố nguy cơ:\n'
-            '• Tuổi: >80 tuổi tăng nguy cơ cao\n'
-            '• ASA: Phân loại tình trạng sức khỏe\n'
-            '• Loại phẫu thuật: Mức độ xâm lấn\n'
-            '• Tính chất cấp cứu\n'
-            '• Bệnh đi kèm\n\n'
-            'Phân loại phẫu thuật:\n'
-            '• Nguy cơ thấp: Nội soi, da liễu\n'
-            '• Nguy cơ trung bình: Ổ bụng, ngực\n'
-            '• Nguy cơ cao: Mạch máu, cấp cứu lớn\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Tư vấn bệnh nhân và gia đình\n'
-            '• Quyết định phương án điều trị\n'
-            '• Chuẩn bị hậu phẫu\n'
-            '• Phân bổ tài nguyên\n\n'
-            'Hạn chế:\n'
-            '• Chỉ là dự đoán\n'
-            '• Cần kết hợp đánh giá lâm sàng\n'
-            '• Thay đổi theo thời gian\n'
-            '• Không thay thế kinh nghiệm bác sĩ',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.preop_mortality_clinical_text,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
@@ -868,5 +931,27 @@ class _PreoperativeMortalityPredictionPageState extends State<PreoperativeMortal
   void dispose() {
     _ageController.dispose();
     super.dispose();
+  }
+}
+
+class _StickyHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+
+  _StickyHeaderDelegate({required this.child});
+
+  @override
+  double get minExtent => 60.0; // Minimum height when collapsed
+
+  @override
+  double get maxExtent => 60.0; // Maximum height when expanded
+
+  @override
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return child;
+  }
+
+  @override
+  bool shouldRebuild(_StickyHeaderDelegate oldDelegate) {
+    return child != oldDelegate.child;
   }
 }

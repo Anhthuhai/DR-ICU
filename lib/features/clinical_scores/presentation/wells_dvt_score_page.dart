@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 
 class WellsDvtScorePage extends StatefulWidget {
@@ -75,14 +76,14 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
     return Colors.red;
   }
 
-  String get riskLevel {
+  String getRiskLevel(BuildContext context) {
     if (_totalScore <= 0) {
-      return 'Nguy cơ thấp';
+      return AppLocalizations.of(context)!.wells_low_risk;
     }
     if (_totalScore <= 2) {
-      return 'Nguy cơ trung bình';
+      return AppLocalizations.of(context)!.wells_moderate_risk;
     }
-    return 'Nguy cơ cao';
+    return AppLocalizations.of(context)!.wells_high_risk;
   }
 
   String get dvtProbability {
@@ -95,101 +96,101 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
     return '75%';
   }
 
-  String get recommendations {
+  String getRecommendations(BuildContext context) {
     if (_totalScore <= 0) {
-      return 'D-dimer âm tính có thể loại trừ DVT. Nếu D-dimer dương tính, xem xét siêu âm doppler';
+      return AppLocalizations.of(context)!.wells_low_risk_recommendation;
     }
     if (_totalScore <= 2) {
-      return 'Cần làm thêm xét nghiệm D-dimer hoặc siêu âm doppler để xác định';
+      return AppLocalizations.of(context)!.wells_moderate_risk_recommendation;
     }
-    return 'Khả năng cao có DVT, cần siêu âm doppler ngay lập tức';
+    return AppLocalizations.of(context)!.wells_high_risk_recommendation;
   }
 
-  String get nextStep {
+  String getNextStep(BuildContext context) {
     if (_totalScore <= 0) {
-      return 'Kiểm tra D-dimer';
+      return AppLocalizations.of(context)!.wells_check_ddimer;
     }
     if (_totalScore <= 2) {
-      return 'D-dimer hoặc siêu âm doppler';
+      return AppLocalizations.of(context)!.wells_ddimer_or_ultrasound;
     }
-    return 'Siêu âm doppler tức thì';
+    return AppLocalizations.of(context)!.wells_immediate_ultrasound;
   }
 
-  String get clinicalApproach {
+  String getClinicalApproach(BuildContext context) {
     if (_totalScore <= 0) {
-      return 'Nếu D-dimer (-): Loại trừ DVT\nNếu D-dimer (+): Siêu âm doppler';
+      return AppLocalizations.of(context)!.wells_low_risk_approach;
     }
     if (_totalScore <= 2) {
-      return 'Nếu D-dimer (-): Loại trừ DVT\nNếu D-dimer (+): Siêu âm doppler\nHoặc siêu âm doppler trực tiếp';
+      return AppLocalizations.of(context)!.wells_moderate_risk_approach;
     }
-    return 'Siêu âm doppler bắt buộc\nCân nhắc điều trị chống đông ngay';
+    return AppLocalizations.of(context)!.wells_high_risk_approach;
   }
 
-  List<Map<String, dynamic>> get criteria {
+  List<Map<String, dynamic>> getCriteria(BuildContext context) {
     return [
       {
-        'criterion': 'Ung thư đang hoạt động',
-        'description': 'Ung thư hiện tại hoặc đã điều trị trong 6 tháng',
+        'criterion': AppLocalizations.of(context)!.wells_active_cancer,
+        'description': AppLocalizations.of(context)!.wells_active_cancer_desc,
         'points': 1,
         'active': _cancer,
       },
       {
-        'criterion': 'Liệt hoặc yếu chi dưới',
-        'description': 'Liệt toàn bộ hoặc yếu chi dưới gần đây',
+        'criterion': AppLocalizations.of(context)!.wells_paralysis,
+        'description': AppLocalizations.of(context)!.wells_paralysis_desc,
         'points': 1,
         'active': _paralysis,
       },
       {
-        'criterion': 'Nằm giường >3 ngày',
-        'description': 'Nằm giường >3 ngày hoặc phẫu thuật lớn trong 4 tuần',
+        'criterion': AppLocalizations.of(context)!.wells_bed_rest,
+        'description': AppLocalizations.of(context)!.wells_bed_rest_desc,
         'points': 1,
         'active': _bedRest,
       },
       {
-        'criterion': 'Phẫu thuật lớn',
-        'description': 'Phẫu thuật lớn trong vòng 4 tuần',
+        'criterion': AppLocalizations.of(context)!.wells_major_surgery,
+        'description': AppLocalizations.of(context)!.wells_major_surgery_desc,
         'points': 1,
         'active': _majorSurgery,
       },
       {
-        'criterion': 'Đau khu trú',
-        'description': 'Đau khu trú theo đường tĩnh mạch sâu',
+        'criterion': AppLocalizations.of(context)!.wells_localized_tenderness,
+        'description': AppLocalizations.of(context)!.wells_localized_tenderness_desc,
         'points': 1,
         'active': _localizedTenderness,
       },
       {
-        'criterion': 'Sưng toàn chân',
-        'description': 'Sưng toàn bộ chân',
+        'criterion': AppLocalizations.of(context)!.wells_entire_leg_swollen,
+        'description': AppLocalizations.of(context)!.wells_entire_leg_swollen_desc,
         'points': 1,
         'active': _entireLegSwollen,
       },
       {
-        'criterion': 'Sưng bắp chân',
-        'description': 'Chu vi bắp chân >3cm so với bên đối diện',
+        'criterion': AppLocalizations.of(context)!.wells_calf_swelling,
+        'description': AppLocalizations.of(context)!.wells_calf_swelling_desc,
         'points': 1,
         'active': _calfSwelling,
       },
       {
-        'criterion': 'Phù lõm',
-        'description': 'Phù lõm chân bị ảnh hưởng',
+        'criterion': AppLocalizations.of(context)!.wells_pitting_edema,
+        'description': AppLocalizations.of(context)!.wells_pitting_edema_desc,
         'points': 1,
         'active': _pittingEdema,
       },
       {
-        'criterion': 'Tĩnh mạch bàng hệ',
-        'description': 'Tĩnh mạch bàng hệ phát triển (không tĩnh mạch giãn)',
+        'criterion': AppLocalizations.of(context)!.wells_collateral_veins,
+        'description': AppLocalizations.of(context)!.wells_collateral_veins_desc,
         'points': 1,
         'active': _collateralVeins,
       },
       {
-        'criterion': 'Tiền sử DVT',
-        'description': 'Tiền sử thuyên tắc tĩnh mạch sâu',
+        'criterion': AppLocalizations.of(context)!.wells_previous_dvt,
+        'description': AppLocalizations.of(context)!.wells_previous_dvt_desc,
         'points': 1,
         'active': _previousDvt,
       },
       {
-        'criterion': 'Chẩn đoán khác khả thi',
-        'description': 'Chẩn đoán khác khả thi hơn DVT',
+        'criterion': AppLocalizations.of(context)!.wells_alternative_diagnosis,
+        'description': AppLocalizations.of(context)!.wells_alternative_diagnosis_desc,
         'points': -2,
         'active': _alternativeDiagnosis,
       },
@@ -204,7 +205,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           // Main AppBar (sticky)
           SliverAppBar(
             pinned: true,
-            title: const Text('Wells DVT Score'),
+            title: Text(AppLocalizations.of(context)!.wells_dvt_title),
             backgroundColor: Colors.blue.shade700,
             foregroundColor: Colors.white,
           ),
@@ -213,49 +214,53 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           SliverAppBar(
             pinned: true,
             automaticallyImplyLeading: false,
-            toolbarHeight: 70,
-            backgroundColor: riskColor.withValues(alpha: 0.1),
+            toolbarHeight: 100,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
+                color: Theme.of(context).scaffoldBackgroundColor,
                 border: Border(
                   bottom: BorderSide(color: riskColor.withValues(alpha: 0.3)),
                 ),
               ),
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Wells DVT Score',
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: riskColor,
-                            ),
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: riskColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: riskColor.withValues(alpha: 0.3)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.wells_dvt_score,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: riskColor,
                           ),
-                          Text(
-                            riskLevel,
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppTheme.darkGrey,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        '$_totalScore',
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: riskColor,
                         ),
+                        Text(
+                          getRiskLevel(context),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppTheme.darkGrey,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      '$_totalScore',
+                      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: riskColor,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -265,6 +270,36 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA HUYẾT KHỐI: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa tim mạch hoặc huyết học trước khi đưa ra quyết định điều trị.'
+                              : 'THROMBOSIS MEDICAL DISCLAIMER: Results are for reference only. Always consult with cardiologist or hematologist before making treatment decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
                 // Risk Info
                 Container(
                   width: double.infinity,
@@ -319,49 +354,52 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          // DVT Probability
+          Column(
             children: [
-              Column(
-                children: [
-                  Text(
-                    'Xác suất DVT',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    dvtProbability,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: riskColor,
-                    ),
-                  ),
-                ],
+              Text(
+                AppLocalizations.of(context)!.wells_dvt_probability,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey.shade700,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
               ),
-              Column(
-                children: [
-                  Text(
-                    'Bước tiếp theo',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: Colors.grey.shade700,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  Text(
-                    nextStep,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                      color: riskColor,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+              const SizedBox(height: 4),
+              Text(
+                dvtProbability,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: riskColor,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          // Next Step
+          Column(
+            children: [
+              Text(
+                AppLocalizations.of(context)!.wells_next_step,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey.shade700,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                getNextStep(context),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                  color: riskColor,
+                ),
+                textAlign: TextAlign.center,
               ),
             ],
           ),
@@ -381,7 +419,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
                     Icon(Icons.assignment, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      AppLocalizations.of(context)!.wells_recommendations,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -391,7 +429,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  recommendations,
+                  getRecommendations(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -417,7 +455,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tiêu chí Wells DVT',
+            AppLocalizations.of(context)!.wells_criteria_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -426,8 +464,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           const SizedBox(height: 16),
           
           CheckboxListTile(
-            title: const Text('Ung thư đang hoạt động (+1)'),
-            subtitle: const Text('Ung thư hiện tại hoặc đã điều trị trong 6 tháng'),
+            title: Text(AppLocalizations.of(context)!.wells_active_cancer),
+            subtitle: Text(AppLocalizations.of(context)!.wells_active_cancer_desc),
             value: _cancer,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -440,8 +478,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Liệt hoặc yếu chi dưới (+1)'),
-            subtitle: const Text('Liệt toàn bộ hoặc yếu chi dưới gần đây'),
+            title: Text(AppLocalizations.of(context)!.wells_paralysis),
+            subtitle: Text(AppLocalizations.of(context)!.wells_paralysis_desc),
             value: _paralysis,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -454,8 +492,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Nằm giường >3 ngày (+1)'),
-            subtitle: const Text('Nằm giường >3 ngày hoặc phẫu thuật lớn trong 4 tuần'),
+            title: Text(AppLocalizations.of(context)!.wells_bed_rest),
+            subtitle: Text(AppLocalizations.of(context)!.wells_bed_rest_desc),
             value: _bedRest,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -468,8 +506,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Phẫu thuật lớn (+1)'),
-            subtitle: const Text('Phẫu thuật lớn trong vòng 4 tuần'),
+            title: Text(AppLocalizations.of(context)!.wells_major_surgery),
+            subtitle: Text(AppLocalizations.of(context)!.wells_major_surgery_desc),
             value: _majorSurgery,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -482,8 +520,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Đau khu trú (+1)'),
-            subtitle: const Text('Đau khu trú theo đường tĩnh mạch sâu'),
+            title: Text(AppLocalizations.of(context)!.wells_localized_tenderness),
+            subtitle: Text(AppLocalizations.of(context)!.wells_localized_tenderness_desc),
             value: _localizedTenderness,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -496,8 +534,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Sưng toàn chân (+1)'),
-            subtitle: const Text('Sưng toàn bộ chân'),
+            title: Text(AppLocalizations.of(context)!.wells_entire_leg_swollen),
+            subtitle: Text(AppLocalizations.of(context)!.wells_entire_leg_swollen_desc),
             value: _entireLegSwollen,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -510,8 +548,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Sưng bắp chân (+1)'),
-            subtitle: const Text('Chu vi bắp chân >3cm so với bên đối diện'),
+            title: Text(AppLocalizations.of(context)!.wells_calf_swelling),
+            subtitle: Text(AppLocalizations.of(context)!.wells_calf_swelling_desc),
             value: _calfSwelling,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -524,8 +562,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Phù lõm (+1)'),
-            subtitle: const Text('Phù lõm chân bị ảnh hưởng'),
+            title: Text(AppLocalizations.of(context)!.wells_pitting_edema),
+            subtitle: Text(AppLocalizations.of(context)!.wells_pitting_edema_desc),
             value: _pittingEdema,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -538,8 +576,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Tĩnh mạch bàng hệ (+1)'),
-            subtitle: const Text('Tĩnh mạch bàng hệ phát triển (không tĩnh mạch giãn)'),
+            title: Text(AppLocalizations.of(context)!.wells_collateral_veins),
+            subtitle: Text(AppLocalizations.of(context)!.wells_collateral_veins_desc),
             value: _collateralVeins,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -552,8 +590,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Tiền sử DVT (+1)'),
-            subtitle: const Text('Tiền sử thuyên tắc tĩnh mạch sâu'),
+            title: Text(AppLocalizations.of(context)!.wells_previous_dvt),
+            subtitle: Text(AppLocalizations.of(context)!.wells_previous_dvt_desc),
             value: _previousDvt,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -566,8 +604,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Chẩn đoán khác khả thi (-2)'),
-            subtitle: const Text('Chẩn đoán khác khả thi hơn DVT'),
+            title: Text(AppLocalizations.of(context)!.wells_alternative_diagnosis),
+            subtitle: Text(AppLocalizations.of(context)!.wells_alternative_diagnosis_desc),
             value: _alternativeDiagnosis,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -584,7 +622,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
   }
 
   Widget _buildActiveCriteria() {
-    List<Map<String, dynamic>> activeCriteria = criteria.where((criterion) => criterion['active']).toList();
+    List<Map<String, dynamic>> activeCriteria = getCriteria(context).where((criterion) => criterion['active']).toList();
     
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -598,7 +636,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tiêu chí hiện tại (${activeCriteria.length})',
+            AppLocalizations.of(context)!.wells_current_criteria(activeCriteria.length),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
@@ -673,16 +711,16 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ DVT',
+            AppLocalizations.of(context)!.wells_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('≤0', 'Nguy cơ thấp', '3%', 'D-dimer để loại trừ', Colors.green),
-          _buildRiskItem('1-2', 'Nguy cơ trung bình', '17%', 'D-dimer hoặc siêu âm', Colors.orange),
-          _buildRiskItem('≥3', 'Nguy cơ cao', '75%', 'Siêu âm doppler tức thì', Colors.red),
+          _buildRiskItem('≤0', AppLocalizations.of(context)!.wells_low_risk, '3%', AppLocalizations.of(context)!.wells_check_ddimer, Colors.green),
+          _buildRiskItem('1-2', AppLocalizations.of(context)!.wells_moderate_risk, '17%', AppLocalizations.of(context)!.wells_ddimer_or_ultrasound, Colors.orange),
+          _buildRiskItem('≥3', AppLocalizations.of(context)!.wells_high_risk, '75%', AppLocalizations.of(context)!.wells_immediate_ultrasound, Colors.red),
         ],
       ),
     );
@@ -758,7 +796,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tiếp cận lâm sàng',
+            AppLocalizations.of(context)!.wells_clinical_approach,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.purple.shade700,
@@ -780,7 +818,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
                     Icon(Icons.medical_services, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Tiếp cận cho điểm số $_totalScore:',
+                      AppLocalizations.of(context)!.wells_approach_for_score(_totalScore),
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -790,7 +828,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  clinicalApproach,
+                  getClinicalApproach(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                     height: 1.4,
@@ -821,7 +859,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
               Icon(Icons.info, color: Colors.teal.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.wells_clinical_information,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.teal.shade600,
@@ -830,25 +868,8 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'Wells DVT Score đánh giá xác suất thuyên tắc tĩnh mạch sâu\n\n'
-            'Cách sử dụng:\n'
-            '• Đánh giá lâm sàng ban đầu nghi ngờ DVT\n'
-            '• Kết hợp với D-dimer và siêu âm doppler\n'
-            '• Hướng dẫn chiến lược chẩn đoán\n'
-            '• Tránh làm xét nghiệm không cần thiết\n\n'
-            'Lưu ý quan trọng:\n'
-            '• Điểm số thấp + D-dimer âm → loại trừ DVT\n'
-            '• Điểm số cao → siêu âm doppler bắt buộc\n'
-            '• Luôn xem xét bối cảnh lâm sàng\n'
-            '• Đánh giá lại nếu triệu chứng tiến triển\n\n'
-            'Chẩn đoán khác cần xem xét:\n'
-            '• Viêm tĩnh mạch nông\n'
-            '• Phù do tim, gan, thận\n'
-            '• Huyết khối cơ\n'
-            '• Tổn thương mô mềm\n'
-            '• Hội chứng chèn ép\n'
-            '• Viêm khớp',
+          Text(
+            AppLocalizations.of(context)!.wells_clinical_info_text,
             style: TextStyle(height: 1.4),
           ),
         ],
@@ -872,7 +893,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                AppLocalizations.of(context)!.wells_reference_title,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -883,7 +904,7 @@ class _WellsDvtScorePageState extends State<WellsDvtScorePage> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Wells PS, et al. Evaluation of D-dimer in the diagnosis of suspected deep-vein thrombosis. N Engl J Med. 2003;349(13):1227-35.',
+            AppLocalizations.of(context)!.wells_reference_text,
             style: TextStyle(
               fontSize: 11,
               color: Colors.blue.shade600,

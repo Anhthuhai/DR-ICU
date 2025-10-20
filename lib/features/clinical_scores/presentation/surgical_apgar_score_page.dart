@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class SurgicalApgarScorePage extends StatefulWidget {
   const SurgicalApgarScorePage({super.key});
@@ -27,35 +28,50 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
   }
 
   void _calculateScore() {
-    final heartRate = int.tryParse(_heartRateController.text) ?? 0;
-    final bloodPressure = int.tryParse(_bloodPressureController.text) ?? 0;
-    final bloodLoss = int.tryParse(_bloodLossController.text) ?? 0;
+    final heartRateText = _heartRateController.text.trim();
+    final bloodPressureText = _bloodPressureController.text.trim();
+    final bloodLossText = _bloodLossController.text.trim();
 
     // Heart Rate Score
-    if (heartRate >= 56) {
-      _heartRateScore = 2;
-    } else if (heartRate >= 40) {
-      _heartRateScore = 1;
-    } else {
+    if (heartRateText.isEmpty) {
       _heartRateScore = 0;
+    } else {
+      final heartRate = int.tryParse(heartRateText) ?? 0;
+      if (heartRate >= 56) {
+        _heartRateScore = 2;
+      } else if (heartRate >= 40) {
+        _heartRateScore = 1;
+      } else {
+        _heartRateScore = 0;
+      }
     }
 
     // Mean Arterial Pressure Score
-    if (bloodPressure >= 70) {
-      _bloodPressureScore = 2;
-    } else if (bloodPressure >= 40) {
-      _bloodPressureScore = 1;
-    } else {
+    if (bloodPressureText.isEmpty) {
       _bloodPressureScore = 0;
+    } else {
+      final bloodPressure = int.tryParse(bloodPressureText) ?? 0;
+      if (bloodPressure >= 70) {
+        _bloodPressureScore = 2;
+      } else if (bloodPressure >= 40) {
+        _bloodPressureScore = 1;
+      } else {
+        _bloodPressureScore = 0;
+      }
     }
 
     // Blood Loss Score (mL/kg)
-    if (bloodLoss <= 10) {
-      _bloodLossScore = 2;
-    } else if (bloodLoss <= 40) {
-      _bloodLossScore = 1;
-    } else {
+    if (bloodLossText.isEmpty) {
       _bloodLossScore = 0;
+    } else {
+      final bloodLoss = int.tryParse(bloodLossText) ?? 0;
+      if (bloodLoss <= 10) {
+        _bloodLossScore = 2;
+      } else if (bloodLoss <= 40) {
+        _bloodLossScore = 1;
+      } else {
+        _bloodLossScore = 0;
+      }
     }
 
     setState(() {
@@ -64,68 +80,83 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
   }
 
   Color get riskColor {
-    if (_totalScore >= 7) {
+    if (_totalScore >= 5) {
       return Colors.green;
     }
-    if (_totalScore >= 5) {
+    if (_totalScore >= 3) {
       return Colors.yellow.shade700;
     }
-    if (_totalScore >= 3) {
+    if (_totalScore >= 1) {
       return Colors.orange;
+    }
+    if (_totalScore == 0) {
+      return Colors.red.shade900;
     }
     return Colors.red;
   }
 
-  String get riskLevel {
-    if (_totalScore >= 7) {
-      return 'Thấp';
-    }
+  String riskLevel(BuildContext context) {
     if (_totalScore >= 5) {
-      return 'Trung bình thấp';
+      return AppLocalizations.of(context)!.surgical_apgar_risk_low;
     }
     if (_totalScore >= 3) {
-      return 'Trung bình cao';
+      return AppLocalizations.of(context)!.surgical_apgar_risk_moderate_low;
     }
-    return 'Cao';
+    if (_totalScore >= 1) {
+      return AppLocalizations.of(context)!.surgical_apgar_risk_moderate_high;
+    }
+    if (_totalScore == 0) {
+      return AppLocalizations.of(context)!.surgical_apgar_risk_very_high;
+    }
+    return AppLocalizations.of(context)!.surgical_apgar_risk_high;
   }
 
   String get complicationRisk {
-    if (_totalScore >= 7) {
+    if (_totalScore >= 5) {
       return '5.0%';
     }
-    if (_totalScore >= 5) {
+    if (_totalScore >= 3) {
       return '15.0%';
     }
-    if (_totalScore >= 3) {
+    if (_totalScore >= 1) {
       return '30.0%';
+    }
+    if (_totalScore == 0) {
+      return '85.0%';
     }
     return '60.0%';
   }
 
   String get mortalityRisk {
-    if (_totalScore >= 7) {
+    if (_totalScore >= 5) {
       return '0.5%';
     }
-    if (_totalScore >= 5) {
+    if (_totalScore >= 3) {
       return '1.5%';
     }
-    if (_totalScore >= 3) {
+    if (_totalScore >= 1) {
       return '5.0%';
+    }
+    if (_totalScore == 0) {
+      return '25.0%';
     }
     return '15.0%';
   }
 
-  String get recommendations {
-    if (_totalScore >= 7) {
-      return 'Theo dõi tiêu chuẩn, tiên lượng tốt';
-    }
+  String recommendations(BuildContext context) {
     if (_totalScore >= 5) {
-      return 'Theo dõi chặt chẽ, dự phòng biến chứng';
+      return AppLocalizations.of(context)!.surgical_apgar_recommendation_low;
     }
     if (_totalScore >= 3) {
-      return 'Theo dõi tích cực, chuẩn bị can thiệp';
+      return AppLocalizations.of(context)!.surgical_apgar_recommendation_moderate_low;
     }
-    return 'Theo dõi đặc biệt, nguy cơ cao biến chứng';
+    if (_totalScore >= 1) {
+      return AppLocalizations.of(context)!.surgical_apgar_recommendation_moderate_high;
+    }
+    if (_totalScore == 0) {
+      return AppLocalizations.of(context)!.surgical_apgar_recommendation_very_high;
+    }
+    return AppLocalizations.of(context)!.surgical_apgar_recommendation_high;
   }
 
   @override
@@ -136,7 +167,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
           // Main AppBar (sticky)
           SliverAppBar(
             pinned: true,
-            title: const Text('Surgical Apgar Score'),
+            title: Text(AppLocalizations.of(context)!.surgical_apgar_title),
             backgroundColor: Colors.teal.shade700,
             foregroundColor: Colors.white,
           ),
@@ -146,13 +177,20 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
             pinned: true,
             automaticallyImplyLeading: false,
             toolbarHeight: 70,
-            backgroundColor: riskColor.withValues(alpha: 0.1),
+            backgroundColor: Colors.white,
             flexibleSpace: Container(
               decoration: BoxDecoration(
-                color: riskColor.withValues(alpha: 0.1),
+                color: Colors.white,
                 border: Border(
-                  bottom: BorderSide(color: riskColor.withValues(alpha: 0.3)),
+                  bottom: BorderSide(color: riskColor.withValues(alpha: 0.3), width: 2),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 4,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
               ),
               child: SafeArea(
                 child: Padding(
@@ -165,14 +203,16 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Surgical Apgar Score',
+                            AppLocalizations.of(context)!.surgical_apgar_title,
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                               color: riskColor,
                             ),
                           ),
                           Text(
-                            'Nguy cơ $riskLevel',
+                            Localizations.localeOf(context).languageCode == 'vi'
+                                ? 'Nguy cơ ${riskLevel(context)}'
+                                : '${riskLevel(context)} Risk',
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: AppTheme.darkGrey,
                             ),
@@ -197,6 +237,36 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA PHẪU THUẬT: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ gây mê hồi sức và phẫu thuật viên trước khi đưa ra quyết định.'
+                              : 'SURGICAL MEDICAL DISCLAIMER: Results are for reference only. Always consult with anesthesiologist and surgeon before making decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
                 // Risk Info
                 Container(
                   width: double.infinity,
@@ -257,7 +327,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
               Column(
                 children: [
                   Text(
-                    'Biến chứng',
+                    AppLocalizations.of(context)!.surgical_apgar_complication_risk,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -277,7 +347,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
               Column(
                 children: [
                   Text(
-                    'Tử vong',
+                    AppLocalizations.of(context)!.surgical_apgar_mortality_risk,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -312,7 +382,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
                     Icon(Icons.assignment, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      AppLocalizations.of(context)!.surgical_apgar_recommendations,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -322,7 +392,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  recommendations,
+                  recommendations(context),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppTheme.darkGrey,
                   ),
@@ -348,7 +418,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Thông số phẫu thuật',
+            AppLocalizations.of(context)!.surgical_apgar_parameters_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.teal.shade700,
@@ -360,14 +430,14 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
             controller: _heartRateController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Nhịp tim thấp nhất',
-              suffixText: 'lần/phút',
+              labelText: AppLocalizations.of(context)!.surgical_apgar_heart_rate_label,
+              suffixText: AppLocalizations.of(context)!.surgical_apgar_heart_rate_unit,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'Nhịp tim thấp nhất trong mổ',
+              helperText: AppLocalizations.of(context)!.surgical_apgar_heart_rate_helper,
             ),
           ),
           const SizedBox(height: 12),
@@ -376,14 +446,14 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
             controller: _bloodPressureController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Huyết áp trung bình thấp nhất',
-              suffixText: 'mmHg',
+              labelText: AppLocalizations.of(context)!.surgical_apgar_blood_pressure_label,
+              suffixText: AppLocalizations.of(context)!.surgical_apgar_blood_pressure_unit,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'MAP thấp nhất trong mổ',
+              helperText: AppLocalizations.of(context)!.surgical_apgar_blood_pressure_helper,
             ),
           ),
           const SizedBox(height: 12),
@@ -392,14 +462,14 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
             controller: _bloodLossController,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
-              labelText: 'Mất máu ước tính',
-              suffixText: 'mL/kg',
+              labelText: AppLocalizations.of(context)!.surgical_apgar_blood_loss_label,
+              suffixText: AppLocalizations.of(context)!.surgical_apgar_blood_loss_unit,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
               filled: true,
               fillColor: Colors.white,
-              helperText: 'Tổng lượng máu mất / cân nặng',
+              helperText: AppLocalizations.of(context)!.surgical_apgar_blood_loss_helper,
             ),
           ),
         ],
@@ -420,7 +490,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Chi tiết điểm số',
+            AppLocalizations.of(context)!.surgical_apgar_score_breakdown_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.blue.shade700,
@@ -429,34 +499,34 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
           const SizedBox(height: 16),
           
           _buildParameterScore(
-            'Nhịp tim thấp nhất',
+            AppLocalizations.of(context)!.surgical_apgar_heart_rate_scoring,
             _heartRateScore,
             [
-              '≥56 lần/phút: 2 điểm',
-              '40-55 lần/phút: 1 điểm',
-              '<40 lần/phút: 0 điểm',
+              AppLocalizations.of(context)!.surgical_apgar_hr_criteria_1,
+              AppLocalizations.of(context)!.surgical_apgar_hr_criteria_2,
+              AppLocalizations.of(context)!.surgical_apgar_hr_criteria_3,
             ],
           ),
           const SizedBox(height: 12),
           
           _buildParameterScore(
-            'MAP thấp nhất',
+            AppLocalizations.of(context)!.surgical_apgar_map_scoring,
             _bloodPressureScore,
             [
-              '≥70 mmHg: 2 điểm',
-              '40-69 mmHg: 1 điểm',
-              '<40 mmHg: 0 điểm',
+              AppLocalizations.of(context)!.surgical_apgar_map_criteria_1,
+              AppLocalizations.of(context)!.surgical_apgar_map_criteria_2,
+              AppLocalizations.of(context)!.surgical_apgar_map_criteria_3,
             ],
           ),
           const SizedBox(height: 12),
           
           _buildParameterScore(
-            'Mất máu ước tính',
+            AppLocalizations.of(context)!.surgical_apgar_blood_loss_scoring,
             _bloodLossScore,
             [
-              '≤10 mL/kg: 2 điểm',
-              '11-40 mL/kg: 1 điểm',
-              '>40 mL/kg: 0 điểm',
+              AppLocalizations.of(context)!.surgical_apgar_bl_criteria_1,
+              AppLocalizations.of(context)!.surgical_apgar_bl_criteria_2,
+              AppLocalizations.of(context)!.surgical_apgar_bl_criteria_3,
             ],
           ),
         ],
@@ -495,7 +565,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  '$score điểm',
+                  '$score ${AppLocalizations.of(context)!.surgical_apgar_score_points}',
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -534,17 +604,25 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ',
+            AppLocalizations.of(context)!.surgical_apgar_risk_stratification_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('7-6', 'Thấp', '5.0%', '0.5%', 'Theo dõi tiêu chuẩn', Colors.green),
-          _buildRiskItem('5-4', 'Trung bình thấp', '15.0%', '1.5%', 'Theo dõi chặt chẽ', Colors.yellow.shade700),
-          _buildRiskItem('3-2', 'Trung bình cao', '30.0%', '5.0%', 'Theo dõi tích cực', Colors.orange),
-          _buildRiskItem('1-0', 'Cao', '60.0%', '15.0%', 'Theo dõi đặc biệt', Colors.red),
+          _buildRiskItem('5-6', 
+            AppLocalizations.of(context)!.surgical_apgar_risk_low, '5.0%', '0.5%', 
+            AppLocalizations.of(context)!.surgical_apgar_management_standard, Colors.green),
+          _buildRiskItem('3-4', 
+            AppLocalizations.of(context)!.surgical_apgar_risk_moderate_low, '15.0%', '1.5%', 
+            AppLocalizations.of(context)!.surgical_apgar_management_close, Colors.yellow.shade700),
+          _buildRiskItem('1-2', 
+            AppLocalizations.of(context)!.surgical_apgar_risk_moderate_high, '30.0%', '5.0%', 
+            AppLocalizations.of(context)!.surgical_apgar_management_active, Colors.orange),
+          _buildRiskItem('0', 
+            AppLocalizations.of(context)!.surgical_apgar_risk_very_high, '85.0%', '25.0%', 
+            AppLocalizations.of(context)!.surgical_apgar_management_intensive, Colors.red.shade900),
         ],
       ),
     );
@@ -600,7 +678,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
               Container(width: 40),
               Expanded(
                 child: Text(
-                  'Tử vong: $mortality',
+                  '${AppLocalizations.of(context)!.surgical_apgar_mortality_risk}: $mortality',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.grey.shade600,
@@ -643,7 +721,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Hướng dẫn lâm sàng',
+            AppLocalizations.of(context)!.surgical_apgar_clinical_guidelines_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
@@ -651,34 +729,34 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
           ),
           const SizedBox(height: 16),
           _buildGuidelineCard(
-            'Điểm 6-7: Nguy cơ thấp',
+            AppLocalizations.of(context)!.surgical_apgar_guideline_low_title,
             [
-              'Theo dõi hậu phẫu tiêu chuẩn',
-              'Xuất viện sớm nếu phù hợp',
-              'Theo dõi ngoại trú thông thường',
-              'Tiên lượng tốt',
+              AppLocalizations.of(context)!.surgical_apgar_guideline_low_1,
+              AppLocalizations.of(context)!.surgical_apgar_guideline_low_2,
+              AppLocalizations.of(context)!.surgical_apgar_guideline_low_3,
+              AppLocalizations.of(context)!.surgical_apgar_guideline_low_4,
             ],
             Colors.green,
           ),
           const SizedBox(height: 12),
           _buildGuidelineCard(
-            'Điểm 4-5: Nguy cơ trung bình',
+            AppLocalizations.of(context)!.surgical_apgar_guideline_moderate_title,
             [
-              'Theo dõi chặt chẽ 24-48h',
-              'Tầm soát biến chứng sớm',
-              'Cân nhắc theo dõi đặc biệt',
-              'Tư vấn gia đình về nguy cơ',
+              AppLocalizations.of(context)!.surgical_apgar_guideline_moderate_1,
+              AppLocalizations.of(context)!.surgical_apgar_guideline_moderate_2,
+              AppLocalizations.of(context)!.surgical_apgar_guideline_moderate_3,
+              AppLocalizations.of(context)!.surgical_apgar_guideline_moderate_4,
             ],
             Colors.orange,
           ),
           const SizedBox(height: 12),
           _buildGuidelineCard(
-            'Điểm ≤3: Nguy cơ cao',
+            AppLocalizations.of(context)!.surgical_apgar_guideline_high_title,
             [
-              'Theo dõi ICU/HDU',
-              'Tầm soát biến chứng tích cực',
-              'Hỗ trợ đa cơ quan nếu cần',
-              'Tư vấn chi tiết về tiên lượng',
+              AppLocalizations.of(context)!.surgical_apgar_guideline_high_1,
+              AppLocalizations.of(context)!.surgical_apgar_guideline_high_2,
+              AppLocalizations.of(context)!.surgical_apgar_guideline_high_3,
+              AppLocalizations.of(context)!.surgical_apgar_guideline_high_4,
             ],
             Colors.red,
           ),
@@ -761,7 +839,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
               Icon(Icons.info, color: Colors.grey.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.surgical_apgar_clinical_info_title,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.grey.shade600,
@@ -770,38 +848,9 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'Surgical Apgar Score đánh giá nguy cơ biến chứng hậu phẫu\n\n'
-            'Ba thông số chính:\n'
-            '• Nhịp tim thấp nhất trong mổ\n'
-            '• Huyết áp trung bình thấp nhất\n'
-            '• Lượng máu mất ước tính\n\n'
-            'Thời điểm đánh giá:\n'
-            '• Kết thúc phẫu thuật\n'
-            '• Trước khi chuyển phòng hồi sức\n'
-            '• Ghi nhận trong hồ sơ phẫu thuật\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Dự đoán biến chứng sớm\n'
-            '• Quyết định mức độ theo dõi\n'
-            '• Tư vấn gia đình\n'
-            '• Cải thiện chất lượng\n\n'
-            'Biến chứng thường gặp:\n'
-            '• Nhiễm trùng vết mổ\n'
-            '• Rò khâm phẫu\n'
-            '• Suy hô hấp\n'
-            '• Suy tim\n'
-            '• Tắc mạch\n\n'
-            'Ưu điểm:\n'
-            '• Đơn giản, dễ tính\n'
-            '• Có ngay sau mổ\n'
-            '• Độ tin cậy cao\n'
-            '• Ứng dụng rộng rãi\n\n'
-            'Hạn chế:\n'
-            '• Không dự đoán biến chứng muộn\n'
-            '• Phụ thuộc ghi nhận chính xác\n'
-            '• Cần kết hợp đánh giá khác\n'
-            '• Thay đổi theo loại phẫu thuật',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.surgical_apgar_clinical_text,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
@@ -832,7 +881,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                AppLocalizations.of(context)!.surgical_apgar_reference_title,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -843,7 +892,7 @@ class _SurgicalApgarScorePageState extends State<SurgicalApgarScorePage> {
           ),
           const SizedBox(height: 6),
           Text(
-            'Gawande AA, et al. An Apgar score for surgery. J Am Coll Surg. 2007;204(2):201-8.\n\nRegenbogen SE, et al. The intraoperative Surgical Apgar Score predicts postoperative complications in patients undergoing pancreaticoduodenectomy. J Gastrointest Surg. 2008;12(11):2031-9.',
+            AppLocalizations.of(context)!.surgical_apgar_reference_text,
             style: TextStyle(
               fontSize: 11,
               color: Colors.blue.shade600,

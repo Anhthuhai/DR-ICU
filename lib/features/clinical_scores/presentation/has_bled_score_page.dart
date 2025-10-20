@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../l10n/app_localizations.dart';
 
 class HasBledScorePage extends StatefulWidget {
   const HasBledScorePage({super.key});
@@ -69,12 +70,12 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
 
   String get riskLevel {
     if (_totalScore <= 2) {
-      return 'Nguy cơ thấp';
+      return AppLocalizations.of(context)!.has_bled_risk_low;
     }
     if (_totalScore == 3) {
-      return 'Nguy cơ trung bình';
+      return AppLocalizations.of(context)!.has_bled_risk_moderate;
     }
-    return 'Nguy cơ cao';
+    return AppLocalizations.of(context)!.has_bled_risk_high;
   }
 
   String get bleedingRisk {
@@ -101,77 +102,77 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
 
   String get recommendations {
     if (_totalScore <= 2) {
-      return 'Có thể sử dụng thuốc chống đông với theo dõi thường quy';
+      return AppLocalizations.of(context)!.has_bled_recommendation_low;
     }
     if (_totalScore == 3) {
-      return 'Cần thận trọng, cân nhắc lợi ích/nguy cơ, theo dõi chặt chẽ';
+      return AppLocalizations.of(context)!.has_bled_recommendation_moderate;
     }
-    return 'Nguy cơ chảy máu cao, cần đánh giá kỹ lưỡng trước khi dùng thuốc chống đông';
+    return AppLocalizations.of(context)!.has_bled_recommendation_high;
   }
 
   String get clinicalApproach {
     if (_totalScore <= 2) {
-      return 'Tiếp tục/bắt đầu thuốc chống đông với theo dõi định kỳ';
+      return AppLocalizations.of(context)!.has_bled_approach_low;
     }
     if (_totalScore == 3) {
-      return 'Xem xét giảm liều hoặc theo dõi thường xuyên hơn';
+      return AppLocalizations.of(context)!.has_bled_approach_moderate;
     }
-    return 'Cân nhắc ngừng thuốc chống đông hoặc chuyển sang thuốc khác';
+    return AppLocalizations.of(context)!.has_bled_approach_high;
   }
 
   List<Map<String, dynamic>> get riskFactors {
     return [
       {
-        'factor': 'Hypertension (H)',
-        'description': 'Tăng huyết áp không kiểm soát (>160 mmHg)',
+        'factor': AppLocalizations.of(context)!.has_bled_factor_hypertension,
+        'description': AppLocalizations.of(context)!.has_bled_hypertension_desc,
         'points': 1,
         'active': _hypertension,
       },
       {
-        'factor': 'Abnormal renal (A)',
-        'description': 'Rối loạn chức năng thận (Cr >2.26 mg/dL)',
+        'factor': AppLocalizations.of(context)!.has_bled_factor_abnormal_renal,
+        'description': AppLocalizations.of(context)!.has_bled_abnormal_renal_desc,
         'points': 1,
         'active': _abnormalRenal,
       },
       {
-        'factor': 'Abnormal liver (S)',
-        'description': 'Rối loạn chức năng gan (bilirubin >2x, AST/ALT >3x)',
+        'factor': AppLocalizations.of(context)!.has_bled_factor_abnormal_liver,
+        'description': AppLocalizations.of(context)!.has_bled_abnormal_liver_desc,
         'points': 1,
         'active': _abnormalLiver,
       },
       {
-        'factor': 'Stroke (B)',
-        'description': 'Tiền sử đột quỵ',
+        'factor': AppLocalizations.of(context)!.has_bled_factor_stroke,
+        'description': AppLocalizations.of(context)!.has_bled_stroke_desc,
         'points': 1,
         'active': _stroke,
       },
       {
-        'factor': 'Bleeding (L)',
-        'description': 'Tiền sử chảy máu hoặc xu hướng chảy máu',
+        'factor': AppLocalizations.of(context)!.has_bled_factor_bleeding,
+        'description': AppLocalizations.of(context)!.has_bled_bleeding_desc,
         'points': 1,
         'active': _bleeding,
       },
       {
-        'factor': 'Labile INR (E)',
-        'description': 'INR không ổn định (TTR <60%)',
+        'factor': AppLocalizations.of(context)!.has_bled_factor_labile_inr,
+        'description': AppLocalizations.of(context)!.has_bled_labile_inr_desc,
         'points': 1,
         'active': _labileInr,
       },
       {
-        'factor': 'Elderly (D)',
-        'description': 'Tuổi >65',
+        'factor': AppLocalizations.of(context)!.has_bled_factor_elderly,
+        'description': AppLocalizations.of(context)!.has_bled_elderly_desc,
         'points': 1,
         'active': _elderly,
       },
       {
-        'factor': 'Drugs',
-        'description': 'Thuốc/rượu đồng thời',
+        'factor': AppLocalizations.of(context)!.has_bled_factor_drugs,
+        'description': AppLocalizations.of(context)!.has_bled_drugs_desc,
         'points': 1,
         'active': _drugs,
       },
       {
-        'factor': 'Alcohol',
-        'description': 'Lạm dụng rượu',
+        'factor': AppLocalizations.of(context)!.has_bled_factor_alcohol,
+        'description': AppLocalizations.of(context)!.has_bled_alcohol_desc,
         'points': 1,
         'active': _alcohol,
       },
@@ -185,7 +186,7 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
         slivers: [
           // Sticky App Bar
           SliverAppBar(
-            title: const Text('HAS-BLED Score'),
+            title: Text(AppLocalizations.of(context)!.has_bled_title),
             backgroundColor: Colors.red.shade700,
             foregroundColor: Colors.white,
             floating: false,
@@ -250,6 +251,36 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                // Medical Disclaimer Banner
+                Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Colors.red.shade200),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.warning, color: Colors.red.shade700, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          Localizations.localeOf(context).languageCode == 'vi'
+                              ? 'LƯU Ý Y KHOA: Kết quả chỉ mang tính tham khảo. Luôn tham khảo ý kiến bác sĩ chuyên khoa tim mạch trước khi đưa ra quyết định điều trị.'
+                              : 'MEDICAL DISCLAIMER: Results are for reference only. Always consult with a cardiologist before making treatment decisions.',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: Colors.red.shade700,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
                 // Risk Info
                 _buildRiskInfo(),
 
@@ -300,7 +331,7 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
               Column(
                 children: [
                   Text(
-                    'Nguy cơ chảy máu',
+                    AppLocalizations.of(context)!.has_bled_bleeding_risk,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -320,7 +351,7 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
               Column(
                 children: [
                   Text(
-                    'Tiếp cận lâm sàng',
+                    AppLocalizations.of(context)!.has_bled_clinical_approach,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.grey.shade700,
@@ -356,7 +387,7 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
                     Icon(Icons.assignment, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Khuyến nghị:',
+                      AppLocalizations.of(context)!.has_bled_recommendations,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -392,7 +423,7 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố nguy cơ HAS-BLED',
+            AppLocalizations.of(context)!.has_bled_risk_factors,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.red.shade700,
@@ -401,8 +432,8 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
           const SizedBox(height: 16),
           
           CheckboxListTile(
-            title: const Text('Hypertension (H) (+1)'),
-            subtitle: const Text('Tăng huyết áp không kiểm soát (>160 mmHg)'),
+            title: Text(AppLocalizations.of(context)!.has_bled_hypertension),
+            subtitle: Text(AppLocalizations.of(context)!.has_bled_hypertension_desc),
             value: _hypertension,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -415,8 +446,8 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Abnormal renal function (A) (+1)'),
-            subtitle: const Text('Rối loạn chức năng thận (Cr >2.26 mg/dL)'),
+            title: Text(AppLocalizations.of(context)!.has_bled_abnormal_renal),
+            subtitle: Text(AppLocalizations.of(context)!.has_bled_abnormal_renal_desc),
             value: _abnormalRenal,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -429,8 +460,8 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Abnormal liver function (S) (+1)'),
-            subtitle: const Text('Rối loạn chức năng gan (bilirubin >2x, AST/ALT >3x)'),
+            title: Text(AppLocalizations.of(context)!.has_bled_abnormal_liver),
+            subtitle: Text(AppLocalizations.of(context)!.has_bled_abnormal_liver_desc),
             value: _abnormalLiver,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -443,8 +474,8 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Stroke (B) (+1)'),
-            subtitle: const Text('Tiền sử đột quỵ'),
+            title: Text(AppLocalizations.of(context)!.has_bled_stroke),
+            subtitle: Text(AppLocalizations.of(context)!.has_bled_stroke_desc),
             value: _stroke,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -457,8 +488,8 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Bleeding (L) (+1)'),
-            subtitle: const Text('Tiền sử chảy máu hoặc xu hướng chảy máu'),
+            title: Text(AppLocalizations.of(context)!.has_bled_bleeding),
+            subtitle: Text(AppLocalizations.of(context)!.has_bled_bleeding_desc),
             value: _bleeding,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -471,8 +502,8 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Labile INR (E) (+1)'),
-            subtitle: const Text('INR không ổn định (TTR <60%)'),
+            title: Text(AppLocalizations.of(context)!.has_bled_labile_inr),
+            subtitle: Text(AppLocalizations.of(context)!.has_bled_labile_inr_desc),
             value: _labileInr,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -485,8 +516,8 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Elderly (D) (+1)'),
-            subtitle: const Text('Tuổi >65'),
+            title: Text(AppLocalizations.of(context)!.has_bled_elderly),
+            subtitle: Text(AppLocalizations.of(context)!.has_bled_elderly_desc),
             value: _elderly,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -499,8 +530,8 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Drugs (+1)'),
-            subtitle: const Text('Thuốc/rượu đồng thời'),
+            title: Text(AppLocalizations.of(context)!.has_bled_drugs),
+            subtitle: Text(AppLocalizations.of(context)!.has_bled_drugs_desc),
             value: _drugs,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -513,8 +544,8 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
           ),
           
           CheckboxListTile(
-            title: const Text('Alcohol (+1)'),
-            subtitle: const Text('Lạm dụng rượu'),
+            title: Text(AppLocalizations.of(context)!.has_bled_alcohol),
+            subtitle: Text(AppLocalizations.of(context)!.has_bled_alcohol_desc),
             value: _alcohol,
             // ignore: deprecated_member_use
             onChanged: (value) {
@@ -545,7 +576,7 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Yếu tố nguy cơ hiện tại (${activeFactors.length})',
+            AppLocalizations.of(context)!.has_bled_active_factors(activeFactors.length),
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.orange.shade700,
@@ -620,16 +651,16 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Phân tầng nguy cơ chảy máu',
+            AppLocalizations.of(context)!.has_bled_risk_stratification,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.green.shade700,
             ),
           ),
           const SizedBox(height: 16),
-          _buildRiskItem('0-2', 'Nguy cơ thấp', '1.02-1.88%', 'Tiếp tục anticoagulation', Colors.green),
-          _buildRiskItem('3', 'Nguy cơ trung bình', '3.74%', 'Thận trọng, theo dõi chặt', Colors.orange),
-          _buildRiskItem('≥4', 'Nguy cơ cao', '>8.70%', 'Cân nhắc ngừng thuốc', Colors.red),
+          _buildRiskItem('0-2', AppLocalizations.of(context)!.has_bled_risk_low_range, '1.02-1.88%', AppLocalizations.of(context)!.has_bled_continue_anticoag, Colors.green),
+          _buildRiskItem('3', AppLocalizations.of(context)!.has_bled_risk_moderate_range, '3.74%', AppLocalizations.of(context)!.has_bled_caution_monitor, Colors.orange),
+          _buildRiskItem('≥4', AppLocalizations.of(context)!.has_bled_risk_high_range, '>8.70%', AppLocalizations.of(context)!.has_bled_consider_stop, Colors.red),
         ],
       ),
     );
@@ -705,7 +736,7 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Tiếp cận lâm sàng',
+            AppLocalizations.of(context)!.has_bled_clinical_approach_title,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.bold,
               color: Colors.purple.shade700,
@@ -727,7 +758,7 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
                     Icon(Icons.medical_services, color: riskColor, size: 20),
                     const SizedBox(width: 8),
                     Text(
-                      'Tiếp cận cho điểm số $_totalScore:',
+                      AppLocalizations.of(context)!.has_bled_approach_for_score(_totalScore),
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: riskColor,
@@ -768,7 +799,7 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
               Icon(Icons.info, color: Colors.teal.shade600),
               const SizedBox(width: 8),
               Text(
-                'Thông tin lâm sàng',
+                AppLocalizations.of(context)!.has_bled_clinical_info,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: Colors.teal.shade600,
@@ -777,27 +808,9 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
             ],
           ),
           const SizedBox(height: 12),
-          const Text(
-            'HAS-BLED Score đánh giá nguy cơ chảy máu khi dùng thuốc chống đông\n\n'
-            'Ứng dụng lâm sàng:\n'
-            '• Đánh giá nguy cơ chảy máu trước khi bắt đầu anticoagulation\n'
-            '• Cân bằng lợi ích/nguy cơ trong điều trị\n'
-            '• Quyết định liều lượng và tần suất theo dõi\n'
-            '• Tư vấn bệnh nhân về nguy cơ\n\n'
-            'Giải thích từng yếu tố:\n'
-            '• H (Hypertension): HA tâm thu >160 mmHg\n'
-            '• A (Abnormal): Cr >2.26 mg/dL hoặc chạy thận\n'
-            '• S (Stroke): Tiền sử đột quỵ bất kể nguyên nhân\n'
-            '• B (Bleeding): Tiền sử chảy máu nghiêm trọng\n'
-            '• L (Labile): INR không ổn định, TTR <60%\n'
-            '• E (Elderly): Tuổi >65\n'
-            '• D (Drugs): NSAID, aspirin, corticosteroid\n\n'
-            'Lưu ý quan trọng:\n'
-            '• Điểm cao không có nghĩa cấm thuốc chống đông\n'
-            '• Cần cân nhắc với nguy cơ thuyên tắc\n'
-            '• Có thể điều chỉnh yếu tố nguy cơ\n'
-            '• Theo dõi chặt chẽ nếu điểm số cao',
-            style: TextStyle(height: 1.4),
+          Text(
+            AppLocalizations.of(context)!.has_bled_clinical_info_content,
+            style: const TextStyle(height: 1.4),
           ),
         ],
       ),
@@ -820,7 +833,7 @@ class _HasBledScorePageState extends State<HasBledScorePage> {
               Icon(Icons.article, color: Colors.blue.shade700, size: 16),
               const SizedBox(width: 6),
               Text(
-                'Tài liệu tham khảo',
+                AppLocalizations.of(context)!.has_bled_references,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
