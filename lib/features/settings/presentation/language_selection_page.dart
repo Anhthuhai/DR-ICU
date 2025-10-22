@@ -141,7 +141,7 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                         Icon(Icons.info, color: AppTheme.primaryBlue),
                         const SizedBox(width: 8),
                         Text(
-                          'Language Information',
+                          l10n.language_information_title,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: AppTheme.primaryBlue,
@@ -150,8 +150,8 @@ class _LanguageSelectionPageState extends State<LanguageSelectionPage> {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'Changing the language will restart the app to apply the new language settings. All medical terms and protocols will be translated accordingly.',
+                    Text(
+                      l10n.language_change_description,
                       style: TextStyle(fontSize: 14),
                     ),
                   ],

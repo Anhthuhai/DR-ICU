@@ -5799,4 +5799,389 @@ class AppLocalizationsVi extends AppLocalizations {
   @override
   String get medical_disclaimer_mdrd_text =>
       'Ước tính chức năng thận. Cân nhắc bối cảnh lâm sàng và xác nhận bằng các xét nghiệm bổ sung.';
+
+  @override
+  String get cam_icu_title => 'CAM-ICU';
+
+  @override
+  String get cam_icu_list_description => 'Đánh giá lú lẫn tại ICU';
+
+  @override
+  String get cam_icu_subtitle => 'Confusion Assessment Method for ICU';
+
+  @override
+  String get cam_icu_positive_delirium => 'Dương tính - Có lú lẫn';
+
+  @override
+  String get cam_icu_negative_delirium => 'Âm tính - Không lú lẫn';
+
+  @override
+  String get cam_icu_assessment_title => 'Đánh giá 4 đặc điểm CAM-ICU';
+
+  @override
+  String get medical_disclaimer_cam_icu_text =>
+      'Công cụ sàng lọc lú lẫn tại ICU. Luôn kết hợp với đánh giá lâm sàng toàn diện và không thay thế chẩn đoán của bác sĩ chuyên khoa.';
+
+  @override
+  String get cam_icu_reference_title => 'Tài liệu tham khảo';
+
+  @override
+  String get cam_icu_feature_1_title => 'Thay đổi cấp tính hoặc dao động';
+
+  @override
+  String get cam_icu_feature_1_description =>
+      'Có thay đổi cấp tính về tình trạng tâm thần so với baseline hoặc dao động trong 24h qua?';
+
+  @override
+  String get cam_icu_feature_2_title => 'Thiếu chú ý';
+
+  @override
+  String get cam_icu_feature_2_description =>
+      'Bệnh nhân có khó tập trung chú ý, dễ bị phân tâm, hoặc khó theo dõi cuộc trò chuyện?';
+
+  @override
+  String get cam_icu_feature_3_title => 'Thay đổi mức độ ý thức';
+
+  @override
+  String get cam_icu_feature_3_description =>
+      'RASS khác 0 (Alert and calm) hoặc có thay đổi mức độ ý thức?';
+
+  @override
+  String get cam_icu_feature_4_title => 'Tư duy không có tổ chức';
+
+  @override
+  String get cam_icu_feature_4_description =>
+      'Tư duy không logic, không nhất quán, hoặc nói chuyện không rõ ràng?';
+
+  @override
+  String get cam_icu_feature_1_present => 'Feature 1 present';
+
+  @override
+  String get cam_icu_feature_2_present => 'Feature 2 present';
+
+  @override
+  String get cam_icu_feature_3_present => 'Feature 3 present';
+
+  @override
+  String get cam_icu_feature_4_present => 'Feature 4 present';
+
+  @override
+  String get cam_icu_results_title => 'Kết quả CAM-ICU';
+
+  @override
+  String get cam_icu_interpretation_label => 'Giải thích';
+
+  @override
+  String get cam_icu_algorithm_explanation =>
+      'CAM-ICU dương tính nếu có Feature 1 hoặc 2 VÀ có Feature 3 hoặc 4';
+
+  @override
+  String get yes => 'Có';
+
+  @override
+  String get medical_disclaimer_rass_text =>
+      'Công cụ đánh giá an thần và kích động tại ICU. Luôn kết hợp với đánh giá lâm sàng và không thay thế quyết định điều trị của bác sĩ.';
+
+  @override
+  String get rass_combative_interpretation => 'Hung hăng - Tấn công nhân viên';
+
+  @override
+  String get rass_very_agitated_interpretation =>
+      'Rất kích động - Cần kiềm chế';
+
+  @override
+  String get rass_agitated_interpretation => 'Kích động - Chuyển động nhiều';
+
+  @override
+  String get rass_restless_interpretation => 'Bồn chồn - Không yên';
+
+  @override
+  String get rass_alert_calm_interpretation => 'Tỉnh táo và bình tĩnh';
+
+  @override
+  String get rass_drowsy_interpretation => 'Buồn ngủ - Tỉnh khi nói chuyện';
+
+  @override
+  String get rass_light_sedation_interpretation =>
+      'An thần nhẹ - Tỉnh ngắn khi gọi tên';
+
+  @override
+  String get rass_moderate_sedation_interpretation =>
+      'An thần trung bình - Tỉnh khi gọi tên';
+
+  @override
+  String get rass_deep_sedation_interpretation =>
+      'An thần sâu - Tỉnh khi kích thích';
+
+  @override
+  String get rass_unarousable_interpretation => 'Không tỉnh được';
+
+  @override
+  String get rass_agitation_category => 'Kích động';
+
+  @override
+  String get rass_alert_calm_category => 'Tỉnh táo';
+
+  @override
+  String get rass_sedation_category => 'An thần';
+
+  @override
+  String get rass_score_selection_title => 'Chọn điểm RASS';
+
+  @override
+  String get rass_agitation_section => 'Kích động';
+
+  @override
+  String get rass_alert_section => 'Tỉnh táo';
+
+  @override
+  String get rass_sedation_section => 'An thần';
+
+  @override
+  String get rass_interpretation_title => 'Giải thích RASS';
+
+  @override
+  String get rass_current_level_label => 'Mức độ hiện tại';
+
+  @override
+  String get rass_scale_reference_title => 'Bảng tham chiếu RASS';
+
+  @override
+  String get rass_reference_title => 'Tài liệu tham khảo';
+
+  @override
+  String get rass_score_4_description =>
+      'Hung hăng (Tấn công nhân viên hoặc cố gắng rút ống)';
+
+  @override
+  String get rass_score_3_description =>
+      'Rất kích động (Kéo hoặc tháo catheter/ống; tấn công)';
+
+  @override
+  String get rass_score_2_description =>
+      'Kích động (Chuyển động thường xuyên, chống lại thở máy)';
+
+  @override
+  String get rass_score_1_description =>
+      'Bồn chồn (Lo lắng nhưng chuyển động không hung hăng)';
+
+  @override
+  String get rass_score_0_description => 'Tỉnh táo và bình tĩnh';
+
+  @override
+  String get rass_score_neg1_description =>
+      'Buồn ngủ (Không hoàn toàn tỉnh táo, tỉnh >10s khi gọi)';
+
+  @override
+  String get rass_score_neg2_description =>
+      'An thần nhẹ (Tỉnh ngắn <10s khi gọi tên)';
+
+  @override
+  String get rass_score_neg3_description =>
+      'An thần trung bình (Chuyển động hoặc mở mắt khi gọi tên, không tiếp xúc ánh mắt)';
+
+  @override
+  String get rass_score_neg4_description =>
+      'An thần sâu (Không phản ứng với tiếng gọi, chuyển động khi kích thích vật lý)';
+
+  @override
+  String get rass_score_neg5_description =>
+      'Không tỉnh được (Không phản ứng với tiếng gọi hoặc kích thích vật lý)';
+
+  @override
+  String get rass_score_column => 'Điểm';
+
+  @override
+  String get rass_description_column => 'Mô tả';
+
+  @override
+  String get cam_icu_result_positive => 'CAM-ICU POSITIVE';
+
+  @override
+  String get cam_icu_result_negative => 'CAM-ICU NEGATIVE';
+
+  @override
+  String get cam_icu_delirium_present => 'Delirium present';
+
+  @override
+  String get cam_icu_delirium_absent => 'Delirium absent';
+
+  @override
+  String get cam_icu_clinical_features => 'Clinical Features Assessment';
+
+  @override
+  String get cam_icu_assessment_criteria => 'Assessment Criteria';
+
+  @override
+  String get cam_icu_diagnosis_criteria =>
+      'Diagnosis: Features 1 AND 2 AND (3 OR 4)';
+
+  @override
+  String get cam_icu_clinical_info_title => 'Thông tin lâm sàng';
+
+  @override
+  String get cam_icu_clinical_info_content =>
+      'CAM-ICU (Confusion Assessment Method for ICU) là công cụ đánh giá lú lẫn ở bệnh nhân ICU\n\nƯu điểm:\n• Đánh giá nhanh chóng và chính xác\n• Phù hợp cho bệnh nhân thở máy\n• Độ nhạy và độ đặc hiệu cao\n• Không cần khám thần kinh chuyên sâu\n\nCách thực hiện:\n• Đánh giá tất cả 4 feature\n• Có thể kết hợp với RASS\n• Thực hiện hàng ngày ở ICU\n• Ghi nhận thay đổi theo thời gian\n\nLưu ý quan trọng:\n• Cần đào tạo sử dụng CAM-ICU\n• Phân biệt với dementia\n• Theo dõi nguyên nhân gây lú lẫn\n• Điều trị kịp thời khi phát hiện';
+
+  @override
+  String get cam_icu_cannot_assess => 'Cannot assess (RASS -4 or -5)';
+
+  @override
+  String get cam_icu_references_title => 'References';
+
+  @override
+  String get cam_icu_reference_text =>
+      'Ely EW, et al. Delirium in mechanically ventilated patients: validity and reliability of the confusion assessment method for the intensive care unit (CAM-ICU). JAMA. 2001;286(21):2703-10.';
+
+  @override
+  String get rass_score_title => 'RASS Score';
+
+  @override
+  String get rass_title => 'Thang RASS';
+
+  @override
+  String get rass_list_description => 'Đánh giá mức độ an thần và kích động';
+
+  @override
+  String get rass_score_subtitle => 'Richmond Agitation-Sedation Scale';
+
+  @override
+  String get rass_level_combative => '+4 Combative';
+
+  @override
+  String get rass_description_combative =>
+      'Combative: Overly combative or violent; immediate danger to staff';
+
+  @override
+  String get rass_level_very_agitated => '+3 Very agitated';
+
+  @override
+  String get rass_description_very_agitated =>
+      'Very agitated: Pulls on or removes tube(s) or catheter(s) or has aggressive behavior toward staff';
+
+  @override
+  String get rass_level_agitated => '+2 Agitated';
+
+  @override
+  String get rass_description_agitated =>
+      'Agitated: Frequent nonpurposeful movement or patient-ventilator dyssynchrony';
+
+  @override
+  String get rass_level_restless => '+1 Restless';
+
+  @override
+  String get rass_description_restless =>
+      'Restless: Anxious or apprehensive but movements not aggressive or vigorous';
+
+  @override
+  String get rass_level_alert => '0 Alert and calm';
+
+  @override
+  String get rass_description_alert =>
+      'Alert and calm: Spontaneously pays attention to caregiver';
+
+  @override
+  String get rass_level_drowsy => '-1 Drowsy';
+
+  @override
+  String get rass_description_drowsy =>
+      'Drowsy: Not fully alert, but has sustained (more than 10 seconds) awakening, with eye contact, to voice';
+
+  @override
+  String get rass_level_light_sedation => '-2 Light sedation';
+
+  @override
+  String get rass_description_light_sedation =>
+      'Light sedation: Briefly (less than 10 seconds) awakens with eye contact to voice';
+
+  @override
+  String get rass_level_moderate_sedation => '-3 Moderate sedation';
+
+  @override
+  String get rass_description_moderate_sedation =>
+      'Moderate sedation: Any movement (but no eye contact) to voice';
+
+  @override
+  String get rass_level_deep_sedation => '-4 Deep sedation';
+
+  @override
+  String get rass_description_deep_sedation =>
+      'Deep sedation: No response to voice, but any movement to physical stimulation';
+
+  @override
+  String get rass_level_unarousable => '-5 Unarousable';
+
+  @override
+  String get rass_description_unarousable =>
+      'Unarousable: No response to voice or physical stimulation';
+
+  @override
+  String get rass_interpretation_agitation => 'Agitation';
+
+  @override
+  String get rass_interpretation_calm => 'Alert and calm';
+
+  @override
+  String get rass_interpretation_sedation => 'Sedation';
+
+  @override
+  String get rass_target_light_moderate => 'Target: Light to moderate sedation';
+
+  @override
+  String get rass_target_alert_calm => 'Target: Alert and calm';
+
+  @override
+  String get rass_avoid_deep_sedation => 'Avoid: Deep sedation when possible';
+
+  @override
+  String get rass_current_level => 'Current RASS Level';
+
+  @override
+  String get rass_select_level => 'Select current patient level:';
+
+  @override
+  String get rass_sedation_goals => 'Sedation Goals';
+
+  @override
+  String get rass_clinical_management => 'Clinical Management';
+
+  @override
+  String get rass_management_agitation =>
+      'Consider causes of agitation, pain assessment, environmental factors';
+
+  @override
+  String get rass_management_calm =>
+      'Maintain current care, reassess regularly';
+
+  @override
+  String get rass_management_light =>
+      'Appropriate sedation level, continue monitoring';
+
+  @override
+  String get rass_management_moderate => 'Assess need for sedation reduction';
+
+  @override
+  String get rass_management_deep =>
+      'Consider sedation interruption, assess readiness for awakening';
+
+  @override
+  String get rass_clinical_info_title => 'Thông tin lâm sàng';
+
+  @override
+  String get rass_clinical_info_content =>
+      'RASS (Richmond Agitation-Sedation Scale) là công cụ đánh giá mức độ kích động và an thần\n\nƯu điểm:\n• Đơn giản, dễ sử dụng\n• Độ tin cậy cao giữa các người đánh giá\n• Phù hợp cho bệnh nhân ICU\n• Kết hợp tốt với CAM-ICU\n\nCách sử dụng:\n• Đánh giá trước tiên không kích thích\n• Sau đó gọi tên bệnh nhân\n• Cuối cùng kích thích vật lý nếu cần\n• Ghi nhận phản ứng đầu tiên\n\nMục tiêu điều trị:\n• RASS 0 hoặc -1 ở hầu hết bệnh nhân\n• RASS -2 đến -3 nếu cần an thần sâu\n• Tránh RASS +2 trở lên (kích động)\n• Tránh RASS -4 hoặc -5 trừ khi cần thiết\n\nGhi chú quan trọng:\n• Đánh giá định kỳ mỗi ca\n• Điều chỉnh thuốc an thần theo RASS\n• Phối hợp với đánh giá đau và delirium';
+
+  @override
+  String get rass_references_title => 'References';
+
+  @override
+  String get rass_reference_text =>
+      'Sessler CN, et al. The Richmond Agitation-Sedation Scale: validity and reliability in adult intensive care unit patients. Am J Respir Crit Care Med. 2002;166(10):1338-44.';
+
+  @override
+  String get language_information_title => 'Thông tin ngôn ngữ';
+
+  @override
+  String get language_change_description =>
+      'Thay đổi ngôn ngữ sẽ khởi động lại ứng dụng để áp dụng cài đặt ngôn ngữ mới. Tất cả các thuật ngữ y tế và quy trình sẽ được dịch tương ứng.';
 }

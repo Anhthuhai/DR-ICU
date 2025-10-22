@@ -227,32 +227,6 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 const SizedBox(height: 12),
-                
-                // Medical Disclaimer
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.orange.shade50,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.orange.shade200),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.warning, color: Colors.orange.shade700, size: 20),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          l10n.medical_disclaimer,
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.orange.shade700,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),

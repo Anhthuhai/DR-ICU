@@ -11149,6 +11149,696 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Kidney function estimation. Consider clinical context and confirm with additional tests.'**
   String get medical_disclaimer_mdrd_text;
+
+  /// CAM-ICU assessment tool title
+  ///
+  /// In en, this message translates to:
+  /// **'CAM-ICU'**
+  String get cam_icu_title;
+
+  /// CAM-ICU tool description for clinical scores list
+  ///
+  /// In en, this message translates to:
+  /// **'Delirium assessment in ICU patients'**
+  String get cam_icu_list_description;
+
+  /// CAM-ICU assessment tool subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Confusion Assessment Method for ICU'**
+  String get cam_icu_subtitle;
+
+  /// CAM-ICU positive delirium result
+  ///
+  /// In en, this message translates to:
+  /// **'Positive - Delirium present'**
+  String get cam_icu_positive_delirium;
+
+  /// CAM-ICU negative delirium result
+  ///
+  /// In en, this message translates to:
+  /// **'Negative - No delirium'**
+  String get cam_icu_negative_delirium;
+
+  /// CAM-ICU assessment section title
+  ///
+  /// In en, this message translates to:
+  /// **'4-Feature CAM-ICU Assessment'**
+  String get cam_icu_assessment_title;
+
+  /// CAM-ICU medical disclaimer text
+  ///
+  /// In en, this message translates to:
+  /// **'Delirium screening tool for ICU. Always combine with comprehensive clinical assessment and does not replace specialist physician diagnosis.'**
+  String get medical_disclaimer_cam_icu_text;
+
+  /// CAM-ICU reference title
+  ///
+  /// In en, this message translates to:
+  /// **'References'**
+  String get cam_icu_reference_title;
+
+  /// CAM-ICU feature 1 title
+  ///
+  /// In en, this message translates to:
+  /// **'Feature 1: Acute change or fluctuation'**
+  String get cam_icu_feature_1_title;
+
+  /// CAM-ICU feature 1 description
+  ///
+  /// In en, this message translates to:
+  /// **'Acute onset of mental status changes or fluctuating course'**
+  String get cam_icu_feature_1_description;
+
+  /// CAM-ICU feature 2 title
+  ///
+  /// In en, this message translates to:
+  /// **'Feature 2: Inattention'**
+  String get cam_icu_feature_2_title;
+
+  /// CAM-ICU feature 2 description
+  ///
+  /// In en, this message translates to:
+  /// **'Difficulty focusing attention, easily distracted'**
+  String get cam_icu_feature_2_description;
+
+  /// CAM-ICU feature 3 title
+  ///
+  /// In en, this message translates to:
+  /// **'Feature 3: Altered level of consciousness'**
+  String get cam_icu_feature_3_title;
+
+  /// CAM-ICU feature 3 description
+  ///
+  /// In en, this message translates to:
+  /// **'Current RASS level other than 0 (alert and calm)'**
+  String get cam_icu_feature_3_description;
+
+  /// CAM-ICU feature 4 title
+  ///
+  /// In en, this message translates to:
+  /// **'Feature 4: Disorganized thinking'**
+  String get cam_icu_feature_4_title;
+
+  /// CAM-ICU feature 4 description
+  ///
+  /// In en, this message translates to:
+  /// **'Disorganized or incoherent thinking'**
+  String get cam_icu_feature_4_description;
+
+  /// CAM-ICU feature 1 checkbox label
+  ///
+  /// In en, this message translates to:
+  /// **'Feature 1 present'**
+  String get cam_icu_feature_1_present;
+
+  /// CAM-ICU feature 2 checkbox label
+  ///
+  /// In en, this message translates to:
+  /// **'Feature 2 present'**
+  String get cam_icu_feature_2_present;
+
+  /// CAM-ICU feature 3 checkbox label
+  ///
+  /// In en, this message translates to:
+  /// **'Feature 3 present'**
+  String get cam_icu_feature_3_present;
+
+  /// CAM-ICU feature 4 checkbox label
+  ///
+  /// In en, this message translates to:
+  /// **'Feature 4 present'**
+  String get cam_icu_feature_4_present;
+
+  /// CAM-ICU results section title
+  ///
+  /// In en, this message translates to:
+  /// **'CAM-ICU Results'**
+  String get cam_icu_results_title;
+
+  /// CAM-ICU interpretation label
+  ///
+  /// In en, this message translates to:
+  /// **'Interpretation'**
+  String get cam_icu_interpretation_label;
+
+  /// CAM-ICU algorithm explanation
+  ///
+  /// In en, this message translates to:
+  /// **'CAM-ICU positive if Feature 1 AND 2 AND (3 OR 4)'**
+  String get cam_icu_algorithm_explanation;
+
+  /// Yes button text
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// RASS medical disclaimer text
+  ///
+  /// In en, this message translates to:
+  /// **'Sedation and agitation assessment tool for ICU. Always combine with clinical assessment and does not replace physician treatment decisions.'**
+  String get medical_disclaimer_rass_text;
+
+  /// RASS +4 interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Combative - Attacks staff'**
+  String get rass_combative_interpretation;
+
+  /// RASS +3 interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Very agitated - Requires restraint'**
+  String get rass_very_agitated_interpretation;
+
+  /// RASS +2 interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Agitated - Frequent movement'**
+  String get rass_agitated_interpretation;
+
+  /// RASS +1 interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Restless - Anxious but not aggressive'**
+  String get rass_restless_interpretation;
+
+  /// RASS 0 interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Alert and calm'**
+  String get rass_alert_calm_interpretation;
+
+  /// RASS -1 interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Drowsy - Awakens to conversation'**
+  String get rass_drowsy_interpretation;
+
+  /// RASS -2 interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Light sedation - Brief awakening to voice'**
+  String get rass_light_sedation_interpretation;
+
+  /// RASS -3 interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate sedation - Movement to voice'**
+  String get rass_moderate_sedation_interpretation;
+
+  /// RASS -4 interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Deep sedation - Movement to stimulation'**
+  String get rass_deep_sedation_interpretation;
+
+  /// RASS -5 interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Unarousable'**
+  String get rass_unarousable_interpretation;
+
+  /// RASS agitation category
+  ///
+  /// In en, this message translates to:
+  /// **'Agitation'**
+  String get rass_agitation_category;
+
+  /// RASS alert calm category
+  ///
+  /// In en, this message translates to:
+  /// **'Alert and Calm'**
+  String get rass_alert_calm_category;
+
+  /// RASS sedation category
+  ///
+  /// In en, this message translates to:
+  /// **'Sedation'**
+  String get rass_sedation_category;
+
+  /// RASS score selection title
+  ///
+  /// In en, this message translates to:
+  /// **'Select RASS Score'**
+  String get rass_score_selection_title;
+
+  /// RASS agitation section
+  ///
+  /// In en, this message translates to:
+  /// **'Agitation'**
+  String get rass_agitation_section;
+
+  /// RASS alert section
+  ///
+  /// In en, this message translates to:
+  /// **'Alert'**
+  String get rass_alert_section;
+
+  /// RASS sedation section
+  ///
+  /// In en, this message translates to:
+  /// **'Sedation'**
+  String get rass_sedation_section;
+
+  /// RASS interpretation title
+  ///
+  /// In en, this message translates to:
+  /// **'RASS Interpretation'**
+  String get rass_interpretation_title;
+
+  /// RASS current level label
+  ///
+  /// In en, this message translates to:
+  /// **'Current Level'**
+  String get rass_current_level_label;
+
+  /// RASS scale reference title
+  ///
+  /// In en, this message translates to:
+  /// **'RASS Reference Scale'**
+  String get rass_scale_reference_title;
+
+  /// RASS reference title
+  ///
+  /// In en, this message translates to:
+  /// **'References'**
+  String get rass_reference_title;
+
+  /// RASS +4 description
+  ///
+  /// In en, this message translates to:
+  /// **'Combative (Attacks staff or tries to remove tubes)'**
+  String get rass_score_4_description;
+
+  /// RASS +3 description
+  ///
+  /// In en, this message translates to:
+  /// **'Very agitated (Pulls or removes tubes/catheters; aggressive)'**
+  String get rass_score_3_description;
+
+  /// RASS +2 description
+  ///
+  /// In en, this message translates to:
+  /// **'Agitated (Frequent nonpurposeful movement; fights ventilator)'**
+  String get rass_score_2_description;
+
+  /// RASS +1 description
+  ///
+  /// In en, this message translates to:
+  /// **'Restless (Anxious but movements not aggressive)'**
+  String get rass_score_1_description;
+
+  /// RASS 0 description
+  ///
+  /// In en, this message translates to:
+  /// **'Alert and calm'**
+  String get rass_score_0_description;
+
+  /// RASS -1 description
+  ///
+  /// In en, this message translates to:
+  /// **'Drowsy (Not fully alert, sustained awakening >10s to voice)'**
+  String get rass_score_neg1_description;
+
+  /// RASS -2 description
+  ///
+  /// In en, this message translates to:
+  /// **'Light sedation (Brief awakening <10s to voice)'**
+  String get rass_score_neg2_description;
+
+  /// RASS -3 description
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate sedation (Movement or eye opening to voice, no eye contact)'**
+  String get rass_score_neg3_description;
+
+  /// RASS -4 description
+  ///
+  /// In en, this message translates to:
+  /// **'Deep sedation (No response to voice, movement to physical stimulation)'**
+  String get rass_score_neg4_description;
+
+  /// RASS -5 description
+  ///
+  /// In en, this message translates to:
+  /// **'Unarousable (No response to voice or physical stimulation)'**
+  String get rass_score_neg5_description;
+
+  /// RASS score column header
+  ///
+  /// In en, this message translates to:
+  /// **'Score'**
+  String get rass_score_column;
+
+  /// RASS description column header
+  ///
+  /// In en, this message translates to:
+  /// **'Description'**
+  String get rass_description_column;
+
+  /// CAM-ICU positive result
+  ///
+  /// In en, this message translates to:
+  /// **'CAM-ICU POSITIVE'**
+  String get cam_icu_result_positive;
+
+  /// CAM-ICU negative result
+  ///
+  /// In en, this message translates to:
+  /// **'CAM-ICU NEGATIVE'**
+  String get cam_icu_result_negative;
+
+  /// CAM-ICU delirium present interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Delirium present'**
+  String get cam_icu_delirium_present;
+
+  /// CAM-ICU delirium absent interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Delirium absent'**
+  String get cam_icu_delirium_absent;
+
+  /// CAM-ICU clinical features section title
+  ///
+  /// In en, this message translates to:
+  /// **'Clinical Features Assessment'**
+  String get cam_icu_clinical_features;
+
+  /// CAM-ICU assessment criteria section title
+  ///
+  /// In en, this message translates to:
+  /// **'Assessment Criteria'**
+  String get cam_icu_assessment_criteria;
+
+  /// CAM-ICU diagnosis criteria text
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnosis: Features 1 AND 2 AND (3 OR 4)'**
+  String get cam_icu_diagnosis_criteria;
+
+  /// CAM-ICU clinical information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Clinical Information'**
+  String get cam_icu_clinical_info_title;
+
+  /// CAM-ICU clinical information content
+  ///
+  /// In en, this message translates to:
+  /// **'CAM-ICU is a validated tool for delirium assessment in ICU patients\\n\\nDelirium characteristics:\\n• Acute onset and fluctuating course\\n• Inattention and cognitive dysfunction\\n• Altered level of consciousness\\n• Disorganized thinking\\n\\nImportance of early detection:\\n• Delirium increases morbidity and mortality\\n• Prolongs ICU and hospital stay\\n• Associated with long-term cognitive impairment\\n• Early intervention improves outcomes\\n\\nClinical management:\\n• Identify and treat underlying causes\\n• Non-pharmacological interventions first\\n• Avoid sedatives when possible\\n• Early mobilization and sleep hygiene\\n• Family involvement in care\\n\\nNote: Requires RASS assessment first. Cannot assess if patient deeply sedated (RASS -4 or -5).'**
+  String get cam_icu_clinical_info_content;
+
+  /// CAM-ICU cannot assess message
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot assess (RASS -4 or -5)'**
+  String get cam_icu_cannot_assess;
+
+  /// CAM-ICU references section title
+  ///
+  /// In en, this message translates to:
+  /// **'References'**
+  String get cam_icu_references_title;
+
+  /// CAM-ICU reference text
+  ///
+  /// In en, this message translates to:
+  /// **'Ely EW, et al. Delirium in mechanically ventilated patients: validity and reliability of the confusion assessment method for the intensive care unit (CAM-ICU). JAMA. 2001;286(21):2703-10.\\n\\nInouye SK, et al. Clarifying confusion: the confusion assessment method. A new method for detection of delirium. Ann Intern Med. 1990;113(12):941-8.'**
+  String get cam_icu_reference_text;
+
+  /// RASS score title
+  ///
+  /// In en, this message translates to:
+  /// **'RASS Score'**
+  String get rass_score_title;
+
+  /// RASS title
+  ///
+  /// In en, this message translates to:
+  /// **'RASS Scale'**
+  String get rass_title;
+
+  /// RASS tool description for clinical scores list
+  ///
+  /// In en, this message translates to:
+  /// **'Sedation and agitation assessment scale'**
+  String get rass_list_description;
+
+  /// RASS score subtitle
+  ///
+  /// In en, this message translates to:
+  /// **'Richmond Agitation-Sedation Scale'**
+  String get rass_score_subtitle;
+
+  /// RASS +4 level title
+  ///
+  /// In en, this message translates to:
+  /// **'+4 Combative'**
+  String get rass_level_combative;
+
+  /// RASS +4 description
+  ///
+  /// In en, this message translates to:
+  /// **'Combative: Overly combative or violent; immediate danger to staff'**
+  String get rass_description_combative;
+
+  /// RASS +3 level title
+  ///
+  /// In en, this message translates to:
+  /// **'+3 Very agitated'**
+  String get rass_level_very_agitated;
+
+  /// RASS +3 description
+  ///
+  /// In en, this message translates to:
+  /// **'Very agitated: Pulls on or removes tube(s) or catheter(s) or has aggressive behavior toward staff'**
+  String get rass_description_very_agitated;
+
+  /// RASS +2 level title
+  ///
+  /// In en, this message translates to:
+  /// **'+2 Agitated'**
+  String get rass_level_agitated;
+
+  /// RASS +2 description
+  ///
+  /// In en, this message translates to:
+  /// **'Agitated: Frequent nonpurposeful movement or patient-ventilator dyssynchrony'**
+  String get rass_description_agitated;
+
+  /// RASS +1 level title
+  ///
+  /// In en, this message translates to:
+  /// **'+1 Restless'**
+  String get rass_level_restless;
+
+  /// RASS +1 description
+  ///
+  /// In en, this message translates to:
+  /// **'Restless: Anxious or apprehensive but movements not aggressive or vigorous'**
+  String get rass_description_restless;
+
+  /// RASS 0 level title
+  ///
+  /// In en, this message translates to:
+  /// **'0 Alert and calm'**
+  String get rass_level_alert;
+
+  /// RASS 0 description
+  ///
+  /// In en, this message translates to:
+  /// **'Alert and calm: Spontaneously pays attention to caregiver'**
+  String get rass_description_alert;
+
+  /// RASS -1 level title
+  ///
+  /// In en, this message translates to:
+  /// **'-1 Drowsy'**
+  String get rass_level_drowsy;
+
+  /// RASS -1 description
+  ///
+  /// In en, this message translates to:
+  /// **'Drowsy: Not fully alert, but has sustained (more than 10 seconds) awakening, with eye contact, to voice'**
+  String get rass_description_drowsy;
+
+  /// RASS -2 level title
+  ///
+  /// In en, this message translates to:
+  /// **'-2 Light sedation'**
+  String get rass_level_light_sedation;
+
+  /// RASS -2 description
+  ///
+  /// In en, this message translates to:
+  /// **'Light sedation: Briefly (less than 10 seconds) awakens with eye contact to voice'**
+  String get rass_description_light_sedation;
+
+  /// RASS -3 level title
+  ///
+  /// In en, this message translates to:
+  /// **'-3 Moderate sedation'**
+  String get rass_level_moderate_sedation;
+
+  /// RASS -3 description
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate sedation: Any movement (but no eye contact) to voice'**
+  String get rass_description_moderate_sedation;
+
+  /// RASS -4 level title
+  ///
+  /// In en, this message translates to:
+  /// **'-4 Deep sedation'**
+  String get rass_level_deep_sedation;
+
+  /// RASS -4 description
+  ///
+  /// In en, this message translates to:
+  /// **'Deep sedation: No response to voice, but any movement to physical stimulation'**
+  String get rass_description_deep_sedation;
+
+  /// RASS -5 level title
+  ///
+  /// In en, this message translates to:
+  /// **'-5 Unarousable'**
+  String get rass_level_unarousable;
+
+  /// RASS -5 description
+  ///
+  /// In en, this message translates to:
+  /// **'Unarousable: No response to voice or physical stimulation'**
+  String get rass_description_unarousable;
+
+  /// RASS agitation interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Agitation'**
+  String get rass_interpretation_agitation;
+
+  /// RASS calm interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Alert and calm'**
+  String get rass_interpretation_calm;
+
+  /// RASS sedation interpretation
+  ///
+  /// In en, this message translates to:
+  /// **'Sedation'**
+  String get rass_interpretation_sedation;
+
+  /// RASS target sedation level
+  ///
+  /// In en, this message translates to:
+  /// **'Target: Light to moderate sedation'**
+  String get rass_target_light_moderate;
+
+  /// RASS target alert level
+  ///
+  /// In en, this message translates to:
+  /// **'Target: Alert and calm'**
+  String get rass_target_alert_calm;
+
+  /// RASS avoid deep sedation note
+  ///
+  /// In en, this message translates to:
+  /// **'Avoid: Deep sedation when possible'**
+  String get rass_avoid_deep_sedation;
+
+  /// RASS current level section title
+  ///
+  /// In en, this message translates to:
+  /// **'Current RASS Level'**
+  String get rass_current_level;
+
+  /// RASS level selection instruction
+  ///
+  /// In en, this message translates to:
+  /// **'Select current patient level:'**
+  String get rass_select_level;
+
+  /// RASS sedation goals section title
+  ///
+  /// In en, this message translates to:
+  /// **'Sedation Goals'**
+  String get rass_sedation_goals;
+
+  /// RASS clinical management section title
+  ///
+  /// In en, this message translates to:
+  /// **'Clinical Management'**
+  String get rass_clinical_management;
+
+  /// RASS management for agitation
+  ///
+  /// In en, this message translates to:
+  /// **'Consider causes of agitation, pain assessment, environmental factors'**
+  String get rass_management_agitation;
+
+  /// RASS management for calm state
+  ///
+  /// In en, this message translates to:
+  /// **'Maintain current care, reassess regularly'**
+  String get rass_management_calm;
+
+  /// RASS management for light sedation
+  ///
+  /// In en, this message translates to:
+  /// **'Appropriate sedation level, continue monitoring'**
+  String get rass_management_light;
+
+  /// RASS management for moderate sedation
+  ///
+  /// In en, this message translates to:
+  /// **'Assess need for sedation reduction'**
+  String get rass_management_moderate;
+
+  /// RASS management for deep sedation
+  ///
+  /// In en, this message translates to:
+  /// **'Consider sedation interruption, assess readiness for awakening'**
+  String get rass_management_deep;
+
+  /// RASS clinical information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Clinical Information'**
+  String get rass_clinical_info_title;
+
+  /// RASS clinical information content
+  ///
+  /// In en, this message translates to:
+  /// **'RASS is a validated scale for assessing sedation and agitation in ICU patients\\n\\nClinical benefits:\\n• Standardized sedation assessment\\n• Improved communication between staff\\n• Guides sedation titration\\n• Reduces over-sedation complications\\n• Supports early mobilization\\n\\nSedation best practices:\\n• Target light sedation (RASS -2 to 0)\\n• Daily sedation interruption\\n• Spontaneous awakening trials\\n• Early mobilization protocols\\n• Pain assessment first\\n\\nComplications of deep sedation:\\n• Prolonged mechanical ventilation\\n• ICU delirium\\n• Muscle weakness\\n• Increased mortality\\n• Longer ICU stay\\n\\nImportant notes:\\n• Assess every 4-8 hours or after medication changes\\n• Consider CAM-ICU assessment if RASS ≥ -3\\n• Document trends over time'**
+  String get rass_clinical_info_content;
+
+  /// RASS references section title
+  ///
+  /// In en, this message translates to:
+  /// **'References'**
+  String get rass_references_title;
+
+  /// RASS reference text
+  ///
+  /// In en, this message translates to:
+  /// **'Sessler CN, et al. The Richmond Agitation-Sedation Scale: validity and reliability in adult intensive care unit patients. Am J Respir Crit Care Med. 2002;166(10):1338-44.\\n\\nBarr J, et al. Clinical practice guidelines for the management of pain, agitation, and delirium in adult patients in the intensive care unit. Crit Care Med. 2013;41(1):263-306.'**
+  String get rass_reference_text;
+
+  /// Language information section title
+  ///
+  /// In en, this message translates to:
+  /// **'Language Information'**
+  String get language_information_title;
+
+  /// Language change description text
+  ///
+  /// In en, this message translates to:
+  /// **'Changing the language will restart the app to apply the new language settings. All medical terms and protocols will be translated accordingly.'**
+  String get language_change_description;
 }
 
 class _AppLocalizationsDelegate

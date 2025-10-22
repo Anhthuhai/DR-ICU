@@ -5929,4 +5929,392 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get medical_disclaimer_mdrd_text =>
       'Kidney function estimation. Consider clinical context and confirm with additional tests.';
+
+  @override
+  String get cam_icu_title => 'CAM-ICU';
+
+  @override
+  String get cam_icu_list_description => 'Delirium assessment in ICU patients';
+
+  @override
+  String get cam_icu_subtitle => 'Confusion Assessment Method for ICU';
+
+  @override
+  String get cam_icu_positive_delirium => 'Positive - Delirium present';
+
+  @override
+  String get cam_icu_negative_delirium => 'Negative - No delirium';
+
+  @override
+  String get cam_icu_assessment_title => '4-Feature CAM-ICU Assessment';
+
+  @override
+  String get medical_disclaimer_cam_icu_text =>
+      'Delirium screening tool for ICU. Always combine with comprehensive clinical assessment and does not replace specialist physician diagnosis.';
+
+  @override
+  String get cam_icu_reference_title => 'References';
+
+  @override
+  String get cam_icu_feature_1_title =>
+      'Feature 1: Acute change or fluctuation';
+
+  @override
+  String get cam_icu_feature_1_description =>
+      'Acute onset of mental status changes or fluctuating course';
+
+  @override
+  String get cam_icu_feature_2_title => 'Feature 2: Inattention';
+
+  @override
+  String get cam_icu_feature_2_description =>
+      'Difficulty focusing attention, easily distracted';
+
+  @override
+  String get cam_icu_feature_3_title =>
+      'Feature 3: Altered level of consciousness';
+
+  @override
+  String get cam_icu_feature_3_description =>
+      'Current RASS level other than 0 (alert and calm)';
+
+  @override
+  String get cam_icu_feature_4_title => 'Feature 4: Disorganized thinking';
+
+  @override
+  String get cam_icu_feature_4_description =>
+      'Disorganized or incoherent thinking';
+
+  @override
+  String get cam_icu_feature_1_present => 'Feature 1 present';
+
+  @override
+  String get cam_icu_feature_2_present => 'Feature 2 present';
+
+  @override
+  String get cam_icu_feature_3_present => 'Feature 3 present';
+
+  @override
+  String get cam_icu_feature_4_present => 'Feature 4 present';
+
+  @override
+  String get cam_icu_results_title => 'CAM-ICU Results';
+
+  @override
+  String get cam_icu_interpretation_label => 'Interpretation';
+
+  @override
+  String get cam_icu_algorithm_explanation =>
+      'CAM-ICU positive if Feature 1 AND 2 AND (3 OR 4)';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get medical_disclaimer_rass_text =>
+      'Sedation and agitation assessment tool for ICU. Always combine with clinical assessment and does not replace physician treatment decisions.';
+
+  @override
+  String get rass_combative_interpretation => 'Combative - Attacks staff';
+
+  @override
+  String get rass_very_agitated_interpretation =>
+      'Very agitated - Requires restraint';
+
+  @override
+  String get rass_agitated_interpretation => 'Agitated - Frequent movement';
+
+  @override
+  String get rass_restless_interpretation =>
+      'Restless - Anxious but not aggressive';
+
+  @override
+  String get rass_alert_calm_interpretation => 'Alert and calm';
+
+  @override
+  String get rass_drowsy_interpretation => 'Drowsy - Awakens to conversation';
+
+  @override
+  String get rass_light_sedation_interpretation =>
+      'Light sedation - Brief awakening to voice';
+
+  @override
+  String get rass_moderate_sedation_interpretation =>
+      'Moderate sedation - Movement to voice';
+
+  @override
+  String get rass_deep_sedation_interpretation =>
+      'Deep sedation - Movement to stimulation';
+
+  @override
+  String get rass_unarousable_interpretation => 'Unarousable';
+
+  @override
+  String get rass_agitation_category => 'Agitation';
+
+  @override
+  String get rass_alert_calm_category => 'Alert and Calm';
+
+  @override
+  String get rass_sedation_category => 'Sedation';
+
+  @override
+  String get rass_score_selection_title => 'Select RASS Score';
+
+  @override
+  String get rass_agitation_section => 'Agitation';
+
+  @override
+  String get rass_alert_section => 'Alert';
+
+  @override
+  String get rass_sedation_section => 'Sedation';
+
+  @override
+  String get rass_interpretation_title => 'RASS Interpretation';
+
+  @override
+  String get rass_current_level_label => 'Current Level';
+
+  @override
+  String get rass_scale_reference_title => 'RASS Reference Scale';
+
+  @override
+  String get rass_reference_title => 'References';
+
+  @override
+  String get rass_score_4_description =>
+      'Combative (Attacks staff or tries to remove tubes)';
+
+  @override
+  String get rass_score_3_description =>
+      'Very agitated (Pulls or removes tubes/catheters; aggressive)';
+
+  @override
+  String get rass_score_2_description =>
+      'Agitated (Frequent nonpurposeful movement; fights ventilator)';
+
+  @override
+  String get rass_score_1_description =>
+      'Restless (Anxious but movements not aggressive)';
+
+  @override
+  String get rass_score_0_description => 'Alert and calm';
+
+  @override
+  String get rass_score_neg1_description =>
+      'Drowsy (Not fully alert, sustained awakening >10s to voice)';
+
+  @override
+  String get rass_score_neg2_description =>
+      'Light sedation (Brief awakening <10s to voice)';
+
+  @override
+  String get rass_score_neg3_description =>
+      'Moderate sedation (Movement or eye opening to voice, no eye contact)';
+
+  @override
+  String get rass_score_neg4_description =>
+      'Deep sedation (No response to voice, movement to physical stimulation)';
+
+  @override
+  String get rass_score_neg5_description =>
+      'Unarousable (No response to voice or physical stimulation)';
+
+  @override
+  String get rass_score_column => 'Score';
+
+  @override
+  String get rass_description_column => 'Description';
+
+  @override
+  String get cam_icu_result_positive => 'CAM-ICU POSITIVE';
+
+  @override
+  String get cam_icu_result_negative => 'CAM-ICU NEGATIVE';
+
+  @override
+  String get cam_icu_delirium_present => 'Delirium present';
+
+  @override
+  String get cam_icu_delirium_absent => 'Delirium absent';
+
+  @override
+  String get cam_icu_clinical_features => 'Clinical Features Assessment';
+
+  @override
+  String get cam_icu_assessment_criteria => 'Assessment Criteria';
+
+  @override
+  String get cam_icu_diagnosis_criteria =>
+      'Diagnosis: Features 1 AND 2 AND (3 OR 4)';
+
+  @override
+  String get cam_icu_clinical_info_title => 'Clinical Information';
+
+  @override
+  String get cam_icu_clinical_info_content =>
+      'CAM-ICU is a validated tool for delirium assessment in ICU patients\\n\\nDelirium characteristics:\\n• Acute onset and fluctuating course\\n• Inattention and cognitive dysfunction\\n• Altered level of consciousness\\n• Disorganized thinking\\n\\nImportance of early detection:\\n• Delirium increases morbidity and mortality\\n• Prolongs ICU and hospital stay\\n• Associated with long-term cognitive impairment\\n• Early intervention improves outcomes\\n\\nClinical management:\\n• Identify and treat underlying causes\\n• Non-pharmacological interventions first\\n• Avoid sedatives when possible\\n• Early mobilization and sleep hygiene\\n• Family involvement in care\\n\\nNote: Requires RASS assessment first. Cannot assess if patient deeply sedated (RASS -4 or -5).';
+
+  @override
+  String get cam_icu_cannot_assess => 'Cannot assess (RASS -4 or -5)';
+
+  @override
+  String get cam_icu_references_title => 'References';
+
+  @override
+  String get cam_icu_reference_text =>
+      'Ely EW, et al. Delirium in mechanically ventilated patients: validity and reliability of the confusion assessment method for the intensive care unit (CAM-ICU). JAMA. 2001;286(21):2703-10.\\n\\nInouye SK, et al. Clarifying confusion: the confusion assessment method. A new method for detection of delirium. Ann Intern Med. 1990;113(12):941-8.';
+
+  @override
+  String get rass_score_title => 'RASS Score';
+
+  @override
+  String get rass_title => 'RASS Scale';
+
+  @override
+  String get rass_list_description => 'Sedation and agitation assessment scale';
+
+  @override
+  String get rass_score_subtitle => 'Richmond Agitation-Sedation Scale';
+
+  @override
+  String get rass_level_combative => '+4 Combative';
+
+  @override
+  String get rass_description_combative =>
+      'Combative: Overly combative or violent; immediate danger to staff';
+
+  @override
+  String get rass_level_very_agitated => '+3 Very agitated';
+
+  @override
+  String get rass_description_very_agitated =>
+      'Very agitated: Pulls on or removes tube(s) or catheter(s) or has aggressive behavior toward staff';
+
+  @override
+  String get rass_level_agitated => '+2 Agitated';
+
+  @override
+  String get rass_description_agitated =>
+      'Agitated: Frequent nonpurposeful movement or patient-ventilator dyssynchrony';
+
+  @override
+  String get rass_level_restless => '+1 Restless';
+
+  @override
+  String get rass_description_restless =>
+      'Restless: Anxious or apprehensive but movements not aggressive or vigorous';
+
+  @override
+  String get rass_level_alert => '0 Alert and calm';
+
+  @override
+  String get rass_description_alert =>
+      'Alert and calm: Spontaneously pays attention to caregiver';
+
+  @override
+  String get rass_level_drowsy => '-1 Drowsy';
+
+  @override
+  String get rass_description_drowsy =>
+      'Drowsy: Not fully alert, but has sustained (more than 10 seconds) awakening, with eye contact, to voice';
+
+  @override
+  String get rass_level_light_sedation => '-2 Light sedation';
+
+  @override
+  String get rass_description_light_sedation =>
+      'Light sedation: Briefly (less than 10 seconds) awakens with eye contact to voice';
+
+  @override
+  String get rass_level_moderate_sedation => '-3 Moderate sedation';
+
+  @override
+  String get rass_description_moderate_sedation =>
+      'Moderate sedation: Any movement (but no eye contact) to voice';
+
+  @override
+  String get rass_level_deep_sedation => '-4 Deep sedation';
+
+  @override
+  String get rass_description_deep_sedation =>
+      'Deep sedation: No response to voice, but any movement to physical stimulation';
+
+  @override
+  String get rass_level_unarousable => '-5 Unarousable';
+
+  @override
+  String get rass_description_unarousable =>
+      'Unarousable: No response to voice or physical stimulation';
+
+  @override
+  String get rass_interpretation_agitation => 'Agitation';
+
+  @override
+  String get rass_interpretation_calm => 'Alert and calm';
+
+  @override
+  String get rass_interpretation_sedation => 'Sedation';
+
+  @override
+  String get rass_target_light_moderate => 'Target: Light to moderate sedation';
+
+  @override
+  String get rass_target_alert_calm => 'Target: Alert and calm';
+
+  @override
+  String get rass_avoid_deep_sedation => 'Avoid: Deep sedation when possible';
+
+  @override
+  String get rass_current_level => 'Current RASS Level';
+
+  @override
+  String get rass_select_level => 'Select current patient level:';
+
+  @override
+  String get rass_sedation_goals => 'Sedation Goals';
+
+  @override
+  String get rass_clinical_management => 'Clinical Management';
+
+  @override
+  String get rass_management_agitation =>
+      'Consider causes of agitation, pain assessment, environmental factors';
+
+  @override
+  String get rass_management_calm =>
+      'Maintain current care, reassess regularly';
+
+  @override
+  String get rass_management_light =>
+      'Appropriate sedation level, continue monitoring';
+
+  @override
+  String get rass_management_moderate => 'Assess need for sedation reduction';
+
+  @override
+  String get rass_management_deep =>
+      'Consider sedation interruption, assess readiness for awakening';
+
+  @override
+  String get rass_clinical_info_title => 'Clinical Information';
+
+  @override
+  String get rass_clinical_info_content =>
+      'RASS is a validated scale for assessing sedation and agitation in ICU patients\\n\\nClinical benefits:\\n• Standardized sedation assessment\\n• Improved communication between staff\\n• Guides sedation titration\\n• Reduces over-sedation complications\\n• Supports early mobilization\\n\\nSedation best practices:\\n• Target light sedation (RASS -2 to 0)\\n• Daily sedation interruption\\n• Spontaneous awakening trials\\n• Early mobilization protocols\\n• Pain assessment first\\n\\nComplications of deep sedation:\\n• Prolonged mechanical ventilation\\n• ICU delirium\\n• Muscle weakness\\n• Increased mortality\\n• Longer ICU stay\\n\\nImportant notes:\\n• Assess every 4-8 hours or after medication changes\\n• Consider CAM-ICU assessment if RASS ≥ -3\\n• Document trends over time';
+
+  @override
+  String get rass_references_title => 'References';
+
+  @override
+  String get rass_reference_text =>
+      'Sessler CN, et al. The Richmond Agitation-Sedation Scale: validity and reliability in adult intensive care unit patients. Am J Respir Crit Care Med. 2002;166(10):1338-44.\\n\\nBarr J, et al. Clinical practice guidelines for the management of pain, agitation, and delirium in adult patients in the intensive care unit. Crit Care Med. 2013;41(1):263-306.';
+
+  @override
+  String get language_information_title => 'Language Information';
+
+  @override
+  String get language_change_description =>
+      'Changing the language will restart the app to apply the new language settings. All medical terms and protocols will be translated accordingly.';
 }

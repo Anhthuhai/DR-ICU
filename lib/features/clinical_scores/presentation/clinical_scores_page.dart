@@ -34,6 +34,8 @@ import 'preoperative_mortality_prediction_page.dart';
 import 'dapt_score_page.dart';
 import 'creatinine_clearance_page.dart';
 import 'mdrd_gfr_page.dart';
+import 'cam_icu_page.dart';
+import 'rass_score_page.dart';
 
 class ClinicalScoresPage extends StatefulWidget {
   const ClinicalScoresPage({super.key});
@@ -93,6 +95,22 @@ class _ClinicalScoresPageState extends State<ClinicalScoresPage> {
       'icon': Icons.speed,
       'color': Colors.teal.shade600,
       'page': const QsofaScorePage(),
+    },
+    {
+      'title': 'CAM-ICU',
+      'subtitle': 'Confusion Assessment Method for ICU',
+      'description': AppLocalizations.of(context)!.cam_icu_list_description,
+      'icon': Icons.psychology,
+      'color': Colors.purple.shade700,
+      'page': const CamIcuPage(),
+    },
+    {
+      'title': 'RASS',
+      'subtitle': 'Richmond Agitation-Sedation Scale',
+      'description': AppLocalizations.of(context)!.rass_list_description,
+      'icon': Icons.tune,
+      'color': Colors.indigo.shade700,
+      'page': const RassScorePage(),
     },
     
     // Early Warning Systems
